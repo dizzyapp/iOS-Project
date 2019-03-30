@@ -1,0 +1,6 @@
+framework module Pods_Dizzy {
+  umbrella header "Pods-Dizzy-umbrella.h"
+
+  export *
+  module * { export * }
+}
