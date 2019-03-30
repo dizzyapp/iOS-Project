@@ -8,5 +8,6 @@ target 'Dizzy' do
   # Pods for Dizzy
   pod 'Swinject'
   pod 'SwinjectAutoregistration'
+  pod 'Firebase/Core'
 
 end
