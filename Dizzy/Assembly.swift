@@ -17,13 +17,13 @@ protocol ContainerResolver {
 
 class Assembly {
     private let container = Container()
-    
+
     public func registerDependencies() {
-        
+
     }
-    
+
     func terminate() {
         self.container.removeAll()
     }
-    
+
 }
