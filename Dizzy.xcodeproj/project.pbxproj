@@ -14,6 +14,9 @@
 		76B41EAE224EE9FC00C1A290 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */; };
 		76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EB5224EF16200C1A290 /* Assembly.swift */; };
 		76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */; };
+		76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EBB2250C8C200C1A290 /* Coordinator.swift */; };
+		76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */; };
+		76B41EC42251271700C1A290 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC32251271700C1A290 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		76B41EAF224EE9FC00C1A290 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76B41EB5224EF16200C1A290 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		76B41EBB2250C8C200C1A290 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		76B41EC32251271700C1A290 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -63,6 +69,7 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
+				76B41EBA2250C87E00C1A290 /* Coordinators */,
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
 				76B41EA5224EE9FA00C1A290 /* ViewController.swift */,
 				76B41EAA224EE9FC00C1A290 /* Assets.xcassets */,
@@ -72,6 +79,16 @@
 				76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */,
 			);
 			path = Dizzy;
+			sourceTree = "<group>";
+		};
+		76B41EBA2250C87E00C1A290 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				76B41EBB2250C8C200C1A290 /* Coordinator.swift */,
+				76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */,
+				76B41EC32251271700C1A290 /* File.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		96DEAE0556CCD7D266DF88E2 /* Pods */ = {
@@ -228,6 +245,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
+				76B41EC42251271700C1A290 /* File.swift in Sources */,
+				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
 				76B41EA6224EE9FA00C1A290 /* ViewController.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
