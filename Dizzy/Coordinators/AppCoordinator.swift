@@ -7,11 +7,25 @@
 //
 
 import UIKit
+import Swinject
 
 class AppCoordinator: Coordinator {
+    weak var container: Container?
+    private var window: UIWindow
     var childCoordinators = [CoordinatorKey : Coordinator]()
     
+    init(container: Container, window: UIWindow) {
+        self.container = container
+        self.window = window
+    }
+    
     func start() {
+        guard let homeCoordinator = container?.resolve(HomeCoordinatorType.self, argument: window) else {
+            print("could not resolve homeCoordinator")
+            return
+        }
         
+        homeCoordinator.start()
+        add(coordinator: homeCoordinator, for: .home)
     }
 }

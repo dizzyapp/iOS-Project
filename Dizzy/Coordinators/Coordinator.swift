@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import Swinject
 
 protocol Coordinator: class {
+    var container: Container? { get }
     var childCoordinators: [CoordinatorKey: Coordinator] { get set }
     func start()
 }
@@ -22,4 +24,8 @@ extension Coordinator {
     func removeCoordinator(for key: CoordinatorKey) {
         childCoordinators[key] = nil
     }
+}
+
+protocol TabCoordinator: Coordinator {
+    var tabItem: TabItem? { get set }
 }

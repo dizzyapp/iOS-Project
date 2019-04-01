@@ -19,7 +19,27 @@ class Assembly {
     private let container = Container()
 
     public func registerDependencies() {
-
+        self.container.register(Container.self) { [unowned self] _ in
+            return self.container
+        }
+        
+        // MARK: view models
+        container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryViewModel.init)
+        container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
+        
+        // MARK: view controllers
+        container.autoregister(DiscoveryVC.self, argument: DiscoveryViewModelType.self, initializer: DiscoveryVC.init)
+        container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
+        
+        // MARK: coordinators
+        container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
+        container.autoregister(HomeCoordinatorType.self, argument: UIWindow.self, initializer: HomeCoordinator.init)
+        container.autoregister(DiscoveryCoordinatorType.self, initializer: DiscoveryCoordinator.init)
+        container.autoregister(ConversationsCoordinatorType.self, initializer: ConversationsCoordinator.init)
+    }
+    
+    func getAppCoordinator(window: UIWindow) -> AppCoordinator {
+        return container.resolve(AppCoordinator.self, argument: window)!
     }
 
     func terminate() {

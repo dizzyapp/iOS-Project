@@ -16,7 +16,15 @@
 		76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */; };
 		76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EBB2250C8C200C1A290 /* Coordinator.swift */; };
 		76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */; };
-		76B41EC42251271700C1A290 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC32251271700C1A290 /* File.swift */; };
+		76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC32251271700C1A290 /* CoordinatorKey.swift */; };
+		76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC522520B0800C1A290 /* HomeCoordinator.swift */; };
+		76B41EC822520ED100C1A290 /* DiscoveryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC722520ED100C1A290 /* DiscoveryCoordinator.swift */; };
+		76B41ECB2252149000C1A290 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ECA2252149000C1A290 /* TabItem.swift */; };
+		76B41ECD225216F500C1A290 /* ConversationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ECC225216F500C1A290 /* ConversationsCoordinator.swift */; };
+		76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED022522A1700C1A290 /* DiscoveryVC.swift */; };
+		76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */; };
+		76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */; };
+		76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED72252312E00C1A290 /* ConversationsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +39,15 @@
 		76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76B41EBB2250C8C200C1A290 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		76B41EC32251271700C1A290 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		76B41EC32251271700C1A290 /* CoordinatorKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorKey.swift; sourceTree = "<group>"; };
+		76B41EC522520B0800C1A290 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		76B41EC722520ED100C1A290 /* DiscoveryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCoordinator.swift; sourceTree = "<group>"; };
+		76B41ECA2252149000C1A290 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		76B41ECC225216F500C1A290 /* ConversationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsCoordinator.swift; sourceTree = "<group>"; };
+		76B41ED022522A1700C1A290 /* DiscoveryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryVC.swift; sourceTree = "<group>"; };
+		76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewModel.swift; sourceTree = "<group>"; };
+		76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModel.swift; sourceTree = "<group>"; };
+		76B41ED72252312E00C1A290 /* ConversationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -69,6 +85,8 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
+				76B41ECE225229DB00C1A290 /* Screens */,
+				76B41EC92252145D00C1A290 /* Entities */,
 				76B41EBA2250C87E00C1A290 /* Coordinators */,
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
 				76B41EA5224EE9FA00C1A290 /* ViewController.swift */,
@@ -86,9 +104,47 @@
 			children = (
 				76B41EBB2250C8C200C1A290 /* Coordinator.swift */,
 				76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */,
-				76B41EC32251271700C1A290 /* File.swift */,
+				76B41EC32251271700C1A290 /* CoordinatorKey.swift */,
+				76B41EC522520B0800C1A290 /* HomeCoordinator.swift */,
+				76B41EC722520ED100C1A290 /* DiscoveryCoordinator.swift */,
+				76B41ECC225216F500C1A290 /* ConversationsCoordinator.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		76B41EC92252145D00C1A290 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				76B41ECA2252149000C1A290 /* TabItem.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		76B41ECE225229DB00C1A290 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				76B41ED4225230B400C1A290 /* Conversations */,
+				76B41ECF225229EA00C1A290 /* Discovery */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		76B41ECF225229EA00C1A290 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				76B41ED022522A1700C1A290 /* DiscoveryVC.swift */,
+				76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
+		76B41ED4225230B400C1A290 /* Conversations */ = {
+			isa = PBXGroup;
+			children = (
+				76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */,
+				76B41ED72252312E00C1A290 /* ConversationsVC.swift */,
+			);
+			path = Conversations;
 			sourceTree = "<group>";
 		};
 		96DEAE0556CCD7D266DF88E2 /* Pods */ = {
@@ -246,11 +302,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
-				76B41EC42251271700C1A290 /* File.swift in Sources */,
+				76B41ECD225216F500C1A290 /* ConversationsCoordinator.swift in Sources */,
+				76B41EC822520ED100C1A290 /* DiscoveryCoordinator.swift in Sources */,
+				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
+				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
+				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
+				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
 				76B41EA6224EE9FA00C1A290 /* ViewController.swift in Sources */,
+				76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
+				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
+				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

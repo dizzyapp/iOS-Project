@@ -9,5 +9,7 @@
 import Foundation
 
 enum CoordinatorKey {
-    case app
+    case home
+    case discovery
+    case conversations
 }

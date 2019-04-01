@@ -14,14 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let assembly = Assembly()
+    var appCoordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        self.assembly.registerDependencies()
-        self.window =  UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = ViewController()
-        self.window?.makeKeyAndVisible()
-
+        assembly.registerDependencies()
+        let window =  UIWindow(frame: UIScreen.main.bounds)
+        self.window = window
+        appCoordinator = assembly.getAppCoordinator(window: window)
+        appCoordinator?.start()
         return true
     }
 
