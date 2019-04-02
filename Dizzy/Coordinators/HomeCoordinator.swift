@@ -15,6 +15,8 @@ protocol HomeCoordinatorType: Coordinator {
 }
 
 extension HomeCoordinatorType {
+    var tabsIconPadding: CGFloat { return 10 }
+    
     func start() {
         let childCoordinators = startChildCoordinators()
         let tabItems = getTabItems(from: childCoordinators)
@@ -60,7 +62,9 @@ extension HomeCoordinatorType {
         
         for (index, tabBarItem) in tabBarItems.enumerated() {
             tabBarItem.image = tabItems[index].icon
+            tabBarItem.selectedImage = tabItems[index].iconSelected
             tabBarItem.title = tabItems[index].title
+            tabBarItem.imageInsets = UIEdgeInsets(top:  tabsIconPadding, left:  0, bottom: -tabsIconPadding, right: 0)
         }
     }
 }

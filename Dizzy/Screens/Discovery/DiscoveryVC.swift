@@ -8,12 +8,12 @@
 
 import UIKit
 
-class DiscoveryVC: UIViewController {
+class DiscoveryVC: ViewController {
     let viewModel: DiscoveryViewModelType
     
     init(viewModel: DiscoveryViewModelType) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
         self.view.backgroundColor = UIColor.blue
     }
     

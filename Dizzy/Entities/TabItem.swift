@@ -11,9 +11,10 @@ import UIKit
 struct TabItem {
     var rootController: UINavigationController
     var icon: UIImage?
+    var iconSelected: UIImage?
     var title: String?
     
-    init(rootController: UINavigationController, icon: UIImage? = nil, title: String? = nil) {
+    init(rootController: UINavigationController, icon: UIImage? = nil, iconSelected: UIImage? = nil, title: String? = nil) {
         self.rootController = rootController
         self.icon = icon
         self.title = title

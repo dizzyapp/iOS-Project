@@ -19,7 +19,8 @@ extension DiscoveryCoordinatorType {
                 return
         }
         let navigationController = UINavigationController(rootViewController: discoveryVC)
-        tabItem = TabItem(rootController: navigationController, title: "discovery")
+        navigationController.setNavigationBarHidden(true, animated: false)
+        tabItem = TabItem(rootController: navigationController, icon: Images.discoverySelectedTabIcon(), iconSelected: Images.discoverySelectedTabIcon())
     }
 }
 

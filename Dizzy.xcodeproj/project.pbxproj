@@ -25,6 +25,7 @@
 		76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */; };
 		76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */; };
 		76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED72252312E00C1A290 /* ConversationsVC.swift */; };
+		76B41EDA2253381900C1A290 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED92253381900C1A290 /* Images.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewModel.swift; sourceTree = "<group>"; };
 		76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModel.swift; sourceTree = "<group>"; };
 		76B41ED72252312E00C1A290 /* ConversationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
+		76B41ED92253381900C1A290 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -85,11 +87,11 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
+				76B41EDB225343DE00C1A290 /* Base entities */,
 				76B41ECE225229DB00C1A290 /* Screens */,
 				76B41EC92252145D00C1A290 /* Entities */,
 				76B41EBA2250C87E00C1A290 /* Coordinators */,
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
-				76B41EA5224EE9FA00C1A290 /* ViewController.swift */,
 				76B41EAA224EE9FC00C1A290 /* Assets.xcassets */,
 				76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */,
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				76B41ECA2252149000C1A290 /* TabItem.swift */,
+				76B41ED92253381900C1A290 /* Images.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -145,6 +148,14 @@
 				76B41ED72252312E00C1A290 /* ConversationsVC.swift */,
 			);
 			path = Conversations;
+			sourceTree = "<group>";
+		};
+		76B41EDB225343DE00C1A290 /* Base entities */ = {
+			isa = PBXGroup;
+			children = (
+				76B41EA5224EE9FA00C1A290 /* ViewController.swift */,
+			);
+			path = "Base entities";
 			sourceTree = "<group>";
 		};
 		96DEAE0556CCD7D266DF88E2 /* Pods */ = {
@@ -311,6 +322,7 @@
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
 				76B41EA6224EE9FA00C1A290 /* ViewController.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */,
+				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,

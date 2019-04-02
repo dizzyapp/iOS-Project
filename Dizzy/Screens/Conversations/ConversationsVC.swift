@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ConversationsVC: UIViewController {
+class ConversationsVC: ViewController {
 
     let viewModel: ConversationsViewModelType
     
     init(viewModel: ConversationsViewModelType) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init()
         self.view.backgroundColor = .red
     }
     
