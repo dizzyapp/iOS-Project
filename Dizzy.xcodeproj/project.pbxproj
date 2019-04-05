@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		041D95C32253D733009ED7AB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C22253D733009ED7AB /* WebService.swift */; };
 		041D95C52253D84F009ED7AB /* WebResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C42253D84F009ED7AB /* WebResource.swift */; };
+		04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF5225731880020DF8F /* FirebaseWebService.swift */; };
+		04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */; };
 		76B41EA6224EE9FA00C1A290 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EA5224EE9FA00C1A290 /* ViewController.swift */; };
@@ -39,6 +41,8 @@
 /* Begin PBXFileReference section */
 		041D95C22253D733009ED7AB /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		041D95C42253D84F009ED7AB /* WebResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResource.swift; sourceTree = "<group>"; };
+		04D0CCF5225731880020DF8F /* FirebaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseWebService.swift; sourceTree = "<group>"; };
+		04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDispatcher.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 			children = (
 				041D95C22253D733009ED7AB /* WebService.swift */,
 				041D95C42253D84F009ED7AB /* WebResource.swift */,
+				04D0CCF5225731880020DF8F /* FirebaseWebService.swift */,
+				04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -119,6 +125,7 @@
 				76B41EC92252145D00C1A290 /* Entities */,
 				76B41EBA2250C87E00C1A290 /* Coordinators */,
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
+				76B41EA5224EE9FA00C1A290 /* ViewController.swift */,
 				76B41EAA224EE9FC00C1A290 /* Assets.xcassets */,
 				76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */,
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
@@ -316,9 +323,13 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
 			inputPaths = (
 			);
 			name = Swiftlint;
+			outputFileListPaths = (
+			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
+				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
 				76B41ECD225216F500C1A290 /* ConversationsCoordinator.swift in Sources */,
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
 				76B41EC822520ED100C1A290 /* DiscoveryCoordinator.swift in Sources */,
@@ -371,6 +383,7 @@
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
+				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,

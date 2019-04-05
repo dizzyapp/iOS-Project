@@ -8,7 +8,72 @@
 
 import Foundation
 
+enum HttpMethod<Body: Encodable> {
+    
+    case get
+    case post(data: Body)
+    
+    var method: String {
+        switch self {
+        case .get: return "GET"
+        case .post: return "POST"
+        }
+    }
+}
+
 struct Resource<Response: Codable, Body: Encodable> {
-    var baseUrl: URL?
+    var baseUrl: String = ""
     var path: String
+    var method: HttpMethod<Body>?
+    
+    init(path: String) {
+        self.path = path
+    }
+    
+    func withPost(_ body: Body) -> Resource<Response, Body> {
+        var resource = self
+        resource.method = HttpMethod<Body>.post(data: body)
+        return resource
+    }
+    
+    func withGet() -> Resource<Response, Body> {
+        var resource = self
+        resource.method = HttpMethod<Body>.get
+        return resource
+    }
+    
+    func parse(data: Data) throws -> Response {
+        let decoder = JSONDecoder()
+        
+        let response: Response
+        do {
+            response = try decoder.decode(Response.self, from: data)
+        } catch {
+            if case DecodingError.keyNotFound(let key, let context) = error {
+                debugPrint("[Resource] decoding failed. key not found: \(key), context: \(context)")
+            } else {
+                debugPrint("[Resource] decoding failed:\n\(error)")
+            }
+            
+            throw error
+        }
+        
+        return response
+    }
+    
+    func makeJson() -> [String: Any]? {
+        guard let method = method, case let .post(body) = method else { return nil }
+        let jsonEncoder = JSONEncoder()
+
+        do {
+            let jsonData = try jsonEncoder.encode(body)
+            let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            if let dictFromJSON = decoded as? [String: Any] {
+                return dictFromJSON
+            }
+        } catch {
+            debugPrint("[Resource] encoding to json failed")
+        }
+        return nil
+    }
 }

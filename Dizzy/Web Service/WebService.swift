@@ -10,9 +10,14 @@ import Foundation
 
 enum Result<Value> {
     case success(Value)
-    case failure(Error)
+    case failure(Error?)
+}
+
+enum WebServiceError: Error {
+    case noData
 }
 
 protocol WebServiceType {
     func load<Response, Body>(_ resource: Resource<Response, Body>, completion: @escaping (Result<Response>) -> Void)
+    func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool
 }
