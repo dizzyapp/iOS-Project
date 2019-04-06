@@ -26,6 +26,12 @@
 		76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */; };
 		76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED72252312E00C1A290 /* ConversationsVC.swift */; };
 		76B41EDA2253381900C1A290 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED92253381900C1A290 /* Images.swift */; };
+		76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */; };
+		76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */; };
+		76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE122534C1C00C1A290 /* Metrics.swift */; };
+		76B41EE42253574500C1A290 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE32253574500C1A290 /* PlaceInfo.swift */; };
+		76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE522535B3D00C1A290 /* Fonts.swift */; };
+		76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +56,12 @@
 		76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModel.swift; sourceTree = "<group>"; };
 		76B41ED72252312E00C1A290 /* ConversationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
 		76B41ED92253381900C1A290 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearByPlacesView.swift; sourceTree = "<group>"; };
+		76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		76B41EE122534C1C00C1A290 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
+		76B41EE32253574500C1A290 /* PlaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
+		76B41EE522535B3D00C1A290 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPlaceCell.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -87,6 +99,7 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
+				76B41EDE22534A4B00C1A290 /* Extensions */,
 				76B41EDB225343DE00C1A290 /* Base entities */,
 				76B41ECE225229DB00C1A290 /* Screens */,
 				76B41EC92252145D00C1A290 /* Entities */,
@@ -119,6 +132,9 @@
 			children = (
 				76B41ECA2252149000C1A290 /* TabItem.swift */,
 				76B41ED92253381900C1A290 /* Images.swift */,
+				76B41EE122534C1C00C1A290 /* Metrics.swift */,
+				76B41EE32253574500C1A290 /* PlaceInfo.swift */,
+				76B41EE522535B3D00C1A290 /* Fonts.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -135,8 +151,10 @@
 		76B41ECF225229EA00C1A290 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
+				76B41EE7225386AC00C1A290 /* Cells */,
 				76B41ED022522A1700C1A290 /* DiscoveryVC.swift */,
 				76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */,
+				76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -156,6 +174,22 @@
 				76B41EA5224EE9FA00C1A290 /* ViewController.swift */,
 			);
 			path = "Base entities";
+			sourceTree = "<group>";
+		};
+		76B41EDE22534A4B00C1A290 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		76B41EE7225386AC00C1A290 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		96DEAE0556CCD7D266DF88E2 /* Pods */ = {
@@ -268,13 +302,9 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 			);
 			name = Swiftlint;
-			outputFileListPaths = (
-			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +319,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/SwinjectAutoregistration/SwinjectAutoregistration.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -296,6 +327,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectAutoregistration.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -315,14 +347,20 @@
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				76B41ECD225216F500C1A290 /* ConversationsCoordinator.swift in Sources */,
 				76B41EC822520ED100C1A290 /* DiscoveryCoordinator.swift in Sources */,
+				76B41EE42253574500C1A290 /* PlaceInfo.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
+				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
+				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
+				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
+				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
 				76B41EA6224EE9FA00C1A290 /* ViewController.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
+				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,

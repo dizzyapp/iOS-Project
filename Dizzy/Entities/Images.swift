@@ -15,14 +15,26 @@ struct Images {
     }
     
     static func discoverySelectedTabIcon() -> UIImage {
+        return UIImage(named: "DiscoverySelectedTabIcon")!
+    }
+    
+    static func discoveryUnselectedTabIcon() -> UIImage {
         return UIImage(named: "DiscoveryTabIcon")!
     }
     
-    static func conversationsTabIcon() -> UIImage {
-        return UIImage(named: "ConversationsSelectedTabIcon")!
+    static func conversationsUnselectedTabIcon() -> UIImage {
+        return UIImage(named: "ConversationsTabIcon")!
     }
     
     static func conversationsSelectedTabIcon() -> UIImage {
         return UIImage(named: "ConversationsSelectedTabIcon")!
+    }
+    
+    static func discoverySearchIcon() -> UIImage {
+        return UIImage(named: "searchIcon")!
+    }
+    
+    static func discoveryThemeImage() -> UIImage {
+        return UIImage(named: "discoveryThemeImage")!
     }
 }

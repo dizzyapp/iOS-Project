@@ -48,6 +48,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - SnapKit (4.2.0)
   - SwiftLint (0.30.1)
   - Swinject (2.5.0)
   - SwinjectAutoregistration (2.5.1):
@@ -55,6 +56,7 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Core
+  - SnapKit
   - SwiftLint
   - Swinject
   - SwinjectAutoregistration
@@ -68,6 +70,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - nanopb
+    - SnapKit
     - SwiftLint
     - Swinject
     - SwinjectAutoregistration
@@ -80,10 +83,11 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 621f3bc6211d5ba548debe01fafad30cf5ab6859
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
 
-PODFILE CHECKSUM: c500a0b9d05bfdc200f43f570f50332231dc975b
+PODFILE CHECKSUM: 13203049a2b29091f1f895960291ba50194464d1
 
 COCOAPODS: 1.5.3

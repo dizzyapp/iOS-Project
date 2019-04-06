@@ -20,7 +20,7 @@ extension ConversationsCoordinatorType {
         }
         let navigationController = UINavigationController(rootViewController: discoveryVC)
         navigationController.setNavigationBarHidden(true, animated: false)
-        tabItem = TabItem(rootController: navigationController, icon: Images.conversationsTabIcon(), iconSelected: Images.conversationsSelectedTabIcon())
+        tabItem = TabItem(rootController: navigationController, icon: Images.conversationsUnselectedTabIcon(), iconSelected: Images.conversationsSelectedTabIcon())
     }
 }
 
