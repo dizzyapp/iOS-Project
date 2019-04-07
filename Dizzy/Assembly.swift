@@ -37,7 +37,7 @@ class Assembly {
         container.autoregister(DiscoveryCoordinatorType.self, initializer: DiscoveryCoordinator.init)
         container.autoregister(ConversationsCoordinatorType.self, initializer: ConversationsCoordinator.init)
         container.autoregister(WebServiceType.self, initializer: FirebaseWebService.init)
-        container.autoregister(WebServiceDispatcher.self, argument: [WebServiceType].self, initializer: WebServiceDispatcher.init)
+        container.autoregister(WebServiceDispatcherType.self, argument: [WebServiceType].self, initializer: WebServiceDispatcher.init)
     }
     
     func getAppCoordinator(window: UIWindow) -> AppCoordinator {

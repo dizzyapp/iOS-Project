@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class WebServiceDispatcher {
+protocol WebServiceDispatcherType {
+    func load<Response, Body>(_ resource: Resource<Response, Body>, completion: @escaping (Result<Response>) -> Void)
+}
+
+final class WebServiceDispatcher: WebServiceDispatcherType {
 
     private let webServices: [WebServiceType]
     
