@@ -12,7 +12,7 @@ import SnapKit
 class DiscoveryTopBar: UIView {
 
     let mapButton = UIButton()
-    let locationNameLabel = UILabel()
+    let locationNameLabel = LocationLabel()
     let menuButton = UIButton()
     
     init() {
@@ -50,7 +50,7 @@ class DiscoveryTopBar: UIView {
     private func setupViews() {
         mapButton.setImage(Images.discoveryMapIcon(), for: .normal)
         
-        locationNameLabel.text = "Tel Aviv"
+        locationNameLabel.setText("Tel Aviv")
         
         menuButton.setImage(Images.menuIcon(), for: .normal)
     }

@@ -15,6 +15,7 @@
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
+		76AC2B2A225BBAF8005B556F /* LocationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B29225BBAF8005B556F /* LocationLabel.swift */; };
 		76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */; };
 		76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAA224EE9FC00C1A290 /* Assets.xcassets */; };
 		76B41EAE224EE9FC00C1A290 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */; };
@@ -49,6 +50,7 @@
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
+		76AC2B29225BBAF8005B556F /* LocationLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationLabel.swift; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76B41EAA224EE9FC00C1A290 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,6 +103,14 @@
 			path = "Web Service";
 			sourceTree = "<group>";
 		};
+		76AC2B28225BBA78005B556F /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				76AC2B29225BBAF8005B556F /* LocationLabel.swift */,
+			);
+			path = "UI Components";
+			sourceTree = "<group>";
+		};
 		76B41E97224EE9FA00C1A290 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +132,7 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
+				76AC2B28225BBA78005B556F /* UI Components */,
 				76B41EDE22534A4B00C1A290 /* Extensions */,
 				76B41EDB225343DE00C1A290 /* Base entities */,
 				041D95C12253D702009ED7AB /* Web Service */,
@@ -383,6 +394,7 @@
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
 				76B41EC822520ED100C1A290 /* DiscoveryCoordinator.swift in Sources */,
 				76B41EE42253574500C1A290 /* PlaceInfo.swift in Sources */,
+				76AC2B2A225BBAF8005B556F /* LocationLabel.swift in Sources */,
 				041D95C32253D733009ED7AB /* WebService.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
