@@ -13,6 +13,7 @@
 		04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */; };
 		04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CD6F225A96E00020DF8F /* ViewController.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
+		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */; };
 		76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAA224EE9FC00C1A290 /* Assets.xcassets */; };
 		76B41EAE224EE9FC00C1A290 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */; };
@@ -45,6 +46,7 @@
 		04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDispatcher.swift; sourceTree = "<group>"; };
 		04D0CD6F225A96E00020DF8F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
+		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76B41EAA224EE9FC00C1A290 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				76B41ED022522A1700C1A290 /* DiscoveryVC.swift */,
 				76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */,
 				76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */,
+				76590E20225B459700E7986A /* PlacesListFlowLayout.swift */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
+				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
 			);

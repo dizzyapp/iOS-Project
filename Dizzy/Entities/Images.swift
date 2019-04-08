@@ -37,4 +37,8 @@ struct Images {
     static func discoveryThemeImage() -> UIImage {
         return UIImage(named: "discoveryThemeImage")!
     }
+    
+    static func defaultPlaceAvatar() -> UIImage {
+        return UIImage(named: "defaultPlaceAvatar")!
+    }
 }

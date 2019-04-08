@@ -26,7 +26,7 @@ class NearByPlacesView: UIView {
     
     private let searchButton = UIButton()
     private let titleLabel = UILabel()
-    private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout())
+    private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
     
     private let cellIDentifier = "DiscoveryPlaceCell"
     
@@ -111,12 +111,10 @@ extension NearByPlacesView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         let itemsInSection = self.dataSource?.numberOfItemsForSection(section) ?? 0
-        print("menash logs - arrived here? \(itemsInSection)")
         return itemsInSection
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("menash logs - arrived here")
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDentifier, for: indexPath) as? DiscoveryPlaceCell,
             let placeInfo = self.dataSource?.itemForIndexPath(indexPath) else {
             print("could not dequeue \(cellIDentifier) or datasource is nil")
@@ -125,5 +123,11 @@ extension NearByPlacesView: UICollectionViewDataSource {
         
         cell.setPlaceInfo(placeInfo)
         return cell
+    }
+}
+
+extension NearByPlacesView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 60, height: 80)
     }
 }
