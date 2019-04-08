@@ -41,4 +41,12 @@ struct Images {
     static func defaultPlaceAvatar() -> UIImage {
         return UIImage(named: "defaultPlaceAvatar")!
     }
+    
+    static func discoveryMapIcon() -> UIImage {
+        return UIImage(named: "mapIcon")!
+    }
+    
+    static func menuIcon() -> UIImage {
+        return UIImage(named: "menuIcon")!
+    }
 }

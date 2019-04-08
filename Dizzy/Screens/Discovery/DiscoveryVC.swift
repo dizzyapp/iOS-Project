@@ -11,6 +11,8 @@ import SnapKit
 
 class DiscoveryVC: ViewController {
     
+    let topBar = DiscoveryTopBar()
+    
     let themeImageView = UIImageView()
     let nearByPlacesView = NearByPlacesView()
     let viewModel: DiscoveryViewModelType
@@ -28,10 +30,16 @@ class DiscoveryVC: ViewController {
     }
     
     private func addSubviews() {
-        self.view.addSubviews([themeImageView, nearByPlacesView])
+        self.view.addSubviews([themeImageView, topBar, nearByPlacesView])
     }
     
     private func layoutViews() {
+        
+        topBar.snp.makeConstraints { topBar in
+            topBar.top.equalTo(view.snp.topMargin)
+            topBar.trailing.leading.equalToSuperview()
+        }
+        
         themeImageView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
@@ -52,7 +60,7 @@ class DiscoveryVC: ViewController {
     }
     
     private func setupThemeImageView() {
-        themeImageView.contentMode = .center
+        themeImageView.contentMode = .scaleAspectFill
         themeImageView.image = Images.discoveryThemeImage()
     }
     
