@@ -12,7 +12,6 @@ import SnapKit
 class DiscoveryVC: ViewController {
     
     let topBar = DiscoveryTopBar()
-    
     let themeImageView = UIImageView()
     let nearByPlacesView = NearByPlacesView()
     let viewModel: DiscoveryViewModelType
@@ -57,6 +56,12 @@ class DiscoveryVC: ViewController {
     private func setupViews() {
         setupThemeImageView()
         setupNearByPlacesView()
+        setupTopBarView()
+    }
+    
+    private func setupTopBarView() {
+        topBar.delegate = self
+        topBar.setLocationName("Tel Aviv")
     }
     
     private func setupThemeImageView() {
@@ -81,5 +86,13 @@ extension DiscoveryVC: NearByPlacesViewDataSource {
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
         return viewModel.itemForIndexPath(indexPath)
+    }
+}
+
+extension DiscoveryVC: DiscoveryTopBarDelegate {
+    func mapButtonPressed() {
+    }
+    
+    func menuButtonPressed() {
     }
 }

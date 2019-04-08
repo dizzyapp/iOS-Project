@@ -9,11 +9,17 @@
 import UIKit
 import SnapKit
 
+protocol DiscoveryTopBarDelegate: class {
+    func mapButtonPressed()
+    func menuButtonPressed()
+}
+
 class DiscoveryTopBar: UIView {
 
-    let mapButton = UIButton()
-    let locationNameLabel = LocationLabel()
-    let menuButton = UIButton()
+    weak var delegate: DiscoveryTopBarDelegate?
+    private let mapButton = UIButton()
+    private let locationNameLabel = LocationLabel()
+    private let menuButton = UIButton()
     
     init() {
         super.init(frame: CGRect.zero)
@@ -48,11 +54,33 @@ class DiscoveryTopBar: UIView {
     }
     
     private func setupViews() {
-        mapButton.setImage(Images.discoveryMapIcon(), for: .normal)
-        
-        locationNameLabel.setText("Tel Aviv")
-        
-        menuButton.setImage(Images.menuIcon(), for: .normal)
+        setupMapButton()
+        setupLocationLabel()
+        setupMenuButton()
     }
     
+    private func setupMapButton() {
+        mapButton.setImage(Images.discoveryMapIcon(), for: .normal)
+        mapButton.addTarget(self, action: #selector(mapButtonPressed), for: .touchUpInside)
+    }
+    
+    private func setupLocationLabel() {
+    }
+    
+    private func setupMenuButton() {
+        menuButton.setImage(Images.menuIcon(), for: .normal)
+        menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc private func mapButtonPressed() {
+        delegate?.mapButtonPressed()
+    }
+    
+    @objc private func menuButtonPressed() {
+        delegate?.menuButtonPressed()
+    }
+    
+    public func setLocationName(_ name: String) {
+        locationNameLabel.setText(name)
+    }
 }
