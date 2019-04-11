@@ -33,15 +33,9 @@ final class FirebaseWebService: WebServiceType {
                                                 completion: @escaping (Result<Response>) -> Void) {
         databaseReference.child(resource.path).observe(DataEventType.value) { snapshot in
             do {
-            
-                guard let jsonsArray = snapshot.value as? [String: Any] else {
+                guard let jsonToParse = self.getJsonToParse(from: snapshot) else {
                     completion(Result<Response>.failure(WebServiceError.noData))
                     return
-                }
-                
-                var jsonToParse = [[String: Any]]()
-                for (_,value) in jsonsArray {
-                    jsonToParse.append(value as! [String : Any])
                 }
                 
                 let data = try JSONSerialization.data(withJSONObject: jsonToParse, options: .prettyPrinted)
@@ -66,5 +60,17 @@ final class FirebaseWebService: WebServiceType {
 
     func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool where Response : Decodable, Response : Encodable, Body : Encodable {
         return true
+    }
+    
+    private func getJsonToParse(from snapshot: DataSnapshot) -> [[String: Any]]? {
+        guard let jsonsArray = snapshot.value as? [String: Any] else {
+            return nil
+        }
+        
+        var jsonToParse = [[String: Any]]()
+        for (_,value) in jsonsArray {
+            jsonToParse.append(value as! [String : Any])
+        }
+        return jsonToParse
     }
 }
