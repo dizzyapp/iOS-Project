@@ -12,60 +12,48 @@ import Swinject
 protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
     var tabBarController : UITabBarController { get }
+    var tabsIconPadding: CGFloat { get }
+    var viewControllers: [UIViewController]? { get }
+    var discoveryVC: DiscoveryVC? { get }
+    var conversationsVC: ConversationsVC? { get }
+    var tabBarItems: [TabItem]? { get }
 }
 
 extension HomeCoordinatorType {
     var tabsIconPadding: CGFloat { return 10 }
     
-    func start() {
-        let childCoordinators = startChildCoordinators()
-        let tabItems = getTabItems(from: childCoordinators)
+    var discoveryVC: DiscoveryVC? {
+        guard let viewModel = container?.resolve(DiscoveryViewModelType.self),
+            let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
+                print("could not create discovery page")
+                return nil
+        }
+        return discoveryVC
+    }
+    
+    var conversationsVC: ConversationsVC? {
+        guard let viewModel = container?.resolve(ConversationsViewModelType.self),
+            let conversationsVC = container?.resolve(ConversationsVC.self, argument: viewModel) else {
+                print("could not create discovery page")
+                return nil
+        }
+        return conversationsVC
+    }
+
+    var viewControllers: [UIViewController]? {
+        if let discoveryVC = discoveryVC, let conversationsVC = conversationsVC {
+            return [discoveryVC, conversationsVC]
+        } else {
+            return nil
+        }
+    }
         
-        tabBarController.viewControllers = tabItems.map { $0.rootController }
-        customizeTabButtonsAppearance(tabItems)
+    func start() {
+        guard let viewControllers = viewControllers, let tapBarItems = tabBarItems else { return }
+        tabBarController.viewControllers = viewControllers
+        customizeTabButtonsAppearance(tapBarItems)
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
-    }
-    
-    private func startChildCoordinators() -> [TabCoordinator] {
-        guard let discoveryCoordinator = container?.resolve(DiscoveryCoordinatorType.self),
-            let conversationsCoordinator = container?.resolve(ConversationsCoordinatorType.self) else {
-                print("could not create discovery coordinator or conversations coordinator")
-                return []
-        }
-        
-        add(coordinator: discoveryCoordinator, for: .discovery)
-        add(coordinator: conversationsCoordinator, for: .conversations)
-        
-        discoveryCoordinator.start()
-        conversationsCoordinator.start()
-        
-        return [discoveryCoordinator, conversationsCoordinator]
-    }
-    
-    private func getTabItems(from tabCoordinators: [TabCoordinator]) -> [TabItem] {
-        var tabItems = [TabItem]()
-        for tabCoordinator in tabCoordinators {
-            if let tabItem = tabCoordinator.tabItem {
-                tabItems.append(tabItem)
-            } else {
-                print("trying to get tab item that is nil from: \(tabCoordinator)")
-            }
-        }
-        return tabItems
-    }
-    
-    private func customizeTabButtonsAppearance(_ tabItems: [TabItem]) {
-        guard let tabBarItems = tabBarController.tabBar.items else {
-            return
-        }
-        
-        for (index, tabBarItem) in tabBarItems.enumerated() {
-            tabBarItem.image = tabItems[index].icon
-            tabBarItem.selectedImage = tabItems[index].iconSelected
-            tabBarItem.title = tabItems[index].title
-            tabBarItem.imageInsets = UIEdgeInsets(top:  tabsIconPadding, left:  0, bottom: -tabsIconPadding, right: 0)
-        }
     }
 }
 

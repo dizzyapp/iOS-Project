@@ -25,7 +25,3 @@ extension Coordinator {
         childCoordinators[key] = nil
     }
 }
-
-protocol TabCoordinator: Coordinator {
-    var tabItem: TabItem? { get set }
-}
