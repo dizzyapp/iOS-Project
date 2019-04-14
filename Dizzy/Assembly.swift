@@ -27,14 +27,20 @@ class Assembly {
         container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryViewModel.init)
         container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
         
+        container.autoregister(MapVMType.self, initializer: MapVM.init)
+        
         // MARK: view controllers
         container.autoregister(DiscoveryVC.self, argument: DiscoveryViewModelType.self, initializer: DiscoveryVC.init)
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
+        container.autoregister(MapVC.self, arguments: MapVMType.self, GoogleMapType.self, initializer: MapVC.init)
         
         // MARK: coordinators
         container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
         container.autoregister(HomeCoordinatorType.self, argument: UIWindow.self, initializer: HomeCoordinator.init)
         container.autoregister(WebServiceDispatcherType.self, initializer: WebServiceDispatcher.init).inObjectScope(.container)
+        
+        // MARK: Entities:
+        container.autoregister(GoogleMapType.self, initializer: GoogleMap.init).inObjectScope(.container)
     }
     
     func getAppCoordinator(window: UIWindow) -> AppCoordinator {
