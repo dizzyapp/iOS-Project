@@ -10,14 +10,14 @@ import UIKit
 
 class PlacesListFlowLayout: UICollectionViewLayout {
     
-    fileprivate var numberOfColumns = 2
-    fileprivate var cellPadding: CGFloat = 4
+    private var numberOfColumns = 2
+    private var cellPadding: CGFloat = 4
     
-    fileprivate var cache = [UICollectionViewLayoutAttributes]()
+    private var cache = [UICollectionViewLayoutAttributes]()
     
-    fileprivate var contentHeight: CGFloat = 0
+    private var contentHeight: CGFloat = 0
     
-    fileprivate var contentWidth: CGFloat {
+    private var contentWidth: CGFloat {
         guard let collectionView = collectionView else {
             return 0
         }
