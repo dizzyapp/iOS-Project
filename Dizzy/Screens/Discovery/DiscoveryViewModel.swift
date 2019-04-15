@@ -28,6 +28,6 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return PlaceInfo(name: "name", address: "address", position: "position")
+        return PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))
     }
 }

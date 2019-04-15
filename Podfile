@@ -12,5 +12,6 @@ target 'Dizzy' do
   pod 'Firebase/Database'
   pod 'SwiftLint'
   pod 'SnapKit'
-
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 end

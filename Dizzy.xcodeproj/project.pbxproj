@@ -7,12 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0415EC33225E5807009BCBC7 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC32225E5807009BCBC7 /* MapVC.swift */; };
-		0415EC35225E5B99009BCBC7 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC34225E5B99009BCBC7 /* MapVM.swift */; };
 		0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */; };
 		0415EC39225E6086009BCBC7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC38225E6086009BCBC7 /* Observable.swift */; };
-		0415EC3B225E7CFD009BCBC7 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC3A225E7CFD009BCBC7 /* MapCoordinator.swift */; };
-		0415EC3D225F40AA009BCBC7 /* HomeTabBarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC3C225F40AA009BCBC7 /* TabBarItems.swift */; };
 		041D95C32253D733009ED7AB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C22253D733009ED7AB /* WebService.swift */; };
 		041D95C52253D84F009ED7AB /* WebResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C42253D84F009ED7AB /* WebResource.swift */; };
 		04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF5225731880020DF8F /* FirebaseWebService.swift */; };
@@ -22,6 +18,7 @@
 		04ECE4102263B47800E10F70 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40D2263B47800E10F70 /* MapCoordinator.swift */; };
 		04ECE4112263B47800E10F70 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40E2263B47800E10F70 /* MapVC.swift */; };
 		04ECE4142263B4A900E10F70 /* GoogleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE4132263B4A900E10F70 /* GoogleMap.swift */; };
+		04ECE41E2264F26D00E10F70 /* HomeTabBarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE41D2264F26D00E10F70 /* HomeTabBarItems.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
@@ -35,9 +32,7 @@
 		76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */; };
 		76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC32251271700C1A290 /* CoordinatorKey.swift */; };
 		76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC522520B0800C1A290 /* HomeCoordinator.swift */; };
-		76B41EC822520ED100C1A290 /* DiscoveryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC722520ED100C1A290 /* DiscoveryCoordinator.swift */; };
 		76B41ECB2252149000C1A290 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ECA2252149000C1A290 /* TabItem.swift */; };
-		76B41ECD225216F500C1A290 /* ConversationsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ECC225216F500C1A290 /* ConversationsCoordinator.swift */; };
 		76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED022522A1700C1A290 /* DiscoveryVC.swift */; };
 		76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */; };
 		76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */; };
@@ -52,12 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0415EC32225E5807009BCBC7 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
-		0415EC34225E5B99009BCBC7 /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		0415EC38225E6086009BCBC7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		0415EC3A225E7CFD009BCBC7 /* MapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
-		0415EC3C225F40AA009BCBC7 /* HomeTabBarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItems.swift; sourceTree = "<group>"; };
 		041D95C22253D733009ED7AB /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		041D95C42253D84F009ED7AB /* WebResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResource.swift; sourceTree = "<group>"; };
 		04D0CCF5225731880020DF8F /* FirebaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseWebService.swift; sourceTree = "<group>"; };
@@ -67,6 +58,7 @@
 		04ECE40D2263B47800E10F70 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		04ECE40E2263B47800E10F70 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		04ECE4132263B4A900E10F70 /* GoogleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMap.swift; sourceTree = "<group>"; };
+		04ECE41D2264F26D00E10F70 /* HomeTabBarItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarItems.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
@@ -82,9 +74,7 @@
 		76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		76B41EC32251271700C1A290 /* CoordinatorKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorKey.swift; sourceTree = "<group>"; };
 		76B41EC522520B0800C1A290 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
-		76B41EC722520ED100C1A290 /* DiscoveryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryCoordinator.swift; sourceTree = "<group>"; };
 		76B41ECA2252149000C1A290 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
-		76B41ECC225216F500C1A290 /* ConversationsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsCoordinator.swift; sourceTree = "<group>"; };
 		76B41ED022522A1700C1A290 /* DiscoveryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryVC.swift; sourceTree = "<group>"; };
 		76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewModel.swift; sourceTree = "<group>"; };
 		76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModel.swift; sourceTree = "<group>"; };
@@ -186,9 +176,7 @@
 				76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */,
 				76B41EC32251271700C1A290 /* CoordinatorKey.swift */,
 				76B41EC522520B0800C1A290 /* HomeCoordinator.swift */,
-				0415EC3C225F40AA009BCBC7 /* HomeTabBarItems.swift */,
-				76B41EC722520ED100C1A290 /* DiscoveryCoordinator.swift */,
-				76B41ECC225216F500C1A290 /* ConversationsCoordinator.swift */,
+				04ECE41D2264F26D00E10F70 /* HomeTabBarItems.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -294,6 +282,7 @@
 				76B41E9D224EE9FA00C1A290 /* Frameworks */,
 				76B41E9E224EE9FA00C1A290 /* Resources */,
 				8086389A7C6A932674403B30 /* [CP] Embed Pods Frameworks */,
+				547EF7ED38B32D9E87132833 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -351,6 +340,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		547EF7ED38B32D9E87132833 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		745ACD9C07E96F8816BF9F7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -425,9 +438,7 @@
 				04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */,
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
-				76B41ECD225216F500C1A290 /* ConversationsCoordinator.swift in Sources */,
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
-				76B41EC822520ED100C1A290 /* DiscoveryCoordinator.swift in Sources */,
 				76B41EE42253574500C1A290 /* PlaceInfo.swift in Sources */,
 				76AC2B2A225BBAF8005B556F /* LocationLabel.swift in Sources */,
 				04ECE4112263B47800E10F70 /* MapVC.swift in Sources */,
@@ -448,13 +459,13 @@
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
-				0415EC3D225F40AA009BCBC7 /* HomeTabBarItems.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				04ECE4142263B4A900E10F70 /* GoogleMap.swift in Sources */,
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
+				04ECE41E2264F26D00E10F70 /* HomeTabBarItems.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
 			);
