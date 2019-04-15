@@ -22,6 +22,8 @@ class Assembly {
         self.container.register(Container.self) { [unowned self] _ in
             return self.container
         }
+        // MARK: Interactors
+        container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         
         // MARK: view models
         container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryViewModel.init)
@@ -35,6 +37,8 @@ class Assembly {
         // MARK: coordinators
         container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
         container.autoregister(HomeCoordinatorType.self, argument: UIWindow.self, initializer: HomeCoordinator.init)
+        container.autoregister(DiscoveryCoordinatorType.self, initializer: DiscoveryCoordinator.init)
+        container.autoregister(ConversationsCoordinatorType.self, initializer: ConversationsCoordinator.init)
         container.autoregister(WebServiceDispatcherType.self, initializer: WebServiceDispatcher.init).inObjectScope(.container)
         container.autoregister(MapCoordinatorType.self, argument: UIViewController.self, initializer: MapCoordinator.init)
 

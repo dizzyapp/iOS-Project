@@ -24,9 +24,12 @@ protocol DiscoveryViewModelDelegate: class {
 
 class DiscoveryViewModel: DiscoveryViewModelType {
     
+    private var placesInteractor: PlacesInteractorType
     weak var delegate: DiscoveryViewModelDelegate?
     
-    init() {
+    init(placesInteractor: PlacesInteractorType) {
+        self.placesInteractor = placesInteractor
+        self.placesInteractor.delegate = self
     }
     
     func numberOfSections() -> Int {
@@ -44,4 +47,8 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     func mapButtonPressed() {
         delegate?.mapButtonPressed()
     }
+}
+
+extension DiscoveryViewModel: PlacesInteractorDelegate {
+    
 }

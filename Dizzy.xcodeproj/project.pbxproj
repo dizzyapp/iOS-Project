@@ -44,6 +44,7 @@
 		76B41EE42253574500C1A290 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE32253574500C1A290 /* PlaceInfo.swift */; };
 		76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE522535B3D00C1A290 /* Fonts.swift */; };
 		76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */; };
+		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		76B41EE32253574500C1A290 /* PlaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
 		76B41EE522535B3D00C1A290 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPlaceCell.swift; sourceTree = "<group>"; };
+		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -215,6 +217,7 @@
 				76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */,
 				76590E20225B459700E7986A /* PlacesListFlowLayout.swift */,
 				76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */,
+				770972422264FCF50042D6EE /* PlacesInteractor.swift */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -446,7 +449,7 @@
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
-				04ECE4102263B47800E10F70 /* MapCoordinator.swift in Sources */,
+				770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */,
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PlaceInfo {
+struct PlaceInfo: Codable {
     let name: String
     let address: String
     let position: String
