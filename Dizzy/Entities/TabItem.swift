@@ -18,5 +18,6 @@ struct TabItem {
         self.rootController = rootController
         self.icon = icon
         self.title = title
+        self.iconSelected = iconSelected
     }
 }
