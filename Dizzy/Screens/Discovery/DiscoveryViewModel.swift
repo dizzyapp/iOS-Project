@@ -20,17 +20,14 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     }
     
     func numberOfSections() -> Int {
-        print("menash logs - returning sections")
         return 1
     }
     
     func numberOfItemsForSection(_ section: Int) -> Int {
-        print("menash logs - returning itmes for section")
         return 10
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        print("menash logs - returning placeinfo")
         return PlaceInfo(name: "name", address: "address", position: "position")
     }
 }

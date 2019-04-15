@@ -41,13 +41,17 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     private func layoutViews() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.bottom.equalToSuperview().offset(Metrics.padding)
+            placeImageView.top.equalToSuperview().offset(Metrics.padding)
+            placeImageView.bottom.equalToSuperview().offset(-Metrics.padding)
             placeImageView.leading.equalToSuperview()
         }
         
+        placeImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
+        
         placeDetailsStackView.snp.makeConstraints { placeDetailsStackView in
             placeDetailsStackView.top.bottom.equalTo(placeImageView)
-            placeDetailsStackView.leading.equalTo(placeImageView).offset(stackViewTrailingPadding)
+            placeDetailsStackView.leading.equalTo(placeImageView.snp.trailing).offset(stackViewTrailingPadding)
+            placeDetailsStackView.trailing.equalToSuperview()
         }
         
         layoutLabelsInStackView()
@@ -68,7 +72,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     private func setupStackView() {
         placeDetailsStackView.axis = .vertical
         placeDetailsStackView.distribution = .equalSpacing
-        placeDetailsStackView.contentMode = .scaleAspectFit
+        placeDetailsStackView.contentMode = .scaleToFill
     }
     
     private func setupLabels() {
@@ -89,5 +93,13 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.address
         distanceLabel.text = placeInfo.position
+        placeImageView.image = Images.defaultPlaceAvatar()
+    }
+    
+    func setDefaultsValues() {
+        placeNameLabel.text = "Place Name"
+        placeAddressLabel.text = "Place adress"
+        distanceLabel.text = "6 km"
+        placeImageView.image = Images.defaultPlaceAvatar()
     }
 }
