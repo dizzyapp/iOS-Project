@@ -17,6 +17,7 @@ protocol LocationProviderType {
     var locationServiceDidGetLocation: ((Error?) -> Void)? { get set }
     var currentLocation: CLLocation? { get }
     
+    func getCurrentAddress(completion: @escaping (Address?) -> Void)
     func notifyCompletion(with error: Error?)
     func requestUserLocation()
 }
@@ -24,6 +25,12 @@ protocol LocationProviderType {
 struct Location {
     var latitude: Double
     var longitude: Double
+}
+
+struct Address {
+    var country: String
+    var city: String
+    var street: String
 }
 
 final class LocationProvider: NSObject, LocationProviderType {
@@ -46,6 +53,13 @@ final class LocationProvider: NSObject, LocationProviderType {
         return CLLocationManager.authorizationStatus()
     }
     
+    var authorizationStatusFail: Bool {
+        return CLLocationManager.authorizationStatus() == .denied ||
+                CLLocationManager.authorizationStatus() == .notDetermined ||
+                CLLocationManager.authorizationStatus() == .restricted
+
+    }
+    
     var isAuthorized: Bool {
         return CLLocationManager.authorizationStatus() == .authorizedWhenInUse
     }
@@ -60,7 +74,7 @@ final class LocationProvider: NSObject, LocationProviderType {
     var locationServiceDidGetLocation: ((Error?) -> Void)?
     
     func requestUserLocation() {
-        if !locationServicesEnabled { return }
+        guard locationServicesEnabled else { return }
         if authorizationStatus == .authorizedWhenInUse {
             locationManager.requestLocation()
         } else {
@@ -68,15 +82,42 @@ final class LocationProvider: NSObject, LocationProviderType {
         }
     }
     
+    func getCurrentAddress(completion: @escaping (Address?) -> Void) {
+        
+        guard let currentLocation = currentLocation else {
+            print("currentLocation no exists")
+            completion(nil)
+            return
+        }
+        
+        let currentLocale = Locale.current
+        CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
+            if error == nil {
+                if let place = placeMarks?.first {
+                    let address = Address(country: place.country ?? "", city: place.subLocality ?? "", street: place.thoroughfare ?? "")
+                    completion(address)
+                }
+            } else {
+                return
+            }
+        }
+    }
+    
     func notifyCompletion(with error: Error?) {
         locationServiceDidGetLocation?(error)
-        locationServiceDidGetLocation = nil
     }
 }
 
 extension LocationProvider: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) { }
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedAlways
+            || status == CLAuthorizationStatus.authorizedWhenInUse {
+            requestUserLocation()
+        } else {
+            notifyCompletion(with: nil)
+        }
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         

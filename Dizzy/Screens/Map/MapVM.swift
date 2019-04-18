@@ -12,13 +12,23 @@ protocol MapVMType {
     var locationProvider: LocationProvider { get }
     var currentLocation: Observable<Location?> { get set }
     var places: [PlaceInfo] { get }
+    var currentAddress: Observable<Address?> { get set }
+    var delegate: MapVMDelegate? { get set }
+    
+    func close()
+}
+
+protocol MapVMDelegate: class {
+    func closeButtonPressed()
 }
 
 final class MapVM: MapVMType {
-    
     let locationProvider = LocationProvider()
     var currentLocation = Observable<Location?>(Location(latitude: -33.86, longitude: 151.20))
+    var currentAddress = Observable<Address?>(nil)
     var places: [PlaceInfo]
+    
+    weak var delegate: MapVMDelegate?
     
     init(places: [PlaceInfo]) {
         self.places = places
@@ -29,7 +39,27 @@ final class MapVM: MapVMType {
         locationProvider.requestUserLocation()
         locationProvider.locationServiceDidGetLocation = { [weak self] maybeError in
             guard let self = self else { return }
-            self.currentLocation.value = self.locationProvider.dizzyLocation
+            if self.locationProvider.authorizationStatusFail {
+                self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
+            } else {
+                self.currentLocation.value = self.locationProvider.dizzyLocation
+                self.getAddress()
+            }
         }
+    }
+    
+    private func getAddress() {
+        locationProvider.getCurrentAddress { (address) in
+            guard let address = address else {
+                print("Fail to get address")
+                return
+            }
+            
+            self.currentAddress.value = address
+        }
+    }
+    
+    func close() {
+        delegate?.closeButtonPressed()
     }
 }

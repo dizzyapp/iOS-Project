@@ -9,7 +9,7 @@
 import UIKit
 import Swinject
 
-protocol HomeCoordinatorType: Coordinator {
+protocol HomeCoordinatorType: Coordinator, DiscoveryViewModelDelegate {
     var window: UIWindow { get }
     var tabBarController : UITabBarController { get }
     var tabsIconPadding: CGFloat { get }
@@ -53,13 +53,41 @@ extension HomeCoordinatorType {
     }
     
     func createDiscoveryVC() {
-        guard let viewModel = container?.resolve(DiscoveryViewModelType.self),
+        guard var viewModel = container?.resolve(DiscoveryViewModelType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
                 print("could not create discovery page")
                 return
         }
+        viewModel.delegate = self
         self.discoveryVC = discoveryVC
     }
+}
+
+extension HomeCoordinatorType {
+    
+    func mapButtonPressed() {
+        guard let presntingVC = viewControllers?.first,
+            let coordinator = container?.resolve(MapCoordinatorType.self,
+                                                 argument: presntingVC) else {
+            print("could not create MapCoordinator")
+            return
+        }
+        
+        let places: [PlaceInfo] = [PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))]
+        
+        container?.register(MapVMType.self) { _ in
+            MapVM(places: places)
+        }
+        
+        coordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .map)
+        }
+        
+        coordinator.start()
+        add(coordinator: coordinator, for: .map)
+    }
+    
+    func menuButtonPressed() { }
 }
 
 class HomeCoordinator: HomeCoordinatorType {

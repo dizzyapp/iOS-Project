@@ -27,8 +27,6 @@ class Assembly {
         container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryViewModel.init)
         container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
         
-        container.autoregister(MapVMType.self, initializer: MapVM.init)
-        
         // MARK: view controllers
         container.autoregister(DiscoveryVC.self, argument: DiscoveryViewModelType.self, initializer: DiscoveryVC.init)
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
@@ -38,7 +36,8 @@ class Assembly {
         container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
         container.autoregister(HomeCoordinatorType.self, argument: UIWindow.self, initializer: HomeCoordinator.init)
         container.autoregister(WebServiceDispatcherType.self, initializer: WebServiceDispatcher.init).inObjectScope(.container)
-        
+        container.autoregister(MapCoordinatorType.self, argument: UIViewController.self, initializer: MapCoordinator.init)
+
         // MARK: Entities:
         container.autoregister(GoogleMapType.self, initializer: GoogleMap.init).inObjectScope(.container)
     }
