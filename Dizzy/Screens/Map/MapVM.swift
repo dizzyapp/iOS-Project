@@ -9,12 +9,11 @@
 import Foundation
 
 protocol MapVMType {
-    var locationProvider: LocationProvider { get }
     var currentLocation: Observable<Location?> { get set }
-    var places: [PlaceInfo] { get }
     var currentAddress: Observable<Address?> { get set }
     var delegate: MapVMDelegate? { get set }
     
+    func getAllMarks() -> [Marks]
     func close()
 }
 
@@ -23,27 +22,30 @@ protocol MapVMDelegate: class {
 }
 
 final class MapVM: MapVMType {
-    let locationProvider = LocationProvider()
+    
+    private var locationProvider: LocationProviderType
+    private var places: [PlaceInfo]
+    
     var currentLocation = Observable<Location?>(Location(latitude: -33.86, longitude: 151.20))
     var currentAddress = Observable<Address?>(nil)
-    var places: [PlaceInfo]
     
     weak var delegate: MapVMDelegate?
     
-    init(places: [PlaceInfo]) {
+    init(places: [PlaceInfo], locationProvider: LocationProviderType) {
+        self.locationProvider = locationProvider
         self.places = places
         getCurrentLocation()
     }
     
     private func getCurrentLocation() {
         locationProvider.requestUserLocation()
-        locationProvider.locationServiceDidGetLocation = { [weak self] maybeError in
+        locationProvider.onLocationArrived = { [weak self] location in
             guard let self = self else { return }
-            if self.locationProvider.authorizationStatusFail {
-                self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
-            } else {
-                self.currentLocation.value = self.locationProvider.dizzyLocation
+            if self.locationProvider.isAuthorized {
+                self.currentLocation.value = location
                 self.getAddress()
+            } else {
+                self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
             }
         }
     }
@@ -57,6 +59,10 @@ final class MapVM: MapVMType {
             
             self.currentAddress.value = address
         }
+    }
+    
+    func getAllMarks() -> [Marks] {
+        return places.map { return Marks(title: $0.name, snippet: $0.address, location: $0.location) }
     }
     
     func close() {

@@ -40,6 +40,7 @@ class Assembly {
 
         // MARK: Entities:
         container.autoregister(GoogleMapType.self, initializer: GoogleMap.init).inObjectScope(.container)
+        container.autoregister(LocationProviderType.self, initializer: LocationProvider.init)
     }
     
     func getAppCoordinator(window: UIWindow) -> AppCoordinator {

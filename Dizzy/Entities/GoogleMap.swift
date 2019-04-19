@@ -13,16 +13,16 @@ import GooglePlaces
 protocol GoogleMapType: class {
     var mapView: GMSMapView { get }
     func changeMapCenter(_ center: Location, zoom: Float)
-    func addMarks(_ marks: [GoogleMap.Marks])
+    func addMarks(_ marks: [Marks])
+}
+
+struct Marks {
+    var title: String
+    var snippet: String
+    var location: Location
 }
 
 final class GoogleMap: GoogleMapType {
-    
-    struct Marks {
-        var title: String
-        var snippet: String
-        var location: Location
-    }
     
     var mapView: GMSMapView
     

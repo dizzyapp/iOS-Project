@@ -10,16 +10,12 @@ import Foundation
 import CoreLocation
 
 protocol LocationProviderType {
-    var locationManager: CLLocationManager { get }
     var locationServicesEnabled: Bool { get }
-    var authorizationStatus: CLAuthorizationStatus { get }
     var isAuthorized: Bool { get }
-    var locationServiceDidGetLocation: ((Error?) -> Void)? { get set }
-    var currentLocation: CLLocation? { get }
-    
-    func getCurrentAddress(completion: @escaping (Address?) -> Void)
-    func notifyCompletion(with error: Error?)
+    var onLocationArrived: ((Location?) -> Void)? { get set }
+
     func requestUserLocation()
+    func getCurrentAddress(completion: @escaping (Address?) -> Void)
 }
 
 struct Location {
@@ -35,34 +31,29 @@ struct Address {
 
 final class LocationProvider: NSObject, LocationProviderType {
     
-    var currentLocation: CLLocation?
+    private var currentLocation: CLLocation?
     
-    var dizzyLocation: Location? {
+    private var dizzyLocation: Location? {
         guard let coordinate = currentLocation?.coordinate else { return nil }
         let location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
         return location
     }
     
-    var locationManager: CLLocationManager
+    private var locationManager: CLLocationManager
     
     var locationServicesEnabled: Bool {
         return CLLocationManager.locationServicesEnabled()
     }
     
-    var authorizationStatus: CLAuthorizationStatus {
+    private var authorizationStatus: CLAuthorizationStatus {
         return CLLocationManager.authorizationStatus()
-    }
-    
-    var authorizationStatusFail: Bool {
-        return CLLocationManager.authorizationStatus() == .denied ||
-                CLLocationManager.authorizationStatus() == .notDetermined ||
-                CLLocationManager.authorizationStatus() == .restricted
-
     }
     
     var isAuthorized: Bool {
         return CLLocationManager.authorizationStatus() == .authorizedWhenInUse
     }
+    
+    var onLocationArrived: ((Location?) -> Void)?
     
     override init() {
         locationManager = CLLocationManager()
@@ -70,8 +61,6 @@ final class LocationProvider: NSObject, LocationProviderType {
         super.init()
         locationManager.delegate = self
     }
-    
-    var locationServiceDidGetLocation: ((Error?) -> Void)?
     
     func requestUserLocation() {
         guard locationServicesEnabled else { return }
@@ -102,10 +91,6 @@ final class LocationProvider: NSObject, LocationProviderType {
             }
         }
     }
-    
-    func notifyCompletion(with error: Error?) {
-        locationServiceDidGetLocation?(error)
-    }
 }
 
 extension LocationProvider: CLLocationManagerDelegate {
@@ -115,7 +100,7 @@ extension LocationProvider: CLLocationManagerDelegate {
             || status == CLAuthorizationStatus.authorizedWhenInUse {
             requestUserLocation()
         } else {
-            notifyCompletion(with: nil)
+            onLocationArrived?(nil)
         }
     }
     
@@ -125,10 +110,10 @@ extension LocationProvider: CLLocationManagerDelegate {
             return
         }
         currentLocation = location
-        notifyCompletion(with: nil)
+        onLocationArrived?(dizzyLocation)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        notifyCompletion(with: error)
+        onLocationArrived?(nil)
     }
 }

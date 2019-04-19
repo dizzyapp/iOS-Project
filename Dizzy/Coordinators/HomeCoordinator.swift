@@ -9,41 +9,48 @@
 import UIKit
 import Swinject
 
-protocol HomeCoordinatorType: Coordinator, DiscoveryViewModelDelegate {
+protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
-    var tabBarController : UITabBarController { get }
-    var tabsIconPadding: CGFloat { get }
-    var viewControllers: [UIViewController]? { get }
-    var discoveryVC: DiscoveryVC? { get set }
-    var conversationsVC: ConversationsVC? { get set }
-    var tabBarItems: [TabItem]? { get }
 }
 
-extension HomeCoordinatorType {
-    var tabsIconPadding: CGFloat { return Metrics.padding }
+class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelDelegate {
     
-    var viewControllers: [UIViewController]? {
+    private var tabsIconPadding: CGFloat { return Metrics.padding }
+    private var discoveryVC: DiscoveryVC?
+    private var conversationsVC: ConversationsVC?
+    private let tabBarController = UITabBarController()
+    
+    var window: UIWindow
+    var container: Container?
+    var childCoordinators = [CoordinatorKey : Coordinator]()
+
+    private var presentedViewControllers: [UIViewController] {
         guard let discoveryVC = discoveryVC, let conversationsVC = conversationsVC  else {
-            return nil
+            return []
         }
         return [discoveryVC, conversationsVC]
     }
-     
+    
+    init(container: Container, window: UIWindow) {
+        self.container = container
+        self.window = window
+    }
+    
     func start() {
         createViewControllers()
-        guard let viewControllers = viewControllers, let tapBarItems = tabBarItems else { return }
-        tabBarController.viewControllers = viewControllers
-        customizeTabButtonsAppearance(tapBarItems)
+        guard !presentedViewControllers.isEmpty, !tabBarItems.isEmpty else { return }
+        tabBarController.viewControllers = presentedViewControllers
+        customizeTabButtonsAppearance(tabBarItems)
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }
     
-    func createViewControllers() {
+    private func createViewControllers() {
         createConversationsVC()
         createDiscoveryVC()
     }
     
-    func createConversationsVC() {
+    private func createConversationsVC() {
         guard let viewModel = container?.resolve(ConversationsViewModelType.self),
             let conversationsVC = container?.resolve(ConversationsVC.self, argument: viewModel) else {
                 print("could not create discovery page")
@@ -52,7 +59,7 @@ extension HomeCoordinatorType {
         self.conversationsVC = conversationsVC
     }
     
-    func createDiscoveryVC() {
+    private func createDiscoveryVC() {
         guard var viewModel = container?.resolve(DiscoveryViewModelType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
                 print("could not create discovery page")
@@ -63,20 +70,20 @@ extension HomeCoordinatorType {
     }
 }
 
-extension HomeCoordinatorType {
+extension HomeCoordinator {
     
     func mapButtonPressed() {
-        guard let presntingVC = viewControllers?.first,
-            let coordinator = container?.resolve(MapCoordinatorType.self,
-                                                 argument: presntingVC) else {
-            print("could not create MapCoordinator")
-            return
+        guard let presntingVC = presentedViewControllers.first,
+            let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
+            let location = container?.resolve(LocationProviderType.self) else {
+                                                    print("could not create MapCoordinator")
+                                                    return
         }
         
         let places: [PlaceInfo] = [PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))]
         
         container?.register(MapVMType.self) { _ in
-            MapVM(places: places)
+            MapVM(places: places, locationProvider: location)
         }
         
         coordinator.onCoordinatorFinished = { [weak self] in
@@ -90,17 +97,34 @@ extension HomeCoordinatorType {
     func menuButtonPressed() { }
 }
 
-class HomeCoordinator: HomeCoordinatorType {
+extension HomeCoordinator {
     
-    var discoveryVC: DiscoveryVC?
-    var conversationsVC: ConversationsVC?
-    var window: UIWindow
-    var container: Container?
-    var childCoordinators = [CoordinatorKey : Coordinator]()
-    let tabBarController = UITabBarController()
+    var discoveryTabBarItem: TabItem? {
+        guard let discoveryVC = discoveryVC else { return nil }
+        return TabItem(rootController: discoveryVC, icon: Images.discoverySelectedTabIcon(), iconSelected: Images.discoveryUnselectedTabIcon())
+    }
     
-    init(container: Container, window: UIWindow) {
-        self.container = container
-        self.window = window
+    var conversationsTapBarItem: TabItem? {
+        guard let conversactionVC = conversationsVC else { return nil }
+        return TabItem(rootController: conversactionVC, icon: Images.conversationsUnselectedTabIcon(), iconSelected: Images.conversationsSelectedTabIcon())
+    }
+    
+    var tabBarItems: [TabItem] {
+        guard let discoveryTabBarItem = discoveryTabBarItem,
+            let conversationsTapBarItem = conversationsTapBarItem else { return [] }
+        return [discoveryTabBarItem, conversationsTapBarItem]
+    }
+    
+    func customizeTabButtonsAppearance(_ tabItems: [TabItem]) {
+        guard let tabBarItems = tabBarController.tabBar.items else {
+            return
+        }
+        
+        for (index, tabBarItem) in tabBarItems.enumerated() {
+            tabBarItem.image = tabItems[index].icon
+            tabBarItem.selectedImage = tabItems[index].iconSelected
+            tabBarItem.title = tabItems[index].title
+            tabBarItem.imageInsets = UIEdgeInsets(top:  tabsIconPadding, left:  0, bottom: -tabsIconPadding, right: 0)
+        }
     }
 }

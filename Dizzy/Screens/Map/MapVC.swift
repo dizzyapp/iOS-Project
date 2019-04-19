@@ -50,18 +50,17 @@ class MapVC: ViewController {
     }
     
     private func addMarks() {
-        let marks = viewModel.places.map { return GoogleMap.Marks(title: $0.name, snippet: $0.address, location: $0.location) }
-        googleMap.addMarks(marks)
+        googleMap.addMarks(viewModel.getAllMarks())
     }
     
     private func setupNavigation() {
         navigationItem.titleView = locationLabel
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        button.layer.cornerRadius = 16.0
-        button.addTarget(self, action: #selector(close), for: .touchUpInside)
-        let barButton = UIBarButtonItem(customView: button)
-        navigationItem.leftBarButtonItem = barButton
+        let closeButton = UIButton(type: .system)
+        closeButton.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        closeButton.layer.cornerRadius = 16.0
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        let closeBarButton = UIBarButtonItem(customView: closeButton)
+        navigationItem.leftBarButtonItem = closeBarButton
     }
     
     @objc func close() {
