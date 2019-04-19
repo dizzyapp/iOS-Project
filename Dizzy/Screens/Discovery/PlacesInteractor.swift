@@ -26,7 +26,16 @@ class PlacesInteractor: PlacesInteractorType {
     }
     
     public func getAllPlaces() {
-        let placesResource = Resource<[PlaceInfo], String>(path: "")
+        let placesResource = Resource<[PlaceInfo], String>(path: "places").withGet()
+        webResourcesDispatcher.load(placesResource) {[weak self] result in
+            switch result {
+            case .success( let places):
+                self?.delegate?.allPlacesArrived(places: places)
+            case .failure(let error):
+                print(error ?? "")
+            }
+            
+        }
     }
     
 }

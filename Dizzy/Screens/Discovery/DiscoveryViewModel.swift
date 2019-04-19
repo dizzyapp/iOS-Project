@@ -23,13 +23,14 @@ protocol DiscoveryViewModelDelegate: class {
 }
 
 class DiscoveryViewModel: DiscoveryViewModelType {
-    
+    private var allPlaces = [PlaceInfo]()
     private var placesInteractor: PlacesInteractorType
     weak var delegate: DiscoveryViewModelDelegate?
     
     init(placesInteractor: PlacesInteractorType) {
         self.placesInteractor = placesInteractor
         self.placesInteractor.delegate = self
+        self.placesInteractor.getAllPlaces()
     }
     
     func numberOfSections() -> Int {
@@ -37,10 +38,11 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     }
     
     func numberOfItemsForSection(_ section: Int) -> Int {
-        return 10
+        return allPlaces.count
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
+        return allPlaces[indexPath.row]
         return PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))
     }
     
@@ -50,5 +52,8 @@ class DiscoveryViewModel: DiscoveryViewModelType {
 }
 
 extension DiscoveryViewModel: PlacesInteractorDelegate {
-    
+    func allPlacesArrived(places: [PlaceInfo]) {
+        allPlaces = places
+        
+    }
 }
