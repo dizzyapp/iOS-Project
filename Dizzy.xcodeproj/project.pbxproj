@@ -16,7 +16,6 @@
 		04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */; };
 		04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CD6F225A96E00020DF8F /* ViewController.swift */; };
 		04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40C2263B47800E10F70 /* MapVM.swift */; };
-		04ECE4102263B47800E10F70 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40D2263B47800E10F70 /* MapCoordinator.swift */; };
 		04ECE4112263B47800E10F70 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40E2263B47800E10F70 /* MapVC.swift */; };
 		04ECE4142263B4A900E10F70 /* GoogleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE4132263B4A900E10F70 /* GoogleMap.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
@@ -41,10 +40,11 @@
 		76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */; };
 		76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */; };
 		76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE122534C1C00C1A290 /* Metrics.swift */; };
-		76B41EE42253574500C1A290 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE32253574500C1A290 /* PlaceInfo.swift */; };
 		76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE522535B3D00C1A290 /* Fonts.swift */; };
 		76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */; };
 		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
+		772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D6226A040100BD1488 /* MapCoordinator.swift */; };
+		772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D8226A045A00BD1488 /* PlaceInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +57,6 @@
 		04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDispatcher.swift; sourceTree = "<group>"; };
 		04D0CD6F225A96E00020DF8F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04ECE40C2263B47800E10F70 /* MapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
-		04ECE40D2263B47800E10F70 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		04ECE40E2263B47800E10F70 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		04ECE4132263B4A900E10F70 /* GoogleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMap.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,10 +83,11 @@
 		76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearByPlacesView.swift; sourceTree = "<group>"; };
 		76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		76B41EE122534C1C00C1A290 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
-		76B41EE32253574500C1A290 /* PlaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
 		76B41EE522535B3D00C1A290 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPlaceCell.swift; sourceTree = "<group>"; };
 		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
+		772354D6226A040100BD1488 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
+		772354D8226A045A00BD1488 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -107,7 +107,7 @@
 		0415EC31225E57D5009BCBC7 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				04ECE40D2263B47800E10F70 /* MapCoordinator.swift */,
+				772354D6226A040100BD1488 /* MapCoordinator.swift */,
 				04ECE40E2263B47800E10F70 /* MapVC.swift */,
 				04ECE40C2263B47800E10F70 /* MapVM.swift */,
 			);
@@ -186,10 +186,10 @@
 		76B41EC92252145D00C1A290 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				772354D8226A045A00BD1488 /* PlaceInfo.swift */,
 				76B41ECA2252149000C1A290 /* TabItem.swift */,
 				76B41ED92253381900C1A290 /* Images.swift */,
 				76B41EE122534C1C00C1A290 /* Metrics.swift */,
-				76B41EE32253574500C1A290 /* PlaceInfo.swift */,
 				76B41EE522535B3D00C1A290 /* Fonts.swift */,
 				0415EC38225E6086009BCBC7 /* Observable.swift */,
 				0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */,
@@ -351,7 +351,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
@@ -364,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		745ACD9C07E96F8816BF9F7F /* [CP] Check Pods Manifest.lock */ = {
@@ -409,7 +409,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -428,7 +428,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -442,7 +442,6 @@
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
-				76B41EE42253574500C1A290 /* PlaceInfo.swift in Sources */,
 				76AC2B2A225BBAF8005B556F /* LocationLabel.swift in Sources */,
 				04ECE4112263B47800E10F70 /* MapVC.swift in Sources */,
 				041D95C32253D733009ED7AB /* WebService.swift in Sources */,
@@ -456,6 +455,7 @@
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
+				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
@@ -465,6 +465,7 @@
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
+				772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */,
 				04ECE4142263B4A900E10F70 /* GoogleMap.swift in Sources */,
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
