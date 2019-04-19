@@ -12,9 +12,19 @@ protocol DiscoveryViewModelType {
     func numberOfSections() -> Int
     func numberOfItemsForSection(_ section: Int) -> Int
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    var delegate: DiscoveryViewModelDelegate? { get set }
+    
+    func mapButtonPressed()
+}
+
+protocol DiscoveryViewModelDelegate: class {
+    func mapButtonPressed()
+    func menuButtonPressed()
 }
 
 class DiscoveryViewModel: DiscoveryViewModelType {
+    
+    weak var delegate: DiscoveryViewModelDelegate?
     
     init() {
     }
@@ -28,6 +38,10 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return PlaceInfo(name: "name", address: "address", position: "position")
+        return PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))
+    }
+    
+    func mapButtonPressed() {
+        delegate?.mapButtonPressed()
     }
 }

@@ -11,51 +11,111 @@ import Swinject
 
 protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
-    var tabBarController : UITabBarController { get }
 }
 
-extension HomeCoordinatorType {
-    var tabsIconPadding: CGFloat { return 10 }
+class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelDelegate {
+    
+    private var tabsIconPadding: CGFloat { return Metrics.padding }
+    private var discoveryVC: DiscoveryVC?
+    private var conversationsVC: ConversationsVC?
+    private let tabBarController = UITabBarController()
+    
+    var window: UIWindow
+    var container: Container?
+    var childCoordinators = [CoordinatorKey : Coordinator]()
+
+    private var presentedViewControllers: [UIViewController] {
+        guard let discoveryVC = discoveryVC, let conversationsVC = conversationsVC  else {
+            return []
+        }
+        return [discoveryVC, conversationsVC]
+    }
+    
+    init(container: Container, window: UIWindow) {
+        self.container = container
+        self.window = window
+    }
     
     func start() {
-        let childCoordinators = startChildCoordinators()
-        let tabItems = getTabItems(from: childCoordinators)
-        
-        tabBarController.viewControllers = tabItems.map { $0.rootController }
-        customizeTabButtonsAppearance(tabItems)
+        createViewControllers()
+        guard !presentedViewControllers.isEmpty, !tabBarItems.isEmpty else { return }
+        tabBarController.viewControllers = presentedViewControllers
+        customizeTabButtonsAppearance(tabBarItems)
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }
     
-    private func startChildCoordinators() -> [TabCoordinator] {
-        guard let discoveryCoordinator = container?.resolve(DiscoveryCoordinatorType.self),
-            let conversationsCoordinator = container?.resolve(ConversationsCoordinatorType.self) else {
-                print("could not create discovery coordinator or conversations coordinator")
-                return []
-        }
-        
-        add(coordinator: discoveryCoordinator, for: .discovery)
-        add(coordinator: conversationsCoordinator, for: .conversations)
-        
-        discoveryCoordinator.start()
-        conversationsCoordinator.start()
-        
-        return [discoveryCoordinator, conversationsCoordinator]
+    private func createViewControllers() {
+        createConversationsVC()
+        createDiscoveryVC()
     }
     
-    private func getTabItems(from tabCoordinators: [TabCoordinator]) -> [TabItem] {
-        var tabItems = [TabItem]()
-        for tabCoordinator in tabCoordinators {
-            if let tabItem = tabCoordinator.tabItem {
-                tabItems.append(tabItem)
-            } else {
-                print("trying to get tab item that is nil from: \(tabCoordinator)")
-            }
+    private func createConversationsVC() {
+        guard let viewModel = container?.resolve(ConversationsViewModelType.self),
+            let conversationsVC = container?.resolve(ConversationsVC.self, argument: viewModel) else {
+                print("could not create discovery page")
+                return
         }
-        return tabItems
+        self.conversationsVC = conversationsVC
     }
     
-    private func customizeTabButtonsAppearance(_ tabItems: [TabItem]) {
+    private func createDiscoveryVC() {
+        guard var viewModel = container?.resolve(DiscoveryViewModelType.self),
+            let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
+                print("could not create discovery page")
+                return
+        }
+        viewModel.delegate = self
+        self.discoveryVC = discoveryVC
+    }
+}
+
+extension HomeCoordinator {
+    
+    func mapButtonPressed() {
+        guard let presntingVC = presentedViewControllers.first,
+            let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
+            let location = container?.resolve(LocationProviderType.self) else {
+                                                    print("could not create MapCoordinator")
+                                                    return
+        }
+        
+        let places: [PlaceInfo] = [PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))]
+        
+        container?.register(MapVMType.self) { _ in
+            MapVM(places: places, locationProvider: location)
+        }
+        
+        coordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .map)
+        }
+        
+        coordinator.start()
+        add(coordinator: coordinator, for: .map)
+    }
+    
+    func menuButtonPressed() { }
+}
+
+extension HomeCoordinator {
+    
+    var discoveryTabBarItem: TabItem? {
+        guard let discoveryVC = discoveryVC else { return nil }
+        return TabItem(rootController: discoveryVC, icon: Images.discoverySelectedTabIcon(), iconSelected: Images.discoveryUnselectedTabIcon())
+    }
+    
+    var conversationsTapBarItem: TabItem? {
+        guard let conversactionVC = conversationsVC else { return nil }
+        return TabItem(rootController: conversactionVC, icon: Images.conversationsUnselectedTabIcon(), iconSelected: Images.conversationsSelectedTabIcon())
+    }
+    
+    var tabBarItems: [TabItem] {
+        guard let discoveryTabBarItem = discoveryTabBarItem,
+            let conversationsTapBarItem = conversationsTapBarItem else { return [] }
+        return [discoveryTabBarItem, conversationsTapBarItem]
+    }
+    
+    func customizeTabButtonsAppearance(_ tabItems: [TabItem]) {
         guard let tabBarItems = tabBarController.tabBar.items else {
             return
         }
@@ -66,18 +126,5 @@ extension HomeCoordinatorType {
             tabBarItem.title = tabItems[index].title
             tabBarItem.imageInsets = UIEdgeInsets(top:  tabsIconPadding, left:  0, bottom: -tabsIconPadding, right: 0)
         }
-    }
-}
-
-class HomeCoordinator: HomeCoordinatorType {
-    
-    var window: UIWindow
-    var container: Container?
-    var childCoordinators = [CoordinatorKey : Coordinator]()
-    let tabBarController = UITabBarController()
-    
-    init(container: Container, window: UIWindow) {
-        self.container = container
-        self.window = window
     }
 }

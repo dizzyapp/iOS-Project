@@ -15,6 +15,10 @@ protocol Coordinator: class {
     func start()
 }
 
+protocol NavigationCoordinator: Coordinator {
+    var navigationController: UINavigationController { get set }
+}
+
 extension Coordinator {
     func add(coordinator: Coordinator, for key: CoordinatorKey) {
         assert(childCoordinators[key] == nil)
@@ -24,8 +28,4 @@ extension Coordinator {
     func removeCoordinator(for key: CoordinatorKey) {
         childCoordinators[key] = nil
     }
-}
-
-protocol TabCoordinator: Coordinator {
-    var tabItem: TabItem? { get set }
 }

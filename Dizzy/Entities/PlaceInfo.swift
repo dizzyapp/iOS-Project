@@ -12,4 +12,5 @@ struct PlaceInfo {
     let name: String
     let address: String
     let position: String
+    let location: Location
 }
