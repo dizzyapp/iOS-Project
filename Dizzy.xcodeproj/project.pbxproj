@@ -33,7 +33,7 @@
 		76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC522520B0800C1A290 /* HomeCoordinator.swift */; };
 		76B41ECB2252149000C1A290 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ECA2252149000C1A290 /* TabItem.swift */; };
 		76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED022522A1700C1A290 /* DiscoveryVC.swift */; };
-		76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */; };
+		76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED222522A4000C1A290 /* DiscoveryVM.swift */; };
 		76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */; };
 		76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED72252312E00C1A290 /* ConversationsVC.swift */; };
 		76B41EDA2253381900C1A290 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41ED92253381900C1A290 /* Images.swift */; };
@@ -76,7 +76,7 @@
 		76B41EC522520B0800C1A290 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		76B41ECA2252149000C1A290 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
 		76B41ED022522A1700C1A290 /* DiscoveryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryVC.swift; sourceTree = "<group>"; };
-		76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryViewModel.swift; sourceTree = "<group>"; };
+		76B41ED222522A4000C1A290 /* DiscoveryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryVM.swift; sourceTree = "<group>"; };
 		76B41ED5225230EC00C1A290 /* ConversationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModel.swift; sourceTree = "<group>"; };
 		76B41ED72252312E00C1A290 /* ConversationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsVC.swift; sourceTree = "<group>"; };
 		76B41ED92253381900C1A290 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 			children = (
 				76B41EE7225386AC00C1A290 /* Cells */,
 				76B41ED022522A1700C1A290 /* DiscoveryVC.swift */,
-				76B41ED222522A4000C1A290 /* DiscoveryViewModel.swift */,
+				76B41ED222522A4000C1A290 /* DiscoveryVM.swift */,
 				76B41EDC225348BE00C1A290 /* NearByPlacesView.swift */,
 				76590E20225B459700E7986A /* PlacesListFlowLayout.swift */,
 				76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */,
@@ -461,7 +461,7 @@
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
 				046ECB27226513F5000A5768 /* NavigationBuilder.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
-				76B41ED322522A4000C1A290 /* DiscoveryViewModel.swift in Sources */,
+				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,

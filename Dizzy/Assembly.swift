@@ -26,7 +26,7 @@ class Assembly {
         container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         
         // MARK: view models
-        container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryViewModel.init)
+        container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryVM.init)
         container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
         
         // MARK: view controllers

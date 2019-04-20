@@ -27,7 +27,7 @@ protocol DiscoveryViewModelNavigationDelegate: class {
     func menuButtonPressed()
 }
 
-class DiscoveryViewModel: DiscoveryViewModelType {
+class DiscoveryVM: DiscoveryViewModelType {
     weak var delegate: DiscoveryViewModelDelegate?
     var placesToDisplay = Observable<[PlaceInfo]>()
     private var allPlaces = [PlaceInfo]()
@@ -57,7 +57,7 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     }
 }
 
-extension DiscoveryViewModel: PlacesInteractorDelegate {
+extension DiscoveryVM: PlacesInteractorDelegate {
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
         delegate?.reloadData()
