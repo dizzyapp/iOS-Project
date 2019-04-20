@@ -37,5 +37,4 @@ class PlacesInteractor: PlacesInteractorType {
             
         }
     }
-    
 }

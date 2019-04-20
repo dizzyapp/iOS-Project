@@ -12,20 +12,27 @@ protocol DiscoveryViewModelType {
     func numberOfSections() -> Int
     func numberOfItemsForSection(_ section: Int) -> Int
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryViewModelDelegate? { get set }
     
     func mapButtonPressed()
 }
 
 protocol DiscoveryViewModelDelegate: class {
+    func reloadData()
+}
+
+protocol DiscoveryViewModelNavigationDelegate: class {
     func mapButtonPressed()
     func menuButtonPressed()
 }
 
 class DiscoveryViewModel: DiscoveryViewModelType {
+    weak var delegate: DiscoveryViewModelDelegate?
+    var placesToDisplay = Observable<[PlaceInfo]>()
     private var allPlaces = [PlaceInfo]()
     private var placesInteractor: PlacesInteractorType
-    weak var delegate: DiscoveryViewModelDelegate?
+    weak var navigationDelegate: DiscoveryViewModelNavigationDelegate?
     
     init(placesInteractor: PlacesInteractorType) {
         self.placesInteractor = placesInteractor
@@ -43,17 +50,16 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
         return allPlaces[indexPath.row]
-        return PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))
     }
     
     func mapButtonPressed() {
-        delegate?.mapButtonPressed()
+        navigationDelegate?.mapButtonPressed()
     }
 }
 
 extension DiscoveryViewModel: PlacesInteractorDelegate {
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
-        
+        delegate?.reloadData()
     }
 }

@@ -14,7 +14,7 @@ class DiscoveryVC: ViewController {
     let topBar = DiscoveryTopBar()
     let themeImageView = UIImageView()
     let nearByPlacesView = NearByPlacesView()
-    let viewModel: DiscoveryViewModelType
+    var viewModel: DiscoveryViewModelType
     
     init(viewModel: DiscoveryViewModelType) {
         self.viewModel = viewModel
@@ -22,6 +22,7 @@ class DiscoveryVC: ViewController {
         addSubviews()
         layoutViews()
         setupViews()
+        self.viewModel.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,5 +96,11 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
     }
     
     func menuButtonPressed() {
+    }
+}
+
+extension DiscoveryVC: DiscoveryViewModelDelegate {
+    func reloadData() {
+        nearByPlacesView.reloadData()
     }
 }
