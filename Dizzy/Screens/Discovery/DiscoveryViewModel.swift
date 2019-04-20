@@ -23,7 +23,7 @@ protocol DiscoveryViewModelDelegate: class {
 }
 
 protocol DiscoveryViewModelNavigationDelegate: class {
-    func mapButtonPressed()
+    func mapButtonPressed(places: [PlaceInfo])
     func menuButtonPressed()
 }
 
@@ -53,7 +53,7 @@ class DiscoveryViewModel: DiscoveryViewModelType {
     }
     
     func mapButtonPressed() {
-        navigationDelegate?.mapButtonPressed()
+        navigationDelegate?.mapButtonPressed(places: allPlaces)
     }
 }
 

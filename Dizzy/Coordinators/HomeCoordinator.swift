@@ -72,15 +72,13 @@ class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDelegate
 
 extension HomeCoordinator {
     
-    func mapButtonPressed() {
+    func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = presentedViewControllers.first,
             let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
             let location = container?.resolve(LocationProviderType.self) else {
                                                     print("could not create MapCoordinator")
                                                     return
         }
-        
-        let places: [PlaceInfo] = [PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))]
         
         container?.register(MapVMType.self) { _ in
             MapVM(places: places, locationProvider: location)
