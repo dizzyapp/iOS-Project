@@ -16,7 +16,6 @@ enum DistanceScale {
 struct PlaceInfo: Codable {
     let name: String
     let description: String
-    let position: String
     let location: Location
 }
 
