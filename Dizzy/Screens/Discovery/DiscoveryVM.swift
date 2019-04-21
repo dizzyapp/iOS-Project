@@ -48,8 +48,21 @@ class DiscoveryVM: DiscoveryViewModelType {
     private func bindLocationProvider() {
         locationProvider.dizzyLocation.bind { [weak self] location in
             self?.currentLocation = location
+            self?.sortAllPlacesByDistance()
             self?.delegate?.reloadData()
         }
+    }
+    
+    func sortAllPlacesByDistance() {
+        guard let currentLocation = currentLocation else {
+            print("cant sort without current location")
+            return
+        }
+        allPlaces = allPlaces.sorted(by: { place1, place2 in
+            let distanceToPlace1 = currentLocation.getDistanceTo(place1.location)
+            let distanceToPlace2 = currentLocation.getDistanceTo(place2.location)
+            return distanceToPlace1 < distanceToPlace2
+        })
     }
     
     func numberOfSections() -> Int {
@@ -72,6 +85,7 @@ class DiscoveryVM: DiscoveryViewModelType {
 extension DiscoveryVM: PlacesInteractorDelegate {
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
+        sortAllPlacesByDistance()
         delegate?.reloadData()
     }
 }
