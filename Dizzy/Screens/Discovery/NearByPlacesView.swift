@@ -13,6 +13,7 @@ protocol NearByPlacesViewDataSource: class {
     func numberOfSections() -> Int
     func numberOfItemsForSection(_ section: Int) -> Int
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    func getCurrentLocation() -> Location?
 }
 
 protocol NearByPlacesViewDelegate: class {
@@ -121,7 +122,7 @@ extension NearByPlacesView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setPlaceInfo(placeInfo)
+        cell.setPlaceInfo(placeInfo, currentAppLocation: dataSource?.getCurrentLocation())
         return cell
     }
 }

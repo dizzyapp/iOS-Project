@@ -12,32 +12,16 @@ import CoreLocation
 protocol LocationProviderType {
     var locationServicesEnabled: Bool { get }
     var isAuthorized: Bool { get }
-    var onLocationArrived: ((Location?) -> Void)? { get set }
+    var dizzyLocation: Observable<Location?> { get }
 
-    func requestUserLocation()
     func getCurrentAddress(completion: @escaping (Address?) -> Void)
-}
-
-struct Location: Codable {
-    var latitude: Double
-    var longitude: Double
-}
-
-struct Address {
-    var country: String
-    var city: String
-    var street: String
 }
 
 final class LocationProvider: NSObject, LocationProviderType {
     
     private var currentLocation: CLLocation?
     
-    private var dizzyLocation: Location? {
-        guard let coordinate = currentLocation?.coordinate else { return nil }
-        let location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        return location
-    }
+    var dizzyLocation = Observable<Location?>(nil)
     
     private var locationManager: CLLocationManager
     
@@ -56,15 +40,18 @@ final class LocationProvider: NSObject, LocationProviderType {
     var onLocationArrived: ((Location?) -> Void)?
     
     override init() {
+        print("debug log - location provider init")
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         super.init()
         locationManager.delegate = self
+        self.requestUserLocation()
     }
     
     func requestUserLocation() {
         guard locationServicesEnabled else { return }
         if authorizationStatus == .authorizedWhenInUse {
+            print("debug log - requesting location")
             locationManager.requestLocation()
         } else {
             locationManager.requestWhenInUseAuthorization()
@@ -91,29 +78,37 @@ final class LocationProvider: NSObject, LocationProviderType {
             }
         }
     }
+    
+    private func setupDizzyLocation() {
+        guard let coordinate = currentLocation?.coordinate else { return }
+        let location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        dizzyLocation.value = location
+    }
 }
 
 extension LocationProvider: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("debug log - change authorise")
         if status == CLAuthorizationStatus.authorizedAlways
             || status == CLAuthorizationStatus.authorizedWhenInUse {
             requestUserLocation()
         } else {
-            onLocationArrived?(nil)
+            dizzyLocation.value = nil
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+        print("debug log - update location")
         guard let location = locations.first else {
             return
         }
         currentLocation = location
-        onLocationArrived?(dizzyLocation)
+        setupDizzyLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        onLocationArrived?(nil)
+        dizzyLocation.value = nil
     }
 }

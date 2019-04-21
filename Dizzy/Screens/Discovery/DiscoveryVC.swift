@@ -77,6 +77,10 @@ class DiscoveryVC: ViewController {
 }
 
 extension DiscoveryVC: NearByPlacesViewDataSource {
+    func getCurrentLocation() -> Location? {
+        return viewModel.currentLocation
+    }
+    
     func numberOfSections() -> Int {
         return viewModel.numberOfSections()
     }
