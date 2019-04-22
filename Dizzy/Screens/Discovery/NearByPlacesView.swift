@@ -31,6 +31,9 @@ class NearByPlacesView: UIView {
     
     private let cellIDentifier = "DiscoveryPlaceCell"
     
+    let cornerRadius: CGFloat = 25.0
+    private var fillColor: UIColor = .white
+    
     init() {
         super.init(frame: CGRect.zero)
         backgroundColor = .white
@@ -69,6 +72,7 @@ class NearByPlacesView: UIView {
     }
     
     private func setupViews() {
+        self.layer.cornerRadius = cornerRadius
         setupSearchButton()
         setupTitleLabel()
         setupPlacesCollectionView()

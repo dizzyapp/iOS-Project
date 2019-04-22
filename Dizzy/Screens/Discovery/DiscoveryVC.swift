@@ -16,6 +16,8 @@ class DiscoveryVC: ViewController {
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryViewModelType
     
+    let nearByPlacesViewCornerRadius = CGFloat(5)
+    
     init(viewModel: DiscoveryViewModelType) {
         self.viewModel = viewModel
         super.init()
@@ -43,7 +45,7 @@ class DiscoveryVC: ViewController {
         themeImageView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.bottom.equalTo(view.snp.centerY)
+            themeImageView.bottom.equalTo(view.snp.centerY).offset(25)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
