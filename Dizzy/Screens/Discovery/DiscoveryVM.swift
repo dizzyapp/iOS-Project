@@ -15,6 +15,7 @@ protocol DiscoveryViewModelType {
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryViewModelDelegate? { get set }
     var currentLocation: Location? { get }
+    var currentCity: Observable<String> { get }
     
     func mapButtonPressed()
 }
@@ -29,12 +30,14 @@ protocol DiscoveryViewModelNavigationDelegate: class {
 }
 
 class DiscoveryVM: DiscoveryViewModelType {
+    
     weak var delegate: DiscoveryViewModelDelegate?
     var placesToDisplay = Observable<[PlaceInfo]>()
     var currentLocation: Location?
     private var allPlaces = [PlaceInfo]()
     private var placesInteractor: PlacesInteractorType
     private let locationProvider: LocationProviderType
+    var currentCity = Observable<String>("")
     weak var navigationDelegate: DiscoveryViewModelNavigationDelegate?
     
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
@@ -47,10 +50,23 @@ class DiscoveryVM: DiscoveryViewModelType {
     
     private func bindLocationProvider() {
         locationProvider.dizzyLocation.bind { [weak self] location in
+            self?.askForCurrentAddress()
             self?.currentLocation = location
             self?.sortAllPlacesByDistance()
             self?.delegate?.reloadData()
         }
+    }
+    
+    private func askForCurrentAddress() {
+        self.locationProvider.getCurrentAddress(completion: { [weak self] address in
+            guard let city = address?.city,
+                !city.isEmpty else {
+                    self?.currentCity.value = "No Gps"
+                    return
+            }
+            
+            self?.currentCity.value = city
+        })
     }
     
     func sortAllPlacesByDistance() {

@@ -68,13 +68,15 @@ final class LocationProvider: NSObject, LocationProviderType {
         
         let currentLocale = Locale.current
         CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
-            if error == nil {
-                if let place = placeMarks?.first {
-                    let address = Address(country: place.country ?? "", city: place.subLocality ?? "", street: place.thoroughfare ?? "")
-                    completion(address)
-                }
-            } else {
+            guard error == nil else {
+                print("could not get current address")
+                completion(nil)
                 return
+            }
+            
+            if let place = placeMarks?.first {
+                let address = Address(country: place.country ?? "", city: place.subLocality ?? "", street: place.thoroughfare ?? "")
+                completion(address)
             }
         }
     }

@@ -24,6 +24,7 @@ class DiscoveryVC: ViewController {
         addSubviews()
         layoutViews()
         setupViews()
+        bindViewModel()
         self.viewModel.delegate = self
     }
     
@@ -56,6 +57,16 @@ class DiscoveryVC: ViewController {
         }
     }
     
+    private func bindViewModel() {
+        viewModel.currentCity.bind(shouldObserveIntial: true, observer: { [weak self] currentCity in
+            guard !currentCity.isEmpty else {
+                self?.topBar.setLocationName("getting location")
+                return
+            }
+            self?.topBar.setLocationName(currentCity)
+        })
+    }
+    
     private func setupViews() {
         setupThemeImageView()
         setupNearByPlacesView()
@@ -64,7 +75,6 @@ class DiscoveryVC: ViewController {
     
     private func setupTopBarView() {
         topBar.delegate = self
-        topBar.setLocationName("Tel Aviv")
     }
     
     private func setupThemeImageView() {
