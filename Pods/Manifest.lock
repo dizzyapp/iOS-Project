@@ -58,6 +58,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.3.7):
     - GoogleUtilities/Logger
+  - Kingfisher (5.3.1)
   - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -75,6 +76,7 @@ DEPENDENCIES:
   - Firebase/Database
   - GoogleMaps
   - GooglePlaces
+  - Kingfisher
   - SnapKit
   - SwiftLint
   - Swinject
@@ -92,6 +94,7 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - GoogleUtilities
+    - Kingfisher
     - leveldb-library
     - nanopb
     - SnapKit
@@ -110,6 +113,7 @@ SPEC CHECKSUMS:
   GoogleMaps: fd5c9fa58871781b9fb94d4936f19c69fe60ce32
   GooglePlaces: f09e76993c9c3ee4af8f4f7f535bb94d6aa3b649
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
+  Kingfisher: d9e7e0b209b59b8f9873aa2f37654e81a7beea51
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
@@ -117,6 +121,6 @@ SPEC CHECKSUMS:
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
   SwinjectAutoregistration: f72bf894cbd2ee4a9153e00fa5208e93fb44d283
 
-PODFILE CHECKSUM: 2ea59e4e55fec8e78c3a539bde4a4e78a32f217e
+PODFILE CHECKSUM: f9f562356a5ab9e6d7ab3cfa454043331601a15d
 
 COCOAPODS: 1.5.3

@@ -14,4 +14,5 @@ target 'Dizzy' do
   pod 'SnapKit'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'Kingfisher'
 end
