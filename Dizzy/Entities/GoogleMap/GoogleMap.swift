@@ -11,7 +11,7 @@ import GoogleMaps
 import GooglePlaces
 
 protocol MapType: class {
-    var mapView: GMSMapView { get }
+    var mapView: UIView { get }
     func changeMapCenter(_ center: Location, zoom: Float)
     func addMarks(_ marks: [Marks?])
 }
@@ -25,18 +25,22 @@ struct Marks {
 
 final class GoogleMap: MapType {
     
-    var mapView: GMSMapView
+    var mapView: UIView {
+        return googleMapView
+    }
+    
+    var googleMapView: GMSMapView
     
     init() {
         let googleMapAPIKey = "AIzaSyCBhvRQXfqyNUQ_y9vm9Ikxi_t_U51ZaYI"
         GMSServices.provideAPIKey(googleMapAPIKey)
         GMSPlacesClient.provideAPIKey(googleMapAPIKey)
-        mapView = GMSMapView()
+        googleMapView = GMSMapView()
     }
 
     func changeMapCenter(_ center: Location, zoom: Float) {
         let camera = GMSCameraPosition.camera(withLatitude: center.latitude, longitude: center.longitude, zoom: zoom)
-        mapView.animate(to: camera)
+        googleMapView.animate(to: camera)
     }
     
     func addMarks(_ marks: [Marks?]) {
@@ -49,7 +53,7 @@ final class GoogleMap: MapType {
                 if let displayView = mark.displayView {
                     marker.iconView = displayView
                 }
-                marker.map = mapView
+                marker.map = googleMapView
             }
         }
     }
