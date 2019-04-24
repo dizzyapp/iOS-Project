@@ -30,7 +30,7 @@ class Assembly {
         // MARK: view controllers
         container.autoregister(DiscoveryVC.self, argument: DiscoveryViewModelType.self, initializer: DiscoveryVC.init)
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
-        container.autoregister(MapVC.self, arguments: MapVMType.self, GoogleMapType.self, initializer: MapVC.init)
+        container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(MapSearchVC.self, argument: MapSearchVMType.self ,initializer: MapSearchVC.init)
         
         // MARK: coordinators
@@ -40,7 +40,7 @@ class Assembly {
         container.autoregister(MapCoordinatorType.self, argument: UIViewController.self, initializer: MapCoordinator.init)
 
         // MARK: Entities:
-        container.autoregister(GoogleMapType.self, initializer: GoogleMap.init).inObjectScope(.container)
+        container.autoregister(MapType.self, initializer: GoogleMap.init).inObjectScope(.container)
         container.autoregister(LocationProviderType.self, initializer: LocationProvider.init)
     }
     

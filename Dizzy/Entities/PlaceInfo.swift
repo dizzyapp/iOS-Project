@@ -18,4 +18,5 @@ struct PlaceInfo: Codable, FilterEntry {
     let address: String
     let position: String
     let location: Location
+    let imageURLString: String
 }

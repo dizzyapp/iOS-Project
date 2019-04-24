@@ -10,7 +10,7 @@ import Foundation
 import GoogleMaps
 import GooglePlaces
 
-protocol GoogleMapType: class {
+protocol MapType: class {
     var mapView: GMSMapView { get }
     func changeMapCenter(_ center: Location, zoom: Float)
     func addMarks(_ marks: [Marks?])
@@ -20,9 +20,10 @@ struct Marks {
     var title: String
     var snippet: String
     var location: Location
+    var displayView: UIView?
 }
 
-final class GoogleMap: GoogleMapType {
+final class GoogleMap: MapType {
     
     var mapView: GMSMapView
     
@@ -45,6 +46,9 @@ final class GoogleMap: GoogleMapType {
                 marker.position = CLLocationCoordinate2D(latitude: mark.location.latitude, longitude: mark.location.longitude)
                 marker.title = mark.title
                 marker.snippet = mark.snippet
+                if let displayView = mark.displayView {
+                    marker.iconView = displayView
+                }
                 marker.map = mapView
             }
         }

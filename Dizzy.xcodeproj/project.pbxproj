@@ -124,10 +124,9 @@
 				04ECE40D2263B47800E10F70 /* MapCoordinator.swift */,
 				04ECE40E2263B47800E10F70 /* MapVC.swift */,
 				04ECE40C2263B47800E10F70 /* MapVM.swift */,
-				0470E6B22270B32600267278 /* AutoCompleteFilter.swift */,
-				0470E6B02270B32600267278 /* MapSearchTableViewCell.swift */,
 				0470E6B12270B32600267278 /* MapSearchVC.swift */,
 				0470E6B32270B32600267278 /* MapSearchVM.swift */,
+				0470E6B02270B32600267278 /* MapSearchTableViewCell.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -262,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				04D0CD6F225A96E00020DF8F /* ViewController.swift */,
+				0470E6B22270B32600267278 /* AutoCompleteFilter.swift */,
 			);
 			path = "Base entities";
 			sourceTree = "<group>";

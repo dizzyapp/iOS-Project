@@ -34,7 +34,7 @@ final class MapCoordinator: MapCoordinatorType {
 
     func start() {
         guard var viewModel = container?.resolve(MapVMType.self),
-            let googleMap = container?.resolve(GoogleMapType.self),
+            let googleMap = container?.resolve(MapType.self),
             let mapVC = container?.resolve(MapVC.self, arguments: viewModel, googleMap) else {
                 print("could not create MapVC page")
                 return

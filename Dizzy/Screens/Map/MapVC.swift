@@ -12,10 +12,10 @@ import SnapKit
 class MapVC: ViewController {
     
     private var viewModel: MapVMType
-    private var googleMap: GoogleMapType
+    private var googleMap: MapType
     private var locationLabel = LocationLabel()
     
-    init(viewModel: MapVMType, googleMap: GoogleMapType) {
+    init(viewModel: MapVMType, googleMap: MapType) {
         self.viewModel = viewModel
         self.googleMap = googleMap
         super.init()

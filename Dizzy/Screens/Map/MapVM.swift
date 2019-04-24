@@ -74,7 +74,7 @@ final class MapVM: MapVMType {
     }
     
     private func setMarks(from places: [PlaceInfo]) {
-        marks.value = places.map { return Marks(title: $0.name, snippet: $0.address, location: $0.location) }
+        marks.value = places.map { return Marks(title: $0.name, snippet: $0.address, location: $0.location, displayView: PlaceMarkerView(imageURL: $0.imageURLString)) }
     }
     
     func close() {
@@ -86,14 +86,12 @@ final class MapVM: MapVMType {
     }
     
     func didSelect(place: PlaceInfo) {
-        setMarks(from: [place])
         selectedLocation.value = place.location
         getAddress()
         showCancelLocationSelection.value = true
     }
     
     func returnMapToInitialState() {
-        setMarks(from: places)
         selectedLocation.value = currentLocation
         getAddress()
         showCancelLocationSelection.value = false
