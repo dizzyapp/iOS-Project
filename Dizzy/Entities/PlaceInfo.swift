@@ -35,11 +35,11 @@ struct Location: Codable {
         let distanceInKilometers = distanceInMeters/1000
         return scale == .meters ? distanceInMeters : distanceInKilometers
     }
-    
+
     func getCurrentAddress(completion: @escaping (Address?) -> Void) {
         let currentLocation = CLLocation(latitude: latitude, longitude: longitude)
         let currentLocale = Locale.current
-        
+
         CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
             guard error == nil else { return }
             if let place = placeMarks?.first {

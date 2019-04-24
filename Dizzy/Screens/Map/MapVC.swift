@@ -32,7 +32,7 @@ class MapVC: ViewController {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
-    
+
     private func addSubviews() {
         view = googleMap.mapView
     }
@@ -43,7 +43,7 @@ class MapVC: ViewController {
             self.locationLabel.isHidden = false
             self.googleMap.changeMapFocus(location, zoom: 13.0)
         }
-        
+
         viewModel.currentAddress.bind { [weak self] address in
             let placeText = address?.city ?? address?.country ?? "TextForNoPlace".localized
             self?.locationLabel.setText(placeText)
@@ -52,11 +52,11 @@ class MapVC: ViewController {
         viewModel.marks.bind(shouldObserveIntial: true) { [weak self] marks in
             self?.googleMap.addMarks(marks)
         }
-        
+
         viewModel.showLocationBadge.bind { [weak self] show in
             self?.locationLabel.setbadgeVisable(show)
         }
-        
+
         locationLabel.onbadgeButtonPressed = { [weak self] in
             self?.viewModel.resetMapToInitialState()
         }
@@ -69,7 +69,7 @@ class MapVC: ViewController {
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         let closeBarButton = UIBarButtonItem(customView: closeButton)
         navigationItem.leftBarButtonItem = closeBarButton
-        
+
         let searchButton = UIButton().smallRoundedBlackButton
         searchButton.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
         let searchBarButton = UIBarButtonItem(customView: searchButton)
@@ -79,7 +79,7 @@ class MapVC: ViewController {
     @objc func close() {
         viewModel.close()
     }
-    
+
     @objc func searchButtonPressed() {
         viewModel.searchButtonPressed()
     }

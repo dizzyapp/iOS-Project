@@ -20,9 +20,9 @@ final class MapCoordinator: MapCoordinatorType {
     var container: Container?
     var childCoordinators: [CoordinatorKey : Coordinator] = [:]
     var presentingViewController: UIViewController
-    
+
     private var mapViewModel: MapVMType?
-    
+
     var onCoordinatorFinished: () -> Void = { }
 
     init(container: Container,
@@ -54,7 +54,7 @@ extension MapCoordinator: MapVMDelegate {
             self?.onCoordinatorFinished()
         }
     }
-    
+
     func searchButtonPressed() {
         guard var viewModel = container?.resolve(MapSearchVMType.self),
             let searchVC = container?.resolve(MapSearchVC.self, argument: viewModel) else {
@@ -67,7 +67,7 @@ extension MapCoordinator: MapVMDelegate {
 }
 
 extension MapCoordinator: MapSearchVMDelegate {
-   
+
     func didSelect(place: PlaceInfo) {
         cancelButtonPressed()
         mapViewModel?.didSelect(place: place)

@@ -16,7 +16,7 @@ class LocationLabel: UIView {
     private let textLabelHorizontalPadding = CGFloat(4)
     private let cornersRadius = CGFloat(13)
     private let backgroundAlpha = CGFloat(0.5)
-    
+
     var onbadgeButtonPressed: () -> Void = { }
 
     init() {
@@ -41,7 +41,7 @@ class LocationLabel: UIView {
             textLabel.trailing.equalToSuperview().offset(-Metrics.padding)
             textLabel.bottom.equalToSuperview().offset(-textLabelHorizontalPadding)
         }
-        
+
         badgeButton.snp.makeConstraints { make in
             make.centerY.equalTo(self.snp.top).offset(Metrics.mediumPadding)
             make.centerX.equalTo(self.snp.trailing).offset(Metrics.mediumPadding)
@@ -66,7 +66,7 @@ class LocationLabel: UIView {
         badgeButton.isHidden = true
         badgeButton.addTarget(self, action: #selector(badgeButtonButtonPressed), for: .touchUpInside)
     }
-    
+
     @objc func badgeButtonButtonPressed() {
         onbadgeButtonPressed()
     }
@@ -74,11 +74,11 @@ class LocationLabel: UIView {
     func setText(_ text: String) {
         textLabel.text = text
     }
-    
+
     func setbadgeVisable(_ showbadge: Bool) {
         badgeButton.isHidden = !showbadge
     }
-    
+
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let modifiedPoint = badgeButton.convert(point, from: self)
         return badgeButton.hitTest(modifiedPoint, with: event) ?? super.hitTest(point, with: event)

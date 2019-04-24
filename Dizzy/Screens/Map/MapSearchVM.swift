@@ -39,15 +39,15 @@ final class MapSearchVM: MapSearchVMType {
     func numberOfRowsInSection() -> Int {
         return autoCompleteFilter.filteredEntryList.count
     }
-    
+
     func itemAt(_ indexPath: IndexPath) -> PlaceInfo {
         return autoCompleteFilter.filteredEntryList[indexPath.row]
     }
-    
+
     func didSelectRowAt(_ indexPath: IndexPath) {
         delegate?.didSelect(place: autoCompleteFilter.filteredEntryList[indexPath.row])
     }
-    
+
     func filter(filterString: String) {
         autoCompleteFilter.filter(by: .startsWith, filterString: filterString)
     }

@@ -23,7 +23,7 @@ final class MapSearchVC: ViewController {
     private var workItem: DispatchWorkItem?
     
     private let searchBarHeight: CGFloat = 90
-    
+
     private let viewModel: MapSearchVMType
     
     init(viewModel: MapSearchVMType) {
@@ -39,7 +39,7 @@ final class MapSearchVC: ViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
