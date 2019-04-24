@@ -7,25 +7,47 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class PlaceMarkerView: UIView {
-
+    
+    var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .white
+        return imageView
+    }()
+    
     init(imageURL: String) {
-        super.init(frame: .zero)
+        super.init(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         setImage(from: imageURL)
         makeRounded()
+        addSubviews()
+        layoutViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func addSubviews() {
+        addSubview(imageView)
+    }
+    
+    private func layoutViews() {
+        imageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
     private func makeRounded() {
-        layer.cornerRadius = 8.0
+        layer.cornerRadius = 16.0
         clipsToBounds = true
     }
     
-    private func setImage(from imageURL: String) {
-        
+    private func setImage(from imageURLStirng: String) {
+        let imageURL = URL(string: imageURLStirng)
+        imageView.kf.setImage(with: imageURL)
     }
 }

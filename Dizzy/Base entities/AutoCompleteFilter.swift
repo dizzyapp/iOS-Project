@@ -15,34 +15,30 @@ protocol FilterEntry {
 
 class AutoCompleteFilter<DataType: FilterEntry> {
     
-    enum FilterType {
-        case contains, startsWith
-        
-        func predicate(filterString: String) -> NSPredicate {
-            switch self {
-            case .contains:
-                return NSPredicate(format: "SELF CONTAINS[cd] %@", filterString)
-                
-            case .startsWith:
-                 return NSPredicate(format: "SELF BEGINSWITH[cd] %@", filterString)
-            }
+    enum AutoCompleteMethod {
+        case containing, startingWith
+    }
+    
+    var fullEntryList: [DataType]?
+    private(set) var filteredEntryList: [DataType]?
+    
+    func filter(by method: AutoCompleteMethod, filterString: String?) {
+        guard let fullEntryList = fullEntryList,
+            !fullEntryList.isEmpty,
+            let filterString = filterString,
+            !filterString.isEmpty else {
+                return
         }
-    }
-    
-    var fullEntryList: [DataType]
-    private(set) var filteredEntryList: [DataType] = []
-    
-    init(fullEntryList: [DataType]) {
-        self.fullEntryList = fullEntryList
-    }
-    
-    func filter(by type: FilterType, filterString: String?) {
-        guard !fullEntryList.isEmpty else { return }
-        
-        if let filterString = filterString {
-            filteredEntryList = fullEntryList.filter { type.predicate(filterString: filterString).evaluate(with: $0.filterString) }
-        } else {
-           filteredEntryList = fullEntryList
+
+        var filterPredicate: NSPredicate
+        switch method {
+        case .containing:
+            filterPredicate = NSPredicate(format: "SELF CONTAINS[cd] %@", filterString)
+            filteredEntryList = fullEntryList.filter { filterPredicate.evaluate(with: $0.filterString) }
+            
+        case .startingWith:
+            filterPredicate = NSPredicate(format: "SELF BEGINSWITH[cd] %@", filterString)
+            filteredEntryList = fullEntryList.filter { filterPredicate.evaluate(with: $0.filterString) }
         }
     }
 }
