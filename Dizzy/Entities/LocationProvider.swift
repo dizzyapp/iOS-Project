@@ -15,18 +15,33 @@ protocol LocationProviderType {
     var onLocationArrived: ((Location?) -> Void)? { get set }
 
     func requestUserLocation()
-    func getCurrentAddress(completion: @escaping (Address?) -> Void)
 }
 
-struct Location {
+struct Location: Codable {
     var latitude: Double
     var longitude: Double
+    
+    func getCurrentAddress(completion: @escaping (Address?) -> Void) {
+        let currentLocation = CLLocation(latitude: latitude, longitude: longitude)
+        let currentLocale = Locale.current
+        
+        CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
+            if error == nil {
+                if let place = placeMarks?.first {
+                    let address = Address(country: place.country, city: place.subLocality, street: place.thoroughfare)
+                    completion(address)
+                }
+            } else {
+                return
+            }
+        }
+    }
 }
 
 struct Address {
-    var country: String
-    var city: String
-    var street: String
+    var country: String?
+    var city: String?
+    var street: String?
 }
 
 final class LocationProvider: NSObject, LocationProviderType {
@@ -68,27 +83,6 @@ final class LocationProvider: NSObject, LocationProviderType {
             locationManager.requestLocation()
         } else {
             locationManager.requestWhenInUseAuthorization()
-        }
-    }
-    
-    func getCurrentAddress(completion: @escaping (Address?) -> Void) {
-        
-        guard let currentLocation = currentLocation else {
-            print("currentLocation no exists")
-            completion(nil)
-            return
-        }
-        
-        let currentLocale = Locale.current
-        CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
-            if error == nil {
-                if let place = placeMarks?.first {
-                    let address = Address(country: place.country ?? "", city: place.subLocality ?? "", street: place.thoroughfare ?? "")
-                    completion(address)
-                }
-            } else {
-                return
-            }
         }
     }
 }

@@ -13,7 +13,7 @@ import GooglePlaces
 protocol GoogleMapType: class {
     var mapView: GMSMapView { get }
     func changeMapCenter(_ center: Location, zoom: Float)
-    func addMarks(_ marks: [Marks])
+    func addMarks(_ marks: [Marks?])
 }
 
 struct Marks {
@@ -38,13 +38,15 @@ final class GoogleMap: GoogleMapType {
         mapView.animate(to: camera)
     }
     
-    func addMarks(_ marks: [Marks]) {
+    func addMarks(_ marks: [Marks?]) {
         for mark in marks {
-            let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(latitude: mark.location.latitude, longitude: mark.location.longitude)
-            marker.title = mark.title
-            marker.snippet = mark.snippet
-            marker.map = mapView
+            if let mark = mark {
+                let marker = GMSMarker()
+                marker.position = CLLocationCoordinate2D(latitude: mark.location.latitude, longitude: mark.location.longitude)
+                marker.title = mark.title
+                marker.snippet = mark.snippet
+                marker.map = mapView
+            }
         }
     }
 }

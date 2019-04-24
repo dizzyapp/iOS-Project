@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct PlaceInfo {
+struct PlaceInfo: Codable, FilterEntry {
+    
+    var filterString: String {
+        return name
+    }
+    
     let name: String
     let address: String
     let position: String

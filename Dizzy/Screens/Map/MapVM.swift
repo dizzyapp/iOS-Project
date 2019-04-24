@@ -9,15 +9,22 @@
 import Foundation
 
 protocol MapVMType {
-    var currentLocation: Observable<Location?> { get set }
+
     var currentAddress: Observable<Address?> { get set }
+    var selectedLocation: Observable<Location?> { get set }
+    var marks: Observable<[Marks?]> { get set }
+    var showCancelLocationSelection: Observable<Bool> { get set }
+
     var delegate: MapVMDelegate? { get set }
     
-    func getAllMarks() -> [Marks]
+    func searchButtonPressed()
+    func didSelect(place: PlaceInfo)
+    func returnMapToInitialState()
     func close()
 }
 
 protocol MapVMDelegate: class {
+    func searchButtonPressed()
     func closeButtonPressed()
 }
 
@@ -25,9 +32,12 @@ final class MapVM: MapVMType {
     
     private var locationProvider: LocationProviderType
     private var places: [PlaceInfo]
+    private var currentLocation: Location?
     
-    var currentLocation = Observable<Location?>(Location(latitude: -33.86, longitude: 151.20))
     var currentAddress = Observable<Address?>(nil)
+    var selectedLocation = Observable<Location?>(nil)
+    var marks = Observable<[Marks?]>(nil)
+    var showCancelLocationSelection = Observable<Bool>(false)
     
     weak var delegate: MapVMDelegate?
     
@@ -42,30 +52,50 @@ final class MapVM: MapVMType {
         locationProvider.onLocationArrived = { [weak self] location in
             guard let self = self else { return }
             if self.locationProvider.isAuthorized {
-                self.currentLocation.value = location
-                self.getAddress()
+                self.currentLocation = location
             } else {
-                self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
+                self.currentLocation = Location(latitude: -33.86, longitude: 151.20)
             }
+            
+            self.selectedLocation.value = self.currentLocation
+            self.getAddress()
+            self.setMarks(from: self.places)
         }
     }
     
     private func getAddress() {
-        locationProvider.getCurrentAddress { (address) in
+        selectedLocation.value??.getCurrentAddress(completion: { (address) in
             guard let address = address else {
                 print("Fail to get address")
                 return
             }
-            
             self.currentAddress.value = address
-        }
+        })
     }
     
-    func getAllMarks() -> [Marks] {
-        return places.map { return Marks(title: $0.name, snippet: $0.address, location: $0.location) }
+    private func setMarks(from places: [PlaceInfo]) {
+        marks.value = places.map { return Marks(title: $0.name, snippet: $0.address, location: $0.location) }
     }
     
     func close() {
         delegate?.closeButtonPressed()
+    }
+    
+    func searchButtonPressed() {
+        delegate?.searchButtonPressed()
+    }
+    
+    func didSelect(place: PlaceInfo) {
+        setMarks(from: [place])
+        selectedLocation.value = place.location
+        getAddress()
+        showCancelLocationSelection.value = true
+    }
+    
+    func returnMapToInitialState() {
+        setMarks(from: places)
+        selectedLocation.value = currentLocation
+        getAddress()
+        showCancelLocationSelection.value = false
     }
 }
