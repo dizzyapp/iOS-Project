@@ -99,7 +99,7 @@ extension HomeCoordinator {
     
     var discoveryTabBarItem: TabItem? {
         guard let discoveryVC = discoveryVC else { return nil }
-        return TabItem(rootController: discoveryVC, icon: Images.discoverySelectedTabIcon(), iconSelected: Images.discoveryUnselectedTabIcon())
+        return TabItem(rootController: discoveryVC, icon: Images.discoveryUnselectedTabIcon(), iconSelected: Images.discoverySelectedTabIcon())
     }
     
     var conversationsTapBarItem: TabItem? {
