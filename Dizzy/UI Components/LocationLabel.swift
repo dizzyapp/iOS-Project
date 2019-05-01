@@ -12,12 +12,12 @@ import SnapKit
 class LocationLabel: UIView {
     
     private let textLabel = UILabel()
-    private let bedgeButton = UIButton().smallRoundedBlackButton
-    private let horizontalPadding = CGFloat(4)
+    private let badgeButton = UIButton().smallRoundedBlackButton
+    private let textLabelHorizontalPadding = CGFloat(4)
     private let cornersRadius = CGFloat(13)
     private let backgroundAlpha = CGFloat(0.5)
     
-    var onBedgeButtonPressed: () -> Void = { }
+    var onbadgeButtonPressed: () -> Void = { }
 
     init() {
         super.init(frame: CGRect.zero)
@@ -31,18 +31,18 @@ class LocationLabel: UIView {
     }
     
     private func addSubviews() {
-        self.addSubviews([textLabel, bedgeButton])
+        self.addSubviews([textLabel, badgeButton])
     }
     
     private func layoutViews() {
         textLabel.snp.makeConstraints { textLabel in
-            textLabel.top.equalToSuperview().offset(horizontalPadding)
+            textLabel.top.equalToSuperview().offset(textLabelHorizontalPadding)
             textLabel.leading.equalToSuperview().offset(Metrics.padding)
             textLabel.trailing.equalToSuperview().offset(-Metrics.padding)
-            textLabel.bottom.equalToSuperview().offset(-horizontalPadding)
+            textLabel.bottom.equalToSuperview().offset(-textLabelHorizontalPadding)
         }
         
-        bedgeButton.snp.makeConstraints { make in
+        badgeButton.snp.makeConstraints { make in
             make.centerY.equalTo(self.snp.top).offset(Metrics.mediumPadding)
             make.centerX.equalTo(self.snp.trailing).offset(Metrics.mediumPadding)
         }
@@ -51,7 +51,7 @@ class LocationLabel: UIView {
     private func setupView() {
         self.backgroundColor = UIColor.black.withAlphaComponent(backgroundAlpha)
         self.layer.cornerRadius = cornersRadius
-        setupBedge()
+        setupbadge()
         setupTextLabel()
     }
     
@@ -62,25 +62,25 @@ class LocationLabel: UIView {
         textLabel.contentMode = .center
     }
     
-    private func setupBedge() {
-        bedgeButton.isHidden = true
-        bedgeButton.addTarget(self, action: #selector(bedgeButtonButtonPressed), for: .touchUpInside)
+    private func setupbadge() {
+        badgeButton.isHidden = true
+        badgeButton.addTarget(self, action: #selector(badgeButtonButtonPressed), for: .touchUpInside)
     }
     
-    @objc func bedgeButtonButtonPressed() {
-        onBedgeButtonPressed()
+    @objc func badgeButtonButtonPressed() {
+        onbadgeButtonPressed()
     }
 
     func setText(_ text: String) {
         textLabel.text = text
     }
     
-    func setBedgeVisable(_ showBedge: Bool) {
-        bedgeButton.isHidden = !showBedge
+    func setbadgeVisable(_ showbadge: Bool) {
+        badgeButton.isHidden = !showbadge
     }
     
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let modifiedPoint = bedgeButton.convert(point, from: self)
-        return bedgeButton.hitTest(modifiedPoint, with: event) ?? super.hitTest(point, with: event)
+        let modifiedPoint = badgeButton.convert(point, from: self)
+        return badgeButton.hitTest(modifiedPoint, with: event) ?? super.hitTest(point, with: event)
     }
 }

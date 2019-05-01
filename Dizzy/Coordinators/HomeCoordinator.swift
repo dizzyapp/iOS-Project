@@ -82,11 +82,11 @@ extension HomeCoordinator {
         
         let places: [PlaceInfo] = [PlaceInfo(name: "name", address: "address", position: "position",
                                              location: Location(  latitude: 32.080481, longitude: 34.780527), imageURLString: "https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_960_720.jpg")]
-        
+
         container?.register(MapVMType.self) { _ in
             MapVM(places: places, locationProvider: location)
         }
-        
+
         container?.register(MapSearchVMType.self, factory: { _ in
             MapSearchVM(places: places)
         })

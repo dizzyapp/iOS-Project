@@ -13,7 +13,7 @@ final class MapSearchVC: ViewController {
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar(frame: .zero)
-        searchBar.placeholder = "enter your place".unlocalized
+        searchBar.placeholder = "enter your place".localized
         searchBar.barStyle = .default
         searchBar.showsCancelButton = true
         return searchBar
@@ -21,6 +21,8 @@ final class MapSearchVC: ViewController {
     
     private let tableView = UITableView(frame: .zero)
     private var workItem: DispatchWorkItem?
+    
+    private let searchBarHeight: CGFloat = 90
     
     private let viewModel: MapSearchVMType
     
@@ -31,6 +33,11 @@ final class MapSearchVC: ViewController {
         addSubviews()
         layoutViews()
         setupNavigation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,11 +55,10 @@ final class MapSearchVC: ViewController {
     }
     
     private func layoutViews() {
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
         searchBar.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
-            make.height.equalTo(90)
-            make.top.equalTo(statusBarHeight)
+            make.height.equalTo(searchBarHeight)
+            make.top.equalTo(view.snp.topMargin)
         }
         
         tableView.snp.makeConstraints { make in
@@ -83,7 +89,7 @@ extension MapSearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let item = viewModel.itemAt(indexPath) else { return UITableViewCell () }
+        let item = viewModel.itemAt(indexPath)
         let cell: MapSearchTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: item)
         return cell

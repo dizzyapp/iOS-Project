@@ -34,11 +34,11 @@ class MapVC: ViewController {
     private func bindViewModel() {
         viewModel.selectedLocation.bind { [weak self] location  in
             guard let self = self, let location = location else { return }
-            self.googleMap.changeMapCenter(location, zoom: 13.0)
+            self.googleMap.changeMapFocus(location, zoom: 13.0)
         }
         
         viewModel.currentAddress.bind { [weak self] address in
-            let placeText = address?.city ?? address?.country ?? "TextForNoPlace".unlocalized
+            let placeText = address?.city ?? address?.country ?? "TextForNoPlace".localized
             self?.locationLabel.setText(placeText)
             self?.setupNavigation()
         }
@@ -47,12 +47,12 @@ class MapVC: ViewController {
             self?.googleMap.addMarks(marks)
         }
         
-        viewModel.showCancelLocationSelection.bind { [weak self] show in
-            self?.locationLabel.setBedgeVisable(show)
+        viewModel.showLocationBadge.bind { [weak self] show in
+            self?.locationLabel.setbadgeVisable(show)
         }
         
-        locationLabel.onBedgeButtonPressed = { [weak self] in
-            self?.viewModel.returnMapToInitialState()
+        locationLabel.onbadgeButtonPressed = { [weak self] in
+            self?.viewModel.resetMapToInitialState()
         }
     }
     

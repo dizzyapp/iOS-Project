@@ -12,11 +12,11 @@ import GooglePlaces
 
 protocol MapType: class {
     var mapView: UIView { get }
-    func changeMapCenter(_ center: Location, zoom: Float)
-    func addMarks(_ marks: [Marks?])
+    func changeMapFocus(_ center: Location, zoom: Float)
+    func addMarks(_ marks: [Mark?])
 }
 
-struct Marks {
+struct Mark {
     var title: String
     var snippet: String
     var location: Location
@@ -38,23 +38,27 @@ final class GoogleMap: MapType {
         googleMapView = GMSMapView()
     }
 
-    func changeMapCenter(_ center: Location, zoom: Float) {
+    func changeMapFocus(_ center: Location, zoom: Float) {
         let camera = GMSCameraPosition.camera(withLatitude: center.latitude, longitude: center.longitude, zoom: zoom)
         googleMapView.animate(to: camera)
     }
     
-    func addMarks(_ marks: [Marks?]) {
+    func addMarks(_ marks: [Mark?]) {
         for mark in marks {
             if let mark = mark {
-                let marker = GMSMarker()
-                marker.position = CLLocationCoordinate2D(latitude: mark.location.latitude, longitude: mark.location.longitude)
-                marker.title = mark.title
-                marker.snippet = mark.snippet
-                if let displayView = mark.displayView {
-                    marker.iconView = displayView
-                }
-                marker.map = googleMapView
+                setupGoogleMarker(mark)
             }
         }
+    }
+    
+    private func setupGoogleMarker(_ mark: Mark) {
+        let googleMarker = GMSMarker()
+        googleMarker.position = CLLocationCoordinate2D(latitude: mark.location.latitude, longitude: mark.location.longitude)
+        googleMarker.title = mark.title
+        googleMarker.snippet = mark.snippet
+        if let displayView = mark.displayView {
+            googleMarker.iconView = displayView
+        }
+        googleMarker.map = googleMapView
     }
 }

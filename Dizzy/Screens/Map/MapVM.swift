@@ -12,14 +12,14 @@ protocol MapVMType {
 
     var currentAddress: Observable<Address?> { get set }
     var selectedLocation: Observable<Location?> { get set }
-    var marks: Observable<[Marks?]> { get set }
-    var showCancelLocationSelection: Observable<Bool> { get set }
+    var marks: Observable<[Mark?]> { get set }
+    var showLocationBadge: Observable<Bool> { get set }
 
     var delegate: MapVMDelegate? { get set }
     
     func searchButtonPressed()
     func didSelect(place: PlaceInfo)
-    func returnMapToInitialState()
+    func resetMapToInitialState()
     func close()
 }
 
@@ -36,8 +36,8 @@ final class MapVM: MapVMType {
     
     var currentAddress = Observable<Address?>(nil)
     var selectedLocation = Observable<Location?>(nil)
-    var marks = Observable<[Marks?]>(nil)
-    var showCancelLocationSelection = Observable<Bool>(false)
+    var marks = Observable<[Mark?]>(nil)
+    var showLocationBadge = Observable<Bool>(false)
     
     weak var delegate: MapVMDelegate?
     
@@ -58,12 +58,12 @@ final class MapVM: MapVMType {
             }
             
             self.selectedLocation.value = self.currentLocation
-            self.getAddress()
+            self.getCurrentAddress()
             self.setMarks(from: self.places)
         }
     }
     
-    private func getAddress() {
+    private func getCurrentAddress() {
         selectedLocation.value??.getCurrentAddress(completion: { (address) in
             guard let address = address else {
                 print("Fail to get address")
@@ -74,7 +74,7 @@ final class MapVM: MapVMType {
     }
     
     private func setMarks(from places: [PlaceInfo]) {
-        marks.value = places.map { return Marks(title: $0.name, snippet: $0.address, location: $0.location, displayView: PlaceMarkerView(imageURL: $0.imageURLString)) }
+        marks.value = places.map { return Mark(title: $0.name, snippet: $0.address, location: $0.location, displayView: PlaceMarkerView(imageURL: $0.imageURLString)) }
     }
     
     func close() {
@@ -87,13 +87,13 @@ final class MapVM: MapVMType {
     
     func didSelect(place: PlaceInfo) {
         selectedLocation.value = place.location
-        getAddress()
-        showCancelLocationSelection.value = true
+        getCurrentAddress()
+        showLocationBadge.value = true
     }
     
-    func returnMapToInitialState() {
+    func resetMapToInitialState() {
         selectedLocation.value = currentLocation
-        getAddress()
-        showCancelLocationSelection.value = false
+        getCurrentAddress()
+        showLocationBadge.value = false
     }
 }

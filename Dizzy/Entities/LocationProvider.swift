@@ -26,13 +26,10 @@ struct Location: Codable {
         let currentLocale = Locale.current
         
         CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
-            if error == nil {
-                if let place = placeMarks?.first {
-                    let address = Address(country: place.country, city: place.subLocality, street: place.thoroughfare)
-                    completion(address)
-                }
-            } else {
-                return
+            guard error == nil else { return }
+            if let place = placeMarks?.first {
+                let address = Address(country: place.country, city: place.subLocality, street: place.thoroughfare)
+                completion(address)
             }
         }
     }
