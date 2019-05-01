@@ -26,11 +26,11 @@ class Assembly {
         container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         
         // MARK: view models
-        container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryVM.init)
+        container.autoregister(DiscoveryVMType.self, initializer: DiscoveryVM.init)
         container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
         
         // MARK: view controllers
-        container.autoregister(DiscoveryVC.self, argument: DiscoveryViewModelType.self, initializer: DiscoveryVC.init)
+        container.autoregister(DiscoveryVC.self, argument: DiscoveryVMType.self, initializer: DiscoveryVC.init)
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, GoogleMapType.self, initializer: MapVC.init)
         

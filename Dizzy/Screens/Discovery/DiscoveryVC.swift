@@ -14,11 +14,11 @@ class DiscoveryVC: ViewController {
     let topBar = DiscoveryTopBar()
     let themeImageView = UIImageView()
     let nearByPlacesView = NearByPlacesView()
-    var viewModel: DiscoveryViewModelType
+    var viewModel: DiscoveryVMType
     
     let nearByPlacesViewCornerRadius = CGFloat(5)
     
-    init(viewModel: DiscoveryViewModelType) {
+    init(viewModel: DiscoveryVMType) {
         self.viewModel = viewModel
         super.init()
         addSubviews()
@@ -65,6 +65,10 @@ class DiscoveryVC: ViewController {
             }
             self?.topBar.setLocationName(currentCity)
         })
+        
+        viewModel.currentLocation.bind { _ in
+            self.reloadData()
+        }
     }
     
     private func setupViews() {
@@ -90,7 +94,7 @@ class DiscoveryVC: ViewController {
 
 extension DiscoveryVC: NearByPlacesViewDataSource {
     func getCurrentLocation() -> Location? {
-        return viewModel.currentLocation
+        return viewModel.currentLocation.value
     }
     
     func numberOfSections() -> Int {
@@ -115,7 +119,7 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
     }
 }
 
-extension DiscoveryVC: DiscoveryViewModelDelegate {
+extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
         nearByPlacesView.reloadData()
     }

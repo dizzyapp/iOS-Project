@@ -13,7 +13,7 @@ protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
 }
 
-class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDelegate {
+final class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDelegate {
     
     private var tabsIconPadding: CGFloat { return Metrics.padding }
     private var discoveryVC: DiscoveryVC?
@@ -60,7 +60,7 @@ class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDelegate
     }
     
     private func createDiscoveryVC() {
-        guard var viewModel = container?.resolve(DiscoveryViewModelType.self),
+        guard var viewModel = container?.resolve(DiscoveryVMType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
                 print("could not create discovery page")
                 return

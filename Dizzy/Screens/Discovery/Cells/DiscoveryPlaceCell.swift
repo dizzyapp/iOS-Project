@@ -100,11 +100,4 @@ class DiscoveryPlaceCell: UICollectionViewCell {
             distanceLabel.text = "--"
         }
     }
-    
-    func setDefaultsValues() {
-        placeNameLabel.text = "Place Name"
-        placeAddressLabel.text = "Place adress"
-        distanceLabel.text = "6 km"
-        placeImageView.image = Images.defaultPlaceAvatar()
-    }
 }

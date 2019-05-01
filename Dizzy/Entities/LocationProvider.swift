@@ -14,6 +14,7 @@ protocol LocationProviderType {
     var isAuthorized: Bool { get }
     var dizzyLocation: Observable<Location?> { get }
 
+    func requestUserLocation()
     func getCurrentAddress(completion: @escaping (Address?) -> Void)
 }
 
@@ -45,7 +46,6 @@ final class LocationProvider: NSObject, LocationProviderType {
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         super.init()
         locationManager.delegate = self
-        self.requestUserLocation()
     }
     
     func requestUserLocation() {

@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol DiscoveryViewModelType {
+protocol DiscoveryVMType {
     func numberOfSections() -> Int
     func numberOfItemsForSection(_ section: Int) -> Int
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
-    var delegate: DiscoveryViewModelDelegate? { get set }
-    var currentLocation: Location? { get }
+    var delegate: DiscoveryVMDelegate? { get set }
+    var currentLocation: Observable<Location?> { get }
     var currentCity: Observable<String> { get }
     
     func mapButtonPressed()
 }
 
-protocol DiscoveryViewModelDelegate: class {
+protocol DiscoveryVMDelegate: class {
     func reloadData()
 }
 
@@ -29,11 +29,11 @@ protocol DiscoveryViewModelNavigationDelegate: class {
     func menuButtonPressed()
 }
 
-class DiscoveryVM: DiscoveryViewModelType {
+class DiscoveryVM: DiscoveryVMType {
     
-    weak var delegate: DiscoveryViewModelDelegate?
-    var placesToDisplay = Observable<[PlaceInfo]>()
-    var currentLocation: Location?
+    weak var delegate: DiscoveryVMDelegate?
+    var placesToDisplay = Observable<[PlaceInfo]>([])
+    var currentLocation = Observable<Location?>(nil)
     private var allPlaces = [PlaceInfo]()
     private var placesInteractor: PlacesInteractorType
     private let locationProvider: LocationProviderType
@@ -45,13 +45,14 @@ class DiscoveryVM: DiscoveryViewModelType {
         self.placesInteractor = placesInteractor
         self.placesInteractor.delegate = self
         self.placesInteractor.getAllPlaces()
+        locationProvider.requestUserLocation()
         bindLocationProvider()
     }
     
     private func bindLocationProvider() {
         locationProvider.dizzyLocation.bind { [weak self] location in
             self?.askForCurrentAddress()
-            self?.currentLocation = location
+            self?.currentLocation.value = location
             self?.sortAllPlacesByDistance()
             self?.delegate?.reloadData()
         }
@@ -70,7 +71,7 @@ class DiscoveryVM: DiscoveryViewModelType {
     }
     
     func sortAllPlacesByDistance() {
-        guard let currentLocation = currentLocation else {
+        guard let currentLocation = currentLocation.value else {
             print("cant sort without current location")
             return
         }
