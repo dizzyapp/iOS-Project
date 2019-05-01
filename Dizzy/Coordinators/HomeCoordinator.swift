@@ -13,7 +13,7 @@ protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
 }
 
-class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelDelegate {
+final class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDelegate {
     
     private var tabsIconPadding: CGFloat { return Metrics.padding }
     private var discoveryVC: DiscoveryVC?
@@ -60,27 +60,25 @@ class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelDelegate {
     }
     
     private func createDiscoveryVC() {
-        guard var viewModel = container?.resolve(DiscoveryViewModelType.self),
+        guard var viewModel = container?.resolve(DiscoveryVMType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
                 print("could not create discovery page")
                 return
         }
-        viewModel.delegate = self
+        viewModel.navigationDelegate = self
         self.discoveryVC = discoveryVC
     }
 }
 
 extension HomeCoordinator {
     
-    func mapButtonPressed() {
+    func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = presentedViewControllers.first,
             let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
             let location = container?.resolve(LocationProviderType.self) else {
                                                     print("could not create MapCoordinator")
                                                     return
         }
-        
-        let places: [PlaceInfo] = [PlaceInfo(name: "name", address: "address", position: "position", location: Location(  latitude: 0, longitude: 0))]
         
         container?.register(MapVMType.self) { _ in
             MapVM(places: places, locationProvider: location)
@@ -101,7 +99,7 @@ extension HomeCoordinator {
     
     var discoveryTabBarItem: TabItem? {
         guard let discoveryVC = discoveryVC else { return nil }
-        return TabItem(rootController: discoveryVC, icon: Images.discoverySelectedTabIcon(), iconSelected: Images.discoveryUnselectedTabIcon())
+        return TabItem(rootController: discoveryVC, icon: Images.discoveryUnselectedTabIcon(), iconSelected: Images.discoverySelectedTabIcon())
     }
     
     var conversationsTapBarItem: TabItem? {

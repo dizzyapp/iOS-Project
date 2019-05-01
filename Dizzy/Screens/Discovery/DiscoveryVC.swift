@@ -14,14 +14,18 @@ class DiscoveryVC: ViewController {
     let topBar = DiscoveryTopBar()
     let themeImageView = UIImageView()
     let nearByPlacesView = NearByPlacesView()
-    let viewModel: DiscoveryViewModelType
+    var viewModel: DiscoveryVMType
     
-    init(viewModel: DiscoveryViewModelType) {
+    let nearByPlacesViewCornerRadius = CGFloat(5)
+    
+    init(viewModel: DiscoveryVMType) {
         self.viewModel = viewModel
         super.init()
         addSubviews()
         layoutViews()
         setupViews()
+        bindViewModel()
+        self.viewModel.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +46,7 @@ class DiscoveryVC: ViewController {
         themeImageView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.bottom.equalTo(view.snp.centerY)
+            themeImageView.bottom.equalTo(view.snp.centerY).offset(25)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
@@ -50,6 +54,20 @@ class DiscoveryVC: ViewController {
             nearByPlacesView.top.equalTo(view.snp.centerY)
             nearByPlacesView.leading.trailing.equalToSuperview()
             nearByPlacesView.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
+    
+    private func bindViewModel() {
+        viewModel.currentCity.bind(shouldObserveIntial: true, observer: { [weak self] currentCity in
+            guard !currentCity.isEmpty else {
+                self?.topBar.setLocationName("getting location")
+                return
+            }
+            self?.topBar.setLocationName(currentCity)
+        })
+        
+        viewModel.currentLocation.bind { _ in
+            self.reloadData()
         }
     }
     
@@ -61,7 +79,6 @@ class DiscoveryVC: ViewController {
     
     private func setupTopBarView() {
         topBar.delegate = self
-        topBar.setLocationName("Tel Aviv")
     }
     
     private func setupThemeImageView() {
@@ -76,6 +93,10 @@ class DiscoveryVC: ViewController {
 }
 
 extension DiscoveryVC: NearByPlacesViewDataSource {
+    func getCurrentLocation() -> Location? {
+        return viewModel.currentLocation.value
+    }
+    
     func numberOfSections() -> Int {
         return viewModel.numberOfSections()
     }
@@ -95,5 +116,11 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
     }
     
     func menuButtonPressed() {
+    }
+}
+
+extension DiscoveryVC: DiscoveryVMDelegate {
+    func reloadData() {
+        nearByPlacesView.reloadData()
     }
 }

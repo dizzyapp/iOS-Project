@@ -22,13 +22,15 @@ class Assembly {
         self.container.register(Container.self) { [unowned self] _ in
             return self.container
         }
+        // MARK: Interactors
+        container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         
         // MARK: view models
-        container.autoregister(DiscoveryViewModelType.self, initializer: DiscoveryViewModel.init)
+        container.autoregister(DiscoveryVMType.self, initializer: DiscoveryVM.init)
         container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
         
         // MARK: view controllers
-        container.autoregister(DiscoveryVC.self, argument: DiscoveryViewModelType.self, initializer: DiscoveryVC.init)
+        container.autoregister(DiscoveryVC.self, argument: DiscoveryVMType.self, initializer: DiscoveryVC.init)
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, GoogleMapType.self, initializer: MapVC.init)
         
@@ -40,7 +42,7 @@ class Assembly {
 
         // MARK: Entities:
         container.autoregister(GoogleMapType.self, initializer: GoogleMap.init).inObjectScope(.container)
-        container.autoregister(LocationProviderType.self, initializer: LocationProvider.init)
+        container.autoregister(LocationProviderType.self, initializer: LocationProvider.init).inObjectScope(.container)
     }
     
     func getAppCoordinator(window: UIWindow) -> AppCoordinator {

@@ -89,17 +89,15 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         distanceLabel.textAlignment = .left
     }
 
-    func setPlaceInfo(_ placeInfo: PlaceInfo) {
+    func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
         placeNameLabel.text = placeInfo.name
-        placeAddressLabel.text = placeInfo.address
-        distanceLabel.text = placeInfo.position
+        placeAddressLabel.text = placeInfo.description
         placeImageView.image = Images.defaultPlaceAvatar()
-    }
-    
-    func setDefaultsValues() {
-        placeNameLabel.text = "Place Name"
-        placeAddressLabel.text = "Place adress"
-        distanceLabel.text = "6 km"
-        placeImageView.image = Images.defaultPlaceAvatar()
+        
+        if let currentLocation = currentAppLocation {
+            distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
+        } else {
+            distanceLabel.text = "--"
+        }
     }
 }

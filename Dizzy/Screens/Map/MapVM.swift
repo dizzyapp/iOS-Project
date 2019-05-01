@@ -34,14 +34,12 @@ final class MapVM: MapVMType {
     init(places: [PlaceInfo], locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
         self.places = places
-        getCurrentLocation()
     }
     
-    private func getCurrentLocation() {
-        locationProvider.requestUserLocation()
-        locationProvider.onLocationArrived = { [weak self] location in
+    private func observeLocation() {
+        locationProvider.dizzyLocation.bind(shouldObserveIntial: true) { [weak self] location in
             guard let self = self else { return }
-            if self.locationProvider.isAuthorized {
+            if location != nil {
                 self.currentLocation.value = location
                 self.getAddress()
             } else {
@@ -62,7 +60,7 @@ final class MapVM: MapVMType {
     }
     
     func getAllMarks() -> [Marks] {
-        return places.map { return Marks(title: $0.name, snippet: $0.address, location: $0.location) }
+        return places.map { return Marks(title: $0.name, snippet: $0.description, location: $0.location) }
     }
     
     func close() {
