@@ -14,7 +14,8 @@ final class PlaceMarkerView: UIView {
     var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .white
         return imageView
     }()
     
@@ -46,10 +47,7 @@ final class PlaceMarkerView: UIView {
     }
     
     private func setImage(from imageURLStirng: String) {
-        if let imageURL = URL(string: imageURLStirng) {
-            imageView.kf.setImage(with: imageURL)
-        } else {
-            imageView.image = UIImage(named: "defaultPlaceAvatar")
-        }
+        let imageURL = URL(string: imageURLStirng)
+        imageView.kf.setImage(with: imageURL)
     }
 }
