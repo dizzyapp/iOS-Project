@@ -13,7 +13,7 @@ protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
 }
 
-class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelDelegate {
+final class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDelegate {
     
     private var tabsIconPadding: CGFloat { return Metrics.padding }
     private var discoveryVC: DiscoveryVC?
@@ -60,28 +60,25 @@ class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelDelegate {
     }
     
     private func createDiscoveryVC() {
-        guard var viewModel = container?.resolve(DiscoveryViewModelType.self),
+        guard var viewModel = container?.resolve(DiscoveryVMType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
                 print("could not create discovery page")
                 return
         }
-        viewModel.delegate = self
+        viewModel.navigationDelegate = self
         self.discoveryVC = discoveryVC
     }
 }
 
 extension HomeCoordinator {
     
-    func mapButtonPressed() {
+    func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = presentedViewControllers.first,
             let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
             let location = container?.resolve(LocationProviderType.self) else {
                                                     print("could not create MapCoordinator")
                                                     return
         }
-        
-        let places: [PlaceInfo] = [PlaceInfo(name: "name", address: "address", position: "position",
-                                             location: Location(  latitude: 32.080481, longitude: 34.780527), imageURLString: "https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_960_720.jpg")]
 
         container?.register(MapVMType.self) { _ in
             MapVM(places: places, locationProvider: location)
@@ -90,7 +87,7 @@ extension HomeCoordinator {
         container?.register(MapSearchVMType.self, factory: { _ in
             MapSearchVM(places: places)
         })
-        
+
         coordinator.onCoordinatorFinished = { [weak self] in
             self?.removeCoordinator(for: .map)
         }
@@ -106,7 +103,7 @@ extension HomeCoordinator {
     
     var discoveryTabBarItem: TabItem? {
         guard let discoveryVC = discoveryVC else { return nil }
-        return TabItem(rootController: discoveryVC, icon: Images.discoverySelectedTabIcon(), iconSelected: Images.discoveryUnselectedTabIcon())
+        return TabItem(rootController: discoveryVC, icon: Images.discoveryUnselectedTabIcon(), iconSelected: Images.discoverySelectedTabIcon())
     }
     
     var conversationsTapBarItem: TabItem? {

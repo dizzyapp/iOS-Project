@@ -9,7 +9,7 @@
 import Foundation
 
 protocol MapVMType {
-
+    var currentLocation: Observable<Location?> { get set }
     var currentAddress: Observable<Address?> { get set }
     var selectedLocation: Observable<Location?> { get set }
     var marks: Observable<[Mark?]> { get set }
@@ -32,39 +32,38 @@ final class MapVM: MapVMType {
     
     private var locationProvider: LocationProviderType
     private var places: [PlaceInfo]
-    private var currentLocation: Location?
     
+    var currentLocation = Observable<Location?>(Location(latitude: -33.86, longitude: 151.20))
     var currentAddress = Observable<Address?>(nil)
     var selectedLocation = Observable<Location?>(nil)
-    var marks = Observable<[Mark?]>(nil)
+    var marks = Observable<[Mark?]>([])
     var showLocationBadge = Observable<Bool>(false)
-    
+
     weak var delegate: MapVMDelegate?
     
     init(places: [PlaceInfo], locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
         self.places = places
-        getCurrentLocation()
+        self.setMarks(from: self.places)
+        observeLocation()
     }
     
-    private func getCurrentLocation() {
-        locationProvider.requestUserLocation()
-        locationProvider.onLocationArrived = { [weak self] location in
+    private func observeLocation() {
+        locationProvider.dizzyLocation.bind(shouldObserveIntial: true) { [weak self] location in
             guard let self = self else { return }
-            if self.locationProvider.isAuthorized {
-                self.currentLocation = location
+            if location != nil {
+                self.currentLocation.value = location
             } else {
-                self.currentLocation = Location(latitude: -33.86, longitude: 151.20)
+                self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
             }
-            
-            self.selectedLocation.value = self.currentLocation
+
+            self.selectedLocation.value = self.currentLocation.value
             self.getCurrentAddress()
-            self.setMarks(from: self.places)
         }
     }
     
     private func getCurrentAddress() {
-        selectedLocation.value??.getCurrentAddress(completion: { (address) in
+        selectedLocation.value?.getCurrentAddress(completion: { (address) in
             guard let address = address else {
                 print("Fail to get address")
                 return
@@ -74,25 +73,25 @@ final class MapVM: MapVMType {
     }
     
     private func setMarks(from places: [PlaceInfo]) {
-        marks.value = places.map { return Mark(title: $0.name, snippet: $0.address, location: $0.location, displayView: PlaceMarkerView(imageURL: $0.imageURLString)) }
+        marks.value = places.map { return Mark(title: $0.name, snippet: $0.description, location: $0.location, displayView: PlaceMarkerView(imageURL: $0.imageURLString ?? "")) }
     }
     
     func close() {
         delegate?.closeButtonPressed()
     }
-    
+
     func searchButtonPressed() {
         delegate?.searchButtonPressed()
     }
-    
+
     func didSelect(place: PlaceInfo) {
         selectedLocation.value = place.location
         getCurrentAddress()
         showLocationBadge.value = true
     }
-    
+
     func resetMapToInitialState() {
-        selectedLocation.value = currentLocation
+        selectedLocation.value = currentLocation.value
         getCurrentAddress()
         showLocationBadge.value = false
     }

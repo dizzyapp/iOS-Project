@@ -41,7 +41,7 @@ final class MapSearchTableViewCell: UITableViewCell {
     
     func configure(with data: PlaceInfo) {
         titleLabel.text = data.name
-        subtitleLabel.text = data.address
+        subtitleLabel.text = data.description
     }
     
     private func addSubviews() {

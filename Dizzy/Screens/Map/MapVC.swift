@@ -43,7 +43,7 @@ class MapVC: ViewController {
             self?.setupNavigation()
         }
         
-        viewModel.marks.bind { [weak self] marks in
+        viewModel.marks.bind(shouldObserveIntial: true) { [weak self] marks in
             self?.googleMap.addMarks(marks)
         }
         
