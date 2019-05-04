@@ -15,6 +15,7 @@ protocol LocationProviderType {
     var dizzyLocation: Observable<Location?> { get }
 
     func requestUserLocation()
+    func getCurrentAddress(completion: @escaping (Address?) -> Void)
 }
 
 final class LocationProvider: NSObject, LocationProviderType {
