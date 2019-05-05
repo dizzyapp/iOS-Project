@@ -8,13 +8,16 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 final class FirebaseWebService: WebServiceType {
     private let databaseReference: DatabaseReference
+    let storageReference: StorageReference
     
     init() {
         FirebaseApp.configure()
         databaseReference = Database.database().reference()
+        storageReference = Storage.storage().reference()
     }
     
     func load<Response, Body>(_ resource: Resource<Response, Body>, completion: @escaping (Result<Response>) -> Void) where Response : Decodable, Response : Encodable, Body : Encodable {
@@ -57,7 +60,7 @@ final class FirebaseWebService: WebServiceType {
             }
         }
     }
-
+    
     func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool where Response : Decodable, Response : Encodable, Body : Encodable {
         return true
     }
