@@ -69,8 +69,8 @@ extension MapCoordinator: MapVMDelegate {
 extension MapCoordinator: MapSearchVMDelegate {
    
     func didSelect(place: PlaceInfo) {
-        mapViewModel?.didSelect(place: place)
         cancelButtonPressed()
+        mapViewModel?.didSelect(place: place)
     }
     
     func cancelButtonPressed() {
