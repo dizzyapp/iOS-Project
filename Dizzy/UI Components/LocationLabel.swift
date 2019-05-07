@@ -11,10 +11,13 @@ import SnapKit
 
 class LocationLabel: UIView {
     
-    let textLabel = UILabel()
-    let horizontalPadding = CGFloat(4)
-    let cornersRadius = CGFloat(13)
-    let backgroundAlpha = CGFloat(0.5)
+    private let textLabel = UILabel()
+    private let badgeButton = UIButton().smallRoundedBlackButton
+    private let textLabelHorizontalPadding = CGFloat(4)
+    private let cornersRadius = CGFloat(13)
+    private let backgroundAlpha = CGFloat(0.5)
+
+    var onbadgeButtonPressed: () -> Void = { }
 
     init() {
         super.init(frame: CGRect.zero)
@@ -28,21 +31,27 @@ class LocationLabel: UIView {
     }
     
     private func addSubviews() {
-        self.addSubviews([textLabel])
+        self.addSubviews([textLabel, badgeButton])
     }
     
     private func layoutViews() {
         textLabel.snp.makeConstraints { textLabel in
-            textLabel.top.equalToSuperview().offset(horizontalPadding)
+            textLabel.top.equalToSuperview().offset(textLabelHorizontalPadding)
             textLabel.leading.equalToSuperview().offset(Metrics.padding)
             textLabel.trailing.equalToSuperview().offset(-Metrics.padding)
-            textLabel.bottom.equalToSuperview().offset(-horizontalPadding)
+            textLabel.bottom.equalToSuperview().offset(-textLabelHorizontalPadding)
+        }
+
+        badgeButton.snp.makeConstraints { make in
+            make.centerY.equalTo(self.snp.top).offset(Metrics.mediumPadding)
+            make.centerX.equalTo(self.snp.trailing).offset(Metrics.mediumPadding)
         }
     }
     
     private func setupView() {
         self.backgroundColor = UIColor.black.withAlphaComponent(backgroundAlpha)
         self.layer.cornerRadius = cornersRadius
+        setupbadge()
         setupTextLabel()
     }
     
@@ -53,7 +62,25 @@ class LocationLabel: UIView {
         textLabel.contentMode = .center
     }
     
-    public func setText(_ text: String) {
+    private func setupbadge() {
+        badgeButton.isHidden = true
+        badgeButton.addTarget(self, action: #selector(badgeButtonButtonPressed), for: .touchUpInside)
+    }
+
+    @objc func badgeButtonButtonPressed() {
+        onbadgeButtonPressed()
+    }
+
+    func setText(_ text: String) {
         textLabel.text = text
+    }
+
+    func setbadgeVisable(_ showbadge: Bool) {
+        badgeButton.isHidden = !showbadge
+    }
+
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let modifiedPoint = badgeButton.convert(point, from: self)
+        return badgeButton.hitTest(modifiedPoint, with: event) ?? super.hitTest(point, with: event)
     }
 }

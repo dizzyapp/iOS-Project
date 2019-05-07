@@ -41,7 +41,6 @@ final class LocationProvider: NSObject, LocationProviderType {
     var onLocationArrived: ((Location?) -> Void)?
     
     override init() {
-        print("debug log - location provider init")
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         super.init()
@@ -51,21 +50,20 @@ final class LocationProvider: NSObject, LocationProviderType {
     func requestUserLocation() {
         guard locationServicesEnabled else { return }
         if authorizationStatus == .authorizedWhenInUse {
-            print("debug log - requesting location")
             locationManager.requestLocation()
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-    
+
     func getCurrentAddress(completion: @escaping (Address?) -> Void) {
-        
+
         guard let currentLocation = currentLocation else {
             print("currentLocation no exists")
             completion(nil)
             return
         }
-        
+
         let currentLocale = Locale.current
         CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
             guard error == nil else {
@@ -73,18 +71,18 @@ final class LocationProvider: NSObject, LocationProviderType {
                 completion(nil)
                 return
             }
-            
+
             if let place = placeMarks?.first {
                 let address = Address(country: place.country ?? "", city: place.subLocality ?? "", street: place.thoroughfare ?? "")
                 completion(address)
             }
         }
     }
-    
+
     private func setupDizzyLocation() {
         guard let coordinate = currentLocation?.coordinate else { return }
         let location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        
+
         dizzyLocation.value = location
     }
 }
@@ -92,7 +90,6 @@ final class LocationProvider: NSObject, LocationProviderType {
 extension LocationProvider: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print("debug log - change authorise")
         if status == CLAuthorizationStatus.authorizedAlways
             || status == CLAuthorizationStatus.authorizedWhenInUse {
             requestUserLocation()
@@ -102,7 +99,7 @@ extension LocationProvider: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("debug log - update location")
+        
         guard let location = locations.first else {
             return
         }

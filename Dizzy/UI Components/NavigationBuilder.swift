@@ -23,4 +23,25 @@ extension UINavigationController {
         navBar.isTranslucent = true
         return self
     }
+    
+    func pushViewController(_ viewController: UIViewController,
+                            animationType: CATransitionType, duration: Double = 0.5) {
+        let transition = CATransition()
+        transition.duration = duration
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = animationType
+        transition.isRemovedOnCompletion = true
+        view.layer.add(transition, forKey: nil)
+        pushViewController(viewController, animated: false)
+    }
+    
+    func popViewController(with animationType: CATransitionType, duration: Double = 0.5) {
+        let transition = CATransition()
+        transition.duration = duration
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        transition.type = animationType
+        transition.isRemovedOnCompletion = true
+        view.layer.add(transition, forKey: nil)
+        popViewController(animated: false)
+    }
 }

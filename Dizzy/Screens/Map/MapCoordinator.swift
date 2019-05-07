@@ -9,34 +9,9 @@
 import Foundation
 import Swinject
 
-protocol MapCoordinatorType: NavigationCoordinator, MapVMDelegate {
+protocol MapCoordinatorType: NavigationCoordinator {
     var presentingViewController: UIViewController { get }
     var onCoordinatorFinished: () -> Void { get set }
-}
-
-extension MapCoordinatorType {
-    
-    func start() {
-        guard var viewModel = container?.resolve(MapVMType.self),
-            let googleMap = container?.resolve(GoogleMapType.self),
-            let mapVC = container?.resolve(MapVC.self, arguments: viewModel, googleMap) else {
-                print("could not create MapVC page")
-                return
-        }
-        
-        viewModel.delegate = self
-        let navigationController = mapVC.embdedInNavigationController().withTransparentStyle()
-        self.navigationController = navigationController
-        presentingViewController.present(navigationController, animated: true)
-    }
-}
-
-extension MapCoordinatorType {
-    func closeButtonPressed() {
-        navigationController.dismiss(animated: true) { [weak self] in
-            self?.onCoordinatorFinished()
-        }
-    }
 }
 
 final class MapCoordinator: MapCoordinatorType {
@@ -45,7 +20,9 @@ final class MapCoordinator: MapCoordinatorType {
     var container: Container?
     var childCoordinators: [CoordinatorKey : Coordinator] = [:]
     var presentingViewController: UIViewController
-    
+
+    private var mapViewModel: MapVMType?
+
     var onCoordinatorFinished: () -> Void = { }
 
     init(container: Container,
@@ -53,5 +30,50 @@ final class MapCoordinator: MapCoordinatorType {
         self.container = container
         self.presentingViewController = presentingViewController
         navigationController = UINavigationController()
+    }
+
+    func start() {
+        guard var viewModel = container?.resolve(MapVMType.self),
+            let googleMap = container?.resolve(MapType.self),
+            let mapVC = container?.resolve(MapVC.self, arguments: viewModel, googleMap) else {
+                print("could not create MapVC page")
+                return
+        }
+        
+        self.mapViewModel = viewModel
+        viewModel.delegate = self
+        let navigationController = mapVC.embdedInNavigationController().withTransparentStyle()
+        self.navigationController = navigationController
+        presentingViewController.present(navigationController, animated: true)
+    }
+}
+
+extension MapCoordinator: MapVMDelegate {
+    func closeButtonPressed() {
+        navigationController.dismiss(animated: true) { [weak self] in
+            self?.onCoordinatorFinished()
+        }
+    }
+
+    func searchButtonPressed() {
+        guard var viewModel = container?.resolve(MapSearchVMType.self),
+            let searchVC = container?.resolve(MapSearchVC.self, argument: viewModel) else {
+                print("could not create MapSearchVC page")
+                return
+        }
+        viewModel.delegate = self
+        navigationController.pushViewController(searchVC, animationType: .fade)
+    }
+}
+
+extension MapCoordinator: MapSearchVMDelegate {
+
+    func didSelect(place: PlaceInfo) {
+        cancelButtonPressed()
+        mapViewModel?.didSelect(place: place)
+    }
+    
+    func cancelButtonPressed() {
+        navigationController.popViewController(with: .fade)
     }
 }

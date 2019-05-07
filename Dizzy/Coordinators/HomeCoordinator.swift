@@ -79,11 +79,15 @@ extension HomeCoordinator {
                                                     print("could not create MapCoordinator")
                                                     return
         }
-        
+
         container?.register(MapVMType.self) { _ in
             MapVM(places: places, locationProvider: location)
         }
-        
+
+        container?.register(MapSearchVMType.self, factory: { _ in
+            MapSearchVM(places: places)
+        })
+
         coordinator.onCoordinatorFinished = { [weak self] in
             self?.removeCoordinator(for: .map)
         }
