@@ -13,15 +13,13 @@ final class Observable<ObservedType> {
     
     private var observers: [Observer]
     
-    var value: ObservedType? {
+    var value: ObservedType {
         didSet {
-            if let value = value {
-                notifyObservers(value)
-            }
+            notifyObservers(value)
         }
     }
     
-    init(_ value: ObservedType? = nil) {
+    init(_ value: ObservedType) {
         self.value = value
         observers = []
     }
@@ -29,7 +27,6 @@ final class Observable<ObservedType> {
     func bind(shouldObserveIntial: Bool = false, observer: @escaping Observer) {
         self.observers.append(observer)
         if shouldObserveIntial {
-            guard let value = value else { return }
             observer(value)
         }
     }

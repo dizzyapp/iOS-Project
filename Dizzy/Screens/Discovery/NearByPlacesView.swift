@@ -13,6 +13,7 @@ protocol NearByPlacesViewDataSource: class {
     func numberOfSections() -> Int
     func numberOfItemsForSection(_ section: Int) -> Int
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    func getCurrentLocation() -> Location?
 }
 
 protocol NearByPlacesViewDelegate: class {
@@ -29,6 +30,9 @@ class NearByPlacesView: UIView {
     private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
     
     private let cellIDentifier = "DiscoveryPlaceCell"
+    
+    let cornerRadius: CGFloat = 25.0
+    private var fillColor: UIColor = .white
     
     init() {
         super.init(frame: CGRect.zero)
@@ -68,6 +72,7 @@ class NearByPlacesView: UIView {
     }
     
     private func setupViews() {
+        self.layer.cornerRadius = cornerRadius
         setupSearchButton()
         setupTitleLabel()
         setupPlacesCollectionView()
@@ -121,7 +126,7 @@ extension NearByPlacesView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setPlaceInfo(placeInfo)
+        cell.setPlaceInfo(placeInfo, currentAppLocation: dataSource?.getCurrentLocation())
         return cell
     }
 }

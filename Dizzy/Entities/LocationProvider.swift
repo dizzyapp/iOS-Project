@@ -12,44 +12,17 @@ import CoreLocation
 protocol LocationProviderType {
     var locationServicesEnabled: Bool { get }
     var isAuthorized: Bool { get }
-    var onLocationArrived: ((Location?) -> Void)? { get set }
+    var dizzyLocation: Observable<Location?> { get }
 
     func requestUserLocation()
-}
-
-struct Location: Codable {
-    var latitude: Double
-    var longitude: Double
-    
-    func getCurrentAddress(completion: @escaping (Address?) -> Void) {
-        let currentLocation = CLLocation(latitude: latitude, longitude: longitude)
-        let currentLocale = Locale.current
-        
-        CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
-            guard error == nil else { return }
-            if let place = placeMarks?.first {
-                let address = Address(country: place.country, city: place.subLocality, street: place.thoroughfare)
-                completion(address)
-            }
-        }
-    }
-}
-
-struct Address {
-    var country: String?
-    var city: String?
-    var street: String?
+    func getCurrentAddress(completion: @escaping (Address?) -> Void)
 }
 
 final class LocationProvider: NSObject, LocationProviderType {
     
     private var currentLocation: CLLocation?
     
-    private var dizzyLocation: Location? {
-        guard let coordinate = currentLocation?.coordinate else { return nil }
-        let location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        return location
-    }
+    var dizzyLocation = Observable<Location?>(nil)
     
     private var locationManager: CLLocationManager
     
@@ -82,6 +55,36 @@ final class LocationProvider: NSObject, LocationProviderType {
             locationManager.requestWhenInUseAuthorization()
         }
     }
+
+    func getCurrentAddress(completion: @escaping (Address?) -> Void) {
+
+        guard let currentLocation = currentLocation else {
+            print("currentLocation no exists")
+            completion(nil)
+            return
+        }
+
+        let currentLocale = Locale.current
+        CLGeocoder().reverseGeocodeLocation(currentLocation, preferredLocale: currentLocale) { (placeMarks, error) in
+            guard error == nil else {
+                print("could not get current address")
+                completion(nil)
+                return
+            }
+
+            if let place = placeMarks?.first {
+                let address = Address(country: place.country ?? "", city: place.subLocality ?? "", street: place.thoroughfare ?? "")
+                completion(address)
+            }
+        }
+    }
+
+    private func setupDizzyLocation() {
+        guard let coordinate = currentLocation?.coordinate else { return }
+        let location = Location(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        dizzyLocation.value = location
+    }
 }
 
 extension LocationProvider: CLLocationManagerDelegate {
@@ -91,7 +94,7 @@ extension LocationProvider: CLLocationManagerDelegate {
             || status == CLAuthorizationStatus.authorizedWhenInUse {
             requestUserLocation()
         } else {
-            onLocationArrived?(nil)
+            dizzyLocation.value = nil
         }
     }
     
@@ -101,10 +104,10 @@ extension LocationProvider: CLLocationManagerDelegate {
             return
         }
         currentLocation = location
-        onLocationArrived?(dizzyLocation)
+        setupDizzyLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        onLocationArrived?(nil)
+        dizzyLocation.value = nil
     }
 }
