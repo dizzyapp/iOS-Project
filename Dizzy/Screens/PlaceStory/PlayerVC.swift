@@ -19,8 +19,9 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .whiteLarge)
     
-    init() {
+    init(with url: URL) {
         super.init(nibName: nil, bundle: nil)
+        player = AVPlayer(url: url)
         addGestures()
         addSubviews()
         layoutViews()
@@ -62,6 +63,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     private func addGestures() {
         rightGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapRight)))
         leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
+        contentOverlayView?.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longTap(_:))))
     }
     
     @objc func didTapRight() {
@@ -70,5 +72,26 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     @objc func didTapLeft() {
         gestureDelegate?.leftButtonPressed()
+    }
+    
+    @objc func longTap(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began, .changed:
+            pause()
+            
+        case .ended:
+            play()
+            
+        case .cancelled, .failed, .possible:
+            break
+        }
+    }
+    
+    private func pause() {
+        player?.pause()
+    }
+    
+    private func play() {
+        player?.play()
     }
 }
