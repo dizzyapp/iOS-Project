@@ -49,7 +49,7 @@ final class PlaceMarkerView: UIView {
         if let imageURL = URL(string: imageURLStirng) {
             imageView.kf.setImage(with: imageURL)
         } else {
-            imageView.image = UIImage(named: "defaultPlaceAvatar")
+            imageView.image = Images.defaultPlaceAvatar()
         }
     }
 }

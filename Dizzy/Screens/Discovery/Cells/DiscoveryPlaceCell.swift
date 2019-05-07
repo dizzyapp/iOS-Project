@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class DiscoveryPlaceCell: UICollectionViewCell {
     let placeImageView = UIImageView()
@@ -41,9 +42,10 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     private func layoutViews() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.equalToSuperview().offset(Metrics.padding)
+            placeImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
             placeImageView.bottom.equalToSuperview().offset(-Metrics.padding)
             placeImageView.leading.equalToSuperview()
+            placeImageView.width.height.equalTo(50)
         }
         
         placeImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
@@ -67,12 +69,17 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .white
         setupStackView()
         setupLabels()
+        placeImageView.layer.cornerRadius = 25
+        placeImageView.clipsToBounds = true
+        placeImageView.layer.borderColor = UIColor.black.cgColor
+        placeImageView.layer.borderWidth = 2
+        
     }
     
     private func setupStackView() {
         placeDetailsStackView.axis = .vertical
         placeDetailsStackView.distribution = .equalSpacing
-        placeDetailsStackView.contentMode = .scaleToFill
+        placeDetailsStackView.contentMode = .center
     }
     
     private func setupLabels() {
@@ -92,7 +99,8 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description
-        placeImageView.image = Images.defaultPlaceAvatar()
+        let imageUrl = URL(string: placeInfo.imageURLString ?? "")
+        placeImageView.kf.setImage(with: imageUrl, placeholder: Images.defaultPlaceAvatar())
         
         if let currentLocation = currentAppLocation {
             distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
