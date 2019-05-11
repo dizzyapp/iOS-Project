@@ -41,15 +41,12 @@ final class PlaceMarkerView: UIView {
     }
     
     private func makeRounded() {
-        layer.cornerRadius = 16.0
+        layer.cornerRadius = 15.0
         clipsToBounds = true
     }
     
     private func setImage(from imageURLStirng: String) {
-        if let imageURL = URL(string: imageURLStirng) {
-            imageView.kf.setImage(with: imageURL)
-        } else {
-            imageView.image = Images.defaultPlaceAvatar()
-        }
+        let imageURL = URL(string: imageURLStirng)
+        imageView.kf.setImage(with: imageURL, placeholder: Images.defaultPlaceAvatar())
     }
 }
