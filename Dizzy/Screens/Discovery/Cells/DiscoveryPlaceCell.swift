@@ -10,6 +10,10 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+protocol DiscoveryPlaceCellDelegate: class {
+    func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell)
+}
+
 class DiscoveryPlaceCell: UICollectionViewCell {
     let placeImageView = UIImageView()
     let placeNameLabel = UILabel()
@@ -20,6 +24,8 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     let stackViewTrailingPadding = CGFloat(15)
     let smallLabelsFontSize = CGFloat(8)
     let placeImageViewSize = CGFloat(50)
+    
+    weak var delegate: DiscoveryPlaceCellDelegate?
     
     init(placeInfo: PlaceInfo) {
         super.init(frame: CGRect.zero)
@@ -77,6 +83,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         placeDetailsStackView.axis = .vertical
         placeDetailsStackView.distribution = .equalSpacing
         placeDetailsStackView.contentMode = .center
+        placeDetailsStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressDetails)))
     }
     
     private func setupLabels() {
@@ -111,5 +118,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         } else {
             distanceLabel.text = "--"
         }
+    }
+    
+    @objc func didPressDetails() {
+        delegate?.discoveryPlaceCellDidPressDetails(self)
     }
 }

@@ -88,6 +88,7 @@ class DiscoveryVC: ViewController {
     
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
+        nearByPlacesView.delegate = self
         nearByPlacesView.reloadData()
     }
 }
@@ -122,5 +123,15 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
         nearByPlacesView.reloadData()
+    }
+}
+
+extension DiscoveryVC: NearByPlacesViewDelegate {
+    func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
+        
+    }
+    
+    func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
+        viewModel.placeCellDetailsPressed(atIndexPath: indexPath)
     }
 }
