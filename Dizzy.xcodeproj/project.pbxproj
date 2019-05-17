@@ -11,16 +11,27 @@
 		0415EC39225E6086009BCBC7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC38225E6086009BCBC7 /* Observable.swift */; };
 		041D95C32253D733009ED7AB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C22253D733009ED7AB /* WebService.swift */; };
 		041D95C52253D84F009ED7AB /* WebResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C42253D84F009ED7AB /* WebResource.swift */; };
-		046ECB27226513F5000A5768 /* NavigationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046ECB26226513F5000A5768 /* NavigationBuilder.swift */; };
 		0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6AC2270B2DF00267278 /* GoogleMap.swift */; };
-		0470E6AF2270B2E000267278 /* PlaceMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6AD2270B2DF00267278 /* PlaceMarkerView.swift */; };
 		0470E6B42270B32600267278 /* MapSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B02270B32600267278 /* MapSearchTableViewCell.swift */; };
 		0470E6B52270B32600267278 /* MapSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B12270B32600267278 /* MapSearchVC.swift */; };
 		0470E6B62270B32600267278 /* AutoCompleteFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B22270B32600267278 /* AutoCompleteFilter.swift */; };
 		0470E6B72270B32600267278 /* MapSearchVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B32270B32600267278 /* MapSearchVM.swift */; };
-		0470E6B92270B35600267278 /* ButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B82270B35500267278 /* ButtonBuilder.swift */; };
 		0470E6BC2270B37200267278 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6BA2270B37100267278 /* ReusableView.swift */; };
 		0470E6BD2270B37200267278 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6BB2270B37200267278 /* StringExtension.swift */; };
+		0487FF97228EB40200A8683C /* PlaceStoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FF90228EB40200A8683C /* PlaceStoryVM.swift */; };
+		0487FF98228EB40200A8683C /* CommentsManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FF92228EB40200A8683C /* CommentsManger.swift */; };
+		0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FF93228EB40200A8683C /* CommentTextFieldView.swift */; };
+		0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FF94228EB40200A8683C /* CommentsView.swift */; };
+		0487FF9B228EB40200A8683C /* PlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FF95228EB40200A8683C /* PlayerVC.swift */; };
+		0487FF9C228EB40200A8683C /* PlaceStoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FF96228EB40200A8683C /* PlaceStoryVC.swift */; };
+		0487FFA6228EB4AF00A8683C /* PlaceMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FF9E228EB4AE00A8683C /* PlaceMarkerView.swift */; };
+		0487FFA7228EB4AF00A8683C /* PlaceMarkerView.swift~HEAD in Resources */ = {isa = PBXBuildFile; fileRef = 0487FF9F228EB4AE00A8683C /* PlaceMarkerView.swift~HEAD */; };
+		0487FFA8228EB4AF00A8683C /* TextFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA0228EB4AE00A8683C /* TextFieldBuilder.swift */; };
+		0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA1228EB4AE00A8683C /* ButtonBuilder.swift */; };
+		0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA2228EB4AE00A8683C /* NavigationBuilder.swift */; };
+		0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA3228EB4AE00A8683C /* LoadinContainer.swift */; };
+		0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA4228EB4AE00A8683C /* LocationLabel.swift */; };
+		0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */; };
 		04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF5225731880020DF8F /* FirebaseWebService.swift */; };
 		04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */; };
 		04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CD6F225A96E00020DF8F /* ViewController.swift */; };
@@ -29,7 +40,6 @@
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
-		76AC2B2A225BBAF8005B556F /* LocationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B29225BBAF8005B556F /* LocationLabel.swift */; };
 		76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */; };
 		76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAA224EE9FC00C1A290 /* Assets.xcassets */; };
 		76B41EAE224EE9FC00C1A290 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */; };
@@ -60,16 +70,27 @@
 		0415EC38225E6086009BCBC7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		041D95C22253D733009ED7AB /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		041D95C42253D84F009ED7AB /* WebResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResource.swift; sourceTree = "<group>"; };
-		046ECB26226513F5000A5768 /* NavigationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBuilder.swift; sourceTree = "<group>"; };
 		0470E6AC2270B2DF00267278 /* GoogleMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMap.swift; sourceTree = "<group>"; };
-		0470E6AD2270B2DF00267278 /* PlaceMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarkerView.swift; sourceTree = "<group>"; };
 		0470E6B02270B32600267278 /* MapSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSearchTableViewCell.swift; sourceTree = "<group>"; };
 		0470E6B12270B32600267278 /* MapSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSearchVC.swift; sourceTree = "<group>"; };
 		0470E6B22270B32600267278 /* AutoCompleteFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteFilter.swift; sourceTree = "<group>"; };
 		0470E6B32270B32600267278 /* MapSearchVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSearchVM.swift; sourceTree = "<group>"; };
-		0470E6B82270B35500267278 /* ButtonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBuilder.swift; sourceTree = "<group>"; };
 		0470E6BA2270B37100267278 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		0470E6BB2270B37200267278 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		0487FF90228EB40200A8683C /* PlaceStoryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceStoryVM.swift; sourceTree = "<group>"; };
+		0487FF92228EB40200A8683C /* CommentsManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsManger.swift; sourceTree = "<group>"; };
+		0487FF93228EB40200A8683C /* CommentTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTextFieldView.swift; sourceTree = "<group>"; };
+		0487FF94228EB40200A8683C /* CommentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
+		0487FF95228EB40200A8683C /* PlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerVC.swift; sourceTree = "<group>"; };
+		0487FF96228EB40200A8683C /* PlaceStoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceStoryVC.swift; sourceTree = "<group>"; };
+		0487FF9E228EB4AE00A8683C /* PlaceMarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarkerView.swift; sourceTree = "<group>"; };
+		0487FF9F228EB4AE00A8683C /* PlaceMarkerView.swift~HEAD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "PlaceMarkerView.swift~HEAD"; sourceTree = "<group>"; };
+		0487FFA0228EB4AE00A8683C /* TextFieldBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldBuilder.swift; sourceTree = "<group>"; };
+		0487FFA1228EB4AE00A8683C /* ButtonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBuilder.swift; sourceTree = "<group>"; };
+		0487FFA2228EB4AE00A8683C /* NavigationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBuilder.swift; sourceTree = "<group>"; };
+		0487FFA3228EB4AE00A8683C /* LoadinContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadinContainer.swift; sourceTree = "<group>"; };
+		0487FFA4228EB4AE00A8683C /* LocationLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationLabel.swift; sourceTree = "<group>"; };
+		0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
 		04D0CCF5225731880020DF8F /* FirebaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseWebService.swift; sourceTree = "<group>"; };
 		04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDispatcher.swift; sourceTree = "<group>"; };
 		04D0CD6F225A96E00020DF8F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -78,7 +99,6 @@
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
-		76AC2B29225BBAF8005B556F /* LocationLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationLabel.swift; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76B41EAA224EE9FC00C1A290 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -152,13 +172,38 @@
 			path = GoogleMap;
 			sourceTree = "<group>";
 		};
-		76AC2B28225BBA78005B556F /* UI Components */ = {
+		0487FF8F228EB40200A8683C /* PlaceStory */ = {
 			isa = PBXGroup;
 			children = (
-				76AC2B29225BBAF8005B556F /* LocationLabel.swift */,
-				046ECB26226513F5000A5768 /* NavigationBuilder.swift */,
-				0470E6B82270B35500267278 /* ButtonBuilder.swift */,
-				0470E6AD2270B2DF00267278 /* PlaceMarkerView.swift */,
+				0487FF96228EB40200A8683C /* PlaceStoryVC.swift */,
+				0487FF90228EB40200A8683C /* PlaceStoryVM.swift */,
+				0487FF95228EB40200A8683C /* PlayerVC.swift */,
+				0487FF91228EB40200A8683C /* Comments */,
+			);
+			path = PlaceStory;
+			sourceTree = "<group>";
+		};
+		0487FF91228EB40200A8683C /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				0487FF92228EB40200A8683C /* CommentsManger.swift */,
+				0487FF93228EB40200A8683C /* CommentTextFieldView.swift */,
+				0487FF94228EB40200A8683C /* CommentsView.swift */,
+			);
+			path = Comments;
+			sourceTree = "<group>";
+		};
+		0487FF9D228EB4AE00A8683C /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				0487FF9E228EB4AE00A8683C /* PlaceMarkerView.swift */,
+				0487FF9F228EB4AE00A8683C /* PlaceMarkerView.swift~HEAD */,
+				0487FFA0228EB4AE00A8683C /* TextFieldBuilder.swift */,
+				0487FFA1228EB4AE00A8683C /* ButtonBuilder.swift */,
+				0487FFA2228EB4AE00A8683C /* NavigationBuilder.swift */,
+				0487FFA3228EB4AE00A8683C /* LoadinContainer.swift */,
+				0487FFA4228EB4AE00A8683C /* LocationLabel.swift */,
+				0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -184,7 +229,7 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
-				76AC2B28225BBA78005B556F /* UI Components */,
+				0487FF9D228EB4AE00A8683C /* UI Components */,
 				76B41EDE22534A4B00C1A290 /* Extensions */,
 				76B41EDB225343DE00C1A290 /* Base entities */,
 				041D95C12253D702009ED7AB /* Web Service */,
@@ -233,6 +278,7 @@
 				76B41ED4225230B400C1A290 /* Conversations */,
 				0415EC31225E57D5009BCBC7 /* Map */,
 				76B41ECF225229EA00C1A290 /* Discovery */,
+				0487FF8F228EB40200A8683C /* PlaceStory */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -369,6 +415,7 @@
 				76B41EAE224EE9FC00C1A290 /* LaunchScreen.storyboard in Resources */,
 				76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */,
 				76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */,
+				0487FFA7228EB4AF00A8683C /* PlaceMarkerView.swift~HEAD in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +430,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
@@ -396,7 +443,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		745ACD9C07E96F8816BF9F7F /* [CP] Check Pods Manifest.lock */ = {
@@ -441,7 +488,8 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
@@ -452,6 +500,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
@@ -462,7 +511,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -475,14 +524,17 @@
 				04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */,
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
+				0487FFA8228EB4AF00A8683C /* TextFieldBuilder.swift in Sources */,
 				0470E6B62270B32600267278 /* AutoCompleteFilter.swift in Sources */,
-				0470E6B92270B35600267278 /* ButtonBuilder.swift in Sources */,
+				0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */,
+				0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */,
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
-				76AC2B2A225BBAF8005B556F /* LocationLabel.swift in Sources */,
 				04ECE4112263B47800E10F70 /* MapVC.swift in Sources */,
 				041D95C32253D733009ED7AB /* WebService.swift in Sources */,
-				0470E6AF2270B2E000267278 /* PlaceMarkerView.swift in Sources */,
 				0470E6BC2270B37200267278 /* ReusableView.swift in Sources */,
+				0487FF98228EB40200A8683C /* CommentsManger.swift in Sources */,
+				0487FF9C228EB40200A8683C /* PlaceStoryVC.swift in Sources */,
+				0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
@@ -490,15 +542,19 @@
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
+				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
+				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
+				0487FF9B228EB40200A8683C /* PlayerVC.swift in Sources */,
 				0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
-				046ECB27226513F5000A5768 /* NavigationBuilder.swift in Sources */,
+				0487FFA6228EB4AF00A8683C /* PlaceMarkerView.swift in Sources */,
+				0487FF97228EB40200A8683C /* PlaceStoryVM.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
@@ -509,9 +565,11 @@
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
+				0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */,
 				0470E6B42270B32600267278 /* MapSearchTableViewCell.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
+				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
 				0470E6B72270B32600267278 /* MapSearchVM.swift in Sources */,
 			);
