@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol PlaceStoryVMDelegate: class {
+    func placeStoryVMDidFinised(_ viewModel: PlaceStoryVMType)
+}
+
 protocol PlaceStoryVMType {
     var showImage: (String) -> Void { get set }
     var delay: Double { get }
@@ -19,6 +23,7 @@ protocol PlaceStoryVMType {
 final class PlaceStoryVM: PlaceStoryVMType {
     
     let place: PlaceInfo
+    weak var delegate: PlaceStoryVMDelegate?
     
     let imagesURL = ["https://firebasestorage.googleapis.com/v0/b/dizzy-7bc88.appspot.com/o/Test%2Fimg_lights.jpg?alt=media&token=8fca6a7b-635f-4d8f-8382-75b989575478",
                      "https://firebasestorage.googleapis.com/v0/b/dizzy-7bc88.appspot.com/o/Test%2FUntitled.mov?alt=media&token=0f1dc506-1931-400c-bdcd-d5bab1cde8eb",
@@ -42,7 +47,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
             displayedImageIndex += 1
             showImage(imagesURL[displayedImageIndex])
         } else {
-            // finish....
+            delegate?.placeStoryVMDidFinised(self)
         }
     }
     

@@ -18,10 +18,17 @@ protocol PlayerVCDelegate: class {
 final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .whiteLarge)
+    var commentsManger: CommentsManger?
     
     init(with url: URL) {
         super.init(nibName: nil, bundle: nil)
         player = AVPlayer(url: url)
+    
+        if let contentOverlayView = contentOverlayView {
+            commentsManger = CommentsManger(parentView: contentOverlayView)
+            commentsManger?.delegate = self
+        }
+        
         addGestures()
         addSubviews()
         layoutViews()
@@ -44,6 +51,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     private func addSubviews() {
         contentOverlayView?.addSubviews([rightGestureView, leftGestureView])
+        commentsManger?.addCommentsViews()
     }
 
     private func layoutViews() {
@@ -93,5 +101,11 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     private func play() {
         player?.play()
+    }
+}
+
+extension PlayerVC: CommentsMangerDelegate {
+    func commecntView(isHidden: Bool) {
+        isHidden ? play() : pause()
     }
 }

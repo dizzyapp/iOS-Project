@@ -19,9 +19,7 @@ final class PlaceStoryVC: ViewController {
         return imageView
     }()
     
-    let chatTextField = CommentTextFieldView()
-    let chatTextFieldAccessoryView = CommentTextFieldView()
-    let commentsView = CommentsView()
+    var commentsManger: CommentsManger?
     
     let rightGestureView = UIView()
     let leftGestureView = UIView()
@@ -32,6 +30,7 @@ final class PlaceStoryVC: ViewController {
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
+        commentsManger = CommentsManger(parentView: view)
         addSubviews()
         layoutViews()
         bindViewModel()
@@ -42,18 +41,16 @@ final class PlaceStoryVC: ViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupViews() {
         rightGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapRight)))
         leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
-        chatTextFieldAccessoryView.textField.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
-        chatTextField.textField.delegate = self
-        commentsView.delegate = self
-        commentsView.isHidden = true
+        commentsManger?.showTextField(false)
     }
     
     private func addSubviews() {
-        view.addSubviews([imageView, rightGestureView, leftGestureView, chatTextField, commentsView])
+        view.addSubviews([imageView, rightGestureView, leftGestureView])
+        commentsManger?.addCommentsViews()
     }
     
     private func layoutViews() {
@@ -72,20 +69,6 @@ final class PlaceStoryVC: ViewController {
             make.width.equalTo(150)
             make.left.equalToSuperview()
         }
-        
-        chatTextField.snp.makeConstraints { (make) in
-            make.bottom.leading.trailing.equalToSuperview()
-        }
-        
-        commentsView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-    }
-    
-    override var inputAccessoryView: UIView? {
-        chatTextFieldAccessoryView.frame = CGRect(x: 0, y: 0, width: chatTextField.frame.width, height: chatTextField.frame.height)
-        commentsView.isHidden = false
-        return chatTextFieldAccessoryView
     }
     
     private func bindViewModel() {
@@ -95,7 +78,11 @@ final class PlaceStoryVC: ViewController {
             } else if  let url = URL(string: urlString) {
                 guard let self = self else { return }
                 self.imageView.kf.indicatorType = .activity
-                self.imageView.kf.setImage(with: url, options: [.scaleFactor(UIScreen.main.scale)])
+                self.commentsManger?.showTextField(false)
+                self.imageView.kf.setImage(with: url, options: [.scaleFactor(UIScreen.main.scale)]) { [weak self] _ in
+                    self?.commentsManger?.showTextField(true)
+                }
+                
                 self.playerVC?.dismiss(animated: false)
             }
         }
@@ -135,23 +122,5 @@ extension PlaceStoryVC: PlayerVCDelegate {
     
     func leftButtonPressed() {
         didTapLeft()
-    }
-}
-
-extension PlaceStoryVC: UITextFieldDelegate {
-    @objc func textFieldValueChanged() {
-        chatTextField.textField.text = chatTextFieldAccessoryView.textField.text
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        chatTextFieldAccessoryView.textField.perform(#selector(becomeFirstResponder), with: nil, afterDelay: 0)
-    }
-}
-
-extension PlaceStoryVC: CommentsViewDelegate {
-    func commentsViewPressed() {
-        commentsView.isHidden = true
-        chatTextFieldAccessoryView.textField.perform(#selector(resignFirstResponder), with: nil, afterDelay: 0)
-        view.endEditing(true)
     }
 }

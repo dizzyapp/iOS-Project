@@ -13,6 +13,7 @@ final class CommentTextFieldView: UIView {
     let textField: UITextField  = {
         let textField = UITextField().withTransperentRoundedCorners
         textField.placeholder = "PlaceHolder"
+        textField.textAlignment = .natural
         return textField
     }()
     
