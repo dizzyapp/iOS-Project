@@ -99,6 +99,23 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     func menuButtonPressed() { }
     
     func placeCellDetailsPressed(_ place: PlaceInfo) {
+        guard let presntingVC = presentedViewControllers.first,
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC),
+            place.profileVideoURL != nil  else {
+                print("could not create placeProfileCoordinator")
+                return
+        }
+        
+        placeProfileCoordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .placeProfile)
+        }
+        
+        container?.register(PlaceProfileVMType.self) { _ in
+            PlaceProfileVM(placeInfo: place)
+        }
+        
+        placeProfileCoordinator.start()
+        add(coordinator: placeProfileCoordinator, for: .placeProfile)
     }
 }
 

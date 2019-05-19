@@ -34,12 +34,14 @@ class Assembly {
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(MapSearchVC.self, argument: MapSearchVMType.self ,initializer: MapSearchVC.init)
+        container.autoregister(PlaceProfileVC.self, initializer: PlaceProfileVC.init)
         
         // MARK: coordinators
         container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
         container.autoregister(HomeCoordinatorType.self, argument: UIWindow.self, initializer: HomeCoordinator.init)
         container.autoregister(WebServiceDispatcherType.self, initializer: WebServiceDispatcher.init).inObjectScope(.container)
         container.autoregister(MapCoordinatorType.self, argument: UIViewController.self, initializer: MapCoordinator.init)
+        container.autoregister(PlaceProfileCoordinatorType.self, argument: UIViewController.self, initializer: PlaceProfileCoodinator.init)
 
         // MARK: Entities:
         container.autoregister(MapType.self, initializer: GoogleMap.init).inObjectScope(.container)
