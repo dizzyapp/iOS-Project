@@ -22,6 +22,7 @@ struct PlaceInfo: Codable, FilterEntry {
     let description: String
     let location: Location
     let imageURLString: String?
+    let profileVideoURL: String?
 }
 
 struct Location: Codable {
