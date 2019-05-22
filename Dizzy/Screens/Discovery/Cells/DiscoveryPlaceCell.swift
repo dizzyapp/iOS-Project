@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class DiscoveryPlaceCell: UICollectionViewCell {
     let placeImageView = UIImageView()
@@ -18,6 +19,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     let stackViewTrailingPadding = CGFloat(15)
     let smallLabelsFontSize = CGFloat(8)
+    let placeImageViewSize = CGFloat(50)
     
     init(placeInfo: PlaceInfo) {
         super.init(frame: CGRect.zero)
@@ -41,9 +43,10 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     private func layoutViews() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.equalToSuperview().offset(Metrics.padding)
+            placeImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
             placeImageView.bottom.equalToSuperview().offset(-Metrics.padding)
             placeImageView.leading.equalToSuperview()
+            placeImageView.width.height.equalTo(placeImageViewSize)
         }
         
         placeImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
@@ -67,12 +70,13 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .white
         setupStackView()
         setupLabels()
+        setupPlacewImageView()
     }
     
     private func setupStackView() {
         placeDetailsStackView.axis = .vertical
         placeDetailsStackView.distribution = .equalSpacing
-        placeDetailsStackView.contentMode = .scaleToFill
+        placeDetailsStackView.contentMode = .center
     }
     
     private func setupLabels() {
@@ -88,11 +92,19 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
     }
+    
+    func setupPlacewImageView() {
+        placeImageView.layer.cornerRadius = placeImageViewSize/2
+        placeImageView.clipsToBounds = true
+        placeImageView.layer.borderColor = UIColor.black.cgColor
+        placeImageView.layer.borderWidth = 2
+    }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description
-        placeImageView.image = Images.defaultPlaceAvatar()
+        let imageUrl = URL(string: placeInfo.imageURLString ?? "")
+        placeImageView.kf.setImage(with: imageUrl, placeholder: Images.defaultPlaceAvatar())
         
         if let currentLocation = currentAppLocation {
             distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
