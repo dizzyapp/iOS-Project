@@ -70,11 +70,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .white
         setupStackView()
         setupLabels()
-        placeImageView.layer.cornerRadius = placeImageViewSize/2
-        placeImageView.clipsToBounds = true
-        placeImageView.layer.borderColor = UIColor.black.cgColor
-        placeImageView.layer.borderWidth = 2
-        
+        setupPlacewImageView()
     }
     
     private func setupStackView() {
@@ -95,6 +91,13 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         distanceLabel.font = Fonts.regular(size: smallLabelsFontSize)
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
+    }
+    
+    func setupPlacewImageView() {
+        placeImageView.layer.cornerRadius = placeImageViewSize/2
+        placeImageView.clipsToBounds = true
+        placeImageView.layer.borderColor = UIColor.black.cgColor
+        placeImageView.layer.borderWidth = 2
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
