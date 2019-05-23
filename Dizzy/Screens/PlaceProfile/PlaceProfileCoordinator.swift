@@ -31,8 +31,7 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType {
     }
     
     func start() {
-        guard let placeProfileVM = container?.resolve(PlaceProfileVMType.self),
-            let placeProfileVC = container?.resolve(PlaceProfileVC.self) else {
+        guard let placeProfileVC = container?.resolve(PlaceProfileVC.self) else {
                 print("cannot load placeProfileVC")
                 return
         }

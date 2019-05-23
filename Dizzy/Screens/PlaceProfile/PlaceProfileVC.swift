@@ -14,19 +14,22 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     private var playerItemDidPlayToEndObserver: NSObjectProtocol?
     
-    private var profileView: ProfileView = {
-        let view = ProfileView()
-        return view
-    }()
+    private var placeProfileView = PlaceProfileView()
+    
+    private let viewModel: PlaceProfileVMType
     
     init(viewModel: PlaceProfileVMType) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         if let url = URL(string: viewModel.placeInfo.profileVideoURL ?? "") {
             player = AVPlayer(url: url)
             makePlayerRepeat()
         }
-        profileView.setupImageView(with: viewModel.placeInfo.imageURLString ?? "")
+        videoGravity = .resizeAspectFill
+        placeProfileView.configure(with: viewModel.placeInfo)
+        placeProfileView.delegate = self
         showsPlaybackControls = false
+        bindViewModel()
         addSubviews()
         layoutSubview()
     }
@@ -54,14 +57,27 @@ final class PlaceProfileVC: AVPlayerViewController {
         }
     }
     
+    private func bindViewModel() {
+        viewModel.googlePlaceData.bind(observer: { [weak self] googlePlaceData in
+            guard let googlePlaceData = googlePlaceData else { return }
+            self?.placeProfileView.configure(with: googlePlaceData)
+        })
+    }
+    
     private func addSubviews() {
-        contentOverlayView?.addSubviews([profileView])
+        contentOverlayView?.addSubviews([placeProfileView])
     }
     
     private func layoutSubview() {
-        profileView.snp.makeConstraints { make in
+        placeProfileView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(Metrics.doublePadding)
             make.leading.trailing.equalToSuperview().inset(Metrics.padding)
         }
+    }
+}
+
+extension PlaceProfileVC: PlaceProfileViewDelegate {
+    func placeProfileViewPublicistButtonPressed(_ view: PlaceProfileView) {
+        viewModel.callToPublicistPressed()
     }
 }
