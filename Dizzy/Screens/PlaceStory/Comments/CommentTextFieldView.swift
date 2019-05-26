@@ -19,7 +19,7 @@ final class CommentTextFieldView: UIView {
     
     private let sendButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setTitle("Send", for: .normal)
+        button.setTitle("Send".localized, for: .normal)
         return button
     }()
     
@@ -39,16 +39,16 @@ final class CommentTextFieldView: UIView {
     
     private func layoutViews() {
         sendButton.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(8)
+            make.leading.equalToSuperview().offset(Metrics.mediumPadding)
             make.width.equalTo(50)
-            make.top.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().inset(16)
+            make.top.equalToSuperview().offset(Metrics.doublePadding)
+            make.bottom.equalToSuperview().inset(Metrics.doublePadding)
         }
         
         textField.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(sendButton)
-            make.leading.equalTo(sendButton.snp.trailing).offset(8)
-            make.trailing.equalToSuperview().inset(8)
+            make.leading.equalTo(sendButton.snp.trailing).offset(Metrics.mediumPadding)
+            make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
         }
     }
 }

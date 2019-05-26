@@ -13,7 +13,7 @@ protocol PlaceStoryVMDelegate: class {
 }
 
 protocol PlaceStoryVMType {
-    var showImage: (String) -> Void { get set }
+    var currentImageURLString: Observable<String?> { get set }
     var delay: Double { get }
     
     func showNextImage()
@@ -34,9 +34,10 @@ final class PlaceStoryVM: PlaceStoryVMType {
                      "https://firebasestorage.googleapis.com/v0/b/dizzy-7bc88.appspot.com/o/Test%2FSetup%20Wars%20-%20Episode%20168.mp4?alt=media&token=31760a4f-2b73-4d7b-81bd-a27c76cd5c89",
                      "https://firebasestorage.googleapis.com/v0/b/dizzy-7bc88.appspot.com/o/Test%2Ftest.jpg?alt=media&token=ccb431c5-4289-491c-becc-b3255ccd98fb"] //tempData
     
-    var showImage: (String) -> Void = { _ in }
     var displayedImageIndex = -1
     let delay = 1000.0
+    
+    var currentImageURLString = Observable<String?>(nil)
     
     init(place: PlaceInfo) {
         self.place = place
@@ -45,7 +46,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     func showNextImage() {
         if displayedImageIndex + 1 <= imagesURL.count - 1 {
             displayedImageIndex += 1
-            showImage(imagesURL[displayedImageIndex])
+            currentImageURLString.value = imagesURL[displayedImageIndex]
         } else {
             delegate?.placeStoryVMDidFinised(self)
         }
@@ -54,7 +55,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     func showPrevImage() {
         if displayedImageIndex - 1 >= 0 {
             displayedImageIndex -= 1
-            showImage(imagesURL[displayedImageIndex])
+            currentImageURLString.value = imagesURL[displayedImageIndex]
         }
     }
 }

@@ -19,7 +19,7 @@ final class PlaceStoryVC: ViewController {
         return imageView
     }()
     
-    var commentsManger: CommentsManger?
+    var commentsManager: CommentsManager?
     
     let rightGestureView = UIView()
     let leftGestureView = UIView()
@@ -27,10 +27,12 @@ final class PlaceStoryVC: ViewController {
     var viewModel: PlaceStoryVMType
     var playerVC: PlayerVC?
     
+    let gestureViewWidth = CGFloat(150)
+    
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
-        commentsManger = CommentsManger(parentView: view)
+        commentsManager = CommentsManager(parentView: view)
         addSubviews()
         layoutViews()
         bindViewModel()
@@ -45,12 +47,12 @@ final class PlaceStoryVC: ViewController {
     private func setupViews() {
         rightGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapRight)))
         leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
-        commentsManger?.showTextField(false)
+        commentsManager?.showTextField(false)
     }
     
     private func addSubviews() {
         view.addSubviews([imageView, rightGestureView, leftGestureView])
-        commentsManger?.addCommentsViews()
+        commentsManager?.addCommentsViews()
     }
     
     private func layoutViews() {
@@ -60,27 +62,29 @@ final class PlaceStoryVC: ViewController {
         
         rightGestureView.snp.makeConstraints { make in
             make.height.equalToSuperview()
-            make.width.equalTo(150)
+            make.width.equalTo(gestureViewWidth)
             make.right.equalToSuperview()
         }
         
         leftGestureView.snp.makeConstraints { make in
             make.height.equalToSuperview()
-            make.width.equalTo(150)
+            make.width.equalTo(gestureViewWidth)
             make.left.equalToSuperview()
         }
     }
     
     private func bindViewModel() {
-        viewModel.showImage = { [weak self] urlString in
+        viewModel.currentImageURLString.bind { [weak self] urlString in
+            guard let urlString = urlString else { return }
+            
             if urlString.contains(".mov") || urlString.contains(".mp4") {
                 self?.displayVideo(with: urlString)
             } else if  let url = URL(string: urlString) {
                 guard let self = self else { return }
                 self.imageView.kf.indicatorType = .activity
-                self.commentsManger?.showTextField(false)
-                self.imageView.kf.setImage(with: url, options: [.scaleFactor(UIScreen.main.scale)]) { [weak self] _ in
-                    self?.commentsManger?.showTextField(true)
+                self.commentsManager?.showTextField(false)
+                self.imageView.kf.setImage(with: url) { [weak self] _ in
+                    self?.commentsManager?.showTextField(true)
                 }
                 
                 self.playerVC?.dismiss(animated: false)

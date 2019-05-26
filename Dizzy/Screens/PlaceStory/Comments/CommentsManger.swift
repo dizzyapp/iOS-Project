@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol CommentsMangerDelegate: class {
+protocol CommentsManagerDelegate: class {
     func commecntView(isHidden: Bool)
 }
 
-final class CommentsManger: NSObject {
+final class CommentsManager: NSObject {
     
     private let chatTextFieldView = CommentTextFieldView()
     private let chatTextFieldAccessoryView = CommentTextFieldView()
     private let commentsView = CommentsView()
-    private let parentView: UIView
+    private weak var parentView: UIView?
     
-    weak var delegate: CommentsMangerDelegate?
+    weak var delegate: CommentsManagerDelegate?
 
     init(parentView: UIView) {
         self.parentView = parentView
@@ -44,7 +44,7 @@ final class CommentsManger: NSObject {
     }
     
     func addCommentsViews() {
-        parentView.addSubviews([chatTextFieldView, commentsView])
+        parentView?.addSubviews([chatTextFieldView, commentsView])
         layoutViews()
         setupInputAccessoryView()
     }
@@ -57,7 +57,7 @@ final class CommentsManger: NSObject {
         commentsView.snp.makeConstraints { (make) in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
-        parentView.layoutIfNeeded()
+        parentView?.layoutIfNeeded()
     }
     
     func showTextField(_ show: Bool) {
@@ -65,22 +65,22 @@ final class CommentsManger: NSObject {
     }
 }
 
-extension CommentsManger {
+extension CommentsManager {
     @objc func textFieldValueChanged() {
         chatTextFieldView.textField.text = chatTextFieldAccessoryView.textField.text
     }
 }
 
-extension CommentsManger: CommentsViewDelegate {
+extension CommentsManager: CommentsViewDelegate {
     func commentsViewPressed() {
         commentsView.isHidden = true
         delegate?.commecntView(isHidden: commentsView.isHidden)
         chatTextFieldAccessoryView.textField.resignFirstResponder()
-        parentView.endEditing(true)
+        parentView?.endEditing(true)
     }
 }
 
-extension CommentsManger {
+extension CommentsManager {
     @objc func keyboardWillShow(notification: NSNotification) {
         commentsView.isHidden = false
         delegate?.commecntView(isHidden: commentsView.isHidden)
