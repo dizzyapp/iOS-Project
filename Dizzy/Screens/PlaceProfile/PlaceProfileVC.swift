@@ -31,6 +31,7 @@ final class PlaceProfileVC: AVPlayerViewController {
         showsPlaybackControls = false
         bindViewModel()
         addSubviews()
+        setupNavigation()
         layoutSubview()
     }
     
@@ -57,11 +58,18 @@ final class PlaceProfileVC: AVPlayerViewController {
         }
     }
     
+    private func setupNavigation() {
+        let closeButton = UIButton().smallRoundedBlackButton
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        let closeBarButton = UIBarButtonItem(customView: closeButton)
+        navigationItem.leftBarButtonItem = closeBarButton
+    }
+    
     private func bindViewModel() {
-        viewModel.googlePlaceData.bind(observer: { [weak self] googlePlaceData in
-            guard let googlePlaceData = googlePlaceData else { return }
-            self?.placeProfileView.configure(with: googlePlaceData)
-        })
+//        viewModel.googlePlaceData.bind(observer: { [weak self] googlePlaceData in
+//            guard let googlePlaceData = googlePlaceData else { return }
+//            self?.placeProfileView.configure(with: googlePlaceData)
+//        })
     }
     
     private func addSubviews() {
@@ -74,9 +82,17 @@ final class PlaceProfileVC: AVPlayerViewController {
             make.leading.trailing.equalToSuperview().inset(Metrics.padding)
         }
     }
+    
+    @objc func close() {
+        viewModel.closePressed()
+    }
 }
 
 extension PlaceProfileVC: PlaceProfileViewDelegate {
+    func placeProfileViewWhatsappButtonPressed(_ view: PlaceProfileView) {
+        viewModel.whatsappToPublicistPressed()
+    }
+    
     func placeProfileViewPublicistButtonPressed(_ view: PlaceProfileView) {
         viewModel.callToPublicistPressed()
     }

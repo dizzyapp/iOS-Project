@@ -11,6 +11,7 @@ import Kingfisher
 
 protocol PlaceProfileViewDelegate: class {
     func placeProfileViewPublicistButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewWhatsappButtonPressed(_ view: PlaceProfileView)
 }
 
 final class PlaceProfileView: UIView {
@@ -59,13 +60,12 @@ final class PlaceProfileView: UIView {
         label.textAlignment = .center
         label.textColor = .white
         label.font = Fonts.h5()
-        label.text = "PlaceHloder"
         return label
     }()
     
     private let publicistButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("call to publicist".localized, for: .normal)
+        let button = UIButton(frame: .zero)
+        button.setTitle("call".localized, for: .normal)
         button.setTitleColor(UIColor.primeryPurple, for: .normal)
         button.backgroundColor = UIColor(red: 0, green: 0, blue: 46)
         button.layer.cornerRadius = 16.0
@@ -73,6 +73,27 @@ final class PlaceProfileView: UIView {
         button.layer.borderWidth = 1.0
         button.showsTouchWhenHighlighted = true
         return button
+    }()
+    
+    private let sendWhatsappButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setTitle("send whatsapp".localized, for: .normal)
+        button.setTitleColor(UIColor.primeryPurple, for: .normal)
+        button.backgroundColor = UIColor(red: 0, green: 0, blue: 46)
+        button.layer.cornerRadius = 16.0
+        button.layer.borderColor = UIColor.primeryPurple.cgColor
+        button.layer.borderWidth = 1.0
+        button.showsTouchWhenHighlighted = true
+        return button
+    }()
+    
+    private let buttonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 8.0
+        return stackView
     }()
     
     weak var delegate: PlaceProfileViewDelegate?
@@ -84,6 +105,7 @@ final class PlaceProfileView: UIView {
         layoutViews()
         makeRoundedCorners()
         publicistButton.addTarget(self, action: #selector(publicistButtonPressed), for: .touchUpInside)
+        sendWhatsappButton.addTarget(self, action: #selector(whatsappButtonPressed), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -100,6 +122,13 @@ final class PlaceProfileView: UIView {
         titleLabel.text = place.name
         descriptionLabel.text = place.description
         ageLabel.text = place.authorizedAge
+        
+        if let dateType = Date().dayType, let time = dateType.getTime(from: place.placeSchedule) {
+            let openHoursFormat = "[Y] hours: [X]".localized
+            var openHourText = openHoursFormat.replacingOccurrences(of: "[X]", with: time)
+            openHourText = openHourText.replacingOccurrences(of: "[Y]", with: dateType.rawValue)
+            openHoursLabel.text = openHourText
+        }
     }
     
     func configure(with googlePlace: GooglePlaceData) {
@@ -119,7 +148,9 @@ final class PlaceProfileView: UIView {
     }
     
     private func addSubviews() {
-        addSubviews([profileImageView, titleLabel, descriptionLabel, ageLabel, openHoursLabel, addressLabel, publicistButton])
+        addSubviews([profileImageView, titleLabel, descriptionLabel, ageLabel, openHoursLabel, addressLabel, buttonsStackView])
+        buttonsStackView.addArrangedSubview(publicistButton)
+        buttonsStackView.addArrangedSubview(sendWhatsappButton)
     }
     
     private func layoutViews() {
@@ -154,7 +185,7 @@ final class PlaceProfileView: UIView {
             make.leading.trailing.equalTo(titleLabel)
         }
         
-        publicistButton.snp.makeConstraints { make in
+        buttonsStackView.snp.makeConstraints { make in
             make.top.equalTo(openHoursLabel.snp.bottom).offset(Metrics.padding)
             make.leading.equalToSuperview().offset(Metrics.doublePadding)
             make.trailing.equalToSuperview().inset(Metrics.doublePadding)
@@ -164,5 +195,9 @@ final class PlaceProfileView: UIView {
     
     @objc func publicistButtonPressed() {
         delegate?.placeProfileViewPublicistButtonPressed(self)
+    }
+    
+    @objc func whatsappButtonPressed() {
+        delegate?.placeProfileViewWhatsappButtonPressed(self)
     }
 }

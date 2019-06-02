@@ -37,7 +37,7 @@ class Assembly {
         container.autoregister(PlaceStoryVC.self, argument: PlaceStoryVMType.self ,initializer: PlaceStoryVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(MapSearchVC.self, argument: MapSearchVMType.self ,initializer: MapSearchVC.init)
-        container.autoregister(PlaceProfileVC.self, initializer: PlaceProfileVC.init)
+        container.autoregister(PlaceProfileVC.self, argument: PlaceProfileVMType.self, initializer: PlaceProfileVC.init)
         
         // MARK: coordinators
         container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
