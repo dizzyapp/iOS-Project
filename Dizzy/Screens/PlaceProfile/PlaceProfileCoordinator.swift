@@ -31,13 +31,22 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType {
     }
     
     func start() {
-        guard let placeProfileVC = container?.resolve(PlaceProfileVC.self) else {
+        guard var viewModel = container?.resolve(PlaceProfileVMType.self),
+            let placeProfileVC = container?.resolve(PlaceProfileVC.self, argument: viewModel) else {
                 print("cannot load placeProfileVC")
                 return
         }
         
+        viewModel.delegate = self
         let nvc = placeProfileVC.embdedInNavigationController().withTransparentStyle()
         navigationController = nvc
         presentingVC?.present(navigationController, animated: true)
+    }
+}
+
+extension PlaceProfileCoodinator: PlaceProfileVMDelegate {
+    func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType) {
+        presentingVC?.dismiss(animated: true)
+        onCoordinatorFinished()
     }
 }

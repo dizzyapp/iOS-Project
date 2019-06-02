@@ -11,21 +11,26 @@ import UIKit
 protocol PlaceProfileVMType {
     var placeInfo: PlaceInfo { get }
     var googlePlaceData: Observable<GooglePlaceData?> { get }
+    var delegate: PlaceProfileVMDelegate? { get set }
     
+    func closePressed()
+    func whatsappToPublicistPressed()
     func callToPublicistPressed()
 }
 
+protocol PlaceProfileVMDelegate: class {
+    func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType)
+}
+
 final class PlaceProfileVM: PlaceProfileVMType {
-    
+   
     var placeInfo: PlaceInfo
-    var googlePlaceInteractor: GooglePlaceInteractorType
     var googlePlaceData = Observable<GooglePlaceData?>(nil)
     
-    init(placeInfo: PlaceInfo, googlePlaceInteractor: GooglePlaceInteractorType) {
+    weak var delegate: PlaceProfileVMDelegate?
+    
+    init(placeInfo: PlaceInfo) {
         self.placeInfo = placeInfo
-        self.googlePlaceInteractor = googlePlaceInteractor
-        self.googlePlaceInteractor.delegate = self
-        googlePlaceInteractor.getGooglePlaceData(placeName: placeInfo.name)
     }
     
     func callToPublicistPressed() {
@@ -33,10 +38,14 @@ final class PlaceProfileVM: PlaceProfileVMType {
             let url = URL(string:  "tel://" + phoneNumber) else { return }
         UIApplication.shared.open(url, options: [:])
     }
-}
-
-extension PlaceProfileVM: GooglePlaceInteractorDelegate {
-    func googlePlaceInteractorPlaceDataArrived(_ interactor: GooglePlaceInteractor, data: GooglePlaceData) {
-        googlePlaceData.value = data
+    
+    func whatsappToPublicistPressed() {
+        guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
+            let url = URL(string:  "whatsapp://" + phoneNumber) else { return }
+        UIApplication.shared.open(url, options: [:])
+    }
+    
+    func closePressed() {
+        delegate?.placeProfileVMClosePressed(self)
     }
 }
