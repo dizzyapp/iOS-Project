@@ -29,10 +29,11 @@ final class PlaceProfileVC: AVPlayerViewController {
         placeProfileView.configure(with: viewModel.placeInfo)
         placeProfileView.delegate = self
         showsPlaybackControls = false
-        bindViewModel()
         addSubviews()
         setupNavigation()
         layoutSubview()
+        NotificationCenter.default.addObserver(self, selector: #selector(onResineActive), name: UIApplication.willResignActiveNotification, object: nil)
+        player?.play()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,15 +42,10 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     deinit {
         if let playerItemDidPlayToEndObserver = playerItemDidPlayToEndObserver {
-            NotificationCenter.default.removeObserver(playerItemDidPlayToEndObserver)
+          NotificationCenter.default.removeObserver(playerItemDidPlayToEndObserver)
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        player?.play()
-    }
-    
+
     private func makePlayerRepeat() {
          playerItemDidPlayToEndObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem, queue: .main) {
             [weak self] _ in
@@ -65,13 +61,6 @@ final class PlaceProfileVC: AVPlayerViewController {
         navigationItem.leftBarButtonItem = closeBarButton
     }
     
-    private func bindViewModel() {
-//        viewModel.googlePlaceData.bind(observer: { [weak self] googlePlaceData in
-//            guard let googlePlaceData = googlePlaceData else { return }
-//            self?.placeProfileView.configure(with: googlePlaceData)
-//        })
-    }
-    
     private func addSubviews() {
         contentOverlayView?.addSubviews([placeProfileView])
     }
@@ -85,6 +74,13 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     @objc func close() {
         viewModel.closePressed()
+    }
+
+    @objc private func onResineActive() {
+        let isPlaying = player?.rate != 0 && player?.error == nil
+        if isPlaying == false {
+            player?.play()
+        }
     }
 }
 
