@@ -33,6 +33,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         addSubviews()
         layoutViews()
         showSpinner()
+        player?.play()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,11 +44,6 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     let rightGestureView = UIView()
     let leftGestureView = UIView()
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        player?.play()
-    }
     
     private func addSubviews() {
         contentOverlayView?.addSubviews([rightGestureView, leftGestureView])
@@ -95,7 +91,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         }
     }
     
-    private func pause() {
+    func pause() {
         player?.pause()
     }
     

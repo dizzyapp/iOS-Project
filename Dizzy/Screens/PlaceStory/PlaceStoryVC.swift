@@ -76,8 +76,8 @@ final class PlaceStoryVC: ViewController {
     private func bindViewModel() {
         viewModel.currentImageURLString.bind { [weak self] urlString in
             guard let urlString = urlString else { return }
-            
-            if urlString.contains(".mov") || urlString.contains(".mp4") {
+            self?.playerVC?.pause()
+            if urlString.contains(".MOV") {
                 self?.displayVideo(with: urlString)
             } else if  let url = URL(string: urlString) {
                 guard let self = self else { return }
