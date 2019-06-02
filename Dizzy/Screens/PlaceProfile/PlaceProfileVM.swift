@@ -35,13 +35,14 @@ final class PlaceProfileVM: PlaceProfileVMType {
     
     func callToPublicistPressed() {
         guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
-            let url = URL(string:  "tel://" + phoneNumber) else { return }
+            let url = URL(string: "tel://" + phoneNumber) else { return }
         UIApplication.shared.open(url, options: [:])
     }
     
     func whatsappToPublicistPressed() {
+        let whatsappText = "Hi I want to order a table".localized.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
-            let url = URL(string:  "whatsapp://" + phoneNumber) else { return }
+            let url = URL(string: "https://wa.me/\(placeInfo.publicistPhoneNumber ?? "")/?text=\(whatsappText ??    "")") else { return }
         UIApplication.shared.open(url, options: [:])
     }
     
