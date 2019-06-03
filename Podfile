@@ -10,6 +10,7 @@ target 'Dizzy' do
   pod 'SwinjectAutoregistration'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'SwiftLint'
   pod 'SnapKit'
   pod 'GoogleMaps'
