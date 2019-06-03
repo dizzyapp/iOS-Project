@@ -18,6 +18,7 @@ protocol DiscoveryVMType {
     var currentCity: Observable<String> { get }
     
     func mapButtonPressed()
+    func menuButtonPressed()
 }
 
 protocol DiscoveryVMDelegate: class {
@@ -96,6 +97,10 @@ class DiscoveryVM: DiscoveryVMType {
     
     func mapButtonPressed() {
         navigationDelegate?.mapButtonPressed(places: allPlaces)
+    }
+    
+    func menuButtonPressed() {
+        self.navigationDelegate?.menuButtonPressed()
     }
 }
 

@@ -53,6 +53,9 @@
 		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
 		772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D6226A040100BD1488 /* MapCoordinator.swift */; };
 		772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D8226A045A00BD1488 /* PlaceInfo.swift */; };
+		779ABDFA229D9F4E00C101D4 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779ABDF9229D9F4E00C101D4 /* LoginVC.swift */; };
+		779ABDFC229DAE7900C101D4 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779ABDFB229DAE7900C101D4 /* LoginCoordinator.swift */; };
+		779ABDFE229DB10F00C101D4 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779ABDFD229DB10F00C101D4 /* LoginVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +107,9 @@
 		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
 		772354D6226A040100BD1488 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		772354D8226A045A00BD1488 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
+		779ABDF9229D9F4E00C101D4 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		779ABDFB229DAE7900C101D4 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		779ABDFD229DB10F00C101D4 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -208,6 +214,7 @@
 				76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */,
 				76B41EC32251271700C1A290 /* CoordinatorKey.swift */,
 				76B41EC522520B0800C1A290 /* HomeCoordinator.swift */,
+				779ABDFB229DAE7900C101D4 /* LoginCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -230,6 +237,7 @@
 		76B41ECE225229DB00C1A290 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				779ABDF8229D9E9700C101D4 /* Login */,
 				76B41ED4225230B400C1A290 /* Conversations */,
 				0415EC31225E57D5009BCBC7 /* Map */,
 				76B41ECF225229EA00C1A290 /* Discovery */,
@@ -285,6 +293,15 @@
 				76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		779ABDF8229D9E9700C101D4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				779ABDF9229D9F4E00C101D4 /* LoginVC.swift */,
+				779ABDFD229DB10F00C101D4 /* LoginVM.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		96DEAE0556CCD7D266DF88E2 /* Pods */ = {
@@ -486,6 +503,7 @@
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
+				779ABDFE229DB10F00C101D4 /* LoginVM.swift in Sources */,
 				770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */,
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
@@ -495,8 +513,10 @@
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
+				779ABDFA229D9F4E00C101D4 /* LoginVC.swift in Sources */,
 				0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,
+				779ABDFC229DAE7900C101D4 /* LoginCoordinator.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
 				046ECB27226513F5000A5768 /* NavigationBuilder.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,

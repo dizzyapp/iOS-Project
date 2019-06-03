@@ -116,6 +116,7 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
     }
     
     func menuButtonPressed() {
+        self.viewModel.menuButtonPressed()
     }
 }
 

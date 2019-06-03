@@ -96,7 +96,12 @@ extension HomeCoordinator {
         add(coordinator: coordinator, for: .map)
     }
     
-    func menuButtonPressed() { }
+    func menuButtonPressed() {
+        print("menu pressed")
+        let vcc = container?.resolve(LoginCoordinatorType.self, argument: discoveryVC! as UIViewController)!
+        vcc?.start()
+        add(coordinator: vcc!, for: .login)
+    }
 }
 
 extension HomeCoordinator {
