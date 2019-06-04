@@ -26,6 +26,8 @@
 		04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CD6F225A96E00020DF8F /* ViewController.swift */; };
 		04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40C2263B47800E10F70 /* MapVM.swift */; };
 		04ECE4112263B47800E10F70 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40E2263B47800E10F70 /* MapVC.swift */; };
+		4DB778B722A7132200EBC1BC /* LoginSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778B622A7132200EBC1BC /* LoginSelectionView.swift */; };
+		4DB778B922A71A5600EBC1BC /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778B822A71A5600EBC1BC /* AppInfoView.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
@@ -79,6 +81,8 @@
 		04ECE40C2263B47800E10F70 /* MapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		04ECE40E2263B47800E10F70 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
+		4DB778B622A7132200EBC1BC /* LoginSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSelectionView.swift; sourceTree = "<group>"; };
+		4DB778B822A71A5600EBC1BC /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
 		76AC2B29225BBAF8005B556F /* LocationLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationLabel.swift; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 			children = (
 				779ABDF9229D9F4E00C101D4 /* LoginVC.swift */,
 				779ABDFD229DB10F00C101D4 /* LoginVM.swift */,
+				4DB778B622A7132200EBC1BC /* LoginSelectionView.swift */,
+				4DB778B822A71A5600EBC1BC /* AppInfoView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -507,9 +513,11 @@
 				770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */,
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
+				4DB778B922A71A5600EBC1BC /* AppInfoView.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
+				4DB778B722A7132200EBC1BC /* LoginSelectionView.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
