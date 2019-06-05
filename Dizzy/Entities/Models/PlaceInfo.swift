@@ -18,6 +18,7 @@ struct PlaceInfo: Codable, FilterEntry {
         return name
     }
 
+    let id: String
     let name: String
     let description: String
     let location: Location

@@ -33,6 +33,7 @@ final class PlaceStoryVC: ViewController {
         self.viewModel = viewModel
         super.init()
         commentsManager = CommentsManager(parentView: view)
+        commentsManager?.delegate = self
         addSubviews()
         layoutViews()
         bindViewModel()
@@ -81,6 +82,7 @@ final class PlaceStoryVC: ViewController {
                 self?.displayVideo(with: urlString)
             } else if  let url = URL(string: urlString) {
                 guard let self = self else { return }
+                self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
                 self.commentsManager?.showTextField(false)
                 self.imageView.kf.setImage(with: url) { [weak self] _ in
@@ -120,11 +122,26 @@ final class PlaceStoryVC: ViewController {
 }
 
 extension PlaceStoryVC: PlayerVCDelegate {
+    func playerVCSendPressed(_ playerVC: PlayerVC, with message: String) {
+        let comment = Comment(value: message)
+        viewModel.send(comment: comment)
+    }
+    
     func rightButtonPressed() {
         didTapRight()
     }
     
     func leftButtonPressed() {
         didTapLeft()
+    }
+}
+
+extension PlaceStoryVC: CommentsManagerDelegate {
+    
+    func commecntView(isHidden: Bool) { }
+    
+    func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
+        let comment = Comment(value: message)
+        viewModel.send(comment: comment)
     }
 }

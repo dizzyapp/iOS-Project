@@ -8,11 +8,15 @@
 
 import UIKit
 
+protocol CommentTextFieldViewDelegate: class {
+    func commentTextFieldViewSendPressed(_ view: UIView, with message: String)
+}
+
 final class CommentTextFieldView: UIView {
     
     let textField: UITextField  = {
         let textField = UITextField().withTransperentRoundedCorners
-        textField.placeholder = "PlaceHolder"
+        textField.placeholder = "PlaceHolder".localized
         textField.textAlignment = .natural
         return textField
     }()
@@ -23,10 +27,13 @@ final class CommentTextFieldView: UIView {
         return button
     }()
     
+    weak var delegate: CommentTextFieldViewDelegate?
+    
     init() {
         super.init(frame: .zero)
         addSubview()
         layoutViews()
+        sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,6 +56,13 @@ final class CommentTextFieldView: UIView {
             make.top.bottom.equalTo(sendButton)
             make.leading.equalTo(sendButton.snp.trailing).offset(Metrics.mediumPadding)
             make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
+        }
+    }
+    
+    @objc func sendButtonPressed() {
+        if let massage = textField.text {
+            delegate?.commentTextFieldViewSendPressed(self, with: massage)
+            textField.text = ""
         }
     }
 }

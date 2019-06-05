@@ -13,6 +13,7 @@ import AVKit
 protocol PlayerVCDelegate: class {
     func rightButtonPressed()
     func leftButtonPressed()
+    func playerVCSendPressed(_ playerVC: PlayerVC, with message: String)
 }
 
 final class PlayerVC: AVPlayerViewController, LoadingContainer {
@@ -23,6 +24,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     init(with url: URL) {
         super.init(nibName: nil, bundle: nil)
         player = AVPlayer(url: url)
+        player?.currentItem?.audioTimePitchAlgorithm = .lowQualityZeroLatency
     
         if let contentOverlayView = contentOverlayView {
             commentsManager = CommentsManager(parentView: contentOverlayView)
@@ -101,6 +103,11 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
 }
 
 extension PlayerVC: CommentsManagerDelegate {
+    
+    func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
+        gestureDelegate?.playerVCSendPressed(self, with: message)
+    }
+    
     func commecntView(isHidden: Bool) {
         isHidden ? play() : pause()
     }

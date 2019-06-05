@@ -10,6 +10,7 @@ import UIKit
 
 protocol CommentsManagerDelegate: class {
     func commecntView(isHidden: Bool)
+    func commentsManagerSendPressed(_ manager: CommentsManager, with message: String)
 }
 
 final class CommentsManager: NSObject {
@@ -31,6 +32,8 @@ final class CommentsManager: NSObject {
         addListeners()
         commentsView.delegate = self
         commentsView.isHidden = true
+        chatTextFieldView.delegate = self
+        chatTextFieldAccessoryView.delegate = self
     }
     
     private func addListeners() {
@@ -63,6 +66,10 @@ final class CommentsManager: NSObject {
     func showTextField(_ show: Bool) {
         chatTextFieldView.isHidden = !show
     }
+    
+    func show(comments: [Comment]) {
+        
+    }
 }
 
 extension CommentsManager {
@@ -85,5 +92,11 @@ extension CommentsManager {
         commentsView.isHidden = false
         delegate?.commecntView(isHidden: commentsView.isHidden)
         chatTextFieldAccessoryView.textField.becomeFirstResponder()
+    }
+}
+
+extension CommentsManager: CommentTextFieldViewDelegate {
+    func commentTextFieldViewSendPressed(_ view: UIView, with message: String) {
+        delegate?.commentsManagerSendPressed(self, with: message)
     }
 }
