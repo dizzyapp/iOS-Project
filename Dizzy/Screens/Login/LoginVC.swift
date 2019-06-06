@@ -11,14 +11,15 @@ import SnapKit
 
 final class LoginVC: UIViewController {
 
-    let mainContainerView: UIView = UIView()
-    let closeButton: UIButton = UIButton()
-    let loginContainerView: UIView = UIView()
+    let closeButton = UIButton()
+    let loginContainerView = UIView()
     
-    let titleLabel: UILabel = UILabel()
-    let subtitleLabel: UILabel = UILabel()
+    let titleLabel = UILabel()
+    let subtitleLabel = UILabel()
     let loginSelectionView: LoginSelectionView = LoginSelectionView()
     let appInfoView: AppInfoView = AppInfoView()
+    
+    let dizzyLogoImageView = UIImageView()
     
     let enterAsAdminButton: UIButton = UIButton()
     
@@ -42,15 +43,14 @@ final class LoginVC: UIViewController {
     }
     
     private func addSubviews() {
-        mainContainerView.addSubviews([closeButton, loginContainerView])
-        loginContainerView.addSubviews([titleLabel,
-                                        subtitleLabel, loginSelectionView, appInfoView, enterAsAdminButton])
-        mainContainerView.backgroundColor = .green
-        self.view.addSubview(mainContainerView)
+
+        self.view.addSubviews([closeButton, loginContainerView])
+        loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
+                                        appInfoView, dizzyLogoImageView, enterAsAdminButton])
+        
     }
     private func layoutViews() {
         
-        layoutMainContainerView()
         layoutCloseButton()
         layoutLoginContainerView()
         
@@ -59,23 +59,14 @@ final class LoginVC: UIViewController {
         layoutLoginSelectionView()
         layoutAppInfoView()
         
+        layoutDizzyLogo()
         layoutEnterAsAdminButton()
-    }
-    
-    private func layoutMainContainerView() {
-        mainContainerView.snp.makeConstraints { mainContainerView in
-            mainContainerView.centerY.equalToSuperview()
-            mainContainerView.leading.equalToSuperview()
-            mainContainerView.trailing.equalToSuperview()
-            mainContainerView.top.equalToSuperview().offset(20)
-            mainContainerView.bottom.equalToSuperview()
-        }
     }
     
     private func layoutCloseButton() {
         closeButton.snp.makeConstraints { closeButton in
             
-            closeButton.top.equalTo(mainContainerView.snp.top)
+            closeButton.top.equalTo(self.view.snp.topMargin).offset(Metrics.padding)
             closeButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
         }
     }
@@ -83,7 +74,7 @@ final class LoginVC: UIViewController {
     private func layoutLoginContainerView() {
         loginContainerView.snp.makeConstraints { loginContainerView in
             
-            loginContainerView.top.equalTo(closeButton.snp.bottom).offset(Metrics.doublePadding)
+            loginContainerView.top.equalTo(closeButton.snp.bottom).offset(Metrics.padding)
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.doublePadding)
         }
@@ -91,21 +82,22 @@ final class LoginVC: UIViewController {
     
     private func layoutTitleLabel() {
         titleLabel.snp.makeConstraints { titleLabel in
-            titleLabel.top.leading.trailing.equalToSuperview()
+            titleLabel.top.equalToSuperview().offset(Metrics.padding)
+            titleLabel.leading.trailing.equalToSuperview().offset(Metrics.padding)
         }
     }
     
     private func layoutSubtitleLabel() {
         subtitleLabel.snp.makeConstraints { subtitleLabel in
             subtitleLabel.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
-            subtitleLabel.leading.trailing.equalToSuperview()
+            subtitleLabel.leading.trailing.equalToSuperview().offset(Metrics.padding)
         }
     }
     
     private func layoutLoginSelectionView() {
         loginSelectionView.snp.makeConstraints { loginSelectionView in
-            loginSelectionView.top.equalTo(subtitleLabel.snp.bottom).offset(Metrics.doublePadding)
-            loginSelectionView.leading.trailing.equalToSuperview()
+            loginSelectionView.top.equalTo(subtitleLabel.snp.bottom)
+            loginSelectionView.leading.trailing.equalToSuperview()            
         }
     }
     
@@ -116,22 +108,32 @@ final class LoginVC: UIViewController {
         }
     }
     
+    private func layoutDizzyLogo() {
+        dizzyLogoImageView.snp.makeConstraints { dizzyLogoImageView in
+            dizzyLogoImageView.top.equalTo(appInfoView.snp.bottom).offset(Metrics.doublePadding)
+            dizzyLogoImageView.leading.trailing.equalToSuperview()
+        }
+    }
+    
     private func layoutEnterAsAdminButton() {
-        
+        enterAsAdminButton.snp.makeConstraints { enterAsAdminButton in
+            enterAsAdminButton.top.equalTo(dizzyLogoImageView.snp.bottom).offset(Metrics.doublePadding)
+            enterAsAdminButton.leading.trailing.equalToSuperview()
+            enterAsAdminButton.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
     }
     
     private func setupViews() {
-        setupMainContainerView()
         setupCloseButton()
         setupLoginContainerView()
+        
         setupTitleLabel()
         setupSubtitleLabel()
         setupLoginSelectionView()
         setupAppInfoView()
-    }
-    
-    private func setupMainContainerView() {
-//        mainContainerView.backgroundColor = .clear
+        
+        setupDizzyLogo()
+        setupEnterAsAdminButton()
     }
     
     private func setupCloseButton() {
@@ -158,16 +160,34 @@ final class LoginVC: UIViewController {
     
     private func setupLoginSelectionView() {
         loginSelectionView.delegate = self
+
     }
     
     private func setupAppInfoView() {
         appInfoView.delegate = self
+
     }
+    
+    private func setupDizzyLogo() {
+        dizzyLogoImageView.image = Images.defaultPlaceAvatar()
+
+    }
+    
+    private func setupEnterAsAdminButton() {
+        let text: NSMutableAttributedString = NSMutableAttributedString(string: "enter as admin".localized)
+        let range: NSRange = NSMakeRange(0, text.length)
+        text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
+        
+        enterAsAdminButton.setAttributedTitle(text, for: .normal)
+
+    }
+    
     @objc private func closeButtonClicked() {
         
     }
 }
 
+// MARK: - LoginSelectionView Delegates
 extension LoginVC: LoginSelectionViewDelegate {
     func loginWithFBPressed() {
         
@@ -182,6 +202,7 @@ extension LoginVC: LoginSelectionViewDelegate {
     }
 }
 
+// MARK:- AppInfoView Delegates
 extension LoginVC: AppInfoViewDelegate {
     func aboutButtonPressed() {
         

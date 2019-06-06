@@ -83,28 +83,32 @@ class AppInfoView: UIView {
     
     private func setupAboutButton() {
         
+        aboutButton.setTitleColor(.black, for: .normal)
         aboutButton.titleLabel?.font = Fonts.h3()
         aboutButton.setTitle("About".localized, for: .normal)
     }
     private func setupAboutSeparatorView() {
-        
+        aboutSeparatorView.backgroundColor = .black
     }
     private func setupTermsOfUseButton() {
-        termsOfUseButton.titleLabel?.font = Fonts.h3()
+        termsOfUseButton.setTitleColor(.black, for: .normal)
+        termsOfUseButton.titleLabel?.font = Fonts.h5()
         termsOfUseButton.setTitle("Terms of Use".localized, for: .normal)
     }
     private func setupTermsOfUseSeparatorView() {
         
     }
     private func setupPrivacyPolicyButton() {
-        privacyPolicyButton.titleLabel?.font = Fonts.h3()
+        privacyPolicyButton.setTitleColor(.black, for: .normal)
+        privacyPolicyButton.titleLabel?.font = Fonts.h5()
         privacyPolicyButton.setTitle("Privacy Policy".localized, for: .normal)
     }
     private func setupPrivacyPolicySeparatorView() {
         
     }
     private func setupContactUsButton() {
-        contactUsButton.titleLabel?.font = Fonts.h3()
+        contactUsButton.setTitleColor(.black, for: .normal)
+        contactUsButton.titleLabel?.font = Fonts.h5()
         contactUsButton.setTitle("Contact us".localized, for: .normal)
     }
 }

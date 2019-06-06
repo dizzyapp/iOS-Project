@@ -31,8 +31,11 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate {
         }
         
         loginVM.navigationDelegate = self
-        navigationController = loginVC.embdedInNavigationController().withTransparentStyle()
-        presentingVC.present(navigationController, animated: true)
+//        navigationController = loginVC.embdedInNavigationController().withTransparentStyle()
+        loginVC.modalPresentationStyle = .overCurrentContext
+        loginVC.view.backgroundColor = .clear
+        loginVC.modalPresentationCapturesStatusBarAppearance = true
+        presentingVC.present(loginVC, animated: true)
     }
     
     func navigateToHomeScreen() {

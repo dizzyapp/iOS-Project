@@ -18,10 +18,10 @@ class LoginSelectionView: UIView {
 
     weak var delegate: LoginSelectionViewDelegate?
 
-    let loginWithDizzyButton: UIButton = UIButton()
-    let loginFacebookButton: UIButton = UIButton()
-    let orLabel: UILabel = UILabel()
-    let createAccountButton: UIButton = UIButton()
+    let loginWithDizzyButton = UIButton()
+    let loginFacebookButton = UIButton()
+    let orLabel = UILabel()
+    let createAccountButton = UIButton()
     
     init() {
         super.init(frame: CGRect.zero)
@@ -48,7 +48,7 @@ class LoginSelectionView: UIView {
     
     private func layoutLoginWithDizzyButton() {
         loginWithDizzyButton.snp.makeConstraints { loginWithDizzyButton in
-            loginWithDizzyButton.top.equalTo(self.snp.bottom).offset(Metrics.doublePadding)
+            loginWithDizzyButton.top.equalToSuperview().offset(Metrics.doublePadding)
             loginWithDizzyButton.centerX.equalToSuperview()
             loginWithDizzyButton.width.equalToSuperview().multipliedBy(0.7)
         }
@@ -64,14 +64,14 @@ class LoginSelectionView: UIView {
     
     private func layoutOrLabel() {
         orLabel.snp.makeConstraints { orLabel in
-            orLabel.top.equalTo(loginFacebookButton.snp.bottom).offset(Metrics.doublePadding)
+            orLabel.top.equalTo(loginFacebookButton.snp.bottom).offset(Metrics.padding)
             orLabel.leading.trailing.equalToSuperview()
         }
     }
     
     private func layoutCreateAccountButton() {
         createAccountButton.snp.makeConstraints { createAccountButton in
-            createAccountButton.top.equalTo(orLabel.snp.bottom).offset(Metrics.doublePadding)
+            createAccountButton.top.equalTo(orLabel.snp.bottom).offset(Metrics.padding)
             createAccountButton.leading.trailing.equalToSuperview()
         }
     }
@@ -97,11 +97,12 @@ class LoginSelectionView: UIView {
         loginFacebookButton.setBackgroundImage(Images.loginIcon(), for: .normal)
         loginFacebookButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
         loginFacebookButton.addTarget(self, action: #selector(loginWithFBPressed), for: .touchUpInside)
+        
     }
     
     private func setupOrLabel() {
         orLabel.textAlignment = .center
-        orLabel.font = Fonts.h1()
+        orLabel.font = Fonts.h8()
         orLabel.text = "or".localized
     }
     private func setupCreateNewAccountButton() {
