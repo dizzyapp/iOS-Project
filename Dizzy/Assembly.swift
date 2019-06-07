@@ -34,6 +34,8 @@ class Assembly {
         container.autoregister(DiscoveryVC.self, argument: DiscoveryVMType.self, initializer: DiscoveryVC.init)
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
+        container.autoregister(PlaceStoryVC.self, argument: PlaceStoryVMType.self ,initializer: PlaceStoryVC.init)
+        container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(MapSearchVC.self, argument: MapSearchVMType.self ,initializer: MapSearchVC.init)
         container.autoregister(LoginVC.self, argument:LoginVMType.self,  initializer: LoginVC.init)
         
