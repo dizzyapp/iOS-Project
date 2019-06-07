@@ -61,4 +61,12 @@ struct Images {
     static func dizzyIcon() -> UIImage {
         return UIImage(named: "dizzyIcon")!
     }
+    
+    static func dizzyLogo() -> UIImage {
+        return UIImage(named: "dizzyLogo")!
+    }
+    
+    static func facebookIcon() -> UIImage {
+        return UIImage(named: "facebookIcon")!
+    }
 }

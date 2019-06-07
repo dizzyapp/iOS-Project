@@ -16,8 +16,8 @@ final class LoginVC: UIViewController {
     
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
-    let loginSelectionView: LoginSelectionView = LoginSelectionView()
-    let appInfoView: AppInfoView = AppInfoView()
+    let loginSelectionView = LoginSelectionView()
+    let appInfoView = AppInfoView()
     
     let dizzyLogoImageView = UIImageView()
     
@@ -97,20 +97,20 @@ final class LoginVC: UIViewController {
     private func layoutLoginSelectionView() {
         loginSelectionView.snp.makeConstraints { loginSelectionView in
             loginSelectionView.top.equalTo(subtitleLabel.snp.bottom)
-            loginSelectionView.leading.trailing.equalToSuperview()            
+            loginSelectionView.leading.trailing.equalToSuperview()
         }
     }
     
     private func layoutAppInfoView() {
         appInfoView.snp.makeConstraints { appInfoView in
-            appInfoView.top.equalTo(loginSelectionView.snp.bottom).offset(Metrics.doublePadding)
+            appInfoView.top.equalTo(loginSelectionView.snp.bottom)
             appInfoView.leading.trailing.equalToSuperview()
         }
     }
     
     private func layoutDizzyLogo() {
         dizzyLogoImageView.snp.makeConstraints { dizzyLogoImageView in
-            dizzyLogoImageView.top.equalTo(appInfoView.snp.bottom).offset(Metrics.doublePadding)
+            dizzyLogoImageView.top.equalTo(appInfoView.snp.bottom).offset(2 * Metrics.doublePadding)
             dizzyLogoImageView.leading.trailing.equalToSuperview()
         }
     }
@@ -119,6 +119,7 @@ final class LoginVC: UIViewController {
         enterAsAdminButton.snp.makeConstraints { enterAsAdminButton in
             enterAsAdminButton.top.equalTo(dizzyLogoImageView.snp.bottom).offset(Metrics.doublePadding)
             enterAsAdminButton.leading.trailing.equalToSuperview()
+            enterAsAdminButton.height.equalTo(40)
             enterAsAdminButton.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
@@ -169,54 +170,59 @@ final class LoginVC: UIViewController {
     }
     
     private func setupDizzyLogo() {
-        dizzyLogoImageView.image = Images.defaultPlaceAvatar()
-
+        dizzyLogoImageView.image = Images.dizzyLogo()
+        dizzyLogoImageView.contentMode = .center
     }
     
     private func setupEnterAsAdminButton() {
         let text: NSMutableAttributedString = NSMutableAttributedString(string: "enter as admin".localized)
         let range: NSRange = NSMakeRange(0, text.length)
-        text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
         
-        enterAsAdminButton.setAttributedTitle(text, for: .normal)
+        text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
+        text.addAttribute(.font, value: Fonts.h8(), range: range)
 
+        enterAsAdminButton.setAttributedTitle(text, for: .normal)
+        enterAsAdminButton.addTarget(self, action: #selector(enterAsAdminButtonPressed), for: .touchUpInside)
     }
     
     @objc private func closeButtonClicked() {
-        
+        self.loginVM.closeButtonPressed()
+    }
+    @objc private func enterAsAdminButtonPressed() {
+        self.loginVM.enterAsAdminButtonPressed()
     }
 }
 
-// MARK: - LoginSelectionView Delegates
+// MARK: LoginSelectionView Delegates
 extension LoginVC: LoginSelectionViewDelegate {
-    func loginWithFBPressed() {
-        
+    func loginWithFBButtonPressed() {
+        self.loginVM.loginWithFacebookButtonPressed()
     }
     
-    func loginWithDizzyPressed() {
-        
+    func loginWithDizzyButtonPressed() {
+        self.loginVM.loginWithDizzyButtonPressed()
     }
     
-    func createNewAccountPressed() {
-        
+    func signUpButtonPressed() {
+        self.loginVM.signUpButtonPressed()
     }
 }
 
-// MARK:- AppInfoView Delegates
+// MARK: AppInfoView Delegates
 extension LoginVC: AppInfoViewDelegate {
     func aboutButtonPressed() {
-        
+        self.loginVM.aboutButtonPressed()
     }
     
-    func termsOfUsPressed() {
-        
+    func termsOfUsButtonPressed() {
+        self.loginVM.termsOfUseButtonPressed()
     }
     
-    func privacyPolicyPressed() {
-        
+    func privacyPolicyButtonPressed() {
+        self.loginVM.privacyPolicyButtonPressed()
     }
     
-    func contactUsPressed() {
-        
+    func contactUsButtonPressed() {
+        self.loginVM.contactUsButtonPressed()
     }
 }

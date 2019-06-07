@@ -9,9 +9,9 @@
 import UIKit
 
 protocol LoginSelectionViewDelegate: class {
-    func loginWithDizzyPressed()
-    func loginWithFBPressed()
-    func createNewAccountPressed()
+    func loginWithDizzyButtonPressed()
+    func loginWithFBButtonPressed()
+    func signUpButtonPressed()
 }
 
 class LoginSelectionView: UIView {
@@ -21,7 +21,7 @@ class LoginSelectionView: UIView {
     let loginWithDizzyButton = UIButton()
     let loginFacebookButton = UIButton()
     let orLabel = UILabel()
-    let createAccountButton = UIButton()
+    let signUpButton = UIButton()
     
     init() {
         super.init(frame: CGRect.zero)
@@ -35,7 +35,7 @@ class LoginSelectionView: UIView {
     }
     
     private func addSubviews() {
-        self.addSubviews([loginWithDizzyButton, loginFacebookButton, orLabel, createAccountButton])
+        self.addSubviews([loginWithDizzyButton, loginFacebookButton, orLabel, signUpButton])
     }
     
     private func layoutViews() {
@@ -43,14 +43,14 @@ class LoginSelectionView: UIView {
         layoutLoginWithDizzyButton()
         layoutLoginFacebookButton()
         layoutOrLabel()
-        layoutCreateAccountButton()
+        layoutSignUpButton()
     }
     
     private func layoutLoginWithDizzyButton() {
         loginWithDizzyButton.snp.makeConstraints { loginWithDizzyButton in
             loginWithDizzyButton.top.equalToSuperview().offset(Metrics.doublePadding)
             loginWithDizzyButton.centerX.equalToSuperview()
-            loginWithDizzyButton.width.equalToSuperview().multipliedBy(0.7)
+            loginWithDizzyButton.width.equalToSuperview().multipliedBy(0.6)
         }
     }
     
@@ -69,10 +69,10 @@ class LoginSelectionView: UIView {
         }
     }
     
-    private func layoutCreateAccountButton() {
-        createAccountButton.snp.makeConstraints { createAccountButton in
-            createAccountButton.top.equalTo(orLabel.snp.bottom).offset(Metrics.padding)
-            createAccountButton.leading.trailing.equalToSuperview()
+    private func layoutSignUpButton() {
+        signUpButton.snp.makeConstraints { signUpButton in
+            signUpButton.top.equalTo(orLabel.snp.bottom).offset(Metrics.padding)
+            signUpButton.leading.trailing.equalToSuperview()
         }
     }
     
@@ -80,20 +80,22 @@ class LoginSelectionView: UIView {
         setupLoginWithDizzyButton()
         setupLoginWithFBButton()
         setupOrLabel()
-        setupCreateNewAccountButton()
+        setupSignUpButton()
     }
     
     private func setupLoginWithDizzyButton() {
         loginWithDizzyButton.setTitle("Log in with dizzy".localized, for: .normal)
+        loginWithDizzyButton.titleLabel?.font = Fonts.h7()
         loginWithDizzyButton.setImage(Images.dizzyIcon(), for: .normal)
         loginWithDizzyButton.setBackgroundImage(Images.loginIcon(), for: .normal)
-        loginWithDizzyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
+        loginWithDizzyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 60)
         loginWithDizzyButton.addTarget(self, action: #selector(loginWithDizzyPressed), for: .touchUpInside)
     }
     
     private func setupLoginWithFBButton() {
         loginFacebookButton.setTitle("Log in with facebook".localized, for: .normal)
-        //        loginWithDizzyButton.setImage(Images.downArrowIcon(), for: .normal)
+        loginFacebookButton.titleLabel?.font = Fonts.h7()
+        loginFacebookButton.setImage(Images.facebookIcon(), for: .normal)
         loginFacebookButton.setBackgroundImage(Images.loginIcon(), for: .normal)
         loginFacebookButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
         loginFacebookButton.addTarget(self, action: #selector(loginWithFBPressed), for: .touchUpInside)
@@ -105,24 +107,24 @@ class LoginSelectionView: UIView {
         orLabel.font = Fonts.h8()
         orLabel.text = "or".localized
     }
-    private func setupCreateNewAccountButton() {
+    private func setupSignUpButton() {
         
         let text: NSMutableAttributedString = NSMutableAttributedString(string: "create a new account".localized)
         let range: NSRange = NSMakeRange(0, text.length)
         text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
         
-        createAccountButton.setAttributedTitle(text, for: .normal)
+        signUpButton.setAttributedTitle(text, for: .normal)
     }
     
     @objc private func loginWithDizzyPressed() {
-        self.delegate?.loginWithDizzyPressed()
+        self.delegate?.loginWithDizzyButtonPressed()
     }
     
     @objc private func loginWithFBPressed() {
-        self.delegate?.loginWithFBPressed()
+        self.delegate?.loginWithFBButtonPressed()
     }
     
     @objc private func createNewAccountPressed() {
-        self.delegate?.createNewAccountPressed()
+        self.delegate?.signUpButtonPressed()
     }
 }

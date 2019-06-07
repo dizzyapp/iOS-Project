@@ -10,9 +10,9 @@ import UIKit
 
 protocol AppInfoViewDelegate: class {
     func aboutButtonPressed()
-    func termsOfUsPressed()
-    func privacyPolicyPressed()
-    func contactUsPressed()
+    func termsOfUsButtonPressed()
+    func privacyPolicyButtonPressed()
+    func contactUsButtonPressed()
 }
 
 class AppInfoView: UIView {
@@ -58,6 +58,9 @@ class AppInfoView: UIView {
     
     private func layoutViews() {
         layoutStackView()
+        layoutAboutSeparatorView()
+        layoutTermsOfUseSeparatorView()
+        layoutPrivacyPolicySeparatorView()
     }
     
     private func layoutStackView() {
@@ -66,6 +69,25 @@ class AppInfoView: UIView {
         }
     }
     
+    private func layoutAboutSeparatorView() {
+        aboutSeparatorView.snp.makeConstraints { aboutSeparatorView in
+            aboutSeparatorView.height.equalTo(0.5)
+            aboutSeparatorView.width.equalToSuperview().multipliedBy(0.6)
+        }
+    }
+    
+    private func layoutTermsOfUseSeparatorView() {
+        termsOfUseSeparatorView.snp.makeConstraints { termsOfUseSeparatorView in
+            termsOfUseSeparatorView.height.equalTo(0.5)
+            termsOfUseSeparatorView.width.equalToSuperview().multipliedBy(0.6)
+        }
+    }
+    private func layoutPrivacyPolicySeparatorView() {
+        privacyPolicySeparatorView.snp.makeConstraints { privacyPolicySeparatorView in
+            privacyPolicySeparatorView.height.equalTo(0.5)
+            privacyPolicySeparatorView.width.equalToSuperview().multipliedBy(0.6)
+        }
+    }
     private func setupViews() {
         setupStackView()
         setupAboutButton()
@@ -79,35 +101,38 @@ class AppInfoView: UIView {
     
     private func setupStackView() {
         stackView.axis = .vertical
+        stackView.alignment = .center
     }
     
     private func setupAboutButton() {
         
-        aboutButton.setTitleColor(.black, for: .normal)
+        aboutButton.setTitleColor(.lightGray, for: .normal)
         aboutButton.titleLabel?.font = Fonts.h3()
         aboutButton.setTitle("About".localized, for: .normal)
     }
     private func setupAboutSeparatorView() {
-        aboutSeparatorView.backgroundColor = .black
+        aboutSeparatorView.backgroundColor = UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1.0)
     }
     private func setupTermsOfUseButton() {
-        termsOfUseButton.setTitleColor(.black, for: .normal)
+        termsOfUseButton.setTitleColor(.lightGray, for: .normal)
         termsOfUseButton.titleLabel?.font = Fonts.h5()
         termsOfUseButton.setTitle("Terms of Use".localized, for: .normal)
     }
     private func setupTermsOfUseSeparatorView() {
-        
+        termsOfUseSeparatorView.backgroundColor = UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1.0)
+
     }
     private func setupPrivacyPolicyButton() {
-        privacyPolicyButton.setTitleColor(.black, for: .normal)
+        privacyPolicyButton.setTitleColor(.lightGray, for: .normal)
         privacyPolicyButton.titleLabel?.font = Fonts.h5()
         privacyPolicyButton.setTitle("Privacy Policy".localized, for: .normal)
     }
     private func setupPrivacyPolicySeparatorView() {
-        
+        privacyPolicySeparatorView.backgroundColor = UIColor(red: 97/255, green: 97/255, blue: 97/255, alpha: 1.0)
+
     }
     private func setupContactUsButton() {
-        contactUsButton.setTitleColor(.black, for: .normal)
+        contactUsButton.setTitleColor(.lightGray, for: .normal)
         contactUsButton.titleLabel?.font = Fonts.h5()
         contactUsButton.setTitle("Contact us".localized, for: .normal)
     }

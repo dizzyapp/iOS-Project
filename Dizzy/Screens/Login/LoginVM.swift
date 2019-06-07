@@ -9,8 +9,15 @@
 import UIKit
 
 protocol LoginVMType {
-    func onLogin()
-    func onSignIn()
+    func closeButtonPressed()
+    func signUpButtonPressed()
+    func loginWithDizzyButtonPressed()
+    func loginWithFacebookButtonPressed()
+    func aboutButtonPressed()
+    func termsOfUseButtonPressed()
+    func privacyPolicyButtonPressed()
+    func contactUsButtonPressed()
+    func enterAsAdminButtonPressed()
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
 }
@@ -18,6 +25,12 @@ protocol LoginVMType {
 protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
     func navigateToHomeScreen()
+    func navigateToSignInWithDizzyScreen()
+    func navigateToAboutScreen()
+    func navigateToTermsOfUseScreen()
+    func navigateToPrivacyPolicyScreen()
+    func navigateToContactUsScreen()
+    func navigateToAdminScreen()
 }
 
 class LoginVM: LoginVMType {
@@ -28,11 +41,39 @@ class LoginVM: LoginVMType {
         
     }
     
-    func onLogin() {
+    func closeButtonPressed() {
+        self.navigationDelegate?.navigateToHomeScreen()
+    }
+    
+    func signUpButtonPressed() {
+        self.navigationDelegate?.navigateToSignUpScreen()
+    }
+    
+    func loginWithDizzyButtonPressed() {
+        self.navigationDelegate?.navigateToSignInWithDizzyScreen()
+    }
+    
+    func loginWithFacebookButtonPressed() {
         
     }
     
-    func onSignIn() {
-        
+    func aboutButtonPressed() {
+        self.navigationDelegate?.navigateToAboutScreen()
+    }
+    
+    func termsOfUseButtonPressed() {
+        self.navigationDelegate?.navigateToTermsOfUseScreen()
+    }
+    
+    func privacyPolicyButtonPressed() {
+        self.navigationDelegate?.navigateToPrivacyPolicyScreen()
+    }
+    
+    func contactUsButtonPressed() {
+        self.navigationDelegate?.navigateToContactUsScreen()
+    }
+    
+    func enterAsAdminButtonPressed() {
+        self.navigationDelegate?.navigateToAdminScreen()
     }
 }
