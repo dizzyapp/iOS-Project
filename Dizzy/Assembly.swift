@@ -28,6 +28,7 @@ class Assembly {
         // MARK: view models
         container.autoregister(DiscoveryVMType.self, initializer: DiscoveryVM.init)
         container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
+        container.autoregister(SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVM.init)
         
         // MARK: view controllers
         container.autoregister(DiscoveryVC.self, argument: DiscoveryVMType.self, initializer: DiscoveryVC.init)
@@ -36,6 +37,7 @@ class Assembly {
         container.autoregister(PlaceStoryVC.self, argument: PlaceStoryVMType.self ,initializer: PlaceStoryVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(MapSearchVC.self, argument: MapSearchVMType.self ,initializer: MapSearchVC.init)
+        container.autoregister(SignUpWithDizzyVC.self, argument: SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVC.init)
         
         // MARK: coordinators
         container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
