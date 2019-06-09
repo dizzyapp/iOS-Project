@@ -72,6 +72,7 @@ class DiscoveryVC: ViewController {
     }
     
     private func setupViews() {
+        
         setupThemeImageView()
         setupNearByPlacesView()
         setupTopBarView()

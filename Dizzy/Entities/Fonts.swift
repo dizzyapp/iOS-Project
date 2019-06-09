@@ -11,6 +11,7 @@ import UIKit
 
 enum Weight {
     case regular
+    case medium
     case bold
 }
 
@@ -67,6 +68,7 @@ struct Fonts {
 
 let mainAppFont = "Avenir"
 let mainAppFontBold = "Avenir-Heavy"
+let mainAppFontMedium = "Avenir-Medium"
 
 struct Family {
     static func regular(size: CGFloat) -> UIFont {
@@ -77,10 +79,16 @@ struct Family {
         return UIFont.init(name: mainAppFontBold, size: size)!
     }
     
+    static func medium(size: CGFloat) -> UIFont {
+        return UIFont.init(name: mainAppFontMedium, size: size)!
+    }
+    
     static func familyType(weight: Weight, size: CGFloat) -> UIFont {
         switch weight {
         case .regular:
             return Family.regular(size: size)
+        case .medium:
+            return Family.medium(size: size)
         case .bold:
             return Family.bold(size: size)
         }

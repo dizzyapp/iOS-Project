@@ -10,14 +10,16 @@ import UIKit
 import SnapKit
 
 final class SignUpWithDizzyVC: UIViewController {
+    let backButton = UIButton(type: .system)
     var signUpDetailsView = SignUpDetailsView()
     let viewModel: SignUpWithDizzyVMType
 
     init(viewModel: SignUpWithDizzyVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .clear
         layoutViews()
+        setupBackButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,11 +27,20 @@ final class SignUpWithDizzyVC: UIViewController {
     }
     
     private func layoutViews() {
-        self.view.addSubview(signUpDetailsView)
+        self.view.addSubviews([signUpDetailsView, backButton])
+        
+        backButton.snp.makeConstraints { backButton in
+            backButton.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
+            backButton.trailing.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+        }
+        
         signUpDetailsView.snp.makeConstraints { signUpDetailsView in
-            signUpDetailsView.top.equalTo(view.snp.topMargin).offset(Metrics.doublePadding)
-            signUpDetailsView.leading.trailing.equalToSuperview()
+            signUpDetailsView.top.equalTo(backButton.snp.bottom).offset(Metrics.padding)
+            signUpDetailsView.leading.bottom.trailing.equalToSuperview()
         }
     }
-
+    
+    private func setupBackButton() {
+        backButton.setTitle("back", for: .normal)
+    }
 }
