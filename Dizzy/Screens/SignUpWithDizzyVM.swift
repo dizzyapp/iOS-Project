@@ -9,11 +9,15 @@
 import UIKit
 
 protocol SignUpWithDizzyVMType {
-    
+    func onSignupPressed(_ signupDetails: SignupDetails)
 }
 
 class SignUpWithDizzyVM: SignUpWithDizzyVMType {
     init() {
+        
+    }
+    
+    func onSignupPressed(_ signupDetails: SignupDetails) {
         
     }
 }

@@ -17,9 +17,8 @@ final class SignUpWithDizzyVC: UIViewController {
     init(viewModel: SignUpWithDizzyVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view.backgroundColor = .clear
         layoutViews()
-        setupBackButton()
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +39,22 @@ final class SignUpWithDizzyVC: UIViewController {
         }
     }
     
+    private func setupViews() {
+        self.view.backgroundColor = .clear
+        setupBackButton()
+    }
+    
     private func setupBackButton() {
         backButton.setTitle("back", for: .normal)
+    }
+    
+    private func setupSignUpDetailsView() {
+        signUpDetailsView.delegate = self
+    }
+}
+
+extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
+    func onSignupPressed(_ signupDetails: SignupDetails) {
+        viewModel.onSignupPressed()
     }
 }

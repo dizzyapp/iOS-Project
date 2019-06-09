@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SignUpDetailsViewDelegate: class {
+    func onSignupPressed(_ signupDetails: SignupDetails)
+}
+
 final class SignUpDetailsView: UIView {
 
     let titleLabel = UILabel()
@@ -22,6 +26,8 @@ final class SignUpDetailsView: UIView {
     let buttonsWidthPrecentage = CGFloat(0.5)
     let signupButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
     let signupCornerRadius = CGFloat(17)
+    
+    weak var delegate: SignUpDetailsViewDelegate?
     
     init() {
         super.init(frame: CGRect.zero)
@@ -123,6 +129,20 @@ final class SignUpDetailsView: UIView {
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.layer.cornerRadius = signupCornerRadius
         signUpButton.backgroundColor = signupButtonBackgroundColor
+        signUpButton.addTarget(self, action: #selector(onSignupPressed), for: .touchUpInside )
     }
+    
+    @objc private func onSignupPressed() {
+        
+        guard let fullName = fullNameTextField.text,
+            let email = emailTextField.text,
+            let password = passwordTextField.text else {
+                return
+        }
+        
+        let signupDetails = SignupDetails(fullName: fullName, email: email, password: password)
+        delegate?.onSignupPressed(signupDetails)
+    }
+    
 
 }
