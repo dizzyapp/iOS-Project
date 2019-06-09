@@ -18,7 +18,10 @@ final class SignUpDetailsView: UIView {
     let confirmPasswordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Confirm your password".localized)
     let signUpButton = UIButton(type: .system)
     
-    let cornerRadius = CGFloat(30)
+    let screenCornerRadius = CGFloat(30)
+    let buttonsWidthPrecentage = CGFloat(0.5)
+    let signupButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
+    let signupCornerRadius = CGFloat(17)
     
     init() {
         super.init(frame: CGRect.zero)
@@ -62,40 +65,40 @@ final class SignUpDetailsView: UIView {
     private func layoutFullNameTextField() {
         stackView.addArrangedSubview(fullNameTextField)
         fullNameTextField.snp.makeConstraints { (fullNameTextField ) in
-            fullNameTextField.width.equalToSuperview().multipliedBy(0.5)
+            fullNameTextField.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
         }
     }
     
     private func layoutEmailTextField() {
         stackView.addArrangedSubview(emailTextField)
         emailTextField.snp.makeConstraints { (emailTextField ) in
-            emailTextField.width.equalToSuperview().multipliedBy(0.5)
+            emailTextField.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
         }
     }
     
     private func layoutPasswordTextField() {
         stackView.addArrangedSubview(passwordTextField)
         passwordTextField.snp.makeConstraints { (passwordTextField ) in
-            passwordTextField.width.equalToSuperview().multipliedBy(0.5)
+            passwordTextField.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
         }
     }
     
     private func layoutConfirmPasswordTextField() {
         stackView.addArrangedSubview(confirmPasswordTextField)
         confirmPasswordTextField.snp.makeConstraints { (confirmPasswordTextField ) in
-            confirmPasswordTextField.width.equalToSuperview().multipliedBy(0.5)
+            confirmPasswordTextField.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
         }
     }
     
     private func layoutSignupButton() {
         stackView.addArrangedSubview(signUpButton)
         signUpButton.snp.makeConstraints { (signUpButton ) in
-            signUpButton.width.equalToSuperview().multipliedBy(0.5)
+            signUpButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
         }
     }
     
     private func setupViews() {
-        layer.cornerRadius = cornerRadius
+        layer.cornerRadius = screenCornerRadius
         setupStackView()
         setupSignUpButton()
         setupTitleLabel()
@@ -118,8 +121,8 @@ final class SignUpDetailsView: UIView {
         signUpButton.setTitle("Done!".localized, for: .normal)
         signUpButton.titleLabel?.font = Fonts.h10(weight: .bold)
         signUpButton.setTitleColor(.white, for: .normal)
-        signUpButton.layer.cornerRadius = 17
-        signUpButton.backgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
+        signUpButton.layer.cornerRadius = signupCornerRadius
+        signUpButton.backgroundColor = signupButtonBackgroundColor
     }
 
 }
