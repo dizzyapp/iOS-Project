@@ -10,9 +10,11 @@ import UIKit
 
 protocol LoginSelectionViewDelegate: class {
     func loginWithDizzyButtonPressed()
-    func loginWithFBButtonPressed()
+    func loginWithFacebookButtonPressed()
     func signUpButtonPressed()
 }
+
+let signUpButtonColor = UIColor(red: 0.3, green: 0.41, blue: 0.94, alpha: 1)
 
 class LoginSelectionView: UIView {
 
@@ -72,13 +74,13 @@ class LoginSelectionView: UIView {
     private func layoutSignUpButton() {
         signUpButton.snp.makeConstraints { signUpButton in
             signUpButton.top.equalTo(orLabel.snp.bottom).offset(Metrics.padding)
-            signUpButton.leading.trailing.equalToSuperview()
+            signUpButton.centerX.equalToSuperview()
         }
     }
     
     private func setupViews() {
         setupLoginWithDizzyButton()
-        setupLoginWithFBButton()
+        setupLoginWithFacebookButton()
         setupOrLabel()
         setupSignUpButton()
     }
@@ -89,16 +91,16 @@ class LoginSelectionView: UIView {
         loginWithDizzyButton.setImage(Images.dizzyIcon(), for: .normal)
         loginWithDizzyButton.setBackgroundImage(Images.loginIcon(), for: .normal)
         loginWithDizzyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 60)
-        loginWithDizzyButton.addTarget(self, action: #selector(loginWithDizzyPressed), for: .touchUpInside)
+        loginWithDizzyButton.addTarget(self, action: #selector(loginWithDizzyButtonPressed), for: .touchUpInside)
     }
     
-    private func setupLoginWithFBButton() {
+    private func setupLoginWithFacebookButton() {
         loginFacebookButton.setTitle("Log in with facebook".localized, for: .normal)
         loginFacebookButton.titleLabel?.font = Fonts.h7()
         loginFacebookButton.setImage(Images.facebookIcon(), for: .normal)
         loginFacebookButton.setBackgroundImage(Images.loginIcon(), for: .normal)
         loginFacebookButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
-        loginFacebookButton.addTarget(self, action: #selector(loginWithFBPressed), for: .touchUpInside)
+        loginFacebookButton.addTarget(self, action: #selector(loginWithFacebookButtonPressed), for: .touchUpInside)
         
     }
     
@@ -109,22 +111,22 @@ class LoginSelectionView: UIView {
     }
     private func setupSignUpButton() {
         
-        let text: NSMutableAttributedString = NSMutableAttributedString(string: "create a new account".localized)
-        let range: NSRange = NSMakeRange(0, text.length)
-        text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
-        
-        signUpButton.setAttributedTitle(text, for: .normal)
+        signUpButton.setBackgroundImage(Images.signUpIcon(), for: .normal)
+        signUpButton.setTitle("Sign up".localized, for: .normal)
+        signUpButton.setTitleColor(signUpButtonColor, for: .normal)
+        loginFacebookButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
+
     }
     
-    @objc private func loginWithDizzyPressed() {
+    @objc private func loginWithDizzyButtonPressed() {
         self.delegate?.loginWithDizzyButtonPressed()
     }
     
-    @objc private func loginWithFBPressed() {
-        self.delegate?.loginWithFBButtonPressed()
+    @objc private func loginWithFacebookButtonPressed() {
+        self.delegate?.loginWithFacebookButtonPressed()
     }
     
-    @objc private func createNewAccountPressed() {
+    @objc private func signUpButtonPressed() {
         self.delegate?.signUpButtonPressed()
     }
 }

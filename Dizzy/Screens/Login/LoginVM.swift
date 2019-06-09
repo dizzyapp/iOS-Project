@@ -13,10 +13,7 @@ protocol LoginVMType {
     func signUpButtonPressed()
     func loginWithDizzyButtonPressed()
     func loginWithFacebookButtonPressed()
-    func aboutButtonPressed()
-    func termsOfUseButtonPressed()
-    func privacyPolicyButtonPressed()
-    func contactUsButtonPressed()
+    func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
@@ -26,10 +23,7 @@ protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
     func navigateToHomeScreen()
     func navigateToSignInWithDizzyScreen()
-    func navigateToAboutScreen()
-    func navigateToTermsOfUseScreen()
-    func navigateToPrivacyPolicyScreen()
-    func navigateToContactUsScreen()
+    func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
 }
 
@@ -57,20 +51,8 @@ class LoginVM: LoginVMType {
         
     }
     
-    func aboutButtonPressed() {
-        self.navigationDelegate?.navigateToAboutScreen()
-    }
-    
-    func termsOfUseButtonPressed() {
-        self.navigationDelegate?.navigateToTermsOfUseScreen()
-    }
-    
-    func privacyPolicyButtonPressed() {
-        self.navigationDelegate?.navigateToPrivacyPolicyScreen()
-    }
-    
-    func contactUsButtonPressed() {
-        self.navigationDelegate?.navigateToContactUsScreen()
+    func appInfoButtonPressed(type: AppInfoType) {
+        self.navigationDelegate?.navigateToAppInfoScreen(type: type)
     }
     
     func enterAsAdminButtonPressed() {

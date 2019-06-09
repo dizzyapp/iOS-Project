@@ -35,9 +35,7 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate {
         }
         
         loginVM.navigationDelegate = self
-//        navigationController = loginVC.embdedInNavigationController().withTransparentStyle()
         loginVC.modalPresentationStyle = .overCurrentContext
-        loginVC.view.backgroundColor = .clear
         loginVC.modalPresentationCapturesStatusBarAppearance = true
         presentingVC.present(loginVC, animated: true)
     }
@@ -56,19 +54,7 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate {
         
     }
     
-    func navigateToAboutScreen() {
-        
-    }
-    
-    func navigateToTermsOfUseScreen() {
-        
-    }
-    
-    func navigateToPrivacyPolicyScreen() {
-        
-    }
-    
-    func navigateToContactUsScreen() {
+    func navigateToAppInfoScreen(type: AppInfoType) {
         
     }
     

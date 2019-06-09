@@ -69,4 +69,8 @@ struct Images {
     static func facebookIcon() -> UIImage {
         return UIImage(named: "facebookIcon")!
     }
+    
+    static func signUpIcon() -> UIImage {
+        return UIImage(named: "signupIcon")!
+    }
 }

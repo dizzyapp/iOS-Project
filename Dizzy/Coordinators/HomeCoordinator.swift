@@ -97,7 +97,6 @@ extension HomeCoordinator {
     }
     
     func menuButtonPressed() {
-        print("menu pressed")
         let vcc = container?.resolve(LoginCoordinatorType.self, argument: discoveryVC! as UIViewController)!
         vcc?.start()
         vcc?.onCoordinatorFinished = { [weak self] in
