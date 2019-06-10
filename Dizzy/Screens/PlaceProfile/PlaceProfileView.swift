@@ -131,10 +131,6 @@ final class PlaceProfileView: UIView {
         }
     }
     
-    func configure(with googlePlace: GooglePlaceData) {
-        openHoursLabel.text = googlePlace.openingText
-    }
-    
     private func setupImageView(with urlString: String) {
         guard let url = URL(string: urlString) else { return }
         profileImageView.kf.setImage(with: url,placeholder: Images.defaultPlaceAvatar(), options: [.scaleFactor(UIScreen.main.scale)])

@@ -21,10 +21,7 @@ final class PlaceProfileVC: AVPlayerViewController {
     init(viewModel: PlaceProfileVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        if let url = URL(string: viewModel.placeInfo.profileVideoURL ?? "") {
-            player = AVPlayer(url: url)
-            makePlayerRepeat()
-        }
+        loadVideo()
         videoGravity = .resizeAspectFill
         placeProfileView.configure(with: viewModel.placeInfo)
         placeProfileView.delegate = self
@@ -43,6 +40,13 @@ final class PlaceProfileVC: AVPlayerViewController {
     deinit {
         if let playerItemDidPlayToEndObserver = playerItemDidPlayToEndObserver {
           NotificationCenter.default.removeObserver(playerItemDidPlayToEndObserver)
+        }
+    }
+    
+    private func loadVideo() {
+        if let url = URL(string: viewModel.placeInfo.profileVideoURL ?? "") {
+            player = AVPlayer(url: url)
+            makePlayerRepeat()
         }
     }
 

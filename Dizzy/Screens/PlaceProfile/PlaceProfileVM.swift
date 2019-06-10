@@ -10,7 +10,6 @@ import UIKit
 
 protocol PlaceProfileVMType {
     var placeInfo: PlaceInfo { get }
-    var googlePlaceData: Observable<GooglePlaceData?> { get }
     var delegate: PlaceProfileVMDelegate? { get set }
     
     func closePressed()
@@ -25,8 +24,6 @@ protocol PlaceProfileVMDelegate: class {
 final class PlaceProfileVM: PlaceProfileVMType {
    
     var placeInfo: PlaceInfo
-    var googlePlaceData = Observable<GooglePlaceData?>(nil)
-    
     weak var delegate: PlaceProfileVMDelegate?
     
     init(placeInfo: PlaceInfo) {
