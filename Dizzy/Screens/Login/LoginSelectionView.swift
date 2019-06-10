@@ -14,7 +14,7 @@ protocol LoginSelectionViewDelegate: class {
     func signUpButtonPressed()
 }
 
-let signUpButtonColor = UIColor(red: 0.3, green: 0.41, blue: 0.94, alpha: 1)
+let signUpButtonColor = UIColor(hexString: "4C69EF")
 
 class LoginSelectionView: UIView {
 

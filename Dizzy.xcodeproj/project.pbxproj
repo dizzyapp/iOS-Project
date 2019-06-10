@@ -37,6 +37,8 @@
 		04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CD6F225A96E00020DF8F /* ViewController.swift */; };
 		04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40C2263B47800E10F70 /* MapVM.swift */; };
 		04ECE4112263B47800E10F70 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40E2263B47800E10F70 /* MapVC.swift */; };
+		4D645E9922AEE93800016EF7 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9822AEE93800016EF7 /* AppInfoView.swift */; };
+		4D645E9B22AEF01200016EF7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9A22AEF01200016EF7 /* UIColorExtension.swift */; };
 		4DB778C722AB1EB300EBC1BC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778C322AB1EB300EBC1BC /* LoginVC.swift */; };
 		4DB778C822AB1EB300EBC1BC /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778C422AB1EB300EBC1BC /* LoginVM.swift */; };
 		4DB778C922AB1EB300EBC1BC /* AppInfosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778C522AB1EB300EBC1BC /* AppInfosView.swift */; };
@@ -102,6 +104,8 @@
 		04ECE40C2263B47800E10F70 /* MapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		04ECE40E2263B47800E10F70 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
+		4D645E9822AEE93800016EF7 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		4D645E9A22AEF01200016EF7 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		4DB778C322AB1EB300EBC1BC /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		4DB778C422AB1EB300EBC1BC /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		4DB778C522AB1EB300EBC1BC /* AppInfosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfosView.swift; sourceTree = "<group>"; };
@@ -218,12 +222,21 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		4D645E9722AEE90A00016EF7 /* App Info */ = {
+			isa = PBXGroup;
+			children = (
+				4DB778C522AB1EB300EBC1BC /* AppInfosView.swift */,
+				4D645E9822AEE93800016EF7 /* AppInfoView.swift */,
+			);
+			path = "App Info";
+			sourceTree = "<group>";
+		};
 		4DB778C222AB1EB300EBC1BC /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				4D645E9722AEE90A00016EF7 /* App Info */,
 				4DB778C322AB1EB300EBC1BC /* LoginVC.swift */,
 				4DB778C422AB1EB300EBC1BC /* LoginVM.swift */,
-				4DB778C522AB1EB300EBC1BC /* AppInfosView.swift */,
 				4DB778C622AB1EB300EBC1BC /* LoginSelectionView.swift */,
 			);
 			path = Login;
@@ -344,6 +357,7 @@
 				76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */,
 				0470E6BA2270B37100267278 /* ReusableView.swift */,
 				0470E6BB2270B37200267278 /* StringExtension.swift */,
+				4D645E9A22AEF01200016EF7 /* UIColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -595,6 +609,8 @@
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
 				0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */,
 				0470E6B42270B32600267278 /* MapSearchTableViewCell.swift in Sources */,
+				4D645E9B22AEF01200016EF7 /* UIColorExtension.swift in Sources */,
+				4D645E9922AEE93800016EF7 /* AppInfoView.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
 				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,
