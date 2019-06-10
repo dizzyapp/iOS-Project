@@ -15,10 +15,14 @@ protocol PlaceStoryVMDelegate: class {
 protocol PlaceStoryVMType {
     var currentImageURLString: Observable<String?> { get set }
     var delay: Double { get }
+    var comments: Observable<[Comment]> { get }
     
     func showNextImage()
     func showPrevImage()
     func send(comment: Comment)
+    
+    func numberOfRowsInSection() -> Int
+    func comment(at indexPath: IndexPath) -> Comment
 }
 
 final class PlaceStoryVM: PlaceStoryVMType {
@@ -38,6 +42,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     var displayedImageIndex = -1
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
+    var comments = Observable<[Comment]>([Comment]())
     
     var currentImageURLString = Observable<String?>(nil)
     
@@ -67,11 +72,19 @@ final class PlaceStoryVM: PlaceStoryVMType {
     func send(comment: Comment) {
         commentsInteractor.sendComment(comment, placeId: place.id)
     }
+    
+    func numberOfRowsInSection() -> Int {
+        return comments.value.count
+    }
+    
+    func comment(at indexPath: IndexPath) -> Comment {
+        return comments.value[indexPath.row]
+    }
+    
 }
 
 extension PlaceStoryVM: CommentsInteractorDelegate {
-    
     func commentsInteractor(_ interactor: CommentsInteractorType, comments: [Comment]) {
-        
+        self.comments.value = comments
     }
 }

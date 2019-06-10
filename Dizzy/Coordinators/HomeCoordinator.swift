@@ -75,25 +75,31 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = presentedViewControllers.first,
             let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
-            let location = container?.resolve(LocationProviderType.self) else {
+            let location = container?.resolve(LocationProviderType.self),
+            let commentsInteractor = container?.resolve(CommentsInteractorType.self) else {
                                                     print("could not create MapCoordinator")
                                                     return
         }
-
-        container?.register(MapVMType.self) { _ in
-            MapVM(places: places, locationProvider: location)
+//
+//        container?.register(MapVMType.self) { _ in
+//            MapVM(places: places, locationProvider: location)
+//        }
+//
+//        container?.register(MapSearchVMType.self, factory: { _ in
+//            MapSearchVM(places: places)
+//        })
+//
+//        coordinator.onCoordinatorFinished = { [weak self] in
+//            self?.removeCoordinator(for: .map)
+//        }
+//
+//        coordinator.start()
+//        add(coordinator: coordinator, for: .map)
+        if let place = places.first {
+            let viewModel = PlaceStoryVM(place: place, commentsInteractor: commentsInteractor)
+            let viewController = PlaceStoryVC(viewModel: viewModel)
+            presntingVC.present(viewController, animated: true)
         }
-
-        container?.register(MapSearchVMType.self, factory: { _ in
-            MapSearchVM(places: places)
-        })
-
-        coordinator.onCoordinatorFinished = { [weak self] in
-            self?.removeCoordinator(for: .map)
-        }
-        
-        coordinator.start()
-        add(coordinator: coordinator, for: .map)
     }
     
     func menuButtonPressed() { }

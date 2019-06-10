@@ -13,6 +13,11 @@ protocol CommentsManagerDelegate: class {
     func commentsManagerSendPressed(_ manager: CommentsManager, with message: String)
 }
 
+protocol CommentsManagerDataSource: class {
+    func numberOfRowsInSection() -> Int
+    func comment(at indexPath: IndexPath) -> Comment
+}
+
 final class CommentsManager: NSObject {
     
     private let chatTextFieldView = CommentTextFieldView()
@@ -21,6 +26,7 @@ final class CommentsManager: NSObject {
     private weak var parentView: UIView?
     
     weak var delegate: CommentsManagerDelegate?
+    weak var dataSource: CommentsManagerDataSource?
 
     init(parentView: UIView) {
         self.parentView = parentView
@@ -34,6 +40,7 @@ final class CommentsManager: NSObject {
         commentsView.isHidden = true
         chatTextFieldView.delegate = self
         chatTextFieldAccessoryView.delegate = self
+        commentsView.dataSource = self
     }
     
     private func addListeners() {
@@ -67,8 +74,8 @@ final class CommentsManager: NSObject {
         chatTextFieldView.isHidden = !show
     }
     
-    func show(comments: [Comment]) {
-        
+    func reloadTableView() {
+        commentsView.reloadTableView()
     }
 }
 
@@ -98,5 +105,15 @@ extension CommentsManager {
 extension CommentsManager: CommentTextFieldViewDelegate {
     func commentTextFieldViewSendPressed(_ view: UIView, with message: String) {
         delegate?.commentsManagerSendPressed(self, with: message)
+    }
+}
+
+extension CommentsManager: CommentsViewDataSource {
+    func numberOfRowsInSection() -> Int {
+        return dataSource?.numberOfRowsInSection() ?? 0
+    }
+    
+    func comment(at indexPath: IndexPath) -> Comment? {
+        return dataSource?.comment(at: indexPath)
     }
 }

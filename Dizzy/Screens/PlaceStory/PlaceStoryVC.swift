@@ -34,6 +34,7 @@ final class PlaceStoryVC: ViewController {
         super.init()
         commentsManager = CommentsManager(parentView: view)
         commentsManager?.delegate = self
+        commentsManager?.dataSource = self
         addSubviews()
         layoutViews()
         bindViewModel()
@@ -92,6 +93,10 @@ final class PlaceStoryVC: ViewController {
                 self.playerVC?.dismiss(animated: false)
             }
         }
+        
+        viewModel.comments.bind { [weak self] _ in
+            self?.commentsManager?.reloadTableView()
+        }
     }
     
     private func displayVideo(with urlString: String) {
@@ -143,5 +148,15 @@ extension PlaceStoryVC: CommentsManagerDelegate {
     func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
         let comment = Comment(value: message)
         viewModel.send(comment: comment)
+    }
+}
+
+extension PlaceStoryVC: CommentsManagerDataSource {
+    func numberOfRowsInSection() -> Int {
+        return viewModel.numberOfRowsInSection()
+    }
+    
+    func comment(at indexPath: IndexPath) -> Comment {
+        return viewModel.comment(at: indexPath)
     }
 }
