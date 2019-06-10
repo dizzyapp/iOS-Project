@@ -35,6 +35,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         addSubviews()
         layoutViews()
         showSpinner()
+        setupNavigation()
         player?.play()
     }
     
@@ -50,6 +51,14 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     private func addSubviews() {
         contentOverlayView?.addSubviews([rightGestureView, leftGestureView])
         commentsManager?.addCommentsViews()
+    }
+    
+    private func setupNavigation() {
+        let closeButton = UIButton().smallRoundedBlackButton
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        closeButton.setImage(UIImage(named: "backArrowIcon"), for: .normal)
+        let closeBarButton = UIBarButtonItem(customView: closeButton)
+        navigationItem.leftBarButtonItem = closeBarButton
     }
 
     private func layoutViews() {
@@ -91,6 +100,10 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         case .cancelled, .failed, .possible:
             break
         }
+    }
+    
+    @objc func close() {
+        
     }
     
     func pause() {

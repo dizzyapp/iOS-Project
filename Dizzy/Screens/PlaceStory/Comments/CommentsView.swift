@@ -30,6 +30,7 @@ final class CommentsView: UIView {
         addDarkBlur()
         setupTableView()
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewPressed)))
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,8 +55,25 @@ final class CommentsView: UIView {
         delegate?.commentsViewPressed()
     }
     
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardSize = keyboardFrame.cgSizeValue
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        tableView.contentInset = contentInsets
+        scrollToBottom()
+    }
+    
     func reloadTableView() {
         tableView.reloadData()
+        tableView.layoutIfNeeded()
+        scrollToBottom()
+    }
+    
+    private func scrollToBottom() {
+        guard let numberOfRows = dataSource?.numberOfRowsInSection() else { return }
+        let lastItem = numberOfRows - 1
+        let bottomIntextPath = IndexPath(item: lastItem, section: 0)
+        tableView.scrollToRow(at: bottomIntextPath, at: .bottom, animated: true)
     }
 }
 

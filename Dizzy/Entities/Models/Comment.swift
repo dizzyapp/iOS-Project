@@ -10,4 +10,5 @@ import Foundation
 
 struct Comment: Codable {
     var value: String
+    var timeStamp: Double
 }

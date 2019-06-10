@@ -20,6 +20,7 @@ protocol PlaceStoryVMType {
     func showNextImage()
     func showPrevImage()
     func send(comment: Comment)
+    func close()
     
     func numberOfRowsInSection() -> Int
     func comment(at indexPath: IndexPath) -> Comment
@@ -81,10 +82,14 @@ final class PlaceStoryVM: PlaceStoryVMType {
         return comments.value[indexPath.row]
     }
     
+    func close() {
+        delegate?.placeStoryVMDidFinised(self)
+    }
 }
 
 extension PlaceStoryVM: CommentsInteractorDelegate {
     func commentsInteractor(_ interactor: CommentsInteractorType, comments: [Comment]) {
-        self.comments.value = comments
+        let sortedComments = comments.sorted { $0.timeStamp < $1.timeStamp }
+        self.comments.value = sortedComments
     }
 }

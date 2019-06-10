@@ -43,6 +43,10 @@ final class CommentsManager: NSObject {
         commentsView.dataSource = self
     }
     
+    func resetManagerToInitialState() {
+        commentsView.isHidden = true
+    }
+    
     private func addListeners() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         chatTextFieldAccessoryView.textField.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)

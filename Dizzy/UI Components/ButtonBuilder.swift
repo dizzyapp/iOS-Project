@@ -11,7 +11,7 @@ import UIKit
 extension UIButton {
     
     var smallRoundedBlackButton: UIButton {
-        let button = UIButton(type: .system)
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         button.layer.cornerRadius = 16.0
         return button

@@ -39,11 +39,20 @@ final class PlaceStoryVC: ViewController {
         layoutViews()
         bindViewModel()
         setupViews()
+        setupNavigation()
         viewModel.showNextImage()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupNavigation() {
+        let closeButton = UIButton().smallRoundedBlackButton
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        closeButton.setImage(UIImage(named: "backArrowIcon"), for: .normal)
+        let closeBarButton = UIBarButtonItem(customView: closeButton)
+        navigationItem.leftBarButtonItem = closeBarButton
     }
     
     private func setupViews() {
@@ -79,6 +88,7 @@ final class PlaceStoryVC: ViewController {
         viewModel.currentImageURLString.bind { [weak self] urlString in
             guard let urlString = urlString else { return }
             self?.playerVC?.pause()
+            self?.commentsManager?.resetManagerToInitialState()
             if urlString.contains(".MOV") {
                 self?.displayVideo(with: urlString)
             } else if  let url = URL(string: urlString) {
@@ -124,11 +134,15 @@ final class PlaceStoryVC: ViewController {
     @objc func didTapLeft() {
         viewModel.showPrevImage()
     }
+    
+    @objc func close() {
+        viewModel.close()
+    }
 }
 
 extension PlaceStoryVC: PlayerVCDelegate {
     func playerVCSendPressed(_ playerVC: PlayerVC, with message: String) {
-        let comment = Comment(value: message)
+        let comment = Comment(value: message, timeStamp: Date().timeIntervalSince1970)
         viewModel.send(comment: comment)
     }
     
@@ -146,7 +160,7 @@ extension PlaceStoryVC: CommentsManagerDelegate {
     func commecntView(isHidden: Bool) { }
     
     func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
-        let comment = Comment(value: message)
+        let comment = Comment(value: message, timeStamp: Date().timeIntervalSince1970)
         viewModel.send(comment: comment)
     }
 }
