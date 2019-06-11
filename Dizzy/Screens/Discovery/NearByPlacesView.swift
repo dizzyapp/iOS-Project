@@ -17,8 +17,8 @@ protocol NearByPlacesViewDataSource: class {
 }
 
 protocol NearByPlacesViewDelegate: class {
-    func didPressPlaceIcon(AtIndexPath indexPath: IndexPath)
-    func didPressPlaceDetails(AtIndexPath indexPath: IndexPath)
+    func didPressPlaceIcon(atIndexPath indexPath: IndexPath)
+    func didPressPlaceDetails(atIndexPath indexPath: IndexPath)
 }
 
 class NearByPlacesView: UIView {
@@ -126,6 +126,7 @@ extension NearByPlacesView: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+        cell.delegate = self
         cell.setPlaceInfo(placeInfo, currentAppLocation: dataSource?.getCurrentLocation())
         return cell
     }
@@ -134,5 +135,12 @@ extension NearByPlacesView: UICollectionViewDataSource {
 extension NearByPlacesView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 80)
+    }
+}
+
+extension NearByPlacesView: DiscoveryPlaceCellDelegate {
+    func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell) {
+        guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
+        delegate?.didPressPlaceDetails(atIndexPath: indexPath)
     }
 }

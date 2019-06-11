@@ -8,7 +8,6 @@
 
 import Foundation
 import GoogleMaps
-import GooglePlaces
 
 protocol MapType: class {
     var mapView: UIView { get }
@@ -34,7 +33,6 @@ final class GoogleMap: MapType {
     init() {
         let googleMapAPIKey = "AIzaSyCBhvRQXfqyNUQ_y9vm9Ikxi_t_U51ZaYI"
         GMSServices.provideAPIKey(googleMapAPIKey)
-        GMSPlacesClient.provideAPIKey(googleMapAPIKey)
         googleMapView = GMSMapView()
     }
 
