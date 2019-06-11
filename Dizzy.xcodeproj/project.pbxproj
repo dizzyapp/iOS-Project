@@ -35,15 +35,23 @@
 		04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF5225731880020DF8F /* FirebaseWebService.swift */; };
 		04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */; };
 		04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CD6F225A96E00020DF8F /* ViewController.swift */; };
+		04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808522B0274900A9E3F4 /* PlaceProfileVC.swift */; };
+		04E7808A22B0274900A9E3F4 /* PlaceProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808622B0274900A9E3F4 /* PlaceProfileVM.swift */; };
+		04E7808B22B0274900A9E3F4 /* PlaceProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808722B0274900A9E3F4 /* PlaceProfileCoordinator.swift */; };
+		04E7808C22B0274900A9E3F4 /* PlaceProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808822B0274900A9E3F4 /* PlaceProfileView.swift */; };
+		04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808D22B0279000A9E3F4 /* DateUtils.swift */; };
+		04E7809122B027C700A9E3F4 /* GooglePlaceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809022B027C700A9E3F4 /* GooglePlaceInteractor.swift */; };
+		04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809222B027CF00A9E3F4 /* Colors.swift */; };
+		04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */; };
 		04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40C2263B47800E10F70 /* MapVM.swift */; };
 		04ECE4112263B47800E10F70 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40E2263B47800E10F70 /* MapVC.swift */; };
-		4D645E9922AEE93800016EF7 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9822AEE93800016EF7 /* AppInfoView.swift */; };
-		4D645E9B22AEF01200016EF7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9A22AEF01200016EF7 /* UIColorExtension.swift */; };
-		4DB778C722AB1EB300EBC1BC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778C322AB1EB300EBC1BC /* LoginVC.swift */; };
-		4DB778C822AB1EB300EBC1BC /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778C422AB1EB300EBC1BC /* LoginVM.swift */; };
-		4DB778C922AB1EB300EBC1BC /* AppInfosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778C522AB1EB300EBC1BC /* AppInfosView.swift */; };
-		4DB778CA22AB1EB300EBC1BC /* LoginSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778C622AB1EB300EBC1BC /* LoginSelectionView.swift */; };
-		4DB778CC22AB1ED100EBC1BC /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB778CB22AB1ED100EBC1BC /* LoginCoordinator.swift */; };
+		4D645EA322B0423B00016EF7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9D22B0423A00016EF7 /* LoginVC.swift */; };
+		4D645EA422B0423B00016EF7 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9E22B0423A00016EF7 /* LoginVM.swift */; };
+		4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA022B0423A00016EF7 /* AppInfoView.swift */; };
+		4D645EA622B0423B00016EF7 /* AppInfosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA122B0423A00016EF7 /* AppInfosView.swift */; };
+		4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */; };
+		4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA822B0426700016EF7 /* LoginCoordinator.swift */; };
+		4D645EAB22B043B900016EF7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EAA22B043B900016EF7 /* UIColorExtension.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
@@ -101,16 +109,24 @@
 		04D0CCF5225731880020DF8F /* FirebaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseWebService.swift; sourceTree = "<group>"; };
 		04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceDispatcher.swift; sourceTree = "<group>"; };
 		04D0CD6F225A96E00020DF8F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04E7808522B0274900A9E3F4 /* PlaceProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceProfileVC.swift; sourceTree = "<group>"; };
+		04E7808622B0274900A9E3F4 /* PlaceProfileVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceProfileVM.swift; sourceTree = "<group>"; };
+		04E7808722B0274900A9E3F4 /* PlaceProfileCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceProfileCoordinator.swift; sourceTree = "<group>"; };
+		04E7808822B0274900A9E3F4 /* PlaceProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceProfileView.swift; sourceTree = "<group>"; };
+		04E7808D22B0279000A9E3F4 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		04E7809022B027C700A9E3F4 /* GooglePlaceInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlaceInteractor.swift; sourceTree = "<group>"; };
+		04E7809222B027CF00A9E3F4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalPlaceData.swift; sourceTree = "<group>"; };
 		04ECE40C2263B47800E10F70 /* MapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		04ECE40E2263B47800E10F70 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
-		4D645E9822AEE93800016EF7 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
-		4D645E9A22AEF01200016EF7 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		4DB778C322AB1EB300EBC1BC /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		4DB778C422AB1EB300EBC1BC /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
-		4DB778C522AB1EB300EBC1BC /* AppInfosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfosView.swift; sourceTree = "<group>"; };
-		4DB778C622AB1EB300EBC1BC /* LoginSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSelectionView.swift; sourceTree = "<group>"; };
-		4DB778CB22AB1ED100EBC1BC /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		4D645E9D22B0423A00016EF7 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		4D645E9E22B0423A00016EF7 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		4D645EA022B0423A00016EF7 /* AppInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		4D645EA122B0423A00016EF7 /* AppInfosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfosView.swift; sourceTree = "<group>"; };
+		4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSelectionView.swift; sourceTree = "<group>"; };
+		4D645EA822B0426700016EF7 /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		4D645EAA22B043B900016EF7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				0470E6AC2270B2DF00267278 /* GoogleMap.swift */,
+				04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */,
 			);
 			path = GoogleMap;
 			sourceTree = "<group>";
@@ -222,24 +239,43 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
-		4D645E9722AEE90A00016EF7 /* App Info */ = {
+		04E7808422B0274900A9E3F4 /* PlaceProfile */ = {
 			isa = PBXGroup;
 			children = (
-				4DB778C522AB1EB300EBC1BC /* AppInfosView.swift */,
-				4D645E9822AEE93800016EF7 /* AppInfoView.swift */,
+				04E7808522B0274900A9E3F4 /* PlaceProfileVC.swift */,
+				04E7808622B0274900A9E3F4 /* PlaceProfileVM.swift */,
+				04E7808722B0274900A9E3F4 /* PlaceProfileCoordinator.swift */,
+				04E7808822B0274900A9E3F4 /* PlaceProfileView.swift */,
 			);
-			path = "App Info";
+			path = PlaceProfile;
 			sourceTree = "<group>";
 		};
-		4DB778C222AB1EB300EBC1BC /* Login */ = {
+		04E7808F22B027C700A9E3F4 /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
-				4D645E9722AEE90A00016EF7 /* App Info */,
-				4DB778C322AB1EB300EBC1BC /* LoginVC.swift */,
-				4DB778C422AB1EB300EBC1BC /* LoginVM.swift */,
-				4DB778C622AB1EB300EBC1BC /* LoginSelectionView.swift */,
+				04E7809022B027C700A9E3F4 /* GooglePlaceInteractor.swift */,
+			);
+			path = Interactors;
+			sourceTree = "<group>";
+		};
+		4D645E9C22B0423A00016EF7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4D645E9F22B0423A00016EF7 /* App Info */,
+				4D645E9D22B0423A00016EF7 /* LoginVC.swift */,
+				4D645E9E22B0423A00016EF7 /* LoginVM.swift */,
+				4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		4D645E9F22B0423A00016EF7 /* App Info */ = {
+			isa = PBXGroup;
+			children = (
+				4D645EA022B0423A00016EF7 /* AppInfoView.swift */,
+				4D645EA122B0423A00016EF7 /* AppInfosView.swift */,
+			);
+			path = "App Info";
 			sourceTree = "<group>";
 		};
 		76B41E97224EE9FA00C1A290 = {
@@ -287,7 +323,7 @@
 				76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */,
 				76B41EC32251271700C1A290 /* CoordinatorKey.swift */,
 				76B41EC522520B0800C1A290 /* HomeCoordinator.swift */,
-				4DB778CB22AB1ED100EBC1BC /* LoginCoordinator.swift */,
+				4D645EA822B0426700016EF7 /* LoginCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -295,12 +331,14 @@
 		76B41EC92252145D00C1A290 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				04E7808F22B027C700A9E3F4 /* Interactors */,
 				772354D8226A045A00BD1488 /* PlaceInfo.swift */,
 				76B41ECA2252149000C1A290 /* TabItem.swift */,
 				76B41ED92253381900C1A290 /* Images.swift */,
 				76B41EE122534C1C00C1A290 /* Metrics.swift */,
 				76B41EE522535B3D00C1A290 /* Fonts.swift */,
 				0415EC38225E6086009BCBC7 /* Observable.swift */,
+				04E7809222B027CF00A9E3F4 /* Colors.swift */,
 				0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */,
 				0470E6AB2270B2DF00267278 /* GoogleMap */,
 			);
@@ -310,7 +348,8 @@
 		76B41ECE225229DB00C1A290 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				4DB778C222AB1EB300EBC1BC /* Login */,
+				4D645E9C22B0423A00016EF7 /* Login */,
+				04E7808422B0274900A9E3F4 /* PlaceProfile */,
 				76B41ED4225230B400C1A290 /* Conversations */,
 				0415EC31225E57D5009BCBC7 /* Map */,
 				76B41ECF225229EA00C1A290 /* Discovery */,
@@ -354,10 +393,11 @@
 		76B41EDE22534A4B00C1A290 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4D645EAA22B043B900016EF7 /* UIColorExtension.swift */,
 				76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */,
 				0470E6BA2270B37100267278 /* ReusableView.swift */,
 				0470E6BB2270B37200267278 /* StringExtension.swift */,
-				4D645E9A22AEF01200016EF7 /* UIColorExtension.swift */,
+				04E7808D22B0279000A9E3F4 /* DateUtils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -562,6 +602,7 @@
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
 				0487FFA8228EB4AF00A8683C /* TextFieldBuilder.swift in Sources */,
+				04E7808B22B0274900A9E3F4 /* PlaceProfileCoordinator.swift in Sources */,
 				0470E6B62270B32600267278 /* AutoCompleteFilter.swift in Sources */,
 				0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */,
 				0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */,
@@ -571,49 +612,56 @@
 				0470E6BC2270B37200267278 /* ReusableView.swift in Sources */,
 				0487FF98228EB40200A8683C /* CommentsManger.swift in Sources */,
 				0487FF9C228EB40200A8683C /* PlaceStoryVC.swift in Sources */,
+				4D645EA322B0423B00016EF7 /* LoginVC.swift in Sources */,
 				0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
+				4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
+				04E7808A22B0274900A9E3F4 /* PlaceProfileVM.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
 				770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */,
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
+				4D645EA422B0423B00016EF7 /* LoginVM.swift in Sources */,
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
+				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
-				4DB778C722AB1EB300EBC1BC /* LoginVC.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
+				4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */,
+				04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
 				0487FF9B228EB40200A8683C /* PlayerVC.swift in Sources */,
-				4DB778CC22AB1ED100EBC1BC /* LoginCoordinator.swift in Sources */,
-				4DB778C922AB1EB300EBC1BC /* AppInfosView.swift in Sources */,
 				0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,
+				4D645EA622B0423B00016EF7 /* AppInfosView.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
+				4D645EAB22B043B900016EF7 /* UIColorExtension.swift in Sources */,
 				0487FFA6228EB4AF00A8683C /* PlaceMarkerView.swift in Sources */,
 				0487FF97228EB40200A8683C /* PlaceStoryVM.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
+				04E7809122B027C700A9E3F4 /* GooglePlaceInteractor.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
-				4DB778C822AB1EB300EBC1BC /* LoginVM.swift in Sources */,
+				4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
-				4DB778CA22AB1EB300EBC1BC /* LoginSelectionView.swift in Sources */,
+				04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */,
 				0470E6B52270B32600267278 /* MapSearchVC.swift in Sources */,
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
+				04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */,
 				0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */,
 				0470E6B42270B32600267278 /* MapSearchTableViewCell.swift in Sources */,
-				4D645E9B22AEF01200016EF7 /* UIColorExtension.swift in Sources */,
-				4D645E9922AEE93800016EF7 /* AppInfoView.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
 				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,
+				04E7808C22B0274900A9E3F4 /* PlaceProfileView.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
 				0470E6B72270B32600267278 /* MapSearchVM.swift in Sources */,
 			);
