@@ -23,6 +23,7 @@ protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
     func navigateToHomeScreen()
     func navigateToSignInWithDizzyScreen()
+    func navigateToSignInWithFacebook()
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
 }
@@ -48,7 +49,7 @@ class LoginVM: LoginVMType {
     }
     
     func loginWithFacebookButtonPressed() {
-        
+        self.navigationDelegate?.navigateToSignInWithFacebook()
     }
     
     func appInfoButtonPressed(type: AppInfoType) {
