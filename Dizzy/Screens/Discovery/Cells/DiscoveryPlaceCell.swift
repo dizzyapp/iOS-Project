@@ -12,6 +12,7 @@ import Kingfisher
 
 protocol DiscoveryPlaceCellDelegate: class {
     func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell)
+    func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell)
 }
 
 class DiscoveryPlaceCell: UICollectionViewCell {
@@ -105,6 +106,8 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         placeImageView.clipsToBounds = true
         placeImageView.layer.borderColor = UIColor.black.cgColor
         placeImageView.layer.borderWidth = 2
+        placeImageView.isUserInteractionEnabled = true
+        placeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressIcon)))
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
@@ -122,5 +125,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     @objc func didPressDetails() {
         delegate?.discoveryPlaceCellDidPressDetails(self)
+    }
+    
+    @objc func didPressIcon() {
+        delegate?.discoveryPlaceCellDidPressIcon(self)
     }
 }

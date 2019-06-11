@@ -72,7 +72,8 @@ final class FirebaseWebService: WebServiceType {
         
         var jsonToParse = [[String: Any]]()
         for (_,value) in jsonsArray {
-            jsonToParse.append(value as! [String : Any])
+            let valueMap = value as! [String : Any]
+            jsonToParse.append(valueMap)
         }
         return jsonToParse
     }

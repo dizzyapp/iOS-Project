@@ -27,6 +27,7 @@ struct PlaceInfo: Codable, FilterEntry {
     let authorizedAge: String?
     let publicistPhoneNumber: String?
     let placeSchedule: PlaceSchedule?
+    let placesStories: [String?]?
 }
 
 struct PlaceSchedule: Codable {

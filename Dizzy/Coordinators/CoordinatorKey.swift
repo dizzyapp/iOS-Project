@@ -14,4 +14,5 @@ enum CoordinatorKey {
     case conversations
     case map
     case placeProfile
+    case placeStory
 }

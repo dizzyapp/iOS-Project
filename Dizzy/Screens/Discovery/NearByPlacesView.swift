@@ -139,6 +139,11 @@ extension NearByPlacesView: UICollectionViewDelegateFlowLayout {
 }
 
 extension NearByPlacesView: DiscoveryPlaceCellDelegate {
+    func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell) {
+        guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
+        delegate?.didPressPlaceIcon(atIndexPath: indexPath)
+    }
+    
     func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell) {
         guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
         delegate?.didPressPlaceDetails(atIndexPath: indexPath)
