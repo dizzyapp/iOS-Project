@@ -45,6 +45,13 @@
 		04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */; };
 		04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40C2263B47800E10F70 /* MapVM.swift */; };
 		04ECE4112263B47800E10F70 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40E2263B47800E10F70 /* MapVC.swift */; };
+		4D645EA322B0423B00016EF7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9D22B0423A00016EF7 /* LoginVC.swift */; };
+		4D645EA422B0423B00016EF7 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9E22B0423A00016EF7 /* LoginVM.swift */; };
+		4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA022B0423A00016EF7 /* AppInfoView.swift */; };
+		4D645EA622B0423B00016EF7 /* AppInfosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA122B0423A00016EF7 /* AppInfosView.swift */; };
+		4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */; };
+		4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA822B0426700016EF7 /* LoginCoordinator.swift */; };
+		4D645EAB22B043B900016EF7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EAA22B043B900016EF7 /* UIColorExtension.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
@@ -113,6 +120,13 @@
 		04ECE40C2263B47800E10F70 /* MapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		04ECE40E2263B47800E10F70 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
+		4D645E9D22B0423A00016EF7 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		4D645E9E22B0423A00016EF7 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		4D645EA022B0423A00016EF7 /* AppInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		4D645EA122B0423A00016EF7 /* AppInfosView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfosView.swift; sourceTree = "<group>"; };
+		4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSelectionView.swift; sourceTree = "<group>"; };
+		4D645EA822B0426700016EF7 /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		4D645EAA22B043B900016EF7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +258,26 @@
 			path = Interactors;
 			sourceTree = "<group>";
 		};
+		4D645E9C22B0423A00016EF7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4D645E9F22B0423A00016EF7 /* App Info */,
+				4D645E9D22B0423A00016EF7 /* LoginVC.swift */,
+				4D645E9E22B0423A00016EF7 /* LoginVM.swift */,
+				4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		4D645E9F22B0423A00016EF7 /* App Info */ = {
+			isa = PBXGroup;
+			children = (
+				4D645EA022B0423A00016EF7 /* AppInfoView.swift */,
+				4D645EA122B0423A00016EF7 /* AppInfosView.swift */,
+			);
+			path = "App Info";
+			sourceTree = "<group>";
+		};
 		76B41E97224EE9FA00C1A290 = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +323,7 @@
 				76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */,
 				76B41EC32251271700C1A290 /* CoordinatorKey.swift */,
 				76B41EC522520B0800C1A290 /* HomeCoordinator.swift */,
+				4D645EA822B0426700016EF7 /* LoginCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -313,6 +348,7 @@
 		76B41ECE225229DB00C1A290 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				4D645E9C22B0423A00016EF7 /* Login */,
 				04E7808422B0274900A9E3F4 /* PlaceProfile */,
 				76B41ED4225230B400C1A290 /* Conversations */,
 				0415EC31225E57D5009BCBC7 /* Map */,
@@ -357,6 +393,7 @@
 		76B41EDE22534A4B00C1A290 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4D645EAA22B043B900016EF7 /* UIColorExtension.swift */,
 				76B41EDF22534A6E00C1A290 /* UIViewExtension.swift */,
 				0470E6BA2270B37100267278 /* ReusableView.swift */,
 				0470E6BB2270B37200267278 /* StringExtension.swift */,
@@ -470,7 +507,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
@@ -483,7 +520,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		745ACD9C07E96F8816BF9F7F /* [CP] Check Pods Manifest.lock */ = {
@@ -528,7 +565,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -551,7 +588,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -575,18 +612,22 @@
 				0470E6BC2270B37200267278 /* ReusableView.swift in Sources */,
 				0487FF98228EB40200A8683C /* CommentsManger.swift in Sources */,
 				0487FF9C228EB40200A8683C /* PlaceStoryVC.swift in Sources */,
+				4D645EA322B0423B00016EF7 /* LoginVC.swift in Sources */,
 				0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
+				4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
 				04E7808A22B0274900A9E3F4 /* PlaceProfileVM.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
 				770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */,
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
+				4D645EA422B0423B00016EF7 /* LoginVM.swift in Sources */,
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
+				4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */,
 				04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
@@ -596,12 +637,15 @@
 				0487FF9B228EB40200A8683C /* PlayerVC.swift in Sources */,
 				0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,
+				4D645EA622B0423B00016EF7 /* AppInfosView.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
+				4D645EAB22B043B900016EF7 /* UIColorExtension.swift in Sources */,
 				0487FFA6228EB4AF00A8683C /* PlaceMarkerView.swift in Sources */,
 				0487FF97228EB40200A8683C /* PlaceStoryVM.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
 				04E7809122B027C700A9E3F4 /* GooglePlaceInteractor.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
+				4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */,

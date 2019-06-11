@@ -96,7 +96,14 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         add(coordinator: coordinator, for: .map)
     }
     
-    func menuButtonPressed() { }
+    func menuButtonPressed() {
+        let vcc = container?.resolve(LoginCoordinatorType.self, argument: discoveryVC! as UIViewController)!
+        vcc?.start()
+        vcc?.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .login)
+        }
+        add(coordinator: vcc!, for: .login)
+    }
     
     func placeCellDetailsPressed(_ place: PlaceInfo) {
         
