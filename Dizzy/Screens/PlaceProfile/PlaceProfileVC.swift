@@ -22,14 +22,12 @@ final class PlaceProfileVC: AVPlayerViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         loadVideo()
-        videoGravity = .resizeAspectFill
         placeProfileView.configure(with: viewModel.placeInfo)
         placeProfileView.delegate = self
-        showsPlaybackControls = false
         addSubviews()
         setupNavigation()
         layoutSubview()
-        NotificationCenter.default.addObserver(self, selector: #selector(onResineActive), name: UIApplication.willResignActiveNotification, object: nil)
+        setupView()
         player?.play()
     }
     
@@ -48,6 +46,12 @@ final class PlaceProfileVC: AVPlayerViewController {
             player = AVPlayer(url: url)
             makePlayerRepeat()
         }
+    }
+    
+    private func setupView() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onResineActive), name: UIApplication.willResignActiveNotification, object: nil)
+        showsPlaybackControls = false
+        videoGravity = .resizeAspectFill
     }
 
     private func makePlayerRepeat() {
