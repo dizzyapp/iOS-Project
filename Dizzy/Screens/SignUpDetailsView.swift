@@ -144,5 +144,4 @@ final class SignUpDetailsView: UIView {
         delegate?.onSignupPressed(signupDetails)
     }
     
-
 }

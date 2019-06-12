@@ -24,6 +24,7 @@ class Assembly {
         }
         // MARK: Interactors
         container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
+        container.autoregister(SignUpInteractorType.self, initializer: SignUpInteractor.init)
 
         // MARK: view models
         container.autoregister(DiscoveryVMType.self, initializer: DiscoveryVM.init)

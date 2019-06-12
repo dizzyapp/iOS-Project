@@ -6,7 +6,7 @@
 //  Copyright © 2019 Dizzy. All rights reserved.
 //
 
-struct SignupDetails {
+struct SignupDetails: Codable {
     let fullName: String
     let email: String
     let password: String

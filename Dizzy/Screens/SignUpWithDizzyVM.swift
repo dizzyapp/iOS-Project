@@ -13,11 +13,13 @@ protocol SignUpWithDizzyVMType {
 }
 
 class SignUpWithDizzyVM: SignUpWithDizzyVMType {
-    init() {
-        
+    
+    let signupInteractor: SignUpInteractorType
+    init(signupInteractor: SignUpInteractorType) {
+        self.signupInteractor = signupInteractor
     }
     
     func onSignupPressed(_ signupDetails: SignupDetails) {
-        
+        signupInteractor.signUpWithDizzy(signupDetails)
     }
 }

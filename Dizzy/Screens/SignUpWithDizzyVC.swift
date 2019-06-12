@@ -55,6 +55,6 @@ final class SignUpWithDizzyVC: UIViewController {
 
 extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
     func onSignupPressed(_ signupDetails: SignupDetails) {
-        viewModel.onSignupPressed()
+        viewModel.onSignupPressed(signupDetails)
     }
 }

@@ -67,6 +67,9 @@
 		77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */; };
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
 		77A0605122AD8AE3008FE39D /* SignupDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605022AD8AE3008FE39D /* SignupDetails.swift */; };
+		77A0605322AD8E4E008FE39D /* SignupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605222AD8E4E008FE39D /* SignupInteractor.swift */; };
+		77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605422AD9284008FE39D /* SignupWebservice.swift */; };
+		77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +135,9 @@
 		77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVM.swift; sourceTree = "<group>"; };
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
 		77A0605022AD8AE3008FE39D /* SignupDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupDetails.swift; sourceTree = "<group>"; };
+		77A0605222AD8E4E008FE39D /* SignupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInteractor.swift; sourceTree = "<group>"; };
+		77A0605422AD9284008FE39D /* SignupWebservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupWebservice.swift; sourceTree = "<group>"; };
+		77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -168,6 +174,7 @@
 				041D95C42253D84F009ED7AB /* WebResource.swift */,
 				04D0CCF5225731880020DF8F /* FirebaseWebService.swift */,
 				04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */,
+				77A0605422AD9284008FE39D /* SignupWebservice.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -250,6 +257,7 @@
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
 				76B41EB5224EF16200C1A290 /* Assembly.swift */,
 				76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */,
+				77A0605222AD8E4E008FE39D /* SignupInteractor.swift */,
 			);
 			path = Dizzy;
 			sourceTree = "<group>";
@@ -291,6 +299,7 @@
 				77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */,
 				77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */,
 				77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */,
+				77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -511,6 +520,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */,
 				04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */,
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
@@ -535,6 +545,7 @@
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
+				77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
@@ -555,6 +566,7 @@
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */,
 				0470E6B52270B32600267278 /* MapSearchVC.swift in Sources */,
+				77A0605322AD8E4E008FE39D /* SignupInteractor.swift in Sources */,
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
