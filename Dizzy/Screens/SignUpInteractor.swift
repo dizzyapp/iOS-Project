@@ -21,7 +21,7 @@ class SignUpInteractor: SignUpInteractorType {
     }
     
     func signUpWithDizzy(_ signUpDetails: SignupDetails) {
-        let signUpResource = Resource<String, SignupDetails>(path: "signupWithDizzy")
+        let signUpResource = Resource<String, SignupDetails>(path: "signupWithDizzy").withPost(signUpDetails)
         webResourcesDispatcher.load(signUpResource) { (result) in
             print(result)
         }

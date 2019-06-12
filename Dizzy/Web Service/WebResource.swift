@@ -76,4 +76,9 @@ struct Resource<Response: Codable, Body: Encodable> {
         }
         return nil
     }
+    
+    func getData() -> Body? {
+        guard let method = method, case let .post(body) = method else { return nil }
+        return body
+    }
 }

@@ -42,6 +42,7 @@ final class SignUpWithDizzyVC: UIViewController {
     private func setupViews() {
         self.view.backgroundColor = .clear
         setupBackButton()
+        setupSignUpDetailsView()
     }
     
     private func setupBackButton() {
