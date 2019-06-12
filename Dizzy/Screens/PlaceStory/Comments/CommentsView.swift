@@ -60,7 +60,10 @@ final class CommentsView: UIView {
         let keyboardSize = keyboardFrame.cgSizeValue
         let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
         tableView.contentInset = contentInsets
-        scrollToBottom()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
+            self?.scrollToBottom()
+        }
     }
     
     func reloadTableView() {

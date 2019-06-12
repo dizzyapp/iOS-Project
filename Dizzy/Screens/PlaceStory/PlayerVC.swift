@@ -20,8 +20,10 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .whiteLarge)
     var commentsManager: CommentsManager?
+    let viewModel: PlaceStoryVMType
     
-    init(with url: URL) {
+    init(with url: URL, viewModel: PlaceStoryVMType) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         player = AVPlayer(url: url)
         player?.currentItem?.audioTimePitchAlgorithm = .lowQualityZeroLatency
@@ -29,6 +31,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         if let contentOverlayView = contentOverlayView {
             commentsManager = CommentsManager(parentView: contentOverlayView)
             commentsManager?.delegate = self
+            commentsManager?.dataSource = self
         }
         
         addGestures()
@@ -123,5 +126,15 @@ extension PlayerVC: CommentsManagerDelegate {
     
     func commecntView(isHidden: Bool) {
         isHidden ? play() : pause()
+    }
+}
+
+extension PlayerVC: CommentsManagerDataSource {
+    func numberOfRowsInSection() -> Int {
+        return viewModel.numberOfRowsInSection()
+    }
+    
+    func comment(at indexPath: IndexPath) -> Comment {
+        return viewModel.comment(at: indexPath)
     }
 }

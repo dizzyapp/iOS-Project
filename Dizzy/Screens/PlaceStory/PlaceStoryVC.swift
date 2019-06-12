@@ -116,7 +116,7 @@ final class PlaceStoryVC: ViewController {
             return
         }
         
-        playerVC = PlayerVC(with: url)
+        playerVC = PlayerVC(with: url, viewModel: viewModel)
         playerVC?.showsPlaybackControls = false
         playerVC?.gestureDelegate = self
         showPlayer()
