@@ -15,7 +15,7 @@ protocol CommentsManagerDelegate: class {
 
 protocol CommentsManagerDataSource: class {
     func numberOfRowsInSection() -> Int
-    func comment(at indexPath: IndexPath) -> Comment
+    func comment(at indexPath: IndexPath) -> Comment?
 }
 
 final class CommentsManager: NSObject {
@@ -92,6 +92,8 @@ extension CommentsManager {
 extension CommentsManager: CommentsViewDelegate {
     func commentsViewPressed() {
         commentsView.isHidden = true
+        chatTextFieldView.textField.text = ""
+        chatTextFieldAccessoryView.textField.text = ""
         delegate?.commecntView(isHidden: commentsView.isHidden)
         chatTextFieldAccessoryView.textField.resignFirstResponder()
         parentView?.endEditing(true)

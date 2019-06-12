@@ -29,6 +29,9 @@ final class FirebaseWebService: WebServiceType {
             
         case .post:
             sendPostRequest(resource: resource, completion: completion)
+            
+        case .delete:
+            sendDeleteRequest(resource: resource, completion: completion)
         }
     }
     
@@ -61,8 +64,17 @@ final class FirebaseWebService: WebServiceType {
         }
     }
     
+    private func sendDeleteRequest<Response, Body>(resource: Resource<Response, Body>,
+                                                                  completion: @escaping (Result<Response>) -> Void) {
+        databaseReference.child(resource.path).removeValue { (error, _) in 
+            if error != nil {
+                completion(Result<Response>.failure(error))
+            }
+        }
+    }
+    
     func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool where Response : Decodable, Response : Encodable, Body : Encodable {
-        return resource.path != "getGMSPlace"
+        return true
     }
     
     private func getJsonToParse(from snapshot: DataSnapshot) -> [[String: Any]]? {

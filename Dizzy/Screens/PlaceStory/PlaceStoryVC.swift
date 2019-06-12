@@ -87,11 +87,8 @@ final class PlaceStoryVC: ViewController {
     private func bindViewModel() {
         viewModel.currentImageURLString.bind { [weak self] urlString in
             guard let urlString = urlString else { return }
-            self?.playerVC?.pause()
             self?.commentsManager?.resetManagerToInitialState()
-            if urlString.contains(".MOV") {
-                self?.displayVideo(with: urlString)
-            } else if  let url = URL(string: urlString) {
+            if let url = URL(string: urlString) {
                 guard let self = self else { return }
                 self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
@@ -108,24 +105,6 @@ final class PlaceStoryVC: ViewController {
             self?.commentsManager?.reloadTableView()
         }
     }
-    
-    private func displayVideo(with urlString: String) {
-        
-        guard let url = URL(string: urlString) else {
-            print("Could not load the video file: \(urlString)")
-            return
-        }
-        
-        playerVC = PlayerVC(with: url, viewModel: viewModel)
-        playerVC?.showsPlaybackControls = false
-        playerVC?.gestureDelegate = self
-        showPlayer()
-    }
-    
-    private func showPlayer() {
-        guard let playerVC = playerVC else { return }
-        present(playerVC, animated: false)
-    }
 
     @objc func didTapRight() {
         viewModel.showNextImage()
@@ -137,21 +116,6 @@ final class PlaceStoryVC: ViewController {
     
     @objc func close() {
         viewModel.close()
-    }
-}
-
-extension PlaceStoryVC: PlayerVCDelegate {
-    func playerVCSendPressed(_ playerVC: PlayerVC, with message: String) {
-        let comment = Comment(value: message, timeStamp: Date().timeIntervalSince1970)
-        viewModel.send(comment: comment)
-    }
-    
-    func rightButtonPressed() {
-        didTapRight()
-    }
-    
-    func leftButtonPressed() {
-        didTapLeft()
     }
 }
 
@@ -170,7 +134,7 @@ extension PlaceStoryVC: CommentsManagerDataSource {
         return viewModel.numberOfRowsInSection()
     }
     
-    func comment(at indexPath: IndexPath) -> Comment {
+    func comment(at indexPath: IndexPath) -> Comment? {
         return viewModel.comment(at: indexPath)
     }
 }

@@ -10,10 +10,15 @@ import UIKit
 import AVFoundation
 import AVKit
 
-protocol PlayerVCDelegate: class {
+protocol PlayerVCGestureDelegate: class {
     func rightButtonPressed()
     func leftButtonPressed()
-    func playerVCSendPressed(_ playerVC: PlayerVC, with message: String)
+}
+
+protocol PlayerVCCommentsDelegate: class {
+    func playerVCSendPressed(_ player: PlayerVC, with message: String)
+    func playerVCNumberOfSections(_ player: PlayerVC) -> Int
+    func playerVCComment(_ player: PlayerVC, at indexPath: IndexPath) -> Comment?
 }
 
 final class PlayerVC: AVPlayerViewController, LoadingContainer {
@@ -27,6 +32,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         super.init(nibName: nil, bundle: nil)
         player = AVPlayer(url: url)
         player?.currentItem?.audioTimePitchAlgorithm = .lowQualityZeroLatency
+        showsPlaybackControls = false
     
         if let contentOverlayView = contentOverlayView {
             commentsManager = CommentsManager(parentView: contentOverlayView)
@@ -39,6 +45,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         layoutViews()
         showSpinner()
         setupNavigation()
+        bindViewModel()
         player?.play()
     }
     
@@ -46,7 +53,8 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         fatalError("init(coder:) has not been implemented")
     }
     
-    weak var gestureDelegate: PlayerVCDelegate?
+    weak var gestureDelegate: PlayerVCGestureDelegate?
+    weak var commentsDelegate: PlayerVCCommentsDelegate?
     
     let rightGestureView = UIView()
     let leftGestureView = UIView()
@@ -75,6 +83,12 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
             make.height.equalToSuperview()
             make.width.equalTo(150)
             make.left.equalToSuperview()
+        }
+    }
+    
+    private func bindViewModel() {
+        viewModel.comments.bind {[weak self] _ in
+            self?.commentsManager?.reloadTableView()
         }
     }
     
@@ -119,9 +133,8 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
 }
 
 extension PlayerVC: CommentsManagerDelegate {
-    
     func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
-        gestureDelegate?.playerVCSendPressed(self, with: message)
+        commentsDelegate?.playerVCSendPressed(self, with: message)
     }
     
     func commecntView(isHidden: Bool) {
@@ -131,10 +144,10 @@ extension PlayerVC: CommentsManagerDelegate {
 
 extension PlayerVC: CommentsManagerDataSource {
     func numberOfRowsInSection() -> Int {
-        return viewModel.numberOfRowsInSection()
+        return commentsDelegate?.playerVCNumberOfSections(self) ?? 0
     }
     
-    func comment(at indexPath: IndexPath) -> Comment {
-        return viewModel.comment(at: indexPath)
+    func comment(at indexPath: IndexPath) -> Comment? {
+        return commentsDelegate?.playerVCComment(self, at: indexPath)
     }
 }

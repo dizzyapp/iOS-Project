@@ -10,6 +10,8 @@ import Foundation
 
 protocol PlaceStoryVMDelegate: class {
     func placeStoryVMDidFinised(_ viewModel: PlaceStoryVMType)
+    func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String)
+
 }
 
 protocol PlaceStoryVMType {
@@ -32,7 +34,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     let place: PlaceInfo
     weak var delegate: PlaceStoryVMDelegate?
     
-    var imagesURL = [String?]()
+    var imagesURL = [String]()
     
     var displayedImageIndex = -1
     let delay = 1000.0
@@ -48,14 +50,18 @@ final class PlaceStoryVM: PlaceStoryVMType {
         self.commentsInteractor.delegate = self
         
         if let placesStories = place.placesStories {
-            imagesURL = placesStories
+            imagesURL = placesStories.filter { $0 != nil }.map { $0! }
         }
     }
     
     func showNextImage() {
         if displayedImageIndex + 1 <= imagesURL.count - 1 {
             displayedImageIndex += 1
-            currentImageURLString.value = imagesURL[displayedImageIndex]
+            if isVideo(string: imagesURL[displayedImageIndex]) {
+                delegate?.placeStoryShowVideo(self, stringURL: imagesURL[displayedImageIndex])
+            } else {
+                currentImageURLString.value = imagesURL[displayedImageIndex]
+            }
         } else {
             delegate?.placeStoryVMDidFinised(self)
         }
@@ -64,7 +70,11 @@ final class PlaceStoryVM: PlaceStoryVMType {
     func showPrevImage() {
         if displayedImageIndex - 1 >= 0 {
             displayedImageIndex -= 1
-            currentImageURLString.value = imagesURL[displayedImageIndex]
+            if isVideo(string: imagesURL[displayedImageIndex]) {
+                delegate?.placeStoryShowVideo(self, stringURL: imagesURL[displayedImageIndex])
+            } else {
+                currentImageURLString.value = imagesURL[displayedImageIndex]
+            }
         }
     }
     
@@ -82,6 +92,10 @@ final class PlaceStoryVM: PlaceStoryVMType {
     
     func close() {
         delegate?.placeStoryVMDidFinised(self)
+    }
+    
+    private func isVideo(string: String) -> Bool {
+        return string.contains(".MOV")
     }
 }
 

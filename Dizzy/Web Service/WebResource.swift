@@ -12,11 +12,13 @@ enum HttpMethod<Body: Encodable> {
     
     case get
     case post(data: Body)
+    case delete
     
     var method: String {
         switch self {
         case .get: return "GET"
         case .post: return "POST"
+        case .delete: return "DELETE"
         }
     }
 }
@@ -39,6 +41,12 @@ struct Resource<Response: Codable, Body: Encodable> {
     func withGet() -> Resource<Response, Body> {
         var resource = self
         resource.method = HttpMethod<Body>.get
+        return resource
+    }
+    
+    func withDelete() -> Resource<Response, Body> {
+        var resource = self
+        resource.method = HttpMethod<Body>.delete
         return resource
     }
     
