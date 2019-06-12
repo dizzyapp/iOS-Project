@@ -121,7 +121,8 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     func placeCellIconPressed(_ place: PlaceInfo) {
         guard let presntingVC = presentedViewControllers.first,
             let placeStoryCoordinator = container?.resolve(PlaceStoryCoordinatorType.self, argument: presntingVC),
-            let commentsInteractor = container?.resolve(CommentsInteractorType.self) else {
+            let commentsInteractor = container?.resolve(CommentsInteractorType.self),
+            place.placesStories != nil else {
                 print("could not create placeProfileCoordinator")
                 return
         }

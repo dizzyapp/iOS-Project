@@ -9,6 +9,7 @@
 import Foundation
 
 struct Comment: Codable {
+    var id: String
     var value: String
     var timeStamp: Double
 }

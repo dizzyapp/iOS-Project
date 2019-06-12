@@ -124,7 +124,7 @@ extension PlaceStoryVC: CommentsManagerDelegate {
     func commecntView(isHidden: Bool) { }
     
     func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
-        let comment = Comment(value: message, timeStamp: Date().timeIntervalSince1970)
+        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
         viewModel.send(comment: comment)
     }
 }

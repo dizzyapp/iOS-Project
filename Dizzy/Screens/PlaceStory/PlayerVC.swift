@@ -120,7 +120,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     }
     
     @objc func close() {
-        
+        viewModel.close()
     }
     
     func pause() {

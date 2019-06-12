@@ -43,7 +43,7 @@ final class CommentsInteractor: CommentsInteractorType {
     }
     
     func sendComment(_ comment: Comment, placeId: String) {
-        let resource = Resource<Bool, Comment>(path: "commentPerPlaceId/\(placeId)").withPost(comment)
+        let resource = Resource<Bool, Comment>(path: "commentPerPlaceId/\(placeId)/\(comment.id)").withPost(comment)
         dispacher.load(resource) { _ in }
     }
 }

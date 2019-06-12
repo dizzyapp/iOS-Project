@@ -32,6 +32,7 @@ final class PlaceStoryCoordinator: PlaceStoryCoordinatorType {
         guard var viewModel = container?.resolve(PlaceStoryVMType.self),
             let placeStoryVC = container?.resolve(PlaceStoryVC.self, argument: viewModel) else {
                 print("cannot load placeStoryVC")
+                onCoordinatorFinished()
                 return
         }
         viewModel.delegate = self
@@ -87,7 +88,7 @@ extension PlaceStoryCoordinator: PlayerVCCommentsDelegate {
     }
     
     func playerVCSendPressed(_ playerVC: PlayerVC, with message: String) {
-        let comment = Comment(value: message, timeStamp: Date().timeIntervalSince1970)
+        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
         placeStoryVM?.send(comment: comment)
     }
 }

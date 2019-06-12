@@ -56,7 +56,7 @@ final class FirebaseWebService: WebServiceType {
     private func sendPostRequest<Response, Body>(resource: Resource<Response, Body>,
                                                  completion: @escaping (Result<Response>) -> Void) {
         if let json = resource.makeJson() {
-            databaseReference.child("\(resource.path)/\(UUID())").setValue(json) { (error, _) in
+            databaseReference.child(resource.path).setValue(json) { (error, _) in
                 if error != nil {
                     completion(Result<Response>.failure(error))
                 }

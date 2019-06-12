@@ -62,21 +62,23 @@ final class CommentsView: UIView {
         tableView.contentInset = contentInsets
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
-            self?.scrollToBottom()
+            self?.scrollToBottomIfNeeded()
         }
     }
     
     func reloadTableView() {
         tableView.reloadData()
         tableView.layoutIfNeeded()
-        scrollToBottom()
+        scrollToBottomIfNeeded()
     }
     
-    private func scrollToBottom() {
+    private func scrollToBottomIfNeeded() {
         guard let numberOfRows = dataSource?.numberOfRowsInSection() else { return }
         let lastItem = numberOfRows - 1
-        let bottomIntextPath = IndexPath(item: lastItem, section: 0)
-        tableView.scrollToRow(at: bottomIntextPath, at: .bottom, animated: true)
+        if numberOfRows > 1 {
+            let bottomIntextPath = IndexPath(item: lastItem, section: 0)
+            tableView.scrollToRow(at: bottomIntextPath, at: .bottom, animated: true)
+        }
     }
 }
 
