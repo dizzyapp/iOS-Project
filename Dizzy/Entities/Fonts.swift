@@ -25,6 +25,18 @@ struct Fonts {
         return Family.bold(size: size)
     }
     
+    static func i3(weight: Weight = .regular) -> UIFont {
+        return Family.familyType(weight: weight, size: 25)
+    }
+    
+    static func i2(weight: Weight = .regular) -> UIFont {
+        return Family.familyType(weight: weight, size: 24)
+    }
+    
+    static func i1(weight: Weight = .regular) -> UIFont {
+        return Family.familyType(weight: weight, size: 23)
+    }
+    
     static func h1(weight: Weight = .regular) -> UIFont {
         return Family.familyType(weight: weight, size: 22)
     }

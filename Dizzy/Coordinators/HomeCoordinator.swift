@@ -13,7 +13,7 @@ protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
 }
 
-final class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDelegate {
+final class HomeCoordinator: HomeCoordinatorType {
     
     private var tabsIconPadding: CGFloat { return Metrics.padding }
     private var discoveryVC: DiscoveryVC?
@@ -70,8 +70,8 @@ final class HomeCoordinator: HomeCoordinatorType, DiscoveryViewModelNavigationDe
     }
 }
 
-extension HomeCoordinator {
-    
+extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
+ 
     func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = presentedViewControllers.first,
             let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
@@ -96,7 +96,35 @@ extension HomeCoordinator {
         add(coordinator: coordinator, for: .map)
     }
     
-    func menuButtonPressed() { }
+    func menuButtonPressed() {
+        let vcc = container?.resolve(LoginCoordinatorType.self, argument: discoveryVC! as UIViewController)!
+        vcc?.start()
+        vcc?.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .login)
+        }
+        add(coordinator: vcc!, for: .login)
+    }
+    
+    func placeCellDetailsPressed(_ place: PlaceInfo) {
+        
+        guard let presntingVC = presentedViewControllers.first,
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC),
+            place.profileVideoURL != nil  else {
+                print("could not create placeProfileCoordinator")
+                return
+        }
+        
+        placeProfileCoordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .placeProfile)
+        }
+        
+        container?.register(PlaceProfileVMType.self) { _ in
+            PlaceProfileVM(placeInfo: place)
+        }
+        
+        placeProfileCoordinator.start()
+        add(coordinator: placeProfileCoordinator, for: .placeProfile)
+    }
 }
 
 extension HomeCoordinator {

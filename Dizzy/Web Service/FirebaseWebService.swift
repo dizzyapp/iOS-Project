@@ -62,7 +62,7 @@ final class FirebaseWebService: WebServiceType {
     }
     
     func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool where Response : Decodable, Response : Encodable, Body : Encodable {
-        return resource.path != "signupWithDizzy"
+        return resource.path != "signupWithDizzy" && resource.path != "getGMSPlace"
     }
     
     private func getJsonToParse(from snapshot: DataSnapshot) -> [[String: Any]]? {

@@ -13,4 +13,6 @@ enum CoordinatorKey {
     case discovery
     case conversations
     case map
+    case login
+    case placeProfile
 }

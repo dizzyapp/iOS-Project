@@ -12,12 +12,16 @@ protocol DiscoveryVMType {
     func numberOfSections() -> Int
     func numberOfItemsForSection(_ section: Int) -> Int
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    
+    func placeCellDetailsPressed(atIndexPath indexPath: IndexPath)
+    
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryVMDelegate? { get set }
     var currentLocation: Observable<Location?> { get }
     var currentCity: Observable<String> { get }
     
     func mapButtonPressed()
+    func menuButtonPressed()
 }
 
 protocol DiscoveryVMDelegate: class {
@@ -27,10 +31,11 @@ protocol DiscoveryVMDelegate: class {
 protocol DiscoveryViewModelNavigationDelegate: class {
     func mapButtonPressed(places: [PlaceInfo])
     func menuButtonPressed()
+    func placeCellDetailsPressed(_ place: PlaceInfo)
 }
 
 class DiscoveryVM: DiscoveryVMType {
-    
+   
     weak var delegate: DiscoveryVMDelegate?
     var placesToDisplay = Observable<[PlaceInfo]>([])
     var currentLocation = Observable<Location?>(nil)
@@ -96,6 +101,14 @@ class DiscoveryVM: DiscoveryVMType {
     
     func mapButtonPressed() {
         navigationDelegate?.mapButtonPressed(places: allPlaces)
+    }
+    
+    func menuButtonPressed() {
+        self.navigationDelegate?.menuButtonPressed()
+    }
+    
+    func placeCellDetailsPressed(atIndexPath indexPath: IndexPath) {
+        navigationDelegate?.placeCellDetailsPressed(allPlaces[indexPath.row])
     }
 }
 

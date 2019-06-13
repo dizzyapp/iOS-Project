@@ -22,6 +22,20 @@ struct PlaceInfo: Codable, FilterEntry {
     let description: String
     let location: Location
     let imageURLString: String?
+    let profileVideoURL: String?
+    let authorizedAge: String?
+    let publicistPhoneNumber: String?
+    let placeSchedule: PlaceSchedule?
+}
+
+struct PlaceSchedule: Codable {
+    var sunday: String?
+    var monday: String?
+    var tuesday: String?
+    var wednesday: String?
+    var thursday: String?
+    var friday: String?
+    var saturday: String?
 }
 
 struct Location: Codable {
