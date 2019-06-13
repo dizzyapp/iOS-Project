@@ -18,6 +18,7 @@ final class LoginVC: UIViewController {
     let subtitleLabel = UILabel()
     let loginSelectionView = LoginSelectionView()
     let appInfosView = AppInfosView()
+    let userProfileView = UserProfileView()
     
     let dizzyLogoImageView = UIImageView()
     
@@ -47,7 +48,7 @@ final class LoginVC: UIViewController {
 
         self.view.addSubviews([closeButton, loginContainerView])
         loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
-                                        appInfosView, dizzyLogoImageView, enterAsAdminButton])
+                                        userProfileView, appInfosView, dizzyLogoImageView, enterAsAdminButton])
         
     }
     private func layoutViews() {
@@ -59,6 +60,7 @@ final class LoginVC: UIViewController {
         layoutSubtitleLabel()
         layoutLoginSelectionView()
         layoutAppInfosView()
+        layoutUserProfileView()
         
         layoutDizzyLogo()
         layoutEnterAsAdminButton()
@@ -84,14 +86,15 @@ final class LoginVC: UIViewController {
     private func layoutTitleLabel() {
         titleLabel.snp.makeConstraints { titleLabel in
             titleLabel.top.equalToSuperview().offset(Metrics.padding)
-            titleLabel.leading.trailing.equalToSuperview().offset(Metrics.padding)
+            titleLabel.centerX.equalToSuperview()
+            titleLabel.leading.trailing.equalToSuperview()
         }
     }
     
     private func layoutSubtitleLabel() {
         subtitleLabel.snp.makeConstraints { subtitleLabel in
             subtitleLabel.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
-            subtitleLabel.leading.trailing.equalToSuperview().offset(Metrics.padding)
+            subtitleLabel.leading.trailing.equalToSuperview()
         }
     }
     
@@ -106,6 +109,14 @@ final class LoginVC: UIViewController {
         appInfosView.snp.makeConstraints { appInfosView in
             appInfosView.top.equalTo(loginSelectionView.snp.bottom)
             appInfosView.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    private func layoutUserProfileView() {
+        userProfileView.snp.makeConstraints { userProfileView in
+            userProfileView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
+            userProfileView.leading.trailing.equalToSuperview()
+            userProfileView.bottom.equalTo(loginSelectionView.snp.bottom)
         }
     }
     
@@ -133,6 +144,7 @@ final class LoginVC: UIViewController {
         setupSubtitleLabel()
         setupLoginSelectionView()
         setupAppInfosView()
+        setupUserProfileView()
         
         setupDizzyLogo()
         setupEnterAsAdminButton()
@@ -167,6 +179,11 @@ final class LoginVC: UIViewController {
     
     private func setupAppInfosView() {
         appInfosView.delegate = self
+    }
+    
+    private func setupUserProfileView() {
+        userProfileView.backgroundColor = .white
+        userProfileView.isHidden = false // Update according to login state
     }
     
     private func setupDizzyLogo() {
