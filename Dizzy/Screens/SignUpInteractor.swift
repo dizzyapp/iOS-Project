@@ -21,9 +21,21 @@ class SignUpInteractor: SignUpInteractorType {
     }
     
     func signUpWithDizzy(_ signUpDetails: SignupDetails) {
-        let signUpResource = Resource<String, SignupDetails>(path: "signupWithDizzy").withPost(signUpDetails)
-        webResourcesDispatcher.load(signUpResource) { (result) in
-            print(result)
+        let signUpResource = Resource<User, SignupDetails>(path: "signupWithDizzy").withPost(signUpDetails)
+        webResourcesDispatcher.load(signUpResource) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                return
+            case .success(let user):
+                self?.saveUserOnRemote(user)
+            }
+        }
+    }
+    
+    private func saveUserOnRemote(_ user: User) {
+        let saveUserResource = Resource<String, User>(path: "users/\(user.id)").withPost(user)
+        webResourcesDispatcher.load(saveUserResource) { (response) in
+            print(response)
         }
     }
 }

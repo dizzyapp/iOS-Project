@@ -35,9 +35,12 @@ class SignupWebservice: WebServiceType {
         guard let signupDetails = resource.getData() as? SignupDetails else {
             return
         }
-        print("sending")
-        Auth.auth().createUser(withEmail: signupDetails.email , password: signupDetails.password) { (result, error) in
+        Auth.auth().createUser(withEmail: signupDetails.email , password: signupDetails.password) { (result, _) in
+            guard let result = result else { return }
+            let user = User(id: result.user.uid, fullName: signupDetails.fullName, email: signupDetails.email, role: .customer)
             
+            let response = Result.success(user)
+            completion(response as! Result<Response> )
         }
     }
 }

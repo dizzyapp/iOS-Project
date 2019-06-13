@@ -70,6 +70,7 @@
 		77A0605322AD8E4E008FE39D /* SignupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605222AD8E4E008FE39D /* SignupInteractor.swift */; };
 		77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605422AD9284008FE39D /* SignupWebservice.swift */; };
 		77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */; };
+		77AD08B022B1870B004F8588 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AF22B1870B004F8588 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,7 @@
 		77A0605222AD8E4E008FE39D /* SignupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInteractor.swift; sourceTree = "<group>"; };
 		77A0605422AD9284008FE39D /* SignupWebservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupWebservice.swift; sourceTree = "<group>"; };
 		77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
+		77AD08AF22B1870B004F8588 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -285,6 +287,7 @@
 				0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */,
 				0470E6AB2270B2DF00267278 /* GoogleMap */,
 				77A0605022AD8AE3008FE39D /* SignupDetails.swift */,
+				77AD08AF22B1870B004F8588 /* User.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
+				77AD08B022B1870B004F8588 /* User.swift in Sources */,
 				77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
