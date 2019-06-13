@@ -11,9 +11,11 @@ target 'Dizzy' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'Firebase/Auth'
   pod 'SwiftLint'
   pod 'SnapKit'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'Kingfisher'
+
 end

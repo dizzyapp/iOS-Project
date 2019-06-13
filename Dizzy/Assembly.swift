@@ -25,12 +25,14 @@ class Assembly {
         // MARK: Interactors
         container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         container.autoregister(GooglePlaceInteractorType.self, initializer: GooglePlaceInteractor.init)
+        container.autoregister(SignUpInteractorType.self, initializer: SignUpInteractor.init)
 
         // MARK: view models
         container.autoregister(DiscoveryVMType.self, initializer: DiscoveryVM.init)
         container.autoregister(ConversationsViewModelType.self, initializer: ConversationsViewModel.init)
         container.autoregister(LoginVMType.self, initializer: LoginVM.init)
-        
+        container.autoregister(SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVM.init)
+
         // MARK: view controllers
         container.autoregister(DiscoveryVC.self, argument: DiscoveryVMType.self, initializer: DiscoveryVC.init)
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
@@ -40,7 +42,8 @@ class Assembly {
         container.autoregister(MapSearchVC.self, argument: MapSearchVMType.self ,initializer: MapSearchVC.init)
         container.autoregister(LoginVC.self, argument:LoginVMType.self,  initializer: LoginVC.init)
         container.autoregister(PlaceProfileVC.self, argument: PlaceProfileVMType.self, initializer: PlaceProfileVC.init)
-        
+        container.autoregister(SignUpWithDizzyVC.self, argument: SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVC.init)
+
         // MARK: coordinators
         container.autoregister(AppCoordinator.self, argument: UIWindow.self, initializer: AppCoordinator.init)
         container.autoregister(HomeCoordinatorType.self, argument: UIWindow.self, initializer: HomeCoordinator.init)
