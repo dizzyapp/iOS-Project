@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,7 +45,6 @@
 		04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */; };
 		04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40C2263B47800E10F70 /* MapVM.swift */; };
 		04ECE4112263B47800E10F70 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECE40E2263B47800E10F70 /* MapVC.swift */; };
-		4D02D3D322B2EF2E0097D406 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02D3D222B2EF2E0097D406 /* UserProfileView.swift */; };
 		4D645EA322B0423B00016EF7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9D22B0423A00016EF7 /* LoginVC.swift */; };
 		4D645EA422B0423B00016EF7 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645E9E22B0423A00016EF7 /* LoginVM.swift */; };
 		4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA022B0423A00016EF7 /* AppInfoView.swift */; };
@@ -79,6 +78,14 @@
 		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
 		772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D6226A040100BD1488 /* MapCoordinator.swift */; };
 		772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D8226A045A00BD1488 /* PlaceInfo.swift */; };
+		77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */; };
+		77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */; };
+		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
+		77A0605122AD8AE3008FE39D /* SignupDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605022AD8AE3008FE39D /* SignupDetails.swift */; };
+		77A0605322AD8E4E008FE39D /* SignupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605222AD8E4E008FE39D /* SignupInteractor.swift */; };
+		77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605422AD9284008FE39D /* SignupWebservice.swift */; };
+		77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */; };
+		77AD08B022B1870B004F8588 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AF22B1870B004F8588 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,7 +128,6 @@
 		04ECE40C2263B47800E10F70 /* MapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
 		04ECE40E2263B47800E10F70 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
-		4D02D3D222B2EF2E0097D406 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4D645E9D22B0423A00016EF7 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		4D645E9E22B0423A00016EF7 /* LoginVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		4D645EA022B0423A00016EF7 /* AppInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
@@ -156,6 +162,14 @@
 		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
 		772354D6226A040100BD1488 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		772354D8226A045A00BD1488 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
+		77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVC.swift; sourceTree = "<group>"; };
+		77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVM.swift; sourceTree = "<group>"; };
+		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
+		77A0605022AD8AE3008FE39D /* SignupDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupDetails.swift; sourceTree = "<group>"; };
+		77A0605222AD8E4E008FE39D /* SignupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInteractor.swift; sourceTree = "<group>"; };
+		77A0605422AD9284008FE39D /* SignupWebservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupWebservice.swift; sourceTree = "<group>"; };
+		77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
+		77AD08AF22B1870B004F8588 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +206,7 @@
 				041D95C42253D84F009ED7AB /* WebResource.swift */,
 				04D0CCF5225731880020DF8F /* FirebaseWebService.swift */,
 				04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */,
+				77A0605422AD9284008FE39D /* SignupWebservice.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -260,22 +275,13 @@
 			path = Interactors;
 			sourceTree = "<group>";
 		};
-		4D02D3D122B2EF0C0097D406 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				4D02D3D222B2EF2E0097D406 /* UserProfileView.swift */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
 		4D645E9C22B0423A00016EF7 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				4D645E9F22B0423A00016EF7 /* App Info */,
 				4D645E9D22B0423A00016EF7 /* LoginVC.swift */,
 				4D645E9E22B0423A00016EF7 /* LoginVM.swift */,
 				4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */,
-				4D645E9F22B0423A00016EF7 /* App Info */,
-				4D02D3D122B2EF0C0097D406 /* Profile */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
 				76B41EB5224EF16200C1A290 /* Assembly.swift */,
 				76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */,
+				77A0605222AD8E4E008FE39D /* SignupInteractor.swift */,
 			);
 			path = Dizzy;
 			sourceTree = "<group>";
@@ -352,6 +359,8 @@
 				04E7809222B027CF00A9E3F4 /* Colors.swift */,
 				0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */,
 				0470E6AB2270B2DF00267278 /* GoogleMap */,
+				77A0605022AD8AE3008FE39D /* SignupDetails.swift */,
+				77AD08AF22B1870B004F8588 /* User.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -365,6 +374,10 @@
 				0415EC31225E57D5009BCBC7 /* Map */,
 				76B41ECF225229EA00C1A290 /* Discovery */,
 				0487FF8F228EB40200A8683C /* PlaceStory */,
+				77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */,
+				77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */,
+				77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */,
+				77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -524,10 +537,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -577,13 +587,6 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -594,22 +597,8 @@
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectAutoregistration.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -623,6 +612,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */,
 				04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */,
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
@@ -631,6 +621,8 @@
 				0470E6B62270B32600267278 /* AutoCompleteFilter.swift in Sources */,
 				0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */,
 				0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */,
+				77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */,
+				77A0605122AD8AE3008FE39D /* SignupDetails.swift in Sources */,
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
 				04ECE4112263B47800E10F70 /* MapVC.swift in Sources */,
 				041D95C32253D733009ED7AB /* WebService.swift in Sources */,
@@ -641,7 +633,6 @@
 				0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
 				4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */,
-				4D02D3D322B2EF2E0097D406 /* UserProfileView.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
 				04E7808A22B0274900A9E3F4 /* PlaceProfileVM.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
@@ -652,6 +643,8 @@
 				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
+				77AD08B022B1870B004F8588 /* User.swift in Sources */,
+				77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
 				4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */,
 				04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */,
@@ -675,14 +668,17 @@
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */,
+				77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */,
 				0470E6B52270B32600267278 /* MapSearchVC.swift in Sources */,
+				77A0605322AD8E4E008FE39D /* SignupInteractor.swift in Sources */,
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
 				04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */,
 				0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */,
+				77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */,
 				0470E6B42270B32600267278 /* MapSearchTableViewCell.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
