@@ -114,7 +114,7 @@ class LoginSelectionView: UIView {
         signUpButton.setBackgroundImage(Images.signUpIcon(), for: .normal)
         signUpButton.setTitle("Sign up".localized, for: .normal)
         signUpButton.setTitleColor(signUpButtonColor, for: .normal)
-        loginFacebookButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
 
     }
     

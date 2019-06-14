@@ -10,13 +10,18 @@ import UIKit
 import SnapKit
 
 final class SignUpWithDizzyVC: UIViewController {
-    let backButton = UIButton(type: .system)
     var signUpDetailsView = SignUpDetailsView()
     let viewModel: SignUpWithDizzyVMType
 
     init(viewModel: SignUpWithDizzyVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        self.navigationItem.title = "Sign Up".localized
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(backButtonPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(closeButtonClicked))
+        
         layoutViews()
         setupViews()
     }
@@ -26,31 +31,29 @@ final class SignUpWithDizzyVC: UIViewController {
     }
     
     private func layoutViews() {
-        self.view.addSubviews([signUpDetailsView, backButton])
-        
-        backButton.snp.makeConstraints { backButton in
-            backButton.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
-            backButton.trailing.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-        }
+        self.view.addSubview(signUpDetailsView)
         
         signUpDetailsView.snp.makeConstraints { signUpDetailsView in
-            signUpDetailsView.top.equalTo(backButton.snp.bottom).offset(Metrics.padding)
+            signUpDetailsView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
             signUpDetailsView.leading.bottom.trailing.equalToSuperview()
         }
     }
     
     private func setupViews() {
         self.view.backgroundColor = .clear
-        setupBackButton()
         setupSignUpDetailsView()
-    }
-    
-    private func setupBackButton() {
-        backButton.setTitle("back", for: .normal)
     }
     
     private func setupSignUpDetailsView() {
         signUpDetailsView.delegate = self
+    }
+    
+    @objc private func backButtonPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func closeButtonClicked() {
+        self.viewModel.closeButtonPressed()
     }
 }
 

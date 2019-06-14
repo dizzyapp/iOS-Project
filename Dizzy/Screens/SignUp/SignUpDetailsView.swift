@@ -105,6 +105,8 @@ final class SignUpDetailsView: UIView {
     
     private func setupViews() {
         layer.cornerRadius = screenCornerRadius
+        self.clipsToBounds = true
+        
         setupStackView()
         setupSignUpButton()
         setupTitleLabel()

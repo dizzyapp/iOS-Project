@@ -10,10 +10,18 @@ import UIKit
 
 protocol SignUpWithDizzyVMType {
     func onSignupPressed(_ signupDetails: SignupDetails)
+    func closeButtonPressed()
+    var navigationDelegate: SignUpWithDizzyVMNavigationDelegate? { get set }
+}
+
+protocol SignUpWithDizzyVMNavigationDelegate: class {
+    func navigateToHomeScreen()
 }
 
 class SignUpWithDizzyVM: SignUpWithDizzyVMType {
     
+    weak var navigationDelegate: SignUpWithDizzyVMNavigationDelegate?
+
     let signupInteractor: SignUpInteractorType
     init(signupInteractor: SignUpInteractorType) {
         self.signupInteractor = signupInteractor
@@ -21,5 +29,9 @@ class SignUpWithDizzyVM: SignUpWithDizzyVMType {
     
     func onSignupPressed(_ signupDetails: SignupDetails) {
         signupInteractor.signUpWithDizzy(signupDetails)
+    }
+    
+    func closeButtonPressed() {
+        self.navigationDelegate?.navigateToHomeScreen()
     }
 }

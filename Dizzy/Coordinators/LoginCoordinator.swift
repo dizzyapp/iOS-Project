@@ -16,18 +16,19 @@ protocol LoginCoordinatorType: NavigationCoordinator {
 
 }
 
-final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate {
+final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate {
         
     var container: Container?
     var childCoordinators = [CoordinatorKey : Coordinator]()
     var navigationController = UINavigationController()
-    let presentingVC: UIViewController
+    var presentingVC: UIViewController
     
     var onCoordinatorFinished: () -> Void = { }
 
     init(container: Container, presentingVC: UIViewController) {
         self.container = container
         self.presentingVC = presentingVC
+        navigationController = UINavigationController()
     }
     
     func start() {
@@ -37,19 +38,30 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate {
         }
         
         loginVM.navigationDelegate = self
-        loginVC.modalPresentationStyle = .overCurrentContext
-        loginVC.modalPresentationCapturesStatusBarAppearance = true
-        presentingVC.present(loginVC, animated: true)
+
+        let navigationController = loginVC.embdedInNavigationController().withTransparentStyle()
+        navigationController.modalPresentationStyle = .overCurrentContext
+        self.navigationController = navigationController
+        self.presentingVC.present(navigationController, animated: true)
     }
     
     func navigateToHomeScreen() {
+        if let discoveryVC = self.presentingVC as? DiscoveryVC {
+            discoveryVC.showTopBar()
+        }
         self.presentingVC.dismiss(animated: true, completion: {
             self.onCoordinatorFinished()
         })
     }
     
     func navigateToSignUpScreen() {
-        
+        guard var viewModel = container?.resolve(SignUpWithDizzyVMType.self),
+            let signUpWithDizzyVC = container?.resolve(SignUpWithDizzyVC.self, argument: viewModel) else {
+                print("could not create SignUpWithDizzyVC page")
+                return
+        }
+        viewModel.navigationDelegate = self
+        navigationController.pushViewController(signUpWithDizzyVC, animated: true)
     }
     
     func navigateToSignInWithDizzyScreen() {

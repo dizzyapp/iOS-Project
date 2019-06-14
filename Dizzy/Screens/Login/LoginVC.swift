@@ -11,7 +11,6 @@ import SnapKit
 
 final class LoginVC: UIViewController {
 
-    let closeButton = UIButton()
     let loginContainerView = UIView()
     
     let titleLabel = UILabel()
@@ -24,7 +23,7 @@ final class LoginVC: UIViewController {
     
     let enterAsAdminButton: UIButton = UIButton()
     
-    let cornerRadius: CGFloat = 25.0
+    let cornerRadius: CGFloat = 30.0
     let enterAsAdminButtonHeight: CGFloat = 40
     
     var loginVM: LoginVMType
@@ -33,6 +32,9 @@ final class LoginVC: UIViewController {
         self.loginVM = loginVM
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .clear
+        
+        self.navigationItem.title = "Login".localized
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(closeButtonClicked))
         
         addSubviews()
         layoutViews()
@@ -46,14 +48,13 @@ final class LoginVC: UIViewController {
     
     private func addSubviews() {
 
-        self.view.addSubviews([closeButton, loginContainerView])
+        self.view.addSubview(loginContainerView)
         loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
                                         userProfileView, appInfosView, dizzyLogoImageView, enterAsAdminButton])
         
     }
     private func layoutViews() {
         
-        layoutCloseButton()
         layoutLoginContainerView()
         
         layoutTitleLabel()
@@ -66,18 +67,10 @@ final class LoginVC: UIViewController {
         layoutEnterAsAdminButton()
     }
     
-    private func layoutCloseButton() {
-        closeButton.snp.makeConstraints { closeButton in
-            
-            closeButton.top.equalTo(self.view.snp.topMargin).offset(Metrics.padding)
-            closeButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-        }
-    }
-    
     private func layoutLoginContainerView() {
         loginContainerView.snp.makeConstraints { loginContainerView in
             
-            loginContainerView.top.equalTo(closeButton.snp.bottom).offset(Metrics.padding)
+            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.doublePadding)
         }
@@ -137,7 +130,6 @@ final class LoginVC: UIViewController {
     }
     
     private func setupViews() {
-        setupCloseButton()
         setupLoginContainerView()
         
         setupTitleLabel()
@@ -150,14 +142,10 @@ final class LoginVC: UIViewController {
         setupEnterAsAdminButton()
     }
     
-    private func setupCloseButton() {
-        closeButton.setImage(Images.downArrowIcon(), for: .normal)
-        closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
-    }
-    
     private func setupLoginContainerView() {
         loginContainerView.backgroundColor = .white
         loginContainerView.layer.cornerRadius = cornerRadius
+        loginContainerView.clipsToBounds = true
     }
     
     private func setupTitleLabel() {
@@ -183,7 +171,7 @@ final class LoginVC: UIViewController {
     
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
-        userProfileView.isHidden = false // Update according to login state
+        userProfileView.isHidden = true // Update according to login state
     }
     
     private func setupDizzyLogo() {
