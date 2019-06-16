@@ -8,34 +8,40 @@
 
 import UIKit
 
+protocol SignUpInteractorDelegate: class {
+    func userSignedUpSuccesfully(user: DizzyUser)
+    func userSignedUpFailed(error: Error)
+}
+
 protocol SignUpInteractorType {
-    func signUpWithDizzy(_ signUpDetails: SignupDetails)
+    func signUpWithDizzy(_ loginCredentialsDetails: LoginCredentialsDetails)
 }
 
 class SignUpInteractor: SignUpInteractorType {
 
+    weak var delegate: SignUpInteractorDelegate?
     let webResourcesDispatcher: WebServiceDispatcherType
     
     init(webResourcesDispatcher: WebServiceDispatcherType) {
         self.webResourcesDispatcher = webResourcesDispatcher
     }
     
-    func signUpWithDizzy(_ signUpDetails: SignupDetails) {
-        let signUpResource = Resource<User, SignupDetails>(path: "signupWithDizzy").withPost(signUpDetails)
+    func signUpWithDizzy(_ loginCredentialsDetails: LoginCredentialsDetails) {
+        let signUpResource = Resource<DizzyUser, LoginCredentialsDetails>(path: "signupWithDizzy").withPost(loginCredentialsDetails)
         webResourcesDispatcher.load(signUpResource) { [weak self] result in
             switch result {
             case .failure(let error):
-                return
+                self?.delegate?.userSignedUpFailed(error: error!)
             case .success(let user):
                 self?.saveUserOnRemote(user)
             }
         }
     }
     
-    private func saveUserOnRemote(_ user: User) {
-        let saveUserResource = Resource<String, User>(path: "users/\(user.id)").withPost(user)
-        webResourcesDispatcher.load(saveUserResource) { (response) in
-            print(response)
+    private func saveUserOnRemote(_ user: DizzyUser) {
+        let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
+        webResourcesDispatcher.load(saveUserResource) { (_) in
+            self.delegate?.userSignedUpSuccesfully(user: user)
         }
     }
 }

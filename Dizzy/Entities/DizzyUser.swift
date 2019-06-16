@@ -1,5 +1,5 @@
 //
-//  User.swift
+//  DizzyUser.swift
 //  Dizzy
 //
 //  Created by Menashe, Or on 12/06/2019.
@@ -24,7 +24,7 @@ enum UserRole: String, Codable {
     case unknown
 }
 
-struct User: Codable {
+struct DizzyUser: Codable {
     let id: String
     let fullName: String
     let email: String

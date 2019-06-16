@@ -22,10 +22,39 @@ protocol LoginVMType {
 protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
     func navigateToHomeScreen()
-    func navigateToSignInWithDizzyScreen()
+    func navigateToSignInScreen()
     func navigateToSignInWithFacebook()
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
+}
+
+enum InputValidationResult {
+    case fullNameTooShort
+    case emailAddressTooShort
+    case wrongEmail
+    case passwordTooShort
+    case passwordsNotEqual
+    case missingDetails
+    case success
+    
+    var localizedDescription: String {
+        switch self {
+        case .fullNameTooShort:
+            return "Full name is too short, please enter at least 2 characters".localized
+        case .emailAddressTooShort:
+            return "Email address is too short, please enter at least 7 characters".localized
+        case .wrongEmail:
+            return "Email address is not correct, please enter a valid email address".localized
+        case .passwordTooShort:
+            return "Password is too short, please enter at least 6 characters".localized
+        case .passwordsNotEqual:
+            return "Passwords are not equal, please try again!"
+        case .missingDetails:
+            return "Please fill all the fields".localized
+        case .success:
+            return "Succeed".localized
+        }
+    }
 }
 
 class LoginVM: LoginVMType {
@@ -45,7 +74,7 @@ class LoginVM: LoginVMType {
     }
     
     func loginWithDizzyButtonPressed() {
-        self.navigationDelegate?.navigateToSignInWithDizzyScreen()
+        self.navigationDelegate?.navigateToSignInScreen()
     }
     
     func loginWithFacebookButtonPressed() {

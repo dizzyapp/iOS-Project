@@ -1,5 +1,5 @@
 //
-//  signUpWithDizzyVC.swift
+//  SignInWithDizzyVC.swift
 //  Dizzy
 //
 //  Created by Menashe, Or on 07/06/2019.
@@ -9,17 +9,15 @@
 import UIKit
 import SnapKit
 
-final class SignUpWithDizzyVC: UIViewController {
-    var signUpDetailsView = SignUpDetailsView()
-    var errorLabel = UILabel()
-    
-    var viewModel: SignUpWithDizzyVMType
+final class SignInWithDizzyVC: UIViewController {
+    var signInDetailsView = SignInDetailsView()
+    var viewModel: SignInWithDizzyVMType
 
-    init(viewModel: SignUpWithDizzyVMType) {
+    init(viewModel: SignInWithDizzyVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
-        self.navigationItem.title = "Sign Up".localized
+        self.navigationItem.title = "Sign In".localized
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(backButtonPressed))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(closeButtonClicked))
@@ -35,27 +33,27 @@ final class SignUpWithDizzyVC: UIViewController {
     }
     
     private func layoutViews() {
-        self.view.addSubview(signUpDetailsView)
+        self.view.addSubview(signInDetailsView)
         
-        signUpDetailsView.snp.makeConstraints { signUpDetailsView in
-            signUpDetailsView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
-            signUpDetailsView.leading.bottom.trailing.equalToSuperview()
+        signInDetailsView.snp.makeConstraints { signInDetailsView in
+            signInDetailsView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
+            signInDetailsView.leading.bottom.trailing.equalToSuperview()
         }
     }
     
     private func setupViews() {
         self.view.backgroundColor = .clear
-        setupSignUpDetailsView()
+        setupSignInDetailsView()
         setupViewModel()
     }
     
-    private func setupSignUpDetailsView() {
-        signUpDetailsView.delegate = self
+    private func setupSignInDetailsView() {
+        signInDetailsView.delegate = self
     }
     
     private func setupViewModel() {
         self.viewModel.validationCompletion = { [weak self] (inputValidation) in
-            self?.signUpDetailsView.showErrorMessage(inputValidation.localizedDescription)
+            self?.signInDetailsView.showErrorMessage(inputValidation.localizedDescription)
         }
     }
     
@@ -68,8 +66,8 @@ final class SignUpWithDizzyVC: UIViewController {
     }
 }
 
-extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
-        viewModel.onSignupPressed(loginCredentialsDetails)
+extension SignInWithDizzyVC: SignInDetailsViewDelegate {
+    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
+        viewModel.onSignInPressed(loginCredentialsDetails)
     }
 }

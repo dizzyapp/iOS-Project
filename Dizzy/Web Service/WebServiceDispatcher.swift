@@ -17,7 +17,7 @@ final class WebServiceDispatcher: WebServiceDispatcherType {
     private let webServices: [WebServiceType]
     
     init() {
-        self.webServices = [FirebaseWebService(), SignupWebservice()]
+        self.webServices = [FirebaseWebService(), SignupWebservice(), SignInWebservice()]
     }
     
     func load<Response, Body>(_ resource: Resource<Response, Body>, completion: @escaping (Result<Response>) -> Void) {

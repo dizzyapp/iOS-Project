@@ -21,7 +21,7 @@ final class LoginVC: UIViewController {
     
     let dizzyLogoImageView = UIImageView()
     
-    let enterAsAdminButton: UIButton = UIButton()
+    let enterAsAdminButton: UIButton = UIButton(type: .system)
     
     let cornerRadius: CGFloat = 30.0
     let enterAsAdminButtonHeight: CGFloat = 40

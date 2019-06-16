@@ -16,7 +16,7 @@ protocol LoginCoordinatorType: NavigationCoordinator {
 
 }
 
-final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate {
+final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate, SignInWithDizzyVMNavigationDelegate {
         
     var container: Container?
     var childCoordinators = [CoordinatorKey : Coordinator]()
@@ -64,8 +64,14 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, S
         navigationController.pushViewController(signUpWithDizzyVC, animated: true)
     }
     
-    func navigateToSignInWithDizzyScreen() {
-        
+    func navigateToSignInScreen() {
+        guard var viewModel = container?.resolve(SignInWithDizzyVMType.self),
+            let signInWithDizzyVC = container?.resolve(SignInWithDizzyVC.self, argument: viewModel) else {
+                print("could not create SignInWithDizzyVC page")
+                return
+        }
+        viewModel.navigationDelegate = self
+        navigationController.pushViewController(signInWithDizzyVC, animated: true)
     }
     
     func navigateToSignInWithFacebook() {

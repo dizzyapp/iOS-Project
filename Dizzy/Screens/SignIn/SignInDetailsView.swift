@@ -1,5 +1,5 @@
 //
-//  SignUpDetailsView.swift
+//  SignInDetailsView.swift
 //  Dizzy
 //
 //  Created by Menashe, Or on 07/06/2019.
@@ -8,34 +8,31 @@
 
 import UIKit
 
-protocol SignUpDetailsViewDelegate: class {
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
+protocol SignInDetailsViewDelegate: class {
+    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
 }
 
-final class SignUpDetailsView: UIView {
+final class SignInDetailsView: UIView {
 
     let titleLabel = UILabel()
     let stackView = UIStackView()
-    let fullNameTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "What's your name?".localized)
-    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Whats your email?".localized)
+    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Email".localized)
     let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Password".localized)
-    let confirmPasswordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Confirm your password".localized)
-    let signUpButton = UIButton(type: .system)
+    let signInButton = UIButton(type: .system)
     let errorLabel = UILabel()
     
     let screenCornerRadius = CGFloat(30)
     let buttonsWidthPrecentage = CGFloat(0.5)
-    let signupButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
-    let signupCornerRadius = CGFloat(17)
+    let signInButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
+    let signInCornerRadius = CGFloat(17)
     
-    weak var delegate: SignUpDetailsViewDelegate?
+    weak var delegate: SignInDetailsViewDelegate?
     
     init() {
         super.init(frame: CGRect.zero)
         self.backgroundColor = .white
-
-        layoutViews()
         setupViews()
+        layoutViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,11 +43,9 @@ final class SignUpDetailsView: UIView {
         
         layoutTitleLabel()
         layoutStackView()
-        layoutFullNameTextField()
         layoutEmailTextField()
         layoutPasswordTextField()
-        layoutConfirmPasswordTextField()
-        layoutSignupButton()
+        layoutSignInButton()
         layoutErrorLabel()
     }
     
@@ -71,13 +66,6 @@ final class SignUpDetailsView: UIView {
         }
     }
     
-    private func layoutFullNameTextField() {
-        stackView.addArrangedSubview(fullNameTextField)
-        fullNameTextField.snp.makeConstraints { (fullNameTextField ) in
-            fullNameTextField.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
-        }
-    }
-    
     private func layoutEmailTextField() {
         stackView.addArrangedSubview(emailTextField)
         emailTextField.snp.makeConstraints { (emailTextField ) in
@@ -92,17 +80,10 @@ final class SignUpDetailsView: UIView {
         }
     }
     
-    private func layoutConfirmPasswordTextField() {
-        stackView.addArrangedSubview(confirmPasswordTextField)
-        confirmPasswordTextField.snp.makeConstraints { (confirmPasswordTextField ) in
-            confirmPasswordTextField.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
-        }
-    }
-    
-    private func layoutSignupButton() {
-        stackView.addArrangedSubview(signUpButton)
-        signUpButton.snp.makeConstraints { (signUpButton ) in
-            signUpButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
+    private func layoutSignInButton() {
+        stackView.addArrangedSubview(signInButton)
+        signInButton.snp.makeConstraints { (signInButton ) in
+            signInButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
         }
     }
     
@@ -118,13 +99,9 @@ final class SignUpDetailsView: UIView {
         layer.cornerRadius = screenCornerRadius
         self.clipsToBounds = true
         
-        setupTitleLabel()
         setupStackView()
-        setupFullNameTextField()
-        setupEmailTextField()
-        setupPasswordTextField()
-        setupRepeatPasswordTextField()
-        setupSignUpButton()
+        setupSignInButton()
+        setupTitleLabel()
         setupErrorLabel()
     }
     
@@ -141,29 +118,13 @@ final class SignUpDetailsView: UIView {
         stackView.backgroundColor = .white
     }
     
-    private func setupFullNameTextField() {
-        fullNameTextField.keyboardType = .namePhonePad
-    }
-    
-    private func setupEmailTextField() {
-        emailTextField.keyboardType = .emailAddress
-    }
-    
-    private func setupPasswordTextField() {
-        passwordTextField.isSecureTextEntry = true
-    }
-    
-    private func setupRepeatPasswordTextField() {
-        confirmPasswordTextField.isSecureTextEntry = true
-    }
-    
-    private func setupSignUpButton() {
-        signUpButton.setTitle("Done!".localized, for: .normal)
-        signUpButton.titleLabel?.font = Fonts.h10(weight: .bold)
-        signUpButton.setTitleColor(.white, for: .normal)
-        signUpButton.layer.cornerRadius = signupCornerRadius
-        signUpButton.backgroundColor = signupButtonBackgroundColor
-        signUpButton.addTarget(self, action: #selector(onSignupPressed), for: .touchUpInside )
+    private func setupSignInButton() {
+        signInButton.setTitle("Go!".localized, for: .normal)
+        signInButton.titleLabel?.font = Fonts.h10(weight: .bold)
+        signInButton.setTitleColor(.white, for: .normal)
+        signInButton.layer.cornerRadius = signInCornerRadius
+        signInButton.backgroundColor = signInButtonBackgroundColor
+        signInButton.addTarget(self, action: #selector(onSignInPressed), for: .touchUpInside )
     }
     
     private func setupErrorLabel() {
@@ -175,16 +136,14 @@ final class SignUpDetailsView: UIView {
         self.errorLabel.text = message
     }
     
-    @objc private func onSignupPressed() {
+    @objc private func onSignInPressed() {
         
-        guard let fullName = self.fullNameTextField.text,
-            let email = self.emailTextField.text,
-            let password = self.passwordTextField.text,
-            let repeatPassword = self.confirmPasswordTextField.text else {
+        guard let email = emailTextField.text,
+            let password = passwordTextField.text else {
                 return
         }
         
-        let loginCredentialsDetails = LoginCredentialsDetails(fullName: fullName, email: email, password: password, repeatPassword: repeatPassword)
-        delegate?.onSignupPressed(loginCredentialsDetails)
+        let loginCredentialsDetails = LoginCredentialsDetails(fullName: "", email: email, password: password, repeatPassword: "")
+        delegate?.onSignInPressed(loginCredentialsDetails)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  signUpWithDizzyVM.swift
+//  signInWithDizzyVM.swift
 //  Dizzy
 //
 //  Created by Menashe, Or on 07/06/2019.
@@ -8,35 +8,34 @@
 
 import UIKit
 
-protocol SignUpWithDizzyVMType {
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
+protocol SignInWithDizzyVMType {
+    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
     func closeButtonPressed()
-    var navigationDelegate: SignUpWithDizzyVMNavigationDelegate? { get set }
+    var navigationDelegate: SignInWithDizzyVMNavigationDelegate? { get set }
     var validationCompletion: ((InputValidationResult) -> Void)? { get set }
 }
 
-protocol SignUpWithDizzyVMNavigationDelegate: class {
+protocol SignInWithDizzyVMNavigationDelegate: class {
     func navigateToHomeScreen()
 }
 
-class SignUpWithDizzyVM: SignUpWithDizzyVMType {
+class SignInWithDizzyVM: SignInWithDizzyVMType {
     
-    weak var navigationDelegate: SignUpWithDizzyVMNavigationDelegate?
+    weak var navigationDelegate: SignInWithDizzyVMNavigationDelegate?
     var validationCompletion: ((InputValidationResult) -> Void)?
 
-    let userNameMinimumLength = 2
     let emailMinimumLength = 7
     let passwordMinimumLength = 6
     
-    let signupInteractor: SignUpInteractorType
-    init(signupInteractor: SignUpInteractorType) {
-        self.signupInteractor = signupInteractor
+    let signInInteractor: SignInInteractorType
+    init(signInInteractor: SignInInteractorType) {
+        self.signInInteractor = signInInteractor
     }
     
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
+    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
         let inputValidation: InputValidationResult = self.checkInput(loginCredentialsDetails: loginCredentialsDetails)
         if inputValidation == .success {
-            signupInteractor.signUpWithDizzy(loginCredentialsDetails)
+            signInInteractor.signInWithDizzy(loginCredentialsDetails)
         } else {
             validationCompletion?(inputValidation)
         }
@@ -52,10 +51,6 @@ class SignUpWithDizzyVM: SignUpWithDizzyVMType {
             return .missingDetails
         }
         
-        if !loginCredentialsDetails.fullName.isEmpty && loginCredentialsDetails.fullName.count < userNameMinimumLength {
-            return .fullNameTooShort
-        }
-        
         if loginCredentialsDetails.email.count < emailMinimumLength || !loginCredentialsDetails.email.isEmail {
             var validationResult: InputValidationResult
             
@@ -68,24 +63,20 @@ class SignUpWithDizzyVM: SignUpWithDizzyVMType {
             return validationResult
         }
         
-        if loginCredentialsDetails.password.count < passwordMinimumLength || loginCredentialsDetails.repeatPassword.count < passwordMinimumLength {
+        if loginCredentialsDetails.password.count < passwordMinimumLength {
             return .passwordTooShort
-        }
-        
-        if loginCredentialsDetails.password != loginCredentialsDetails.repeatPassword {
-            return .passwordsNotEqual
         }
         
         return .success
     }
 }
 
-extension SignUpWithDizzyVM: SignUpInteractorDelegate {
-    func userSignedUpSuccesfully(user: DizzyUser) {
+extension SignInWithDizzyVM: SignInInteractorDelegate {
+    func userSignedInSuccesfully(user: DizzyUser) {
         self.navigationDelegate?.navigateToHomeScreen()
     }
     
-    func userSignedUpFailed(error: Error) {
-        print("Failed to signup")
+    func userSignedInFailed(error: Error) {
+        print("Failed to signIn")
     }
 }
