@@ -167,6 +167,8 @@ final class SignUpDetailsView: UIView {
     }
     
     private func setupErrorLabel() {
+        errorLabel.numberOfLines = 0
+        errorLabel.textAlignment = .center
         errorLabel.textColor = .red
         errorLabel.font = Fonts.h2(weight: .bold)
     }
