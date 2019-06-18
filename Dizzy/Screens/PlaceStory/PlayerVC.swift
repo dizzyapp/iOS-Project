@@ -33,6 +33,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         player = AVPlayer(url: url)
         player?.currentItem?.audioTimePitchAlgorithm = .lowQualityZeroLatency
         showsPlaybackControls = false
+        videoGravity = .resizeAspectFill
     
         if let contentOverlayView = contentOverlayView {
             commentsManager = CommentsManager(parentView: contentOverlayView)
