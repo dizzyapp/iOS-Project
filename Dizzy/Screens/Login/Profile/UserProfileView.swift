@@ -14,7 +14,7 @@ class UserProfileView: UIView {
     let profileImageView = UIImageView()
     let profileNameLabel = UILabel()
     
-    let nameColor = UIColor(hexString: "000000", alpha: 0.53)
+    let nameColor = UIColor.black.withAlphaComponent(0.53)
     
     init() {
         super.init(frame: CGRect.zero)

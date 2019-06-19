@@ -171,7 +171,7 @@ final class LoginVC: UIViewController {
     
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
-        userProfileView.isHidden = true // Update according to login state
+        userProfileView.isHidden = false // Update according to login state
     }
     
     private func setupDizzyLogo() {
