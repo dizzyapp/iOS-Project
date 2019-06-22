@@ -40,7 +40,7 @@ class UserProfileView: UIView {
         profileImageView.snp.makeConstraints { profileImageView in
             profileImageView.top.equalToSuperview()
             profileImageView.centerX.equalToSuperview()
-            profileImageView.width.equalTo(100)
+            profileImageView.width.equalToSuperview().multipliedBy(0.5)
         }
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignUpDetailsViewDelegate: class {
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
+    func onSignupPressed(_ signUpDetails: SignUpDetails)
 }
 
 final class SignUpDetailsView: UIView {
@@ -111,6 +111,7 @@ final class SignUpDetailsView: UIView {
             errorLabel.top.equalTo(stackView.snp.bottom).offset(Metrics.doublePadding)
             errorLabel.leading.equalToSuperview().offset(Metrics.doublePadding)
             errorLabel.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+            errorLabel.bottom.greaterThanOrEqualToSuperview().offset(Metrics.doublePadding)
         }
     }
     
@@ -186,7 +187,7 @@ final class SignUpDetailsView: UIView {
                 return
         }
         
-        let loginCredentialsDetails = LoginCredentialsDetails(fullName: fullName, email: email, password: password, repeatPassword: repeatPassword)
-        delegate?.onSignupPressed(loginCredentialsDetails)
+        let signUpDetails = SignUpDetails(fullName: fullName, email: email, password: password, repeatPassword: repeatPassword)
+        delegate?.onSignupPressed(signUpDetails)
     }
 }

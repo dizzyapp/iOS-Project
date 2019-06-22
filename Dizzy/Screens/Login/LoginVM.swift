@@ -12,7 +12,7 @@ protocol LoginVMType {
     func closeButtonPressed()
     func signUpButtonPressed()
     func loginWithDizzyButtonPressed()
-    func loginWithFacebookButtonPressed()
+    func loginWithFacebookButtonPressed(viewController: UIViewController)
     func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
     
@@ -28,41 +28,13 @@ protocol LoginVMNavigationDelegate: class {
     func navigateToAdminScreen()
 }
 
-enum InputValidationResult {
-    case fullNameTooShort
-    case emailAddressTooShort
-    case wrongEmail
-    case passwordTooShort
-    case passwordsNotEqual
-    case missingDetails
-    case success
-    
-    var localizedDescription: String {
-        switch self {
-        case .fullNameTooShort:
-            return "Full name is too short, please enter at least 2 characters".localized
-        case .emailAddressTooShort:
-            return "Email address is too short, please enter at least 7 characters".localized
-        case .wrongEmail:
-            return "Email address is not correct, please enter a valid email address".localized
-        case .passwordTooShort:
-            return "Password is too short, please enter at least 6 characters".localized
-        case .passwordsNotEqual:
-            return "Passwords are not equal, please try again!"
-        case .missingDetails:
-            return "Please fill all the fields".localized
-        case .success:
-            return "Succeed".localized
-        }
-    }
-}
-
 class LoginVM: LoginVMType {
     
     weak var navigationDelegate: LoginVMNavigationDelegate?
     
-    init() {
-        
+    let signInInteractor: SignInInteractorType
+    init(signInInteractor: SignInInteractorType) {
+        self.signInInteractor = signInInteractor
     }
     
     func closeButtonPressed() {
@@ -77,8 +49,8 @@ class LoginVM: LoginVMType {
         self.navigationDelegate?.navigateToSignInScreen()
     }
     
-    func loginWithFacebookButtonPressed() {
-        self.navigationDelegate?.navigateToSignInWithFacebook()
+    func loginWithFacebookButtonPressed(viewController: UIViewController) {
+        self.signInInteractor.signInWithFacebook(presentOnViewController: viewController)
     }
     
     func appInfoButtonPressed(type: AppInfoType) {
@@ -87,5 +59,15 @@ class LoginVM: LoginVMType {
     
     func enterAsAdminButtonPressed() {
         self.navigationDelegate?.navigateToAdminScreen()
+    }
+}
+
+extension LoginVM: SignInInteractorDelegate {
+    func userSignedInSuccesfully(user: DizzyUser) {
+        self.navigationDelegate?.navigateToHomeScreen()
+    }
+    
+    func userSignedInFailed(error: Error) {
+        print("Failed to signIn")
     }
 }

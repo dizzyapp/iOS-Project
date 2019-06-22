@@ -33,13 +33,9 @@ final class LoginVC: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .clear
         
-        self.navigationItem.title = "Login".localized
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(closeButtonClicked))
-        
         addSubviews()
         layoutViews()
         setupViews()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,7 +50,6 @@ final class LoginVC: UIViewController {
         
     }
     private func layoutViews() {
-        
         layoutLoginContainerView()
         
         layoutTitleLabel()
@@ -130,6 +125,7 @@ final class LoginVC: UIViewController {
     }
     
     private func setupViews() {
+        setupNavigationView()
         setupLoginContainerView()
         
         setupTitleLabel()
@@ -140,6 +136,11 @@ final class LoginVC: UIViewController {
         
         setupDizzyLogo()
         setupEnterAsAdminButton()
+    }
+    
+    private func setupNavigationView() {
+        self.navigationItem.title = "Login".localized
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
     }
     
     private func setupLoginContainerView() {
@@ -171,7 +172,7 @@ final class LoginVC: UIViewController {
     
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
-        userProfileView.isHidden = false // Update according to login state
+        userProfileView.isHidden = false
     }
     
     private func setupDizzyLogo() {
@@ -202,7 +203,7 @@ final class LoginVC: UIViewController {
 // MARK: LoginSelectionView Delegates
 extension LoginVC: LoginSelectionViewDelegate {
     func loginWithFacebookButtonPressed() {
-        self.loginVM.loginWithFacebookButtonPressed()
+        self.loginVM.loginWithFacebookButtonPressed(self)
     }
     
     func loginWithDizzyButtonPressed() {

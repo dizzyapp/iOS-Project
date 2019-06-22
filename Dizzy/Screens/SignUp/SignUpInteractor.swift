@@ -14,7 +14,7 @@ protocol SignUpInteractorDelegate: class {
 }
 
 protocol SignUpInteractorType {
-    func signUpWithDizzy(_ loginCredentialsDetails: LoginCredentialsDetails)
+    func signUpWithDizzy(_ signUpDetails: SignUpDetails)
 }
 
 class SignUpInteractor: SignUpInteractorType {
@@ -26,8 +26,8 @@ class SignUpInteractor: SignUpInteractorType {
         self.webResourcesDispatcher = webResourcesDispatcher
     }
     
-    func signUpWithDizzy(_ loginCredentialsDetails: LoginCredentialsDetails) {
-        let signUpResource = Resource<DizzyUser, LoginCredentialsDetails>(path: "signupWithDizzy").withPost(loginCredentialsDetails)
+    func signUpWithDizzy(_ signUpDetails: SignUpDetails) {
+        let signUpResource = Resource<DizzyUser, SignUpDetails>(path: "signupWithDizzy").withPost(signUpDetails)
         webResourcesDispatcher.load(signUpResource) { [weak self] result in
             switch result {
             case .failure(let error):

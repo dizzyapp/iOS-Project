@@ -8,8 +8,6 @@
 
 import UIKit
 import Swinject
-import FacebookCore
-import FacebookLogin
 
 protocol LoginCoordinatorType: NavigationCoordinator {
     var onCoordinatorFinished: () -> Void { get set }
@@ -72,21 +70,6 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, S
         }
         viewModel.navigationDelegate = self
         navigationController.pushViewController(signInWithDizzyVC, animated: true)
-    }
-    
-    func navigateToSignInWithFacebook() {
-        let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [.publicProfile], viewController: self.presentingVC) { loginResult in
-            switch loginResult {
-            case .failed(let error):
-                print(error)
-            case .cancelled:
-                print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                print("Logged in!")
-                self.navigateToHomeScreen()
-            }
-        }
     }
     
     func navigateToAppInfoScreen(type: AppInfoType) {

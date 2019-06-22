@@ -67,7 +67,7 @@ class DiscoveryVM: DiscoveryVMType {
         self.locationProvider.getCurrentAddress(completion: { [weak self] address in
             guard let city = address?.city,
                 !city.isEmpty else {
-                    self?.currentCity.value = "No Gps"
+                    self?.currentCity.value = "No Gps".localized
                     return
             }
             

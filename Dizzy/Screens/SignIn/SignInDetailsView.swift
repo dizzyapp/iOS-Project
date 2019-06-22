@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignInDetailsViewDelegate: class {
-    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
+    func onSignInPressed(_ signInDetails: SignInDetails)
 }
 
 final class SignInDetailsView: UIView {
@@ -92,23 +92,28 @@ final class SignInDetailsView: UIView {
             errorLabel.top.equalTo(stackView.snp.bottom).offset(Metrics.doublePadding)
             errorLabel.leading.equalToSuperview().offset(Metrics.doublePadding)
             errorLabel.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+            errorLabel.bottom.greaterThanOrEqualToSuperview().offset(Metrics.doublePadding)
         }
     }
     
     private func setupViews() {
-        layer.cornerRadius = screenCornerRadius
-        self.clipsToBounds = true
         
+        setupView()
+        setupTitleLabel()
         setupStackView()
         setupSignInButton()
-        setupTitleLabel()
         setupErrorLabel()
+    }
+    
+    private func setupView() {
+        self.layer.cornerRadius = screenCornerRadius
+        self.clipsToBounds = true
     }
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
         titleLabel.font = Fonts.h10(weight: .medium)
-        titleLabel.text = "Create new account".localized
+        titleLabel.text = "Log in".localized
     }
     
     private func setupStackView() {
@@ -145,7 +150,7 @@ final class SignInDetailsView: UIView {
                 return
         }
         
-        let loginCredentialsDetails = LoginCredentialsDetails(fullName: "", email: email, password: password, repeatPassword: "")
-        delegate?.onSignInPressed(loginCredentialsDetails)
+        let signInDetails = SignInDetails(email: email, password: password)
+        delegate?.onSignInPressed(signInDetails)
     }
 }

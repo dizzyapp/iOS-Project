@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-final class SignUpWithDizzyVC: UIViewController {
+final class SignUpWithDizzyVC: UIViewController, KeyboardDismissing {
     var signUpDetailsView = SignUpDetailsView()
     var errorLabel = UILabel()
     
@@ -18,13 +18,11 @@ final class SignUpWithDizzyVC: UIViewController {
     init(viewModel: SignUpWithDizzyVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        
-        self.navigationItem.title = "Sign Up".localized
+        self.viewModel.delegate = self
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(backButtonPressed))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(closeButtonClicked))
-        
-        self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround(cancelTouches: false) { (_) in
+            self.view.endEditing(true)
+        }
         
         layoutViews()
         setupViews()
@@ -45,20 +43,21 @@ final class SignUpWithDizzyVC: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = .clear
+        setupNavigationView()
         setupSignUpDetailsView()
-        setupViewModel()
+    }
+    
+    private func setupNavigationView() {
+        self.navigationItem.title = "Sign Up".localized
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon(), style: .done, target: self, action: #selector(backButtonPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
     }
     
     private func setupSignUpDetailsView() {
         signUpDetailsView.delegate = self
     }
-    
-    private func setupViewModel() {
-        self.viewModel.validationCompletion = { [weak self] (inputValidation) in
-            self?.signUpDetailsView.showErrorMessage(inputValidation.localizedDescription)
-        }
-    }
-    
+
     @objc private func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -69,7 +68,14 @@ final class SignUpWithDizzyVC: UIViewController {
 }
 
 extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
-        viewModel.onSignupPressed(loginCredentialsDetails)
+    func onSignupPressed(_ signUpDetails: SignUpDetails) {
+        viewModel.onSignupPressed(signUpDetails)
+    }
+}
+
+extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate
+{
+    func validationFailed(inputValidation: InputValidationResult) {
+        self.signUpDetailsView.showErrorMessage(inputValidation.rawValue)
     }
 }

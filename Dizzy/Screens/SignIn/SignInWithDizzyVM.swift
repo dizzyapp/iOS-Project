@@ -9,65 +9,44 @@
 import UIKit
 
 protocol SignInWithDizzyVMType {
-    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
+    func onSignInPressed(_ signInDetails: SignInDetails)
     func closeButtonPressed()
     var navigationDelegate: SignInWithDizzyVMNavigationDelegate? { get set }
-    var validationCompletion: ((InputValidationResult) -> Void)? { get set }
+    var delegate: SignInWithDizzyVMDelegate? { get set }
 }
 
 protocol SignInWithDizzyVMNavigationDelegate: class {
     func navigateToHomeScreen()
 }
 
+protocol SignInWithDizzyVMDelegate: class {
+    func validationFailed(inputValidation: InputValidationResult)
+}
+
 class SignInWithDizzyVM: SignInWithDizzyVMType {
     
     weak var navigationDelegate: SignInWithDizzyVMNavigationDelegate?
-    var validationCompletion: ((InputValidationResult) -> Void)?
-
-    let emailMinimumLength = 7
-    let passwordMinimumLength = 6
+    var delegate: SignInWithDizzyVMDelegate?
     
     let signInInteractor: SignInInteractorType
-    init(signInInteractor: SignInInteractorType) {
+    let inputValidator: InputValidator
+    
+    init(signInInteractor: SignInInteractorType, inputValidator: InputValidator) {
         self.signInInteractor = signInInteractor
+        self.inputValidator = inputValidator
     }
     
-    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
-        let inputValidation: InputValidationResult = self.checkInput(loginCredentialsDetails: loginCredentialsDetails)
+    func onSignInPressed(_ signInDetails: SignInDetails) {
+        let inputValidation: InputValidationResult = self.inputValidator.validateSignInDetails(signInDetails)
         if inputValidation == .success {
-            signInInteractor.signInWithDizzy(loginCredentialsDetails)
+            signInInteractor.signInWithDizzy(signInDetails)
         } else {
-            validationCompletion?(inputValidation)
+            delegate?.validationFailed(inputValidation: inputValidation)
         }
     }
     
     func closeButtonPressed() {
         self.navigationDelegate?.navigateToHomeScreen()
-    }
-    
-    private func checkInput(loginCredentialsDetails: LoginCredentialsDetails) -> InputValidationResult {
-
-        if loginCredentialsDetails.email.isEmpty && loginCredentialsDetails.password.isEmpty {
-            return .missingDetails
-        }
-        
-        if loginCredentialsDetails.email.count < emailMinimumLength || !loginCredentialsDetails.email.isEmail {
-            var validationResult: InputValidationResult
-            
-            if loginCredentialsDetails.email.count < emailMinimumLength {
-                validationResult = .emailAddressTooShort
-            } else {
-                validationResult = .wrongEmail
-            }
-            
-            return validationResult
-        }
-        
-        if loginCredentialsDetails.password.count < passwordMinimumLength {
-            return .passwordTooShort
-        }
-        
-        return .success
     }
 }
 

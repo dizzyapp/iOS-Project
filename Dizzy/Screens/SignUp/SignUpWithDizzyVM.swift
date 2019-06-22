@@ -9,74 +9,44 @@
 import UIKit
 
 protocol SignUpWithDizzyVMType {
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails)
+    func onSignupPressed(_ signUpDetails: SignUpDetails)
     func closeButtonPressed()
     var navigationDelegate: SignUpWithDizzyVMNavigationDelegate? { get set }
-    var validationCompletion: ((InputValidationResult) -> Void)? { get set }
+    var delegate: SignUpWithDizzyVMDelegate? { get set }
 }
 
 protocol SignUpWithDizzyVMNavigationDelegate: class {
     func navigateToHomeScreen()
 }
 
+protocol SignUpWithDizzyVMDelegate: class {
+    func validationFailed(inputValidation: InputValidationResult)
+}
+
 class SignUpWithDizzyVM: SignUpWithDizzyVMType {
     
     weak var navigationDelegate: SignUpWithDizzyVMNavigationDelegate?
-    var validationCompletion: ((InputValidationResult) -> Void)?
+    var delegate: SignUpWithDizzyVMDelegate?
 
-    let userNameMinimumLength = 2
-    let emailMinimumLength = 7
-    let passwordMinimumLength = 6
-    
     let signupInteractor: SignUpInteractorType
-    init(signupInteractor: SignUpInteractorType) {
+    let inputValidator: InputValidator
+    
+    init(signupInteractor: SignUpInteractorType, inputValidator: InputValidator) {
         self.signupInteractor = signupInteractor
+        self.inputValidator = inputValidator
     }
     
-    func onSignupPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
-        let inputValidation: InputValidationResult = self.checkInput(loginCredentialsDetails: loginCredentialsDetails)
+    func onSignupPressed(_ signUpDetails: SignUpDetails) {
+        let inputValidation: InputValidationResult = self.inputValidator.validateSignUpDetails(signUpDetails)
         if inputValidation == .success {
-            signupInteractor.signUpWithDizzy(loginCredentialsDetails)
+            signupInteractor.signUpWithDizzy(signUpDetails)
         } else {
-            validationCompletion?(inputValidation)
+            self.delegate?.validationFailed(inputValidation: inputValidation)
         }
     }
     
     func closeButtonPressed() {
         self.navigationDelegate?.navigateToHomeScreen()
-    }
-    
-    private func checkInput(loginCredentialsDetails: LoginCredentialsDetails) -> InputValidationResult {
-
-        if loginCredentialsDetails.email.isEmpty && loginCredentialsDetails.password.isEmpty {
-            return .missingDetails
-        }
-        
-        if !loginCredentialsDetails.fullName.isEmpty && loginCredentialsDetails.fullName.count < userNameMinimumLength {
-            return .fullNameTooShort
-        }
-        
-        if loginCredentialsDetails.email.count < emailMinimumLength || !loginCredentialsDetails.email.isEmail {
-            var validationResult: InputValidationResult
-            
-            if loginCredentialsDetails.email.count < emailMinimumLength {
-                validationResult = .emailAddressTooShort
-            } else {
-                validationResult = .wrongEmail
-            }
-            
-            return validationResult
-        }
-        
-        if loginCredentialsDetails.password.count < passwordMinimumLength || loginCredentialsDetails.repeatPassword.count < passwordMinimumLength {
-            return .passwordTooShort
-        }
-        
-        if loginCredentialsDetails.password != loginCredentialsDetails.repeatPassword {
-            return .passwordsNotEqual
-        }
-        
-        return .success
     }
 }
 

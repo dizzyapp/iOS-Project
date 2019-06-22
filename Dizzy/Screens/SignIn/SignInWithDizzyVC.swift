@@ -9,20 +9,18 @@
 import UIKit
 import SnapKit
 
-final class SignInWithDizzyVC: UIViewController {
+final class SignInWithDizzyVC: UIViewController, KeyboardDismissing {
     var signInDetailsView = SignInDetailsView()
     var viewModel: SignInWithDizzyVMType
 
     init(viewModel: SignInWithDizzyVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.viewModel.delegate = self
         
-        self.navigationItem.title = "Sign In".localized
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(backButtonPressed))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon().withRenderingMode(.alwaysOriginal), style: .done, target: self, action: #selector(closeButtonClicked))
-        
-        self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround(cancelTouches: false) { (_) in
+            self.view.endEditing(true)
+        }
         
         layoutViews()
         setupViews()
@@ -43,18 +41,19 @@ final class SignInWithDizzyVC: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = .clear
+        setupNavigationView()
         setupSignInDetailsView()
-        setupViewModel()
+    }
+    
+    private func setupNavigationView() {
+        self.navigationItem.title = "Sign In".localized
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon(), style: .done, target: self, action: #selector(backButtonPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
     }
     
     private func setupSignInDetailsView() {
         signInDetailsView.delegate = self
-    }
-    
-    private func setupViewModel() {
-        self.viewModel.validationCompletion = { [weak self] (inputValidation) in
-            self?.signInDetailsView.showErrorMessage(inputValidation.localizedDescription)
-        }
     }
     
     @objc private func backButtonPressed() {
@@ -67,7 +66,13 @@ final class SignInWithDizzyVC: UIViewController {
 }
 
 extension SignInWithDizzyVC: SignInDetailsViewDelegate {
-    func onSignInPressed(_ loginCredentialsDetails: LoginCredentialsDetails) {
-        viewModel.onSignInPressed(loginCredentialsDetails)
+    func onSignInPressed(_ signInDetails: SignInDetails) {
+        viewModel.onSignInPressed(signInDetails)
+    }
+}
+
+extension SignInWithDizzyVC: SignInWithDizzyVMDelegate {
+    func validationFailed(inputValidation: InputValidationResult) {
+        self.signInDetailsView.showErrorMessage(inputValidation.rawValue)
     }
 }
