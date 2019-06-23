@@ -14,7 +14,7 @@ protocol GooglePlaceInteractorType {
 }
 
 protocol GooglePlaceInteractorDelegate: class {
-    func googlePlaceInteractorPlaceDataArrived(_ interactor: GooglePlaceInteractor, data: GooglePlaceData)
+    func googlePlaceInteractorPlaceDataArrived(_ interactor: GooglePlaceInteractor, data: GooglePlaceData?)
 }
 
 final class GooglePlaceInteractor: GooglePlaceInteractorType {

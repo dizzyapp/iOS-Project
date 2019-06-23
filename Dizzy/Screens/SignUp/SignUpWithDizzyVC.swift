@@ -73,8 +73,7 @@ extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
     }
 }
 
-extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate
-{
+extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate {
     func validationFailed(inputValidation: InputValidationResult) {
         self.signUpDetailsView.showErrorMessage(inputValidation.rawValue)
     }

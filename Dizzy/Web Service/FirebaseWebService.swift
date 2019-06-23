@@ -54,9 +54,7 @@ final class FirebaseWebService: WebServiceType {
                                                  completion: @escaping (Result<Response>) -> Void) {
         if let json = resource.makeJson() {
             databaseReference.child("\(resource.path)").setValue(json) { (error, _) in
-                if error != nil {
-                    completion(Result<Response>.failure(error))
-                }
+                completion(Result<Response>.failure(error))
             }
         }
     }

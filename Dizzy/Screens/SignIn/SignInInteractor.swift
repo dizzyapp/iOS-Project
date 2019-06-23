@@ -15,7 +15,9 @@ protocol SignInInteractorDelegate: class {
 
 protocol SignInInteractorType {
     func signInWithDizzy(_ signInDetails: SignInDetails)
-    func signInWithFacebook(presentOnViewController: UIViewController)
+    func signInWithFacebook(presentedVC: UIViewController)
+    
+    var delegate: SignInInteractorDelegate? { get set }
 }
 
 class SignInInteractor: SignInInteractorType {
@@ -39,14 +41,30 @@ class SignInInteractor: SignInInteractorType {
         }
     }
     
-    func signInWithFacebook(presentOnViewController: UIViewController) {
-        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithDizzy").withGet()
+    func signInWithFacebook(presentedVC: UIViewController) {
+        
+        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithFacebook").withPresentedVC(presentedVC)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.delegate?.userSignedInFailed(error: error!)
             case .success(let user):
-                self?.delegate?.userSignedInSuccesfully(user: user) // Continue
+                self?.saveUserOnRemote(user)
+            }
+        }
+    }
+    
+    private func saveUserOnRemote(_ user: DizzyUser) {
+        let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
+        webResourcesDispatcher.load(saveUserResource) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                if error != nil {
+                    self?.delegate?.userSignedInFailed(error: error!)
+                } else {
+                    self?.delegate?.userSignedInSuccesfully(user: user)
+                }
+            case .success(let _): break
             }
         }
     }

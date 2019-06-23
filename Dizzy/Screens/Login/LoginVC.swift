@@ -172,7 +172,7 @@ final class LoginVC: UIViewController {
     
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
-        userProfileView.isHidden = false
+        userProfileView.isHidden = !self.loginVM.isUserLoggedIn()
     }
     
     private func setupDizzyLogo() {
@@ -203,7 +203,7 @@ final class LoginVC: UIViewController {
 // MARK: LoginSelectionView Delegates
 extension LoginVC: LoginSelectionViewDelegate {
     func loginWithFacebookButtonPressed() {
-        self.loginVM.loginWithFacebookButtonPressed(self)
+        self.loginVM.loginWithFacebookButtonPressed(presentedVC: self)
     }
     
     func loginWithDizzyButtonPressed() {

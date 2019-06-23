@@ -15,6 +15,8 @@ protocol SignUpInteractorDelegate: class {
 
 protocol SignUpInteractorType {
     func signUpWithDizzy(_ signUpDetails: SignUpDetails)
+    
+    var delegate: SignUpInteractorDelegate? { get set }
 }
 
 class SignUpInteractor: SignUpInteractorType {

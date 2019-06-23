@@ -37,7 +37,7 @@ class SignupWebservice: WebServiceType {
         }
         Auth.auth().createUser(withEmail: signUpDetails.email , password: signUpDetails.password) { (result, _) in
             guard let result = result else { return }
-            let user = DizzyUser(id: result.user.uid, fullName: signUpDetails.fullName, email: signUpDetails.email, role: .customer)
+            let user = DizzyUser(id: result.user.uid, fullName: signUpDetails.fullName, email: signUpDetails.email, role: .customer, photoURL: nil)
             
             let response = Result.success(user)
             completion(response as! Result<Response> )

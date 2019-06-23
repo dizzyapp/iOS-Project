@@ -26,9 +26,9 @@ protocol SignInWithDizzyVMDelegate: class {
 class SignInWithDizzyVM: SignInWithDizzyVMType {
     
     weak var navigationDelegate: SignInWithDizzyVMNavigationDelegate?
-    var delegate: SignInWithDizzyVMDelegate?
+    weak var delegate: SignInWithDizzyVMDelegate?
     
-    let signInInteractor: SignInInteractorType
+    var signInInteractor: SignInInteractorType
     let inputValidator: InputValidator
     
     init(signInInteractor: SignInInteractorType, inputValidator: InputValidator) {
@@ -39,6 +39,7 @@ class SignInWithDizzyVM: SignInWithDizzyVMType {
     func onSignInPressed(_ signInDetails: SignInDetails) {
         let inputValidation: InputValidationResult = self.inputValidator.validateSignInDetails(signInDetails)
         if inputValidation == .success {
+            signInInteractor.delegate = self
             signInInteractor.signInWithDizzy(signInDetails)
         } else {
             delegate?.validationFailed(inputValidation: inputValidation)

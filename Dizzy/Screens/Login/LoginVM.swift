@@ -7,23 +7,25 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FBSDKCoreKit
 
 protocol LoginVMType {
     func closeButtonPressed()
     func signUpButtonPressed()
     func loginWithDizzyButtonPressed()
-    func loginWithFacebookButtonPressed(viewController: UIViewController)
+    func loginWithFacebookButtonPressed(presentedVC: UIViewController)
     func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
+    func isUserLoggedIn() -> Bool
 }
 
 protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
     func navigateToHomeScreen()
     func navigateToSignInScreen()
-    func navigateToSignInWithFacebook()
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
 }
@@ -32,7 +34,7 @@ class LoginVM: LoginVMType {
     
     weak var navigationDelegate: LoginVMNavigationDelegate?
     
-    let signInInteractor: SignInInteractorType
+    var signInInteractor: SignInInteractorType
     init(signInInteractor: SignInInteractorType) {
         self.signInInteractor = signInInteractor
     }
@@ -49,8 +51,9 @@ class LoginVM: LoginVMType {
         self.navigationDelegate?.navigateToSignInScreen()
     }
     
-    func loginWithFacebookButtonPressed(viewController: UIViewController) {
-        self.signInInteractor.signInWithFacebook(presentOnViewController: viewController)
+    func loginWithFacebookButtonPressed(presentedVC: UIViewController) {
+        self.signInInteractor.delegate = self
+        self.signInInteractor.signInWithFacebook(presentedVC: presentedVC)
     }
     
     func appInfoButtonPressed(type: AppInfoType) {
@@ -59,6 +62,10 @@ class LoginVM: LoginVMType {
     
     func enterAsAdminButtonPressed() {
         self.navigationDelegate?.navigateToAdminScreen()
+    }
+    
+    func isUserLoggedIn() -> Bool {
+        return AccessToken.current?.tokenString != nil || Auth.auth().currentUser != nil
     }
 }
 

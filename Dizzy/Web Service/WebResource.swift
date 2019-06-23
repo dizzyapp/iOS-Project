@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum HttpMethod<Body: Encodable> {
     
@@ -25,6 +26,7 @@ struct Resource<Response: Codable, Body: Encodable> {
     var baseUrl: String = ""
     var path: String
     var method: HttpMethod<Body>?
+    var presentedVC: UIViewController?
     
     init(path: String) {
         self.path = path
@@ -39,6 +41,12 @@ struct Resource<Response: Codable, Body: Encodable> {
     func withGet() -> Resource<Response, Body> {
         var resource = self
         resource.method = HttpMethod<Body>.get
+        return resource
+    }
+    
+    func withPresentedVC(_ presentedVC: UIViewController) -> Resource<Response, Body> {
+        var resource = self
+        resource.presentedVC = presentedVC
         return resource
     }
     

@@ -92,7 +92,6 @@ final class SignInDetailsView: UIView {
             errorLabel.top.equalTo(stackView.snp.bottom).offset(Metrics.doublePadding)
             errorLabel.leading.equalToSuperview().offset(Metrics.doublePadding)
             errorLabel.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-            errorLabel.bottom.greaterThanOrEqualToSuperview().offset(Metrics.doublePadding)
         }
     }
     
