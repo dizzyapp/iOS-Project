@@ -99,6 +99,8 @@ final class SignInDetailsView: UIView {
         
         setupView()
         setupTitleLabel()
+        setupEmailTextField()
+        setupPasswordTextField()
         setupStackView()
         setupSignInButton()
         setupErrorLabel()
@@ -113,6 +115,18 @@ final class SignInDetailsView: UIView {
         titleLabel.textAlignment = .center
         titleLabel.font = Fonts.h10(weight: .medium)
         titleLabel.text = "Log in".localized
+    }
+    
+    private func setupEmailTextField() {
+        self.emailTextField.keyboardType = .emailAddress
+        self.emailTextField.autocorrectionType = .no
+        self.emailTextField.spellCheckingType = .no
+    }
+    
+    private func setupPasswordTextField() {
+        self.passwordTextField.isSecureTextEntry = true
+        self.emailTextField.autocorrectionType = .no
+        self.emailTextField.spellCheckingType = .no
     }
     
     private func setupStackView() {
@@ -144,6 +158,7 @@ final class SignInDetailsView: UIView {
     
     @objc private func onSignInPressed() {
         
+        self.errorLabel.text = nil
         guard let email = emailTextField.text,
             let password = passwordTextField.text else {
                 return

@@ -19,6 +19,8 @@ protocol LoginVMType {
     func enterAsAdminButtonPressed()
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
+    var delegate: LoginVMDelegate? { get set }
+
     func isUserLoggedIn() -> Bool
 }
 
@@ -30,10 +32,16 @@ protocol LoginVMNavigationDelegate: class {
     func navigateToAdminScreen()
 }
 
+protocol LoginVMDelegate: class {
+    func userSignedInSuccesfully(user: DizzyUser)
+    func userSignedInFailed(error: SignInWebserviceError)
+}
+
 class LoginVM: LoginVMType {
     
     weak var navigationDelegate: LoginVMNavigationDelegate?
-    
+    weak var delegate: LoginVMDelegate?
+
     var signInInteractor: SignInInteractorType
     init(signInInteractor: SignInInteractorType) {
         self.signInInteractor = signInInteractor
@@ -65,16 +73,17 @@ class LoginVM: LoginVMType {
     }
     
     func isUserLoggedIn() -> Bool {
-        return AccessToken.current?.tokenString != nil || Auth.auth().currentUser != nil
+        return false//AccessToken.current?.tokenString != nil || Auth.auth().currentUser != nil
     }
 }
 
 extension LoginVM: SignInInteractorDelegate {
     func userSignedInSuccesfully(user: DizzyUser) {
+        self.delegate?.userSignedInSuccesfully(user: user)
         self.navigationDelegate?.navigateToHomeScreen()
     }
     
-    func userSignedInFailed(error: Error) {
-        print("Failed to signIn")
+    func userSignedInFailed(error: SignInWebserviceError) {
+        self.delegate?.userSignedInFailed(error: error)
     }
 }

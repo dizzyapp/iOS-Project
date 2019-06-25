@@ -9,8 +9,9 @@
 import UIKit
 import SnapKit
 
-final class LoginVC: UIViewController {
-
+final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
+    
     let loginContainerView = UIView()
     
     let titleLabel = UILabel()
@@ -30,9 +31,11 @@ final class LoginVC: UIViewController {
     
     init(loginVM: LoginVMType) {
         self.loginVM = loginVM
+        
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .clear
-        
+        self.loginVM.delegate = self
+
         addSubviews()
         layoutViews()
         setupViews()
@@ -219,5 +222,17 @@ extension LoginVC: LoginSelectionViewDelegate {
 extension LoginVC: AppInfosViewDelegate {
     func appInfoButtonPressed(appInfosView: AppInfosView, type: AppInfoType) {
         self.loginVM.appInfoButtonPressed(type: type)
+    }
+}
+
+// MARK: LoginVM Delegates
+extension LoginVC: LoginVMDelegate {
+    func userSignedInSuccesfully(user: DizzyUser) {
+        hideSpinner()
+    }
+    
+    func userSignedInFailed(error: SignInWebserviceError) {
+        hideSpinner()
+        showAlert(title: "Error".localized, message: error.localizedDescription)
     }
 }
