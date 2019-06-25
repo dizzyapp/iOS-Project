@@ -10,7 +10,7 @@ import UIKit
 
 protocol SignInInteractorDelegate: class {
     func userSignedInSuccesfully(user: DizzyUser)
-    func userSignedInFailed(error: Error)
+    func userSignedInFailed(error: SignInWebserviceError)
 }
 
 protocol SignInInteractorType {
@@ -30,11 +30,12 @@ class SignInInteractor: SignInInteractorType {
     }
     
     func signInWithDizzy(_ signInDetails: SignInDetails) {
+        
         let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithDizzy").withGet()
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
-            case .failure(let error):
-                self?.delegate?.userSignedInFailed(error: error!)
+            case .failure( _):
+                self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
             case .success(let user):
                 self?.delegate?.userSignedInSuccesfully(user: user)
             }
@@ -46,8 +47,8 @@ class SignInInteractor: SignInInteractorType {
         let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithFacebook").withPresentedVC(presentedVC)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
-            case .failure(let error):
-                self?.delegate?.userSignedInFailed(error: error!)
+            case .failure( _):
+                self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
             case .success(let user):
                 self?.saveUserOnRemote(user)
             }
@@ -60,11 +61,11 @@ class SignInInteractor: SignInInteractorType {
             switch result {
             case .failure(let error):
                 if error != nil {
-                    self?.delegate?.userSignedInFailed(error: error!)
+                    self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
                 } else {
                     self?.delegate?.userSignedInSuccesfully(user: user)
                 }
-            case .success(let _): break
+            case .success( _): break
             }
         }
     }

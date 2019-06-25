@@ -9,7 +9,9 @@
 import UIKit
 import SnapKit
 
-final class SignInWithDizzyVC: UIViewController, KeyboardDismissing {
+final class SignInWithDizzyVC: UIViewController, KeyboardDismissing, LoadingContainer {
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
+    
     var signInDetailsView = SignInDetailsView()
     var viewModel: SignInWithDizzyVMType
 
@@ -67,12 +69,21 @@ final class SignInWithDizzyVC: UIViewController, KeyboardDismissing {
 
 extension SignInWithDizzyVC: SignInDetailsViewDelegate {
     func onSignInPressed(_ signInDetails: SignInDetails) {
+        self.showSpinner()
         viewModel.onSignInPressed(signInDetails)
     }
 }
 
 extension SignInWithDizzyVC: SignInWithDizzyVMDelegate {
     func validationFailed(inputValidation: InputValidationResult) {
+        self.hideSpinner()
         self.signInDetailsView.showErrorMessage(inputValidation.rawValue)
+    }
+    func userSignedInSuccesfully(user: DizzyUser) {
+        self.hideSpinner()
+    }
+    func userSignedInFailed(error: SignInWebserviceError) {
+        self.hideSpinner()
+        
     }
 }

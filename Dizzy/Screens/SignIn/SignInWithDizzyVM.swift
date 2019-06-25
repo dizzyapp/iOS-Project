@@ -21,6 +21,8 @@ protocol SignInWithDizzyVMNavigationDelegate: class {
 
 protocol SignInWithDizzyVMDelegate: class {
     func validationFailed(inputValidation: InputValidationResult)
+    func userSignedInSuccesfully(user: DizzyUser)
+    func userSignedInFailed(error: SignInWebserviceError)
 }
 
 class SignInWithDizzyVM: SignInWithDizzyVMType {
@@ -53,10 +55,11 @@ class SignInWithDizzyVM: SignInWithDizzyVMType {
 
 extension SignInWithDizzyVM: SignInInteractorDelegate {
     func userSignedInSuccesfully(user: DizzyUser) {
+        self.delegate?.userSignedInSuccesfully(user: user)
         self.navigationDelegate?.navigateToHomeScreen()
     }
     
-    func userSignedInFailed(error: Error) {
-        print("Failed to signIn")
+    func userSignedInFailed(error: SignInWebserviceError) {
+        self.delegate?.userSignedInFailed(error: error)
     }
 }

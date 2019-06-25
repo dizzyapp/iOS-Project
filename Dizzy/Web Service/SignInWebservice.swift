@@ -12,6 +12,17 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookCore
 
+enum SignInWebserviceError: Error {
+    case userNotExist
+    
+    var localizedDescription: String {
+        switch self {
+        case .userNotExist:
+            return "User is not exist, please try again...".localized
+        }
+    }
+}
+
 class SignInWebservice: WebServiceType {
     
     func load<Response, Body>(_ resource: Resource<Response, Body>, completion: @escaping (Result<Response>) -> Void) where Response : Decodable, Response : Encodable, Body : Encodable {
@@ -82,19 +93,4 @@ class SignInWebservice: WebServiceType {
             }
         }
     }
-    
-//    private func fetchUserDetails(completion: @escaping (_ result: [String: String]) -> Void) {
-//        let connection = GraphRequestConnection()
-//        connection.add(ProfileRequest()) { response, result in
-//            switch result {
-//            case .success(let response):
-//                print("Custom Graph Request Succeeded: \(response)")
-//                print("My facebook id is \(response.dictionaryValue?["id"])")
-//                print("My name is \(response.dictionaryValue?["name"])")
-//            case .failed(let error):
-//                print("Custom Graph Request Failed: \(error)")
-//            }
-//        }
-//        connection.start()
-//    }
 }

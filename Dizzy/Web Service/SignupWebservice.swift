@@ -9,6 +9,17 @@
 import UIKit
 import FirebaseAuth
 
+enum SignupWebServiceError: Error {
+    case userCreationFailed
+    
+    var localizedDescription: String {
+        switch self {
+        case .userCreationFailed:
+            return "There was a problem creating this user, please try again...".localized
+        }
+    }
+}
+
 class SignupWebservice: WebServiceType {
     
     func load<Response, Body>(_ resource: Resource<Response, Body>, completion: @escaping (Result<Response>) -> Void) where Response : Decodable, Response : Encodable, Body : Encodable {

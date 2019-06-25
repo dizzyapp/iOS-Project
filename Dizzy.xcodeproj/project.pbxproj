@@ -52,6 +52,7 @@
 		4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */; };
 		4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA822B0426700016EF7 /* LoginCoordinator.swift */; };
 		4D645EAB22B043B900016EF7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EAA22B043B900016EF7 /* UIColorExtension.swift */; };
+		4DA64E9422C2BD91001D5A1A /* AlertPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */; };
 		4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117422B4429300CA0220 /* UserProfileView.swift */; };
 		4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */; };
 		4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */; };
@@ -143,6 +144,7 @@
 		4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSelectionView.swift; sourceTree = "<group>"; };
 		4D645EA822B0426700016EF7 /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		4D645EAA22B043B900016EF7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentation.swift; sourceTree = "<group>"; };
 		4DDA117422B4429300CA0220 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithDizzyVC.swift; sourceTree = "<group>"; };
 		4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDetailsView.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				0487FFA1228EB4AE00A8683C /* ButtonBuilder.swift */,
 				0487FFA2228EB4AE00A8683C /* NavigationBuilder.swift */,
 				0487FFA3228EB4AE00A8683C /* LoadingContainer.swift */,
+				4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */,
 				0487FFA4228EB4AE00A8683C /* LocationLabel.swift */,
 				0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */,
 			);
@@ -732,6 +735,7 @@
 				77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */,
 				4DFBA48122BEB3C100BB0F4F /* SignInDetails.swift in Sources */,
 				0470E6B42270B32600267278 /* MapSearchTableViewCell.swift in Sources */,
+				4DA64E9422C2BD91001D5A1A /* AlertPresentation.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
 				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,

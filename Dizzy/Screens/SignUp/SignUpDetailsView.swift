@@ -146,15 +146,17 @@ final class SignUpDetailsView: UIView {
     }
     
     private func setupEmailTextField() {
-        emailTextField.keyboardType = .emailAddress
+        self.emailTextField.keyboardType = .emailAddress
+        self.emailTextField.autocorrectionType = .no
+        self.emailTextField.spellCheckingType = .no
     }
     
     private func setupPasswordTextField() {
-        passwordTextField.isSecureTextEntry = true
+        self.passwordTextField.isSecureTextEntry = true
     }
     
     private func setupRepeatPasswordTextField() {
-        confirmPasswordTextField.isSecureTextEntry = true
+        self.confirmPasswordTextField.isSecureTextEntry = true
     }
     
     private func setupSignUpButton() {
@@ -179,6 +181,7 @@ final class SignUpDetailsView: UIView {
     
     @objc private func onSignupPressed() {
         
+        self.errorLabel.text = nil
         guard let fullName = self.fullNameTextField.text,
             let email = self.emailTextField.text,
             let password = self.passwordTextField.text,

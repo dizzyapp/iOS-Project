@@ -9,7 +9,9 @@
 import UIKit
 import SnapKit
 
-final class SignUpWithDizzyVC: UIViewController, KeyboardDismissing {
+final class SignUpWithDizzyVC: UIViewController, KeyboardDismissing, LoadingContainer {
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
+    
     var signUpDetailsView = SignUpDetailsView()
     var errorLabel = UILabel()
     
@@ -69,12 +71,23 @@ final class SignUpWithDizzyVC: UIViewController, KeyboardDismissing {
 
 extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
     func onSignupPressed(_ signUpDetails: SignUpDetails) {
+        self.showSpinner()
         viewModel.onSignupPressed(signUpDetails)
     }
 }
 
 extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate {
     func validationFailed(inputValidation: InputValidationResult) {
+        self.hideSpinner()
         self.signUpDetailsView.showErrorMessage(inputValidation.rawValue)
+    }
+    
+    func userSignedUpSuccesfully(user: DizzyUser) {
+        self.hideSpinner()
+    }
+    
+    func userSignedUpFailed(error: Error) {
+        self.hideSpinner()
+        // Show Alert
     }
 }
