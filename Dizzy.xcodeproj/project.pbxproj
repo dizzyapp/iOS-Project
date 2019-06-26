@@ -53,6 +53,8 @@
 		4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA822B0426700016EF7 /* LoginCoordinator.swift */; };
 		4D645EAB22B043B900016EF7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EAA22B043B900016EF7 /* UIColorExtension.swift */; };
 		4DA64E9422C2BD91001D5A1A /* AlertPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */; };
+		4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */; };
+		4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */; };
 		4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117422B4429300CA0220 /* UserProfileView.swift */; };
 		4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */; };
 		4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */; };
@@ -145,6 +147,8 @@
 		4D645EA822B0426700016EF7 /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		4D645EAA22B043B900016EF7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentation.swift; sourceTree = "<group>"; };
+		4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutInteractor.swift; sourceTree = "<group>"; };
+		4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutWebService.swift; sourceTree = "<group>"; };
 		4DDA117422B4429300CA0220 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithDizzyVC.swift; sourceTree = "<group>"; };
 		4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDetailsView.swift; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 				04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */,
 				77A0605422AD9284008FE39D /* SignupWebservice.swift */,
 				4DDA118022B596CD00CA0220 /* SignInWebservice.swift */,
+				4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				4D645E9D22B0423A00016EF7 /* LoginVC.swift */,
 				4D645E9E22B0423A00016EF7 /* LoginVM.swift */,
 				4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */,
+				4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -661,6 +667,7 @@
 			files = (
 				77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */,
 				04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */,
+				4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */,
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
 				0487FFA8228EB4AF00A8683C /* TextFieldBuilder.swift in Sources */,
@@ -725,6 +732,7 @@
 				77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */,
+				4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */,
 				0470E6B52270B32600267278 /* MapSearchVC.swift in Sources */,
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,

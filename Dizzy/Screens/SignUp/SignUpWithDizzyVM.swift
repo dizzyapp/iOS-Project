@@ -59,7 +59,7 @@ extension SignUpWithDizzyVM: SignUpInteractorDelegate {
         self.navigationDelegate?.navigateToHomeScreen()
     }
     
-    func userSignedUpFailed(error: SignupWebServiceError) {
+    func userSignedUpFailed(error: Error) {
         self.delegate?.userSignedUpFailed(error: error)
     }
 }

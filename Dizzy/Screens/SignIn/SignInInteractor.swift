@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignInInteractorDelegate: class {
-    func userSignedInSuccesfully(user: DizzyUser)
+    func userSignedInSuccesfully()
     func userSignedInFailed(error: SignInWebserviceError)
 }
 
@@ -31,13 +31,13 @@ class SignInInteractor: SignInInteractorType {
     
     func signInWithDizzy(_ signInDetails: SignInDetails) {
         
-        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithDizzy").withGet()
+        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithDizzy").withPost(signInDetails)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
             case .failure( _):
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success(let user):
-                self?.delegate?.userSignedInSuccesfully(user: user)
+            case .success( _):
+                self?.delegate?.userSignedInSuccesfully()
             }
         }
     }
@@ -59,13 +59,10 @@ class SignInInteractor: SignInInteractorType {
         let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
         webResourcesDispatcher.load(saveUserResource) { [weak self] result in
             switch result {
-            case .failure(let error):
-                if error != nil {
-                    self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-                } else {
-                    self?.delegate?.userSignedInSuccesfully(user: user)
-                }
-            case .success( _): break
+            case .failure( _):
+                self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
+            case .success( _):
+                self?.delegate?.userSignedInSuccesfully()
             }
         }
     }

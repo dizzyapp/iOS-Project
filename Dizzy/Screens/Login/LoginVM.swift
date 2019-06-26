@@ -13,6 +13,7 @@ import FBSDKCoreKit
 protocol LoginVMType {
     func closeButtonPressed()
     func signUpButtonPressed()
+    func logoutButtonPressed()
     func loginWithDizzyButtonPressed()
     func loginWithFacebookButtonPressed(presentedVC: UIViewController)
     func appInfoButtonPressed(type: AppInfoType)
@@ -33,8 +34,10 @@ protocol LoginVMNavigationDelegate: class {
 }
 
 protocol LoginVMDelegate: class {
-    func userSignedInSuccesfully(user: DizzyUser)
+    func userSignedInSuccesfully()
     func userSignedInFailed(error: SignInWebserviceError)
+    func userLoggedoutSuccessfully()
+    func userLoggedoutFailed(error: Error)
 }
 
 class LoginVM: LoginVMType {
@@ -43,12 +46,20 @@ class LoginVM: LoginVMType {
     weak var delegate: LoginVMDelegate?
 
     var signInInteractor: SignInInteractorType
-    init(signInInteractor: SignInInteractorType) {
+    var logoutInteractor: LogoutInteractorType
+    
+    init(signInInteractor: SignInInteractorType, logoutInteractor: LogoutInteractorType) {
         self.signInInteractor = signInInteractor
+        self.logoutInteractor = logoutInteractor
     }
     
     func closeButtonPressed() {
         self.navigationDelegate?.navigateToHomeScreen()
+    }
+    
+    func logoutButtonPressed() {
+        self.logoutInteractor.delegate = self
+        self.logoutInteractor.logout()
     }
     
     func signUpButtonPressed() {
@@ -72,18 +83,36 @@ class LoginVM: LoginVMType {
         self.navigationDelegate?.navigateToAdminScreen()
     }
     
+    private func isLoggedInViaFacebook() -> Bool {
+        return AccessToken.current?.tokenString != nil
+    }
+    
+    private func isLoggedInViaDizzy() -> Bool {
+        return Auth.auth().currentUser != nil
+    }
+    
     func isUserLoggedIn() -> Bool {
-        return false//AccessToken.current?.tokenString != nil || Auth.auth().currentUser != nil
+        return self.isLoggedInViaDizzy() || self.isLoggedInViaFacebook()
     }
 }
 
 extension LoginVM: SignInInteractorDelegate {
-    func userSignedInSuccesfully(user: DizzyUser) {
-        self.delegate?.userSignedInSuccesfully(user: user)
+    func userSignedInSuccesfully() {
+        self.delegate?.userSignedInSuccesfully()
         self.navigationDelegate?.navigateToHomeScreen()
     }
     
     func userSignedInFailed(error: SignInWebserviceError) {
         self.delegate?.userSignedInFailed(error: error)
+    }
+}
+
+extension LoginVM: LogoutInteractorDelegate {
+    func userLoggedoutSuccessfully() {
+        self.delegate?.userLoggedoutSuccessfully()
+    }
+    
+    func userLoggedoutFailed(error: Error) {
+        self.delegate?.userLoggedoutFailed(error: error)
     }
 }

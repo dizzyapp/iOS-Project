@@ -53,12 +53,22 @@ class SignInWebservice: WebServiceType {
         guard let signInDetails = resource.getData() as? SignInDetails else {
             return
         }
-        Auth.auth().signIn(withEmail: signInDetails.email, password: signInDetails.password) { (result, _) in
-            guard let result = result else { return }
-            let user = DizzyUser(id: result.user.uid, fullName: "", email: result.user.email!, role: .customer, photoURL: nil)
-
-            let response = Result.success(user)
-            completion(response as! Result<Response>)
+        Auth.auth().signIn(withEmail: signInDetails.email, password: signInDetails.password) { (result, error) in
+            if let error = error {
+                let response = Result<Response>.failure(error)
+                completion(response)
+            } else {
+                guard let result = result else { return }
+                
+                let user = DizzyUser(id: result.user.uid,
+                                     fullName: result.user.displayName ?? "",
+                                     email: result.user.email!,
+                                     role: .customer,
+                                     photoURL: nil)
+                
+                let response = Result.success(user)
+                completion(response as! Result<Response>)
+            }
         }
     }
     
@@ -80,15 +90,21 @@ class SignInWebservice: WebServiceType {
                 let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
                 Auth.auth().signInAndRetrieveData(with: credential, completion: { (dataResult, error) in
                     
-                    guard let result = dataResult else { return }
-                    let user = DizzyUser(id: result.user.uid,
-                                         fullName: result.user.displayName ?? "",
-                                         email: result.user.email!,
-                                         role: .customer,
-                                         photoURL: result.user.photoURL)
-                    
-                    let response = Result.success(user)
-                    completion(response as! Result<Response>)
+                    if let error = error {
+                        let response = Result<Response>.failure(error)
+                        completion(response)
+                    } else {
+                        guard let result = dataResult else { return }
+                        
+                        let user = DizzyUser(id: result.user.uid,
+                                             fullName: result.user.displayName ?? "",
+                                             email: result.user.email!,
+                                             role: .customer,
+                                             photoURL: result.user.photoURL)
+                        
+                        let response = Result.success(user)
+                        completion(response as! Result<Response>)
+                    }
                 })
             }
         }

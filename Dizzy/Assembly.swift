@@ -27,6 +27,7 @@ class Assembly {
         container.autoregister(GooglePlaceInteractorType.self, initializer: GooglePlaceInteractor.init)
         container.autoregister(SignUpInteractorType.self, initializer: SignUpInteractor.init)
         container.autoregister(SignInInteractorType.self, initializer: SignInInteractor.init)
+        container.autoregister(LogoutInteractorType.self, initializer: LogoutInteractor.init)
 
         // MARK: view models
         container.autoregister(DiscoveryVMType.self, initializer: DiscoveryVM.init)

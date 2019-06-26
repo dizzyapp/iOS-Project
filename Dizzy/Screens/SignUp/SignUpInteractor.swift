@@ -10,7 +10,7 @@ import UIKit
 
 protocol SignUpInteractorDelegate: class {
     func userSignedUpSuccesfully(user: DizzyUser)
-    func userSignedUpFailed(error: SignupWebServiceError)
+    func userSignedUpFailed(error: Error)
 }
 
 protocol SignUpInteractorType {
@@ -32,8 +32,8 @@ class SignUpInteractor: SignUpInteractorType {
         let signUpResource = Resource<DizzyUser, SignUpDetails>(path: "signupWithDizzy").withPost(signUpDetails)
         webResourcesDispatcher.load(signUpResource) { [weak self] result in
             switch result {
-            case .failure( _):
-                self?.delegate?.userSignedUpFailed(error: SignupWebServiceError.userCreationFailed)
+            case .failure(let error):
+                self?.delegate?.userSignedUpFailed(error: error)
             case .success(let user):
                 self?.saveUserOnRemote(user)
             }
@@ -45,12 +45,9 @@ class SignUpInteractor: SignUpInteractorType {
         webResourcesDispatcher.load(saveUserResource) { [weak self] result in            
             switch result {
             case .failure(let error):
-                if error != nil {
-                    self?.delegate?.userSignedUpFailed(error: SignupWebServiceError.userCreationFailed)
-                } else {
-                    self?.delegate?.userSignedUpSuccesfully(user: user)
-                }
-            case .success( _): break
+                self?.delegate?.userSignedUpFailed(error: error)
+            case .success( _):
+                self?.delegate?.userSignedUpSuccesfully(user: user)
             }
         }
     }

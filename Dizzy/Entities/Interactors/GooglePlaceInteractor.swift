@@ -36,8 +36,7 @@ final class GooglePlaceInteractor: GooglePlaceInteractorType {
             case .success(let data):
                 self.delegate?.googlePlaceInteractorPlaceDataArrived(self, data: data)
                 
-            case .failure(let error):
-                print(error.debugDescription)
+            case .failure(let error): break
             }
         }
     }

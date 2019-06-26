@@ -21,7 +21,6 @@ final class SignUpDetailsView: UIView {
     let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Password".localized)
     let confirmPasswordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Confirm your password".localized)
     let signUpButton = UIButton(type: .system)
-    let errorLabel = UILabel()
     
     let screenCornerRadius = CGFloat(30)
     let buttonsWidthPrecentage = CGFloat(0.5)
@@ -51,7 +50,6 @@ final class SignUpDetailsView: UIView {
         layoutPasswordTextField()
         layoutConfirmPasswordTextField()
         layoutSignupButton()
-        layoutErrorLabel()
     }
     
     private func layoutTitleLabel() {
@@ -64,7 +62,7 @@ final class SignUpDetailsView: UIView {
     }
     
     private func layoutStackView() {
-        self.addSubviews([self.stackView, errorLabel])
+        self.addSubviews([self.stackView])
         self.stackView.snp.makeConstraints { stackView in
             stackView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
             stackView.leading.trailing.equalToSuperview()
@@ -106,14 +104,6 @@ final class SignUpDetailsView: UIView {
         }
     }
     
-    private func layoutErrorLabel() {
-        errorLabel.snp.makeConstraints { (errorLabel ) in
-            errorLabel.top.equalTo(stackView.snp.bottom).offset(Metrics.doublePadding)
-            errorLabel.leading.equalToSuperview().offset(Metrics.doublePadding)
-            errorLabel.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-        }
-    }
-    
     private func setupViews() {
         layer.cornerRadius = screenCornerRadius
         self.clipsToBounds = true
@@ -125,7 +115,6 @@ final class SignUpDetailsView: UIView {
         setupPasswordTextField()
         setupRepeatPasswordTextField()
         setupSignUpButton()
-        setupErrorLabel()
     }
     
     private func setupTitleLabel() {
@@ -168,20 +157,8 @@ final class SignUpDetailsView: UIView {
         signUpButton.addTarget(self, action: #selector(onSignupPressed), for: .touchUpInside )
     }
     
-    private func setupErrorLabel() {
-        errorLabel.numberOfLines = 0
-        errorLabel.textAlignment = .center
-        errorLabel.textColor = .red
-        errorLabel.font = Fonts.h2(weight: .bold)
-    }
-    
-    public func showErrorMessage(_ message: String) {
-        self.errorLabel.text = message
-    }
-    
     @objc private func onSignupPressed() {
         
-        self.errorLabel.text = nil
         guard let fullName = self.fullNameTextField.text,
             let email = self.emailTextField.text,
             let password = self.passwordTextField.text,

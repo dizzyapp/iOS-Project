@@ -20,6 +20,8 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     let appInfosView = AppInfosView()
     let userProfileView = UserProfileView()
     
+    let logoutButton: UIButton = UIButton(type: .system)
+
     let dizzyLogoImageView = UIImageView()
     
     let enterAsAdminButton: UIButton = UIButton(type: .system)
@@ -49,7 +51,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
 
         self.view.addSubview(loginContainerView)
         loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
-                                        userProfileView, appInfosView, dizzyLogoImageView, enterAsAdminButton])
+                                        userProfileView, logoutButton, appInfosView, dizzyLogoImageView, enterAsAdminButton])
         
     }
     private func layoutViews() {
@@ -60,6 +62,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         layoutLoginSelectionView()
         layoutAppInfosView()
         layoutUserProfileView()
+        layoutLogoutButton()
         
         layoutDizzyLogo()
         layoutEnterAsAdminButton()
@@ -96,18 +99,25 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         }
     }
     
-    private func layoutAppInfosView() {
-        appInfosView.snp.makeConstraints { appInfosView in
-            appInfosView.top.equalTo(loginSelectionView.snp.bottom)
-            appInfosView.leading.trailing.equalToSuperview()
-        }
-    }
-    
     private func layoutUserProfileView() {
         userProfileView.snp.makeConstraints { userProfileView in
             userProfileView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
             userProfileView.leading.trailing.equalToSuperview()
-            userProfileView.bottom.equalTo(loginSelectionView.snp.bottom)
+            userProfileView.bottom.equalTo(logoutButton.snp.top)
+        }
+    }
+    
+    private func layoutLogoutButton() {
+        logoutButton.snp.makeConstraints { logoutButton in
+            logoutButton.leading.trailing.equalToSuperview()
+            logoutButton.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.doublePadding)
+        }
+    }
+    
+    private func layoutAppInfosView() {
+        appInfosView.snp.makeConstraints { appInfosView in
+            appInfosView.top.equalTo(loginSelectionView.snp.bottom)
+            appInfosView.leading.trailing.equalToSuperview()
         }
     }
     
@@ -136,6 +146,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         setupLoginSelectionView()
         setupAppInfosView()
         setupUserProfileView()
+        setupLogoutButton()
         
         setupDizzyLogo()
         setupEnterAsAdminButton()
@@ -166,7 +177,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     
     private func setupLoginSelectionView() {
         loginSelectionView.delegate = self
-
+        loginSelectionView.isHidden = self.loginVM.isUserLoggedIn()
     }
     
     private func setupAppInfosView() {
@@ -176,6 +187,12 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
         userProfileView.isHidden = !self.loginVM.isUserLoggedIn()
+    }
+    
+    private func setupLogoutButton() {
+        logoutButton.setTitle("Logout".localized, for: .normal)
+        logoutButton.addTarget(self, action: #selector(logoutButtonPressed), for: .touchUpInside)
+        logoutButton.isHidden = !self.loginVM.isUserLoggedIn()
     }
     
     private func setupDizzyLogo() {
@@ -194,6 +211,18 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         enterAsAdminButton.addTarget(self, action: #selector(enterAsAdminButtonPressed), for: .touchUpInside)
     }
     
+    private func setupSignInView() {
+        self.loginSelectionView.isHidden = false
+        self.userProfileView.isHidden = true
+        self.logoutButton.isHidden = true
+    }
+    
+    private func setupSignOutView() {
+        self.loginSelectionView.isHidden = true
+        self.userProfileView.isHidden = false
+        self.logoutButton.isHidden = false
+    }
+    
     @objc private func closeButtonClicked() {
         self.loginVM.closeButtonPressed()
     }
@@ -201,11 +230,16 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     @objc private func enterAsAdminButtonPressed() {
         self.loginVM.enterAsAdminButtonPressed()
     }
+    
+    @objc private func logoutButtonPressed() {
+        self.loginVM.logoutButtonPressed()
+    }
 }
 
 // MARK: LoginSelectionView Delegates
 extension LoginVC: LoginSelectionViewDelegate {
     func loginWithFacebookButtonPressed() {
+        showSpinner()
         self.loginVM.loginWithFacebookButtonPressed(presentedVC: self)
     }
     
@@ -227,11 +261,22 @@ extension LoginVC: AppInfosViewDelegate {
 
 // MARK: LoginVM Delegates
 extension LoginVC: LoginVMDelegate {
-    func userSignedInSuccesfully(user: DizzyUser) {
+    func userSignedInSuccesfully() {
         hideSpinner()
+        setupSignOutView()
     }
     
     func userSignedInFailed(error: SignInWebserviceError) {
+        hideSpinner()
+        showAlert(title: "Error".localized, message: error.localizedDescription)
+    }
+    
+    func userLoggedoutSuccessfully() {
+        hideSpinner()
+        setupSignInView()
+    }
+    
+    func userLoggedoutFailed(error: Error) {
         hideSpinner()
         showAlert(title: "Error".localized, message: error.localizedDescription)
     }
