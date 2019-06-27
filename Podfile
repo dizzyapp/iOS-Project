@@ -17,5 +17,8 @@ target 'Dizzy' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'Kingfisher'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
 
 end

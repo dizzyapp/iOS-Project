@@ -7,36 +7,59 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FBSDKCoreKit
 
 protocol LoginVMType {
     func closeButtonPressed()
     func signUpButtonPressed()
+    func logoutButtonPressed()
     func loginWithDizzyButtonPressed()
-    func loginWithFacebookButtonPressed()
+    func loginWithFacebookButtonPressed(presentedVC: UIViewController)
     func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
+    var delegate: LoginVMDelegate? { get set }
+
+    func isUserLoggedIn() -> Bool
 }
 
 protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
     func navigateToHomeScreen()
-    func navigateToSignInWithDizzyScreen()
+    func navigateToSignInScreen()
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
+}
+
+protocol LoginVMDelegate: class {
+    func userSignedInSuccesfully()
+    func userSignedInFailed(error: SignInWebserviceError)
+    func userLoggedoutSuccessfully()
+    func userLoggedoutFailed(error: Error)
 }
 
 class LoginVM: LoginVMType {
     
     weak var navigationDelegate: LoginVMNavigationDelegate?
+    weak var delegate: LoginVMDelegate?
+
+    var signInInteractor: SignInInteractorType
+    var logoutInteractor: LogoutInteractorType
     
-    init() {
-        
+    init(signInInteractor: SignInInteractorType, logoutInteractor: LogoutInteractorType) {
+        self.signInInteractor = signInInteractor
+        self.logoutInteractor = logoutInteractor
     }
     
     func closeButtonPressed() {
         self.navigationDelegate?.navigateToHomeScreen()
+    }
+    
+    func logoutButtonPressed() {
+        self.logoutInteractor.delegate = self
+        self.logoutInteractor.logout()
     }
     
     func signUpButtonPressed() {
@@ -44,11 +67,12 @@ class LoginVM: LoginVMType {
     }
     
     func loginWithDizzyButtonPressed() {
-        self.navigationDelegate?.navigateToSignInWithDizzyScreen()
+        self.navigationDelegate?.navigateToSignInScreen()
     }
     
-    func loginWithFacebookButtonPressed() {
-        
+    func loginWithFacebookButtonPressed(presentedVC: UIViewController) {
+        self.signInInteractor.delegate = self
+        self.signInInteractor.signInWithFacebook(presentedVC: presentedVC)
     }
     
     func appInfoButtonPressed(type: AppInfoType) {
@@ -57,5 +81,38 @@ class LoginVM: LoginVMType {
     
     func enterAsAdminButtonPressed() {
         self.navigationDelegate?.navigateToAdminScreen()
+    }
+    
+    private func isLoggedInViaFacebook() -> Bool {
+        return AccessToken.current?.tokenString != nil
+    }
+    
+    private func isLoggedInViaDizzy() -> Bool {
+        return Auth.auth().currentUser != nil
+    }
+    
+    func isUserLoggedIn() -> Bool {
+        return self.isLoggedInViaDizzy() || self.isLoggedInViaFacebook()
+    }
+}
+
+extension LoginVM: SignInInteractorDelegate {
+    func userSignedInSuccesfully() {
+        self.delegate?.userSignedInSuccesfully()
+        self.navigationDelegate?.navigateToHomeScreen()
+    }
+    
+    func userSignedInFailed(error: SignInWebserviceError) {
+        self.delegate?.userSignedInFailed(error: error)
+    }
+}
+
+extension LoginVM: LogoutInteractorDelegate {
+    func userLoggedoutSuccessfully() {
+        self.delegate?.userLoggedoutSuccessfully()
+    }
+    
+    func userLoggedoutFailed(error: Error) {
+        self.delegate?.userLoggedoutFailed(error: error)
     }
 }

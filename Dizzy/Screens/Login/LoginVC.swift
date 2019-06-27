@@ -9,34 +9,38 @@
 import UIKit
 import SnapKit
 
-final class LoginVC: UIViewController {
-
-    let closeButton = UIButton()
+final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
+    
     let loginContainerView = UIView()
     
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
     let loginSelectionView = LoginSelectionView()
     let appInfosView = AppInfosView()
+    let userProfileView = UserProfileView()
     
+    let logoutButton: UIButton = UIButton(type: .system)
+
     let dizzyLogoImageView = UIImageView()
     
-    let enterAsAdminButton: UIButton = UIButton()
+    let enterAsAdminButton: UIButton = UIButton(type: .system)
     
-    let cornerRadius: CGFloat = 25.0
+    let cornerRadius: CGFloat = 30.0
     let enterAsAdminButtonHeight: CGFloat = 40
     
     var loginVM: LoginVMType
     
     init(loginVM: LoginVMType) {
         self.loginVM = loginVM
+        
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .clear
-        
+        self.loginVM.delegate = self
+
         addSubviews()
         layoutViews()
         setupViews()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,37 +49,29 @@ final class LoginVC: UIViewController {
     
     private func addSubviews() {
 
-        self.view.addSubviews([closeButton, loginContainerView])
+        self.view.addSubview(loginContainerView)
         loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
-                                        appInfosView, dizzyLogoImageView, enterAsAdminButton])
+                                        userProfileView, logoutButton, appInfosView, dizzyLogoImageView, enterAsAdminButton])
         
     }
     private func layoutViews() {
-        
-        layoutCloseButton()
         layoutLoginContainerView()
         
         layoutTitleLabel()
         layoutSubtitleLabel()
         layoutLoginSelectionView()
         layoutAppInfosView()
+        layoutUserProfileView()
+        layoutLogoutButton()
         
         layoutDizzyLogo()
         layoutEnterAsAdminButton()
     }
     
-    private func layoutCloseButton() {
-        closeButton.snp.makeConstraints { closeButton in
-            
-            closeButton.top.equalTo(self.view.snp.topMargin).offset(Metrics.padding)
-            closeButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-        }
-    }
-    
     private func layoutLoginContainerView() {
         loginContainerView.snp.makeConstraints { loginContainerView in
             
-            loginContainerView.top.equalTo(closeButton.snp.bottom).offset(Metrics.padding)
+            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.doublePadding)
         }
@@ -84,14 +80,15 @@ final class LoginVC: UIViewController {
     private func layoutTitleLabel() {
         titleLabel.snp.makeConstraints { titleLabel in
             titleLabel.top.equalToSuperview().offset(Metrics.padding)
-            titleLabel.leading.trailing.equalToSuperview().offset(Metrics.padding)
+            titleLabel.centerX.equalToSuperview()
+            titleLabel.leading.trailing.equalToSuperview()
         }
     }
     
     private func layoutSubtitleLabel() {
         subtitleLabel.snp.makeConstraints { subtitleLabel in
             subtitleLabel.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
-            subtitleLabel.leading.trailing.equalToSuperview().offset(Metrics.padding)
+            subtitleLabel.leading.trailing.equalToSuperview()
         }
     }
     
@@ -99,6 +96,21 @@ final class LoginVC: UIViewController {
         loginSelectionView.snp.makeConstraints { loginSelectionView in
             loginSelectionView.top.equalTo(subtitleLabel.snp.bottom)
             loginSelectionView.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    private func layoutUserProfileView() {
+        userProfileView.snp.makeConstraints { userProfileView in
+            userProfileView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
+            userProfileView.leading.trailing.equalToSuperview()
+            userProfileView.bottom.equalTo(logoutButton.snp.top)
+        }
+    }
+    
+    private func layoutLogoutButton() {
+        logoutButton.snp.makeConstraints { logoutButton in
+            logoutButton.leading.trailing.equalToSuperview()
+            logoutButton.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.doublePadding)
         }
     }
     
@@ -126,26 +138,29 @@ final class LoginVC: UIViewController {
     }
     
     private func setupViews() {
-        setupCloseButton()
+        setupNavigationView()
         setupLoginContainerView()
         
         setupTitleLabel()
         setupSubtitleLabel()
         setupLoginSelectionView()
         setupAppInfosView()
+        setupUserProfileView()
+        setupLogoutButton()
         
         setupDizzyLogo()
         setupEnterAsAdminButton()
     }
     
-    private func setupCloseButton() {
-        closeButton.setImage(Images.downArrowIcon(), for: .normal)
-        closeButton.addTarget(self, action: #selector(closeButtonClicked), for: .touchUpInside)
+    private func setupNavigationView() {
+        self.navigationItem.title = "Login".localized
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
     }
     
     private func setupLoginContainerView() {
         loginContainerView.backgroundColor = .white
         loginContainerView.layer.cornerRadius = cornerRadius
+        loginContainerView.clipsToBounds = true
     }
     
     private func setupTitleLabel() {
@@ -162,11 +177,22 @@ final class LoginVC: UIViewController {
     
     private func setupLoginSelectionView() {
         loginSelectionView.delegate = self
-
+        loginSelectionView.isHidden = self.loginVM.isUserLoggedIn()
     }
     
     private func setupAppInfosView() {
         appInfosView.delegate = self
+    }
+    
+    private func setupUserProfileView() {
+        userProfileView.backgroundColor = .white
+        userProfileView.isHidden = !self.loginVM.isUserLoggedIn()
+    }
+    
+    private func setupLogoutButton() {
+        logoutButton.setTitle("Logout".localized, for: .normal)
+        logoutButton.addTarget(self, action: #selector(logoutButtonPressed), for: .touchUpInside)
+        logoutButton.isHidden = !self.loginVM.isUserLoggedIn()
     }
     
     private func setupDizzyLogo() {
@@ -185,6 +211,18 @@ final class LoginVC: UIViewController {
         enterAsAdminButton.addTarget(self, action: #selector(enterAsAdminButtonPressed), for: .touchUpInside)
     }
     
+    private func setupSignInView() {
+        self.loginSelectionView.isHidden = false
+        self.userProfileView.isHidden = true
+        self.logoutButton.isHidden = true
+    }
+    
+    private func setupSignOutView() {
+        self.loginSelectionView.isHidden = true
+        self.userProfileView.isHidden = false
+        self.logoutButton.isHidden = false
+    }
+    
     @objc private func closeButtonClicked() {
         self.loginVM.closeButtonPressed()
     }
@@ -192,12 +230,17 @@ final class LoginVC: UIViewController {
     @objc private func enterAsAdminButtonPressed() {
         self.loginVM.enterAsAdminButtonPressed()
     }
+    
+    @objc private func logoutButtonPressed() {
+        self.loginVM.logoutButtonPressed()
+    }
 }
 
 // MARK: LoginSelectionView Delegates
 extension LoginVC: LoginSelectionViewDelegate {
     func loginWithFacebookButtonPressed() {
-        self.loginVM.loginWithFacebookButtonPressed()
+        showSpinner()
+        self.loginVM.loginWithFacebookButtonPressed(presentedVC: self)
     }
     
     func loginWithDizzyButtonPressed() {
@@ -213,5 +256,28 @@ extension LoginVC: LoginSelectionViewDelegate {
 extension LoginVC: AppInfosViewDelegate {
     func appInfoButtonPressed(appInfosView: AppInfosView, type: AppInfoType) {
         self.loginVM.appInfoButtonPressed(type: type)
+    }
+}
+
+// MARK: LoginVM Delegates
+extension LoginVC: LoginVMDelegate {
+    func userSignedInSuccesfully() {
+        hideSpinner()
+        setupSignOutView()
+    }
+    
+    func userSignedInFailed(error: SignInWebserviceError) {
+        hideSpinner()
+        showAlert(title: "Error".localized, message: error.localizedDescription)
+    }
+    
+    func userLoggedoutSuccessfully() {
+        hideSpinner()
+        setupSignInView()
+    }
+    
+    func userLoggedoutFailed(error: Error) {
+        hideSpinner()
+        showAlert(title: "Error".localized, message: error.localizedDescription)
     }
 }

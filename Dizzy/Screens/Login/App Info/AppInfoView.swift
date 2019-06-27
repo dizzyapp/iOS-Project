@@ -17,7 +17,7 @@ enum AppInfoType: String {
 
 class AppInfoView: UIView {
 
-    let infoButton = UIButton()
+    let infoButton = UIButton(type: .system)
     let separatorView = UIView()
     
     let separatorMultipliedWidth: CGFloat = 0.6

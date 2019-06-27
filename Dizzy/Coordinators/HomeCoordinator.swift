@@ -17,7 +17,7 @@ final class HomeCoordinator: HomeCoordinatorType {
     
     private var tabsIconPadding: CGFloat { return Metrics.padding }
     private var discoveryVC: DiscoveryVC?
-    private var conversationsVC: SignUpWithDizzyVC?
+    private var conversationsVC: ConversationsVC?
     private let tabBarController = UITabBarController()
     
     var window: UIWindow
@@ -51,9 +51,9 @@ final class HomeCoordinator: HomeCoordinatorType {
     }
     
     private func createConversationsVC() {
-        guard let viewModel = container?.resolve(SignUpWithDizzyVMType.self),
-            let conversationsVC = container?.resolve(SignUpWithDizzyVC.self, argument: viewModel) else {
-                print("could not create discovery page")
+        guard let viewModel = container?.resolve(ConversationsViewModelType.self),
+            let conversationsVC = container?.resolve(ConversationsVC.self, argument: viewModel) else {
+                print("could not create conversations page")
                 return
         }
         self.conversationsVC = conversationsVC
@@ -102,6 +102,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         vcc?.onCoordinatorFinished = { [weak self] in
             self?.removeCoordinator(for: .login)
         }
+        discoveryVC?.hideTopBar()
         add(coordinator: vcc!, for: .login)
     }
     

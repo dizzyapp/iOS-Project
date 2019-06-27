@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignUpDetailsViewDelegate: class {
-    func onSignupPressed(_ signupDetails: SignupDetails)
+    func onSignupPressed(_ signUpDetails: SignUpDetails)
 }
 
 final class SignUpDetailsView: UIView {
@@ -32,8 +32,9 @@ final class SignUpDetailsView: UIView {
     init() {
         super.init(frame: CGRect.zero)
         self.backgroundColor = .white
-        setupViews()
+
         layoutViews()
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,7 +62,7 @@ final class SignUpDetailsView: UIView {
     }
     
     private func layoutStackView() {
-        self.addSubview(self.stackView)
+        self.addSubviews([self.stackView])
         self.stackView.snp.makeConstraints { stackView in
             stackView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
             stackView.leading.trailing.equalToSuperview()
@@ -105,9 +106,15 @@ final class SignUpDetailsView: UIView {
     
     private func setupViews() {
         layer.cornerRadius = screenCornerRadius
-        setupStackView()
-        setupSignUpButton()
+        self.clipsToBounds = true
+        
         setupTitleLabel()
+        setupStackView()
+        setupFullNameTextField()
+        setupEmailTextField()
+        setupPasswordTextField()
+        setupRepeatPasswordTextField()
+        setupSignUpButton()
     }
     
     private func setupTitleLabel() {
@@ -123,6 +130,24 @@ final class SignUpDetailsView: UIView {
         stackView.backgroundColor = .white
     }
     
+    private func setupFullNameTextField() {
+        fullNameTextField.keyboardType = .namePhonePad
+    }
+    
+    private func setupEmailTextField() {
+        self.emailTextField.keyboardType = .emailAddress
+        self.emailTextField.autocorrectionType = .no
+        self.emailTextField.spellCheckingType = .no
+    }
+    
+    private func setupPasswordTextField() {
+        self.passwordTextField.isSecureTextEntry = true
+    }
+    
+    private func setupRepeatPasswordTextField() {
+        self.confirmPasswordTextField.isSecureTextEntry = true
+    }
+    
     private func setupSignUpButton() {
         signUpButton.setTitle("Done!".localized, for: .normal)
         signUpButton.titleLabel?.font = Fonts.h10(weight: .bold)
@@ -134,14 +159,14 @@ final class SignUpDetailsView: UIView {
     
     @objc private func onSignupPressed() {
         
-        guard let fullName = fullNameTextField.text,
-            let email = emailTextField.text,
-            let password = passwordTextField.text else {
+        guard let fullName = self.fullNameTextField.text,
+            let email = self.emailTextField.text,
+            let password = self.passwordTextField.text,
+            let repeatPassword = self.confirmPasswordTextField.text else {
                 return
         }
         
-        let signupDetails = SignupDetails(fullName: fullName, email: email, password: password)
-        delegate?.onSignupPressed(signupDetails)
+        let signUpDetails = SignUpDetails(fullName: fullName, email: email, password: password, repeatPassword: repeatPassword)
+        delegate?.onSignupPressed(signUpDetails)
     }
-    
 }

@@ -73,4 +73,12 @@ struct Images {
     static func signUpIcon() -> UIImage {
         return UIImage(named: "signupIcon")!
     }
+    
+    static func profilePlaceholderIcon() -> UIImage {
+        return UIImage(named: "profilePlaceholderIcon")!
+    }
+    
+    static func backArrowIcon() -> UIImage {
+        return UIImage(named: "backArrowIcon")!
+    }
 }

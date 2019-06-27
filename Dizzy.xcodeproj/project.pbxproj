@@ -29,7 +29,7 @@
 		0487FFA8228EB4AF00A8683C /* TextFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA0228EB4AE00A8683C /* TextFieldBuilder.swift */; };
 		0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA1228EB4AE00A8683C /* ButtonBuilder.swift */; };
 		0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA2228EB4AE00A8683C /* NavigationBuilder.swift */; };
-		0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA3228EB4AE00A8683C /* LoadinContainer.swift */; };
+		0487FFAB228EB4AF00A8683C /* LoadingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA3228EB4AE00A8683C /* LoadingContainer.swift */; };
 		0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA4228EB4AE00A8683C /* LocationLabel.swift */; };
 		0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */; };
 		04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF5225731880020DF8F /* FirebaseWebService.swift */; };
@@ -52,6 +52,18 @@
 		4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */; };
 		4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EA822B0426700016EF7 /* LoginCoordinator.swift */; };
 		4D645EAB22B043B900016EF7 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D645EAA22B043B900016EF7 /* UIColorExtension.swift */; };
+		4DA64E9422C2BD91001D5A1A /* AlertPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */; };
+		4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */; };
+		4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */; };
+		4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117422B4429300CA0220 /* UserProfileView.swift */; };
+		4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */; };
+		4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */; };
+		4DDA117E22B58F9800CA0220 /* SignInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117A22B58F9800CA0220 /* SignInInteractor.swift */; };
+		4DDA117F22B58F9800CA0220 /* SignInWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117B22B58F9800CA0220 /* SignInWithDizzyVM.swift */; };
+		4DDA118122B596CE00CA0220 /* SignInWebservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA118022B596CD00CA0220 /* SignInWebservice.swift */; };
+		4DFBA48122BEB3C100BB0F4F /* SignInDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFBA48022BEB3C100BB0F4F /* SignInDetails.swift */; };
+		4DFBA48422BEB8B600BB0F4F /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFBA48322BEB8B600BB0F4F /* KeyboardHandler.swift */; };
+		4DFBA48622BEC5D800BB0F4F /* InputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
@@ -81,11 +93,10 @@
 		77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */; };
 		77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */; };
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
-		77A0605122AD8AE3008FE39D /* SignupDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605022AD8AE3008FE39D /* SignupDetails.swift */; };
-		77A0605322AD8E4E008FE39D /* SignupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605222AD8E4E008FE39D /* SignupInteractor.swift */; };
+		77A0605122AD8AE3008FE39D /* SignUpDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605022AD8AE3008FE39D /* SignUpDetails.swift */; };
 		77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605422AD9284008FE39D /* SignupWebservice.swift */; };
 		77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */; };
-		77AD08B022B1870B004F8588 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AF22B1870B004F8588 /* User.swift */; };
+		77AD08B022B1870B004F8588 /* DizzyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AF22B1870B004F8588 /* DizzyUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,7 +122,7 @@
 		0487FFA0228EB4AE00A8683C /* TextFieldBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldBuilder.swift; sourceTree = "<group>"; };
 		0487FFA1228EB4AE00A8683C /* ButtonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBuilder.swift; sourceTree = "<group>"; };
 		0487FFA2228EB4AE00A8683C /* NavigationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBuilder.swift; sourceTree = "<group>"; };
-		0487FFA3228EB4AE00A8683C /* LoadinContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadinContainer.swift; sourceTree = "<group>"; };
+		0487FFA3228EB4AE00A8683C /* LoadingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingContainer.swift; sourceTree = "<group>"; };
 		0487FFA4228EB4AE00A8683C /* LocationLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationLabel.swift; sourceTree = "<group>"; };
 		0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
 		04D0CCF5225731880020DF8F /* FirebaseWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseWebService.swift; sourceTree = "<group>"; };
@@ -135,6 +146,18 @@
 		4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSelectionView.swift; sourceTree = "<group>"; };
 		4D645EA822B0426700016EF7 /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		4D645EAA22B043B900016EF7 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentation.swift; sourceTree = "<group>"; };
+		4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutInteractor.swift; sourceTree = "<group>"; };
+		4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutWebService.swift; sourceTree = "<group>"; };
+		4DDA117422B4429300CA0220 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithDizzyVC.swift; sourceTree = "<group>"; };
+		4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDetailsView.swift; sourceTree = "<group>"; };
+		4DDA117A22B58F9800CA0220 /* SignInInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInInteractor.swift; sourceTree = "<group>"; };
+		4DDA117B22B58F9800CA0220 /* SignInWithDizzyVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithDizzyVM.swift; sourceTree = "<group>"; };
+		4DDA118022B596CD00CA0220 /* SignInWebservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWebservice.swift; sourceTree = "<group>"; };
+		4DFBA48022BEB3C100BB0F4F /* SignInDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDetails.swift; sourceTree = "<group>"; };
+		4DFBA48322BEB8B600BB0F4F /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
+		4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidator.swift; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,11 +188,10 @@
 		77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVC.swift; sourceTree = "<group>"; };
 		77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVM.swift; sourceTree = "<group>"; };
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
-		77A0605022AD8AE3008FE39D /* SignupDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupDetails.swift; sourceTree = "<group>"; };
-		77A0605222AD8E4E008FE39D /* SignupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInteractor.swift; sourceTree = "<group>"; };
+		77A0605022AD8AE3008FE39D /* SignUpDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetails.swift; sourceTree = "<group>"; };
 		77A0605422AD9284008FE39D /* SignupWebservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupWebservice.swift; sourceTree = "<group>"; };
 		77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
-		77AD08AF22B1870B004F8588 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		77AD08AF22B1870B004F8588 /* DizzyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DizzyUser.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -207,6 +229,8 @@
 				04D0CCF5225731880020DF8F /* FirebaseWebService.swift */,
 				04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */,
 				77A0605422AD9284008FE39D /* SignupWebservice.swift */,
+				4DDA118022B596CD00CA0220 /* SignInWebservice.swift */,
+				4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -249,7 +273,8 @@
 				0487FFA0228EB4AE00A8683C /* TextFieldBuilder.swift */,
 				0487FFA1228EB4AE00A8683C /* ButtonBuilder.swift */,
 				0487FFA2228EB4AE00A8683C /* NavigationBuilder.swift */,
-				0487FFA3228EB4AE00A8683C /* LoadinContainer.swift */,
+				0487FFA3228EB4AE00A8683C /* LoadingContainer.swift */,
+				4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */,
 				0487FFA4228EB4AE00A8683C /* LocationLabel.swift */,
 				0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */,
 			);
@@ -278,10 +303,12 @@
 		4D645E9C22B0423A00016EF7 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				4DDA117322B4429300CA0220 /* Profile */,
 				4D645E9F22B0423A00016EF7 /* App Info */,
 				4D645E9D22B0423A00016EF7 /* LoginVC.swift */,
 				4D645E9E22B0423A00016EF7 /* LoginVM.swift */,
 				4D645EA222B0423A00016EF7 /* LoginSelectionView.swift */,
+				4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -293,6 +320,44 @@
 				4D645EA122B0423A00016EF7 /* AppInfosView.swift */,
 			);
 			path = "App Info";
+			sourceTree = "<group>";
+		};
+		4DDA117322B4429300CA0220 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				4DDA117422B4429300CA0220 /* UserProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		4DDA117622B4442000CA0220 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */,
+				77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */,
+				77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */,
+				77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		4DDA117722B58F9800CA0220 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */,
+				4DDA117B22B58F9800CA0220 /* SignInWithDizzyVM.swift */,
+				4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */,
+				4DDA117A22B58F9800CA0220 /* SignInInteractor.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		4DFBA48222BEB89300BB0F4F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4DFBA48322BEB8B600BB0F4F /* KeyboardHandler.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		76B41E97224EE9FA00C1A290 = {
@@ -318,6 +383,7 @@
 			children = (
 				0487FF9D228EB4AE00A8683C /* UI Components */,
 				76B41EDE22534A4B00C1A290 /* Extensions */,
+				4DFBA48222BEB89300BB0F4F /* Protocols */,
 				76B41EDB225343DE00C1A290 /* Base entities */,
 				041D95C12253D702009ED7AB /* Web Service */,
 				76B41ECE225229DB00C1A290 /* Screens */,
@@ -329,7 +395,6 @@
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
 				76B41EB5224EF16200C1A290 /* Assembly.swift */,
 				76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */,
-				77A0605222AD8E4E008FE39D /* SignupInteractor.swift */,
 			);
 			path = Dizzy;
 			sourceTree = "<group>";
@@ -359,8 +424,10 @@
 				04E7809222B027CF00A9E3F4 /* Colors.swift */,
 				0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */,
 				0470E6AB2270B2DF00267278 /* GoogleMap */,
-				77A0605022AD8AE3008FE39D /* SignupDetails.swift */,
-				77AD08AF22B1870B004F8588 /* User.swift */,
+				77A0605022AD8AE3008FE39D /* SignUpDetails.swift */,
+				4DFBA48022BEB3C100BB0F4F /* SignInDetails.swift */,
+				77AD08AF22B1870B004F8588 /* DizzyUser.swift */,
+				4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -374,10 +441,8 @@
 				0415EC31225E57D5009BCBC7 /* Map */,
 				76B41ECF225229EA00C1A290 /* Discovery */,
 				0487FF8F228EB40200A8683C /* PlaceStory */,
-				77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */,
-				77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */,
-				77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */,
-				77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */,
+				4DDA117622B4442000CA0220 /* SignUp */,
+				4DDA117722B58F9800CA0220 /* SignIn */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -602,6 +667,7 @@
 			files = (
 				77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */,
 				04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */,
+				4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */,
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
 				0487FFA8228EB4AF00A8683C /* TextFieldBuilder.swift in Sources */,
@@ -610,14 +676,16 @@
 				0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */,
 				0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */,
 				77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */,
-				77A0605122AD8AE3008FE39D /* SignupDetails.swift in Sources */,
+				77A0605122AD8AE3008FE39D /* SignUpDetails.swift in Sources */,
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
+				4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */,
 				04ECE4112263B47800E10F70 /* MapVC.swift in Sources */,
 				041D95C32253D733009ED7AB /* WebService.swift in Sources */,
 				0470E6BC2270B37200267278 /* ReusableView.swift in Sources */,
 				0487FF98228EB40200A8683C /* CommentsManger.swift in Sources */,
 				0487FF9C228EB40200A8683C /* PlaceStoryVC.swift in Sources */,
 				4D645EA322B0423B00016EF7 /* LoginVC.swift in Sources */,
+				4DDA117E22B58F9800CA0220 /* SignInInteractor.swift in Sources */,
 				0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
 				4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */,
@@ -630,8 +698,8 @@
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
-				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
-				77AD08B022B1870B004F8588 /* User.swift in Sources */,
+				0487FFAB228EB4AF00A8683C /* LoadingContainer.swift in Sources */,
+				77AD08B022B1870B004F8588 /* DizzyUser.swift in Sources */,
 				77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
 				4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */,
@@ -639,10 +707,13 @@
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
+				4DDA118122B596CE00CA0220 /* SignInWebservice.swift in Sources */,
 				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,
+				4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
 				0487FF9B228EB40200A8683C /* PlayerVC.swift in Sources */,
 				0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */,
+				4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,
 				4D645EA622B0423B00016EF7 /* AppInfosView.swift in Sources */,
 				76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */,
@@ -651,23 +722,28 @@
 				0487FF97228EB40200A8683C /* PlaceStoryVM.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
 				04E7809122B027C700A9E3F4 /* GooglePlaceInteractor.swift in Sources */,
+				4DDA117F22B58F9800CA0220 /* SignInWithDizzyVM.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
 				4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */,
+				4DFBA48422BEB8B600BB0F4F /* KeyboardHandler.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
 				04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */,
 				77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */,
+				4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */,
 				0470E6B52270B32600267278 /* MapSearchVC.swift in Sources */,
-				77A0605322AD8E4E008FE39D /* SignupInteractor.swift in Sources */,
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
+				4DFBA48622BEC5D800BB0F4F /* InputValidator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
 				04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */,
 				0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */,
 				77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */,
+				4DFBA48122BEB3C100BB0F4F /* SignInDetails.swift in Sources */,
 				0470E6B42270B32600267278 /* MapSearchTableViewCell.swift in Sources */,
+				4DA64E9422C2BD91001D5A1A /* AlertPresentation.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
 				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,

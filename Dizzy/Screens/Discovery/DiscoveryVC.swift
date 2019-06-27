@@ -92,6 +92,14 @@ class DiscoveryVC: ViewController {
         nearByPlacesView.delegate = self
         nearByPlacesView.reloadData()
     }
+    
+    public func showTopBar() {
+        self.topBar.isHidden = false
+    }
+    
+    public func hideTopBar() {
+        self.topBar.isHidden = true
+    }
 }
 
 extension DiscoveryVC: NearByPlacesViewDataSource {
