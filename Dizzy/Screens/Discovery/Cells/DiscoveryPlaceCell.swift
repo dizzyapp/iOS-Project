@@ -15,6 +15,7 @@ protocol DiscoveryPlaceCellDelegate: class {
 }
 
 class DiscoveryPlaceCell: UICollectionViewCell {
+    let placeBackgroundImageView = UIImageView()
     let placeImageView = UIImageView()
     let placeNameLabel = UILabel()
     let placeAddressLabel = UILabel()
@@ -23,8 +24,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     let stackViewTrailingPadding = CGFloat(15)
     let smallLabelsFontSize = CGFloat(8)
-    let placeImageViewSize = CGFloat(50)
-    
+    let placeImageViewSize = CGFloat(41)
+    let placeBackgroundImageViewSize = CGFloat(50)
+
     weak var delegate: DiscoveryPlaceCellDelegate?
     
     init(placeInfo: PlaceInfo) {
@@ -43,27 +45,48 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
-        addSubviews([placeImageView, placeDetailsStackView])
+        addSubviews([placeBackgroundImageView, placeImageView, placeDetailsStackView])
         placeDetailsStackView.addSubviews([placeNameLabel, placeAddressLabel, distanceLabel])
     }
     
     private func layoutViews() {
+        
+        self.layoutBackgroundImageView()
+        self.layoutPlaceImageView()
+        self.layoutPlaceDetailsStackView()
+        self.layoutLabelsInStackView()
+    }
+    
+    private func layoutBackgroundImageView() {
+        placeBackgroundImageView.snp.makeConstraints { placeBackgroundImageView in
+//            placeBackgroundImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
+//            placeBackgroundImageView.bottom.equalToSuperview().offset(-Metrics.padding)
+            placeBackgroundImageView.centerY.equalToSuperview()
+            placeBackgroundImageView.leading.equalToSuperview()
+            placeBackgroundImageView.width.height.equalTo(placeBackgroundImageViewSize)
+        }
+        
+        placeBackgroundImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
+    }
+    
+    private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
-            placeImageView.bottom.equalToSuperview().offset(-Metrics.padding)
-            placeImageView.leading.equalToSuperview()
+//            placeImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
+//            placeImageView.bottom.equalToSuperview().offset(-Metrics.padding)
+            placeImageView.centerX.equalTo(placeBackgroundImageView.snp.centerX)
+            placeImageView.centerY.equalToSuperview()
             placeImageView.width.height.equalTo(placeImageViewSize)
         }
         
         placeImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
-        
+    }
+    
+    private func layoutPlaceDetailsStackView() {
         placeDetailsStackView.snp.makeConstraints { placeDetailsStackView in
             placeDetailsStackView.top.bottom.equalTo(placeImageView)
             placeDetailsStackView.leading.equalTo(placeImageView.snp.trailing).offset(stackViewTrailingPadding)
             placeDetailsStackView.trailing.equalToSuperview()
         }
-        
-        layoutLabelsInStackView()
     }
     
     private func layoutLabelsInStackView() {
@@ -76,7 +99,8 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .white
         setupStackView()
         setupLabels()
-        setupPlacewImageView()
+        setupPlaceBackgroundImageView()
+        setupPlaceImageView()
     }
     
     private func setupStackView() {
@@ -100,11 +124,15 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         distanceLabel.textAlignment = .left
     }
     
-    func setupPlacewImageView() {
+    func setupPlaceBackgroundImageView() {
+        placeBackgroundImageView.layer.cornerRadius = placeBackgroundImageViewSize/2
+        placeBackgroundImageView.clipsToBounds = true
+        placeBackgroundImageView.image = Images.placeBackgroundIcon()
+    }
+    
+    func setupPlaceImageView() {
         placeImageView.layer.cornerRadius = placeImageViewSize/2
         placeImageView.clipsToBounds = true
-        placeImageView.layer.borderColor = UIColor.black.cgColor
-        placeImageView.layer.borderWidth = 2
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {

@@ -46,14 +46,15 @@ class DiscoveryVC: ViewController {
         themeImageView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.bottom.equalTo(view.snp.centerY).offset(25)
+            themeImageView.bottom.equalTo(view.snp.bottom)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
             
-            nearByPlacesView.top.equalTo(view.snp.centerY)
-            nearByPlacesView.leading.trailing.equalToSuperview()
-            nearByPlacesView.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            nearByPlacesView.height.equalTo(view.snp.height).multipliedBy(0.55)
+            nearByPlacesView.leading.equalToSuperview().offset(5)
+            nearByPlacesView.trailing.equalToSuperview().offset(-5)
+            nearByPlacesView.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-5)
         }
     }
     
@@ -132,6 +133,11 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
+        nearByPlacesView.showSpinner()
+    }
+    
+    func allPlacesArrived() {
+        nearByPlacesView.hideSpinner()
         nearByPlacesView.reloadData()
     }
 }

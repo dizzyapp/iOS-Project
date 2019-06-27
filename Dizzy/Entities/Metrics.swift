@@ -14,5 +14,6 @@ struct Metrics {
     static let tinyPadding = CGFloat(4)
     static let mediumPadding = CGFloat(8)
     static let padding = CGFloat(10)
+    static let oneAndHalfPadding = CGFloat(15)
     static let doublePadding = CGFloat(20)
 }

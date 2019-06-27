@@ -21,7 +21,9 @@ protocol NearByPlacesViewDelegate: class {
     func didPressPlaceDetails(atIndexPath indexPath: IndexPath)
 }
 
-class NearByPlacesView: UIView {
+class NearByPlacesView: UIView, LoadingContainer {
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
+    
     weak var delegate: NearByPlacesViewDelegate?
     weak var dataSource: NearByPlacesViewDataSource?
     
@@ -53,11 +55,11 @@ class NearByPlacesView: UIView {
     private func layoutViews() {
         searchButton.snp.makeConstraints { searchButton in
             searchButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-            searchButton.top.equalToSuperview().offset(Metrics.doublePadding)
+            searchButton.centerY.equalTo(titleLabel.snp.centerY)
         }
         
         titleLabel.snp.makeConstraints { titleLabel in
-            titleLabel.top.equalToSuperview().offset(Metrics.doublePadding)
+            titleLabel.top.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             titleLabel.centerX.equalToSuperview()
             titleLabel.trailing.lessThanOrEqualTo(searchButton).offset(-Metrics.padding)
             titleLabel.leading.greaterThanOrEqualToSuperview().offset(Metrics.padding)
@@ -65,8 +67,8 @@ class NearByPlacesView: UIView {
         
         placesCollectionView.snp.makeConstraints { placesCollectionView in
             placesCollectionView.top.equalTo(titleLabel).offset(2 * Metrics.doublePadding)
-            placesCollectionView.leading.equalToSuperview().offset(Metrics.doublePadding)
-            placesCollectionView.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+            placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
+            placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
             placesCollectionView.bottom.equalToSuperview()
         }
     }
@@ -88,10 +90,10 @@ class NearByPlacesView: UIView {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.h9()
+        titleLabel.font = Fonts.h6()
         titleLabel.numberOfLines = 1
-        titleLabel.textColor = .black
-        titleLabel.text = "Discover"
+        titleLabel.textColor = UIColor(hexString: "4C69EF")
+        titleLabel.text = "Discover".localized
     }
     
     private func setupPlacesCollectionView() {

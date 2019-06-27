@@ -26,6 +26,7 @@ protocol DiscoveryVMType {
 
 protocol DiscoveryVMDelegate: class {
     func reloadData()
+    func allPlacesArrived()
 }
 
 protocol DiscoveryViewModelNavigationDelegate: class {
@@ -50,6 +51,7 @@ class DiscoveryVM: DiscoveryVMType {
         self.placesInteractor = placesInteractor
         self.placesInteractor.delegate = self
         self.placesInteractor.getAllPlaces()
+        self.delegate?.reloadData()
         locationProvider.requestUserLocation()
         bindLocationProvider()
     }
@@ -116,6 +118,6 @@ extension DiscoveryVM: PlacesInteractorDelegate {
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
         sortAllPlacesByDistance()
-        delegate?.reloadData()
+        delegate?.allPlacesArrived()
     }
 }

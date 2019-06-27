@@ -46,6 +46,31 @@ extension LoadingContainer where Self: UIViewController {
     }
 }
 
+extension LoadingContainer where Self: UIView {
+    
+    func addSpinner() {
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(spinner)
+        
+        spinner.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.height.width.equalTo(50)
+        }
+        spinner.isHidden = true
+    }
+    
+    func showSpinner() {
+        addSpinner()
+        spinner.isHidden = false
+        spinner.startAnimating()
+    }
+    
+    func hideSpinner() {
+        spinner.stopAnimating()
+        spinner.isHidden = true
+    }
+}
+
 extension UIActivityIndicatorView: Spinnable {
     class func withAppStyle() -> UIActivityIndicatorView {
         let view = UIActivityIndicatorView(style: .whiteLarge)
