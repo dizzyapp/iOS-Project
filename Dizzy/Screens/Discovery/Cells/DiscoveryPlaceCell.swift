@@ -35,6 +35,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         addSubviews()
         layoutViews()
         setupViews()
@@ -59,8 +60,6 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     private func layoutBackgroundImageView() {
         placeBackgroundImageView.snp.makeConstraints { placeBackgroundImageView in
-//            placeBackgroundImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
-//            placeBackgroundImageView.bottom.equalToSuperview().offset(-Metrics.padding)
             placeBackgroundImageView.centerY.equalToSuperview()
             placeBackgroundImageView.leading.equalToSuperview()
             placeBackgroundImageView.width.height.equalTo(placeBackgroundImageViewSize)
@@ -71,8 +70,6 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-//            placeImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
-//            placeImageView.bottom.equalToSuperview().offset(-Metrics.padding)
             placeImageView.centerX.equalTo(placeBackgroundImageView.snp.centerX)
             placeImageView.centerY.equalToSuperview()
             placeImageView.width.height.equalTo(placeImageViewSize)
@@ -96,7 +93,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .clear
         setupStackView()
         setupLabels()
         setupPlaceBackgroundImageView()
@@ -111,15 +108,15 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     }
     
     private func setupLabels() {
-        placeNameLabel.font = Fonts.h12(weight: .bold)
+        placeNameLabel.font = Fonts.h10(weight: .bold)
         placeNameLabel.numberOfLines = 1
         placeNameLabel.textAlignment = .left
         
-        placeAddressLabel.font = Fonts.regular(size: smallLabelsFontSize)
+        placeAddressLabel.font = Fonts.medium(size: smallLabelsFontSize)
         placeAddressLabel.numberOfLines = 1
         placeAddressLabel.textAlignment = .left
         
-        distanceLabel.font = Fonts.regular(size: smallLabelsFontSize)
+        distanceLabel.font = Fonts.medium(size: smallLabelsFontSize)
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
     }

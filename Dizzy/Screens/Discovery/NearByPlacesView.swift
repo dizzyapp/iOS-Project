@@ -99,7 +99,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     private func setupPlacesCollectionView() {
         placesCollectionView.allowsSelection = false
         placesCollectionView.dataSource = self
-        placesCollectionView.backgroundColor = .white
+        placesCollectionView.backgroundColor = .clear
         
         placesCollectionView.register(DiscoveryPlaceCell.self, forCellWithReuseIdentifier: cellIDentifier)
     }

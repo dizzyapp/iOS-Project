@@ -46,7 +46,7 @@ class DiscoveryVC: ViewController {
         themeImageView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.bottom.equalTo(view.snp.bottom)
+            themeImageView.height.equalTo(view.snp.height).multipliedBy(0.5)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
@@ -73,7 +73,7 @@ class DiscoveryVC: ViewController {
     }
     
     private func setupViews() {
-        
+        view.backgroundColor = .clear
         setupThemeImageView()
         setupNearByPlacesView()
         setupTopBarView()
