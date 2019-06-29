@@ -47,7 +47,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
  
     func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = self.discoveryVC,
-            let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
+            let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC as UIViewController),
             let location = container?.resolve(LocationProviderType.self) else {
                                                     print("could not create MapCoordinator")
                                                     return
@@ -70,19 +70,24 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     }
     
     func menuButtonPressed() {
-        let vcc = container?.resolve(LoginCoordinatorType.self, argument: discoveryVC! as UIViewController)!
-        vcc?.start()
-        vcc?.onCoordinatorFinished = { [weak self] in
+        guard let presentingVC = self.discoveryVC,
+            let coordinator = container?.resolve(LoginCoordinatorType.self, argument: presentingVC as UIViewController) else {
+            print("could not create LoginCoordinator")
+            return
+        }
+
+        coordinator.start()
+        coordinator.onCoordinatorFinished = { [weak self] in
             self?.removeCoordinator(for: .login)
         }
-        discoveryVC?.hideTopBar()
-        add(coordinator: vcc!, for: .login)
+        presentingVC.hideTopBar()
+        add(coordinator: coordinator, for: .login)
     }
     
     func placeCellDetailsPressed(_ place: PlaceInfo) {
         
         guard let presntingVC = self.discoveryVC,
-            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC),
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
             place.profileVideoURL != nil  else {
                 print("could not create placeProfileCoordinator")
                 return
