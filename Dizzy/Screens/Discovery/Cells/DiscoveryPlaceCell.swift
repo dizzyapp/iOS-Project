@@ -15,8 +15,7 @@ protocol DiscoveryPlaceCellDelegate: class {
 }
 
 class DiscoveryPlaceCell: UICollectionViewCell {
-    let placeBackgroundImageView = UIImageView()
-    let placeImageView = UIImageView()
+    let placeImageView = PlaceImageView()
     let placeNameLabel = UILabel()
     let placeAddressLabel = UILabel()
     let distanceLabel = UILabel()
@@ -24,8 +23,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     let stackViewTrailingPadding = CGFloat(15)
     let smallLabelsFontSize = CGFloat(8)
-    let placeImageViewSize = CGFloat(41)
-    let placeBackgroundImageViewSize = CGFloat(50)
+    let placeImageViewSize = CGFloat(50)
 
     weak var delegate: DiscoveryPlaceCellDelegate?
     
@@ -46,32 +44,21 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     }
     
     private func addSubviews() {
-        addSubviews([placeBackgroundImageView, placeImageView, placeDetailsStackView])
+        addSubviews([placeImageView, placeDetailsStackView])
         placeDetailsStackView.addSubviews([placeNameLabel, placeAddressLabel, distanceLabel])
     }
     
     private func layoutViews() {
         
-        self.layoutBackgroundImageView()
         self.layoutPlaceImageView()
         self.layoutPlaceDetailsStackView()
         self.layoutLabelsInStackView()
     }
     
-    private func layoutBackgroundImageView() {
-        placeBackgroundImageView.snp.makeConstraints { placeBackgroundImageView in
-            placeBackgroundImageView.centerY.equalToSuperview()
-            placeBackgroundImageView.leading.equalToSuperview()
-            placeBackgroundImageView.width.height.equalTo(placeBackgroundImageViewSize)
-        }
-        
-        placeBackgroundImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
-    }
-    
     private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.centerX.equalTo(placeBackgroundImageView.snp.centerX)
-            placeImageView.centerY.equalToSuperview()
+            placeImageView.leading.equalToSuperview()
+            placeImageView.centerY.equalTo(self.snp.centerY)
             placeImageView.width.height.equalTo(placeImageViewSize)
         }
         
@@ -96,7 +83,6 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .clear
         setupStackView()
         setupLabels()
-        setupPlaceBackgroundImageView()
         setupPlaceImageView()
     }
     
@@ -121,12 +107,6 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         distanceLabel.textAlignment = .left
     }
     
-    func setupPlaceBackgroundImageView() {
-        placeBackgroundImageView.layer.cornerRadius = placeBackgroundImageViewSize/2
-        placeBackgroundImageView.clipsToBounds = true
-        placeBackgroundImageView.image = Images.placeBackgroundIcon()
-    }
-    
     func setupPlaceImageView() {
         placeImageView.layer.cornerRadius = placeImageViewSize/2
         placeImageView.clipsToBounds = true
@@ -136,7 +116,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description
         let imageUrl = URL(string: placeInfo.imageURLString ?? "")
-        placeImageView.kf.setImage(with: imageUrl, placeholder: Images.defaultPlaceAvatar())
+        placeImageView.imageURL = imageUrl
         
         if let currentLocation = currentAppLocation {
             distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))

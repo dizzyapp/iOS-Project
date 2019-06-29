@@ -36,7 +36,7 @@ class LogoutInteractor: LogoutInteractorType {
             switch result {
             case .failure(let error):
                 self?.delegate?.userLoggedoutFailed(error: error)
-            case .success( _):
+            case .success:
                 self?.delegate?.userLoggedoutSuccessfully()
             }
         }

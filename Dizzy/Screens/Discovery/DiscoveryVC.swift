@@ -17,6 +17,8 @@ class DiscoveryVC: ViewController {
     var viewModel: DiscoveryVMType
     
     let nearByPlacesViewCornerRadius = CGFloat(5)
+    let nearByPlacesViewPadding = CGFloat(5)
+    let nearByPlacesViewHeightRatio = CGFloat(0.55)
     
     init(viewModel: DiscoveryVMType) {
         self.viewModel = viewModel
@@ -51,10 +53,10 @@ class DiscoveryVC: ViewController {
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
             
-            nearByPlacesView.height.equalTo(view.snp.height).multipliedBy(0.55)
-            nearByPlacesView.leading.equalToSuperview().offset(5)
-            nearByPlacesView.trailing.equalToSuperview().offset(-5)
-            nearByPlacesView.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-5)
+            nearByPlacesView.height.equalTo(view.snp.height).multipliedBy(nearByPlacesViewHeightRatio)
+            nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
+            nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
+            nearByPlacesView.bottom.equalTo(view.snp.bottom).offset(-nearByPlacesViewPadding)
         }
     }
     
@@ -91,6 +93,8 @@ class DiscoveryVC: ViewController {
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
+        
+        nearByPlacesView.showSpinner()
         nearByPlacesView.reloadData()
     }
     
@@ -133,7 +137,7 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
-        nearByPlacesView.showSpinner()
+        
     }
     
     func allPlacesArrived() {

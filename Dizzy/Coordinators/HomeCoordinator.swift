@@ -16,10 +16,19 @@ protocol HomeCoordinatorType: Coordinator {
 final class HomeCoordinator: HomeCoordinatorType {
     
     private var discoveryVC: DiscoveryVC?
-    
+    private var tabsIconPadding: CGFloat { return Metrics.padding }
+    private let tabBarController = UITabBarController()
+
     var window: UIWindow
     var container: Container?
     var childCoordinators = [CoordinatorKey : Coordinator]()
+    
+    private var presentedViewControllers: [UIViewController] {
+        guard let discoveryVC = discoveryVC else {
+            return []
+        }
+        return [discoveryVC]
+    }
     
     init(container: Container, window: UIWindow) {
         self.container = container
@@ -28,7 +37,9 @@ final class HomeCoordinator: HomeCoordinatorType {
     
     func start() {
         createDiscoveryVC()
-        window.rootViewController = discoveryVC
+        tabBarController.viewControllers = presentedViewControllers
+        customizeTabButtonsAppearance(tabBarItems)
+        window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }
 
@@ -103,5 +114,31 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         
         placeProfileCoordinator.start()
         add(coordinator: placeProfileCoordinator, for: .placeProfile)
+    }
+}
+
+extension HomeCoordinator {
+    var discoveryTabBarItem: TabItem? {
+        guard let discoveryVC = discoveryVC else { return nil }
+        return TabItem(rootController: discoveryVC, icon: Images.discoveryUnselectedTabIcon(), iconSelected: Images.discoverySelectedTabIcon())
+    }
+    
+    var tabBarItems: [TabItem] {
+        guard let discoveryTabBarItem = discoveryTabBarItem else { return [] }
+        
+        return [discoveryTabBarItem]
+    }
+    
+    func customizeTabButtonsAppearance(_ tabItems: [TabItem]) {
+        guard let tabBarItems = tabBarController.tabBar.items else {
+            return
+        }
+        tabBarController.tabBar.isHidden = true
+        for (index, tabBarItem) in tabBarItems.enumerated() {
+            tabBarItem.image = tabItems[index].icon
+            tabBarItem.selectedImage = tabItems[index].iconSelected
+            tabBarItem.title = tabItems[index].title
+            tabBarItem.imageInsets = UIEdgeInsets(top:  tabsIconPadding, left:  0, bottom: -tabsIconPadding, right: 0)
+        }
     }
 }

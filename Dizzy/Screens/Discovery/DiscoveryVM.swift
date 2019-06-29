@@ -51,7 +51,7 @@ class DiscoveryVM: DiscoveryVMType {
         self.placesInteractor = placesInteractor
         self.placesInteractor.delegate = self
         self.placesInteractor.getAllPlaces()
-        self.delegate?.reloadData()
+
         locationProvider.requestUserLocation()
         bindLocationProvider()
     }

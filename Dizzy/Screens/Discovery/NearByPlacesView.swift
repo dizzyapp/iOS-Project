@@ -69,7 +69,7 @@ class NearByPlacesView: UIView, LoadingContainer {
             placesCollectionView.top.equalTo(titleLabel).offset(2 * Metrics.doublePadding)
             placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
-            placesCollectionView.bottom.equalToSuperview()
+            placesCollectionView.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -100,7 +100,8 @@ class NearByPlacesView: UIView, LoadingContainer {
         placesCollectionView.allowsSelection = false
         placesCollectionView.dataSource = self
         placesCollectionView.backgroundColor = .clear
-        
+        placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+
         placesCollectionView.register(DiscoveryPlaceCell.self, forCellWithReuseIdentifier: cellIDentifier)
     }
     
