@@ -85,4 +85,12 @@ struct Images {
     static func placeBackgroundIcon() -> UIImage {
         return UIImage(named: "placeBackgroundIcon")!
     }
+
+    static func addressBackgroundIcon() -> UIImage {
+        return UIImage(named: "addressBackgroundIcon")!
+    }
+    
+    static func requestTableIcon() -> UIImage {
+        return UIImage(named: "requestTableIcon")!
+    }
 }

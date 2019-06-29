@@ -83,7 +83,6 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .clear
         setupStackView()
         setupLabels()
-        setupPlaceImageView()
     }
     
     private func setupStackView() {
@@ -105,11 +104,6 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         distanceLabel.font = Fonts.medium(size: smallLabelsFontSize)
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
-    }
-    
-    func setupPlaceImageView() {
-        placeImageView.layer.cornerRadius = placeImageViewSize/2
-        placeImageView.clipsToBounds = true
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {

@@ -51,6 +51,7 @@ class PlaceImageView: UIView {
     }
     
     private func setupViews() {
+        setupView()
         setupBackgroundImageView()
         setupImageView()
     }
@@ -76,6 +77,10 @@ class PlaceImageView: UIView {
         imageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
     }
     
+    private func setupView() {
+        self.layer.cornerRadius = self.frame.width/2
+        self.clipsToBounds = true
+    }
     private func setupImageView() {
         self.imageView.layer.cornerRadius = imageSize.width/2
         self.imageView.layer.masksToBounds = true
