@@ -16,6 +16,7 @@ protocol PlaceProfileViewDelegate: class {
 
 final class PlaceProfileView: UIView {
     
+    var backgroundView = UIView()
     var placeImageView = PlaceImageView()
     var titleLabel = UILabel()
     var descriptionLabel = UILabel()
@@ -26,6 +27,8 @@ final class PlaceProfileView: UIView {
     var requestTableButton = UIButton(type: .system)
     
     var stackView = UIStackView()
+    let placeImageViewSize = CGFloat(61)
+    let backgroundViewCornerRadius = CGFloat(25)
     
     init() {
         super.init(frame: .zero)
@@ -40,6 +43,7 @@ final class PlaceProfileView: UIView {
     }
     
     private func addSubviews() {
+        
         stackView.addArrangedSubview(placeImageView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
@@ -49,21 +53,40 @@ final class PlaceProfileView: UIView {
         stackView.addArrangedSubview(callButton)
         stackView.addArrangedSubview(requestTableButton)
 
+        self.addSubview(backgroundView)
         self.addSubview(stackView)
     }
     
     private func layoutViews() {
+        layoutBackgroundView()
         layoutStackView()
+    }
+    
+    private func layoutBackgroundView() {
+        backgroundView.snp.makeConstraints { backgroundView in
+            backgroundView.top.equalToSuperview().offset(25)
+            backgroundView.leading.equalToSuperview()
+            backgroundView.trailing.equalToSuperview()
+            backgroundView.bottom.equalToSuperview()
+        }
+    }
+    
+    private func layoutPlaceImageView() {
+        stackView.snp.makeConstraints { stackView in
+            stackView.width.height.equalTo(placeImageViewSize)
+        }
     }
     
     private func layoutStackView() {
         stackView.snp.makeConstraints { stackView in
-            stackView.top.leading.trailing.bottom.equalToSuperview()
+            stackView.top.leading.trailing.equalToSuperview()
+            stackView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
         }
     }
     
     private func setupViews() {
-        setupView()
+        setupBackgroundView()
+        setupPlaceImageView()
         setupStackView()
         setupTitleLabel()
         setupDescriptionLabel()
@@ -74,16 +97,22 @@ final class PlaceProfileView: UIView {
         setupRequestTableButton()
     }
     
-    private func setupView() {
-        backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        layer.cornerRadius = 25.0
+    private func setupBackgroundView() {
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        backgroundView.layer.cornerRadius = backgroundViewCornerRadius
+        backgroundView.backgroundColor = .green
+    }
+    
+    private func setupPlaceImageView() {
+        placeImageView.imageSize = placeImageViewSize
     }
     
     private func setupStackView() {
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fill
         stackView.spacing = 10.0
+        stackView.backgroundColor = .red
     }
     
     private func setupTitleLabel() {
@@ -95,7 +124,7 @@ final class PlaceProfileView: UIView {
     private func setupDescriptionLabel() {
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = .lightGray
-        descriptionLabel.font = Fonts.h5()
+        descriptionLabel.font = Fonts.h10()
     }
     
     private func setupAddressButton() {
@@ -126,6 +155,7 @@ final class PlaceProfileView: UIView {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
         requestTableButton.setTitle("Request a table".localized, for: .normal)
         requestTableButton.setTitleColor(UIColor(hexString: "C2A7FF"), for: .normal)
+        requestTableButton.titleLabel?.font = Fonts.h8()
     }
     
     weak var delegate: PlaceProfileViewDelegate?

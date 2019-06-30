@@ -18,6 +18,10 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     private let viewModel: PlaceProfileVMType
     
+    let placeProfileViewCornerRadius = CGFloat(8)
+    let placeProfileViewPadding = CGFloat(8)
+    let placeProfileTopOffset = CGFloat(25)
+    
     init(viewModel: PlaceProfileVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -74,9 +78,11 @@ final class PlaceProfileVC: AVPlayerViewController {
     }
     
     private func layoutSubview() {
-        placeProfileView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(Metrics.doublePadding)
-            make.leading.trailing.equalToSuperview().inset(Metrics.padding)
+        placeProfileView.snp.makeConstraints { placeProfileView in
+            placeProfileView.top.equalTo(contentOverlayView!.snp.centerY).offset(-placeProfileTopOffset)
+            placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
+            placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
+            placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding)
         }
     }
     
