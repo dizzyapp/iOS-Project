@@ -177,8 +177,8 @@ final class PlaceProfileView: UIView {
             self?.addressButton.setTitle(title, for: .normal)
         }
     
-        if let imageURLString = place.imageURLString {
-            self.placeImageView.imageURL = URL(string: imageURLString)
+        if let imageURLString = place.imageURLString, let imageURL = URL(string: imageURLString) {
+            self.placeImageView.setImage(from: imageURL)
         }
         
         titleLabel.text = place.name

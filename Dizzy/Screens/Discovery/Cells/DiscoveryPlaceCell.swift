@@ -109,8 +109,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description
-        let imageUrl = URL(string: placeInfo.imageURLString ?? "")
-        placeImageView.imageURL = imageUrl
+        if let imageURL = URL(string: placeInfo.imageURLString ?? "") {
+            placeImageView.setImage(from: imageURL)
+        }
         
         if let currentLocation = currentAppLocation {
             distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
