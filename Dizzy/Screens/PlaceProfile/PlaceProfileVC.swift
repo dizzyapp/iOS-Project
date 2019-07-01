@@ -20,7 +20,7 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     let placeProfileViewCornerRadius = CGFloat(8)
     let placeProfileViewPadding = CGFloat(8)
-    let placeProfileTopOffset = CGFloat(25)
+    let placeProfileTopOffset = CGFloat(5)
     
     init(viewModel: PlaceProfileVMType) {
         self.viewModel = viewModel
@@ -68,9 +68,10 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     private func setupNavigation() {
         let closeButton = UIButton().smallRoundedBlackButton
+        closeButton.setImage(Images.downArrowIcon(), for: .normal)
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         let closeBarButton = UIBarButtonItem(customView: closeButton)
-        navigationItem.leftBarButtonItem = closeBarButton
+        navigationItem.rightBarButtonItem = closeBarButton
     }
     
     private func addSubviews() {
@@ -79,7 +80,7 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     private func layoutSubview() {
         placeProfileView.snp.makeConstraints { placeProfileView in
-            placeProfileView.top.equalTo(contentOverlayView!.snp.centerY).offset(-placeProfileTopOffset)
+            placeProfileView.top.equalTo(contentOverlayView!.snp.centerY).offset(Metrics.tinyPadding)
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
             placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
             placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding)
@@ -100,7 +101,7 @@ final class PlaceProfileVC: AVPlayerViewController {
 
 extension PlaceProfileVC: PlaceProfileViewDelegate {
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView) {
-        viewModel.addressButtonPressed()
+        viewModel.addressButtonPressed(view: view)
     }
     
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView) {

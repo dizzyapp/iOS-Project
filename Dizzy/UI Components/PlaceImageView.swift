@@ -13,9 +13,9 @@ class PlaceImageView: UIView {
     var imageView = UIImageView()
     var backgroundImageView = UIImageView()
     
-    var imageSize: CGFloat = 50 {
+    var imageSize: CGFloat = 45 {
         didSet {
-            layoutBackgroundImageView()
+            layoutViews()
         }
     }
     var imageURL: URL? {
@@ -24,7 +24,7 @@ class PlaceImageView: UIView {
         }
     }
     
-    let backgroundImageInset: CGFloat = 9
+    let backgroundImageInset: CGFloat = 4
 
     init() {
         super.init(frame: .zero)
@@ -54,24 +54,16 @@ class PlaceImageView: UIView {
     }
     
     private func layoutBackgroundImageView() {
-        
         backgroundImageView.snp.makeConstraints { backgroundImageView in
-            backgroundImageView.centerY.equalToSuperview()
-            backgroundImageView.leading.equalToSuperview()
-            backgroundImageView.width.height.equalTo(imageSize - backgroundImageInset)
+            backgroundImageView.top.leading.trailing.bottom.equalToSuperview()
         }
-        
-        backgroundImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
     }
     
     private func layoutImageView() {
         imageView.snp.makeConstraints { imageView in
-            imageView.centerX.equalTo(backgroundImageView.snp.centerX)
-            imageView.centerY.equalToSuperview()
-            imageView.width.height.equalTo(imageSize - backgroundImageInset)
+            imageView.top.leading.equalToSuperview().offset(backgroundImageInset)
+            imageView.trailing.bottom.equalToSuperview().offset(-backgroundImageInset)
         }
-        
-        imageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
     }
     
     private func setupView() {
@@ -79,14 +71,15 @@ class PlaceImageView: UIView {
         self.clipsToBounds = true
     }
     private func setupImageView() {
-        self.imageView.layer.cornerRadius = (imageSize - backgroundImageInset)/2
+        let imageViewWidth: CGFloat = (imageSize - (2 * backgroundImageInset))/2
+        self.imageView.layer.cornerRadius = imageViewWidth
         self.imageView.layer.masksToBounds = true
         self.imageView.kf.setImage(with: imageURL, placeholder: Images.defaultPlaceAvatar())
     }
     
     private func setupBackgroundImageView() {
-        self.backgroundImageView.layer.cornerRadius = (imageSize - backgroundImageInset)/2
-        self.imageView.layer.masksToBounds = true
+        self.backgroundImageView.layer.cornerRadius = imageSize/2
+        self.backgroundImageView.layer.masksToBounds = true
         self.backgroundImageView.image = Images.placeBackgroundIcon()
     }
 }

@@ -23,7 +23,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     let stackViewTrailingPadding = CGFloat(15)
     let smallLabelsFontSize = CGFloat(8)
-    let placeImageViewSize = CGFloat(50)
+    let placeImageViewSize = CGFloat(45)
 
     weak var delegate: DiscoveryPlaceCellDelegate?
     

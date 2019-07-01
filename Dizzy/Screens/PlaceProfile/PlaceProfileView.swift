@@ -12,6 +12,7 @@ import Kingfisher
 protocol PlaceProfileViewDelegate: class {
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView)
 }
 
 final class PlaceProfileView: UIView {
@@ -26,9 +27,11 @@ final class PlaceProfileView: UIView {
     var callButton = UIButton()
     var requestTableButton = UIButton(type: .system)
     
+    var placeInfo: PlaceInfo?
     var stackView = UIStackView()
-    let placeImageViewSize = CGFloat(61)
+    let placeImageViewSize = CGFloat(65)
     let backgroundViewCornerRadius = CGFloat(25)
+    let backgroundImageOffset = CGFloat(40)
     
     init() {
         super.init(frame: .zero)
@@ -43,28 +46,27 @@ final class PlaceProfileView: UIView {
     }
     
     private func addSubviews() {
-        
         stackView.addArrangedSubview(placeImageView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
         stackView.addArrangedSubview(addressButton)
-        stackView.addArrangedSubview(openHoursLabel)
         stackView.addArrangedSubview(ageLabel)
-        stackView.addArrangedSubview(callButton)
+        stackView.addArrangedSubview(openHoursLabel)
         stackView.addArrangedSubview(requestTableButton)
 
-        self.addSubview(backgroundView)
-        self.addSubview(stackView)
+        self.addSubviews([backgroundView, callButton, stackView])
     }
     
     private func layoutViews() {
         layoutBackgroundView()
+        layoutPlaceImageView()
+        layoutCallButton()
         layoutStackView()
     }
     
     private func layoutBackgroundView() {
         backgroundView.snp.makeConstraints { backgroundView in
-            backgroundView.top.equalToSuperview().offset(25)
+            backgroundView.top.equalToSuperview().offset(backgroundImageOffset)
             backgroundView.leading.equalToSuperview()
             backgroundView.trailing.equalToSuperview()
             backgroundView.bottom.equalToSuperview()
@@ -72,14 +74,22 @@ final class PlaceProfileView: UIView {
     }
     
     private func layoutPlaceImageView() {
-        stackView.snp.makeConstraints { stackView in
-            stackView.width.height.equalTo(placeImageViewSize)
+        placeImageView.snp.makeConstraints { placeImageView in
+            placeImageView.width.height.equalTo(placeImageViewSize)
+        }
+    }
+    
+    private func layoutCallButton() {
+        callButton.snp.makeConstraints { callButton in
+            callButton.top.equalTo(backgroundView.snp.top).offset(Metrics.padding)
+            callButton.leading.equalTo(backgroundView.snp.leading).offset(Metrics.padding)
         }
     }
     
     private func layoutStackView() {
         stackView.snp.makeConstraints { stackView in
-            stackView.top.leading.trailing.equalToSuperview()
+            stackView.top.equalToSuperview().offset(Metrics.padding)
+            stackView.leading.trailing.equalToSuperview()
             stackView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
         }
     }
@@ -87,20 +97,19 @@ final class PlaceProfileView: UIView {
     private func setupViews() {
         setupBackgroundView()
         setupPlaceImageView()
+        setupCallButton()
         setupStackView()
         setupTitleLabel()
         setupDescriptionLabel()
         setupAddressButton()
         setupOpenHoursLabel()
         setupAgeLabel()
-        setupCallButton()
         setupRequestTableButton()
     }
     
     private func setupBackgroundView() {
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         backgroundView.layer.cornerRadius = backgroundViewCornerRadius
-        backgroundView.backgroundColor = .green
     }
     
     private func setupPlaceImageView() {
@@ -110,34 +119,33 @@ final class PlaceProfileView: UIView {
     private func setupStackView() {
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.distribution = .fill
-        stackView.spacing = 10.0
-        stackView.backgroundColor = .red
+        stackView.distribution = .equalSpacing
     }
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
-        titleLabel.font = Fonts.i3(weight: .bold)
+        titleLabel.font = Fonts.h1(weight: .bold)
     }
     
     private func setupDescriptionLabel() {
         descriptionLabel.textAlignment = .center
-        descriptionLabel.textColor = .lightGray
+        descriptionLabel.textColor = .white
         descriptionLabel.font = Fonts.h10()
     }
     
     private func setupAddressButton() {
         addressButton.setBackgroundImage(Images.addressBackgroundIcon(), for: .normal)
         addressButton.setTitleColor(UIColor(hexString: "A7B0FF"), for: .normal)
-        addressButton.titleLabel?.font = Fonts.h5()
+        addressButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: Metrics.doublePadding, bottom: 0.0, right: Metrics.doublePadding)
+        addressButton.titleLabel?.font = Fonts.h10()
         addressButton.addTarget(self, action: #selector(addressButtonPressed), for: .touchUpInside)
     }
     
     private func setupOpenHoursLabel() {
         openHoursLabel.textAlignment = .center
         openHoursLabel.textColor = .white
-        openHoursLabel.font = Fonts.h5()
+        openHoursLabel.font = Fonts.h10()
     }
     
     private func setupAgeLabel() {
@@ -147,7 +155,7 @@ final class PlaceProfileView: UIView {
     }
     
     private func setupCallButton() {
-        callButton.setImage(Images.facebookIcon(), for: .normal)
+        callButton.setImage(Images.callIcon(), for: .normal)
         callButton.addTarget(self, action: #selector(callButtonPressed), for: .touchUpInside)
     }
     
@@ -155,13 +163,15 @@ final class PlaceProfileView: UIView {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
         requestTableButton.setTitle("Request a table".localized, for: .normal)
         requestTableButton.setTitleColor(UIColor(hexString: "C2A7FF"), for: .normal)
-        requestTableButton.titleLabel?.font = Fonts.h8()
+        requestTableButton.titleLabel?.font = Fonts.h10()
+        requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
     
     weak var delegate: PlaceProfileViewDelegate?
     
     func configure(with place: PlaceInfo) {
         
+        self.placeInfo = place
         place.location.getCurrentAddress { [weak self] address in
             let title: String = "\(address?.street ?? ""), \(address?.city ?? ""), \(address?.country ?? "")"
             self?.addressButton.setTitle(title, for: .normal)
@@ -191,5 +201,9 @@ extension PlaceProfileView {
     
     @objc func callButtonPressed() {
         delegate?.placeProfileViewCallButtonPressed(self)
+    }
+    
+    @objc func requestTableButtonPressed() {
+        delegate?.placeProfileViewRequestTableButtonPressed(self)
     }
 }
