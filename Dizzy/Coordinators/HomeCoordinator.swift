@@ -53,7 +53,7 @@ final class HomeCoordinator: HomeCoordinatorType {
     private func createConversationsVC() {
         guard let viewModel = container?.resolve(ConversationsViewModelType.self),
             let conversationsVC = container?.resolve(ConversationsVC.self, argument: viewModel) else {
-                print("could not create discovery page")
+                print("could not create conversations page")
                 return
         }
         self.conversationsVC = conversationsVC
@@ -96,7 +96,15 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         add(coordinator: coordinator, for: .map)
     }
     
-    func menuButtonPressed() { }
+    func menuButtonPressed() {
+        let vcc = container?.resolve(LoginCoordinatorType.self, argument: discoveryVC! as UIViewController)!
+        vcc?.start()
+        vcc?.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .login)
+        }
+        discoveryVC?.hideTopBar()
+        add(coordinator: vcc!, for: .login)
+    }
     
     func placeCellDetailsPressed(_ place: PlaceInfo) {
         guard let presntingVC = presentedViewControllers.first,

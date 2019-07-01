@@ -10,7 +10,7 @@ import Foundation
 
 enum Result<Value> {
     case success(Value)
-    case failure(Error?)
+    case failure(Error)
 }
 
 enum WebServiceError: Error {

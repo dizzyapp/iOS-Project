@@ -56,9 +56,13 @@ final class FirebaseWebService: WebServiceType {
     private func sendPostRequest<Response, Body>(resource: Resource<Response, Body>,
                                                  completion: @escaping (Result<Response>) -> Void) {
         if let json = resource.makeJson() {
-            databaseReference.child(resource.path).setValue(json) { (error, _) in
-                if error != nil {
+
+            databaseReference.child("\(resource.path)").setValue(json) { (error, _) in
+                if let error = error {
                     completion(Result<Response>.failure(error))
+                } else {
+                    let response = Result.success("")
+                    completion(response as! Result<Response>)
                 }
             }
         }
@@ -74,7 +78,7 @@ final class FirebaseWebService: WebServiceType {
     }
     
     func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool where Response : Decodable, Response : Encodable, Body : Encodable {
-        return true
+        return resource.path != "signupWithDizzy" && resource.path != "signInWithDizzy" && resource.path != "getGMSPlace"
     }
     
     private func getJsonToParse(from snapshot: DataSnapshot) -> [[String: Any]]? {

@@ -72,6 +72,7 @@ class DiscoveryVC: ViewController {
     }
     
     private func setupViews() {
+        
         setupThemeImageView()
         setupNearByPlacesView()
         setupTopBarView()
@@ -90,6 +91,14 @@ class DiscoveryVC: ViewController {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
         nearByPlacesView.reloadData()
+    }
+    
+    public func showTopBar() {
+        self.topBar.isHidden = false
+    }
+    
+    public func hideTopBar() {
+        self.topBar.isHidden = true
     }
 }
 
@@ -117,6 +126,7 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
     }
     
     func menuButtonPressed() {
+        self.viewModel.menuButtonPressed()
     }
 }
 

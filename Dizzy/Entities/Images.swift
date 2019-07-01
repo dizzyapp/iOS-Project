@@ -49,4 +49,36 @@ struct Images {
     static func menuIcon() -> UIImage {
         return UIImage(named: "menuIcon")!
     }
+    
+    static func downArrowIcon() -> UIImage {
+        return UIImage(named: "downArrowIcon")!
+    }
+    
+    static func loginIcon() -> UIImage {
+        return UIImage(named: "loginIcon")!
+    }
+    
+    static func dizzyIcon() -> UIImage {
+        return UIImage(named: "dizzyIcon")!
+    }
+    
+    static func dizzyLogo() -> UIImage {
+        return UIImage(named: "dizzyLogo")!
+    }
+    
+    static func facebookIcon() -> UIImage {
+        return UIImage(named: "facebookIcon")!
+    }
+    
+    static func signUpIcon() -> UIImage {
+        return UIImage(named: "signupIcon")!
+    }
+    
+    static func profilePlaceholderIcon() -> UIImage {
+        return UIImage(named: "profilePlaceholderIcon")!
+    }
+    
+    static func backArrowIcon() -> UIImage {
+        return UIImage(named: "backArrowIcon")!
+    }
 }

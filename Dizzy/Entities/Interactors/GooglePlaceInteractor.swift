@@ -14,7 +14,7 @@ protocol GooglePlaceInteractorType {
 }
 
 protocol GooglePlaceInteractorDelegate: class {
-    func googlePlaceInteractorPlaceDataArrived(_ interactor: GooglePlaceInteractor, data: GooglePlaceData)
+    func googlePlaceInteractorPlaceDataArrived(_ interactor: GooglePlaceInteractor, data: GooglePlaceData?)
 }
 
 final class GooglePlaceInteractor: GooglePlaceInteractorType {
@@ -36,8 +36,7 @@ final class GooglePlaceInteractor: GooglePlaceInteractorType {
             case .success(let data):
                 self.delegate?.googlePlaceInteractorPlaceDataArrived(self, data: data)
                 
-            case .failure(let error):
-                print(error.debugDescription)
+            case .failure(let error): break
             }
         }
     }

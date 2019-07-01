@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum HttpMethod<Body: Encodable> {
     
@@ -27,6 +28,7 @@ struct Resource<Response: Codable, Body: Encodable> {
     var baseUrl: String = ""
     var path: String
     var method: HttpMethod<Body>?
+    var presentedVC: UIViewController?
     
     init(path: String) {
         self.path = path
@@ -47,6 +49,12 @@ struct Resource<Response: Codable, Body: Encodable> {
     func withDelete() -> Resource<Response, Body> {
         var resource = self
         resource.method = HttpMethod<Body>.delete
+        return resource
+    }
+    
+    func withPresentedVC(_ presentedVC: UIViewController) -> Resource<Response, Body> {
+        var resource = self
+        resource.presentedVC = presentedVC
         return resource
     }
     
@@ -83,5 +91,10 @@ struct Resource<Response: Codable, Body: Encodable> {
             debugPrint("[Resource] encoding to json failed")
         }
         return nil
+    }
+    
+    func getData() -> Body? {
+        guard let method = method, case let .post(body) = method else { return nil }
+        return body
     }
 }
