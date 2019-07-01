@@ -37,7 +37,7 @@ final class CommentsInteractor: CommentsInteractorType {
                 self.delegate?.commentsInteractor(self, comments: comments)
                 
             case .failure(let error):
-                print(error.debugDescription)
+                print(error.localizedDescription)
             }
         }
     }

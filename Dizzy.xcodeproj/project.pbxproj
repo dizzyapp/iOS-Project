@@ -38,7 +38,6 @@
 		04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CCF7225732220020DF8F /* WebServiceDispatcher.swift */; };
 		04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D0CD6F225A96E00020DF8F /* ViewController.swift */; };
 		04E3D4AE22A5AD7F006A48A8 /* CommentsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E3D4AD22A5AD7F006A48A8 /* CommentsInteractor.swift */; };
-		04E3D4B122A5B190006A48A8 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808522B0274900A9E3F4 /* PlaceProfileVC.swift */; };
 		04E7808A22B0274900A9E3F4 /* PlaceProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808622B0274900A9E3F4 /* PlaceProfileVM.swift */; };
 		04E7808B22B0274900A9E3F4 /* PlaceProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808722B0274900A9E3F4 /* PlaceProfileCoordinator.swift */; };
@@ -61,6 +60,7 @@
 		4DA64E9422C2BD91001D5A1A /* AlertPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */; };
 		4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */; };
 		4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */; };
+		4DA64EA522CAA00F001D5A1A /* GooglePlaceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64EA422CAA00F001D5A1A /* GooglePlaceService.swift */; };
 		4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117422B4429300CA0220 /* UserProfileView.swift */; };
 		4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */; };
 		4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */; };
@@ -95,7 +95,6 @@
 		76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */; };
 		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
 		772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D6226A040100BD1488 /* MapCoordinator.swift */; };
-		772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D8226A045A00BD1488 /* PlaceInfo.swift */; };
 		77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */; };
 		77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */; };
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
@@ -160,6 +159,7 @@
 		4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentation.swift; sourceTree = "<group>"; };
 		4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutInteractor.swift; sourceTree = "<group>"; };
 		4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutWebService.swift; sourceTree = "<group>"; };
+		4DA64EA422CAA00F001D5A1A /* GooglePlaceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlaceService.swift; sourceTree = "<group>"; };
 		4DDA117422B4429300CA0220 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithDizzyVC.swift; sourceTree = "<group>"; };
 		4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDetailsView.swift; sourceTree = "<group>"; };
@@ -195,7 +195,6 @@
 		76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPlaceCell.swift; sourceTree = "<group>"; };
 		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
 		772354D6226A040100BD1488 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
-		772354D8226A045A00BD1488 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
 		77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVC.swift; sourceTree = "<group>"; };
 		77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVM.swift; sourceTree = "<group>"; };
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		041D95C12253D702009ED7AB /* Web Service */ = {
 			isa = PBXGroup;
 			children = (
+				4DA64EA422CAA00F001D5A1A /* GooglePlaceService.swift */,
 				041D95C22253D733009ED7AB /* WebService.swift */,
 				041D95C42253D84F009ED7AB /* WebResource.swift */,
 				04D0CCF5225731880020DF8F /* FirebaseWebService.swift */,
@@ -723,7 +723,7 @@
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
-				0487FFAB228EB4AF00A8683C /* LoadinContainer.swift in Sources */,
+				0487FFAB228EB4AF00A8683C /* LoadingContainer.swift in Sources */,
 				04E780A422B045A300A9E3F4 /* PlaceInfo.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadingContainer.swift in Sources */,
 				77AD08B022B1870B004F8588 /* DizzyUser.swift in Sources */,
@@ -735,10 +735,10 @@
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				4DDA118122B596CE00CA0220 /* SignInWebservice.swift in Sources */,
-				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,
 				4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
 				0487FF9B228EB40200A8683C /* PlayerVC.swift in Sources */,
+				4DA64EA522CAA00F001D5A1A /* GooglePlaceService.swift in Sources */,
 				0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */,
 				4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */,
 				76B41EE022534A6E00C1A290 /* UIViewExtension.swift in Sources */,

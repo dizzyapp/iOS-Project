@@ -72,7 +72,7 @@ final class FirebaseWebService: WebServiceType {
                                                                   completion: @escaping (Result<Response>) -> Void) {
         databaseReference.child(resource.path).removeValue { (error, _) in 
             if error != nil {
-                completion(Result<Response>.failure(error))
+                completion(Result<Response>.failure(error!))
             }
         }
     }
