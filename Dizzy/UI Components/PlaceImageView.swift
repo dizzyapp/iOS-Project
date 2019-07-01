@@ -10,25 +10,18 @@ import UIKit
 
 class PlaceImageView: UIView {
     
-    var imageView = UIImageView()
-    var backgroundImageView = UIImageView()
+    private var placeImageView = UIImageView()
+    private var backgroundImageView = UIImageView()
+    private var imageURL: URL?
     
-    var backgroundImageSize = CGSize(width: 50, height: 50) {
+    var imageSize: CGFloat = 45 {
         didSet {
-            layoutBackgroundImageView()
-        }
-    }
-    var imageSize = CGSize(width: 41, height: 41) {
-        didSet {
-            layoutImageView()
-        }
-    }
-    var imageURL: URL? {
-        didSet {
-            setupImageView()
+            layoutViews()
         }
     }
 
+    let backgroundImageInset: CGFloat = 4
+    
     init() {
         super.init(frame: .zero)
         
@@ -41,8 +34,13 @@ class PlaceImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setImage(from url: URL) {
+        self.imageURL = url
+        self.setupPlaceImageView()
+    }
+    
     private func addSubviews() {
-        self.addSubviews([backgroundImageView, imageView])
+        self.addSubviews([backgroundImageView, placeImageView])
     }
     
     private func layoutViews() {
@@ -51,40 +49,39 @@ class PlaceImageView: UIView {
     }
     
     private func setupViews() {
+        setupView()
         setupBackgroundImageView()
-        setupImageView()
+        setupPlaceImageView()
     }
     
     private func layoutBackgroundImageView() {
-        
         backgroundImageView.snp.makeConstraints { backgroundImageView in
-            backgroundImageView.centerY.equalToSuperview()
-            backgroundImageView.leading.equalToSuperview()
-            backgroundImageView.width.height.equalTo(backgroundImageSize)
+            backgroundImageView.top.leading.trailing.bottom.equalToSuperview()
         }
-        
-        backgroundImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
     }
     
     private func layoutImageView() {
-        imageView.snp.makeConstraints { imageView in
-            imageView.centerX.equalTo(backgroundImageView.snp.centerX)
-            imageView.centerY.equalToSuperview()
-            imageView.width.height.equalTo(imageSize)
+        placeImageView.snp.makeConstraints { placeImageView in
+            placeImageView.top.leading.equalToSuperview().offset(backgroundImageInset)
+            placeImageView.trailing.bottom.equalToSuperview().offset(-backgroundImageInset)
         }
-        
-        imageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
     }
     
-    private func setupImageView() {
-        self.imageView.layer.cornerRadius = imageSize.width/2
-        self.imageView.layer.masksToBounds = true
-        self.imageView.kf.setImage(with: imageURL, placeholder: Images.defaultPlaceAvatar())
+    private func setupView() {
+        self.layer.cornerRadius = self.frame.width/2
+        self.clipsToBounds = true
+    }
+    
+    private func setupPlaceImageView() {
+        let imageViewWidth: CGFloat = (imageSize - (2 * backgroundImageInset))/2
+        self.placeImageView.layer.cornerRadius = imageViewWidth
+        self.placeImageView.layer.masksToBounds = true
+        self.placeImageView.kf.setImage(with: imageURL, placeholder: Images.defaultPlaceAvatar())
     }
     
     private func setupBackgroundImageView() {
-        self.backgroundImageView.layer.cornerRadius = backgroundImageSize.width/2
-        self.imageView.layer.masksToBounds = true
+        self.backgroundImageView.layer.cornerRadius = imageSize/2
+        self.backgroundImageView.layer.masksToBounds = true
         self.backgroundImageView.image = Images.placeBackgroundIcon()
     }
 }
