@@ -19,7 +19,7 @@ class PlaceImageView: UIView {
             layoutViews()
         }
     }
-    
+
     let backgroundImageInset: CGFloat = 4
     
     init() {

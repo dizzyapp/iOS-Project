@@ -27,7 +27,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     weak var delegate: NearByPlacesViewDelegate?
     weak var dataSource: NearByPlacesViewDataSource?
     
-    private let searchButton = UIButton()
+    private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
     private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
     
@@ -69,7 +69,7 @@ class NearByPlacesView: UIView, LoadingContainer {
             placesCollectionView.top.equalTo(titleLabel).offset(2 * Metrics.doublePadding)
             placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
-            placesCollectionView.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            placesCollectionView.bottom.equalToSuperview()
         }
     }
     
@@ -100,7 +100,7 @@ class NearByPlacesView: UIView, LoadingContainer {
         placesCollectionView.allowsSelection = false
         placesCollectionView.dataSource = self
         placesCollectionView.backgroundColor = .clear
-        placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        placesCollectionView.contentInset = safeAreaInsets
 
         placesCollectionView.register(DiscoveryPlaceCell.self, forCellWithReuseIdentifier: cellIDentifier)
     }

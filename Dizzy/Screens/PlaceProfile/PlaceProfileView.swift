@@ -24,7 +24,7 @@ final class PlaceProfileView: UIView {
     var addressButton = UIButton(type: .system)
     var openHoursLabel = UILabel()
     var ageLabel = UILabel()
-    var callButton = UIButton()
+    var callButton = UIButton(type: .system)
     var requestTableButton = UIButton(type: .system)
     
     var placeInfo: PlaceInfo?
@@ -54,7 +54,7 @@ final class PlaceProfileView: UIView {
         stackView.addArrangedSubview(openHoursLabel)
         stackView.addArrangedSubview(requestTableButton)
 
-        self.addSubviews([backgroundView, callButton, stackView])
+        self.addSubviews([backgroundView, stackView, callButton])
     }
     
     private func layoutViews() {
@@ -155,7 +155,7 @@ final class PlaceProfileView: UIView {
     }
     
     private func setupCallButton() {
-        callButton.setImage(Images.callIcon(), for: .normal)
+        callButton.setImage(Images.callIcon().withRenderingMode(.alwaysOriginal), for: .normal)
         callButton.addTarget(self, action: #selector(callButtonPressed), for: .touchUpInside)
     }
     
