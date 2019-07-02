@@ -13,6 +13,7 @@ enum DistanceScale {
     case kilometers
     case meters
 }
+
 struct PlaceInfo: Codable, FilterEntry {
     var filterString: String {
         return name
@@ -27,7 +28,7 @@ struct PlaceInfo: Codable, FilterEntry {
     let authorizedAge: String?
     let publicistPhoneNumber: String?
     let placeSchedule: PlaceSchedule?
-    let placesStories: [String?]?
+    let placesStories: [PlaceStory]?
 }
 
 struct PlaceSchedule: Codable {

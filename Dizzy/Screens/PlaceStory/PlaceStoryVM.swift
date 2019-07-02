@@ -50,7 +50,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
         self.commentsInteractor.delegate = self
         
         if let placesStories = place.placesStories {
-            imagesURL = placesStories.filter { $0 != nil }.map { $0! }
+            imagesURL = placesStories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
         }
     }
     
