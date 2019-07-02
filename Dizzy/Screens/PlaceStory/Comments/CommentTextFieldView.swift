@@ -14,49 +14,76 @@ protocol CommentTextFieldViewDelegate: class {
 
 final class CommentTextFieldView: UIView {
     
-    let textField: UITextField  = {
-        let textField = UITextField().withTransperentRoundedCorners
-        textField.placeholder = "PlaceHolder".localized
-        textField.textAlignment = .natural
-        return textField
-    }()
-    
-    private let sendButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setTitle("Send".localized, for: .normal)
-        return button
-    }()
+    private let profileImageView: UIImageView = UIImageView()
+    let textField: UITextField = UITextField().withTransperentRoundedCorners(borderColor: UIColor(hexString: "A7B0FF"))
+    private let sendButton: UIButton = UIButton(type: .system)
     
     weak var delegate: CommentTextFieldViewDelegate?
     
+    let textFieldHeight = CGFloat(34)
+    let sendButtonSize = CGSize(width: 60, height: 30)
+    
     init() {
         super.init(frame: .zero)
-        addSubview()
+        addSubviews()
         layoutViews()
-        sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
         
-    private func addSubview() {
-        addSubviews([textField, sendButton])
+    private func addSubviews() {
+        addSubviews([profileImageView, textField])
     }
     
     private func layoutViews() {
-        sendButton.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(Metrics.mediumPadding)
-            make.width.equalTo(50)
-            make.top.equalToSuperview().offset(Metrics.doublePadding)
-            make.bottom.equalToSuperview().inset(Metrics.doublePadding)
+        profileImageView.snp.makeConstraints { (profileImageView) in
+            profileImageView.leading.equalToSuperview().offset(Metrics.doublePadding)
+            profileImageView.top.equalToSuperview().offset(Metrics.doublePadding)
+            profileImageView.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
         
-        textField.snp.makeConstraints { (make) in
-            make.top.bottom.equalTo(sendButton)
-            make.leading.equalTo(sendButton.snp.trailing).offset(Metrics.mediumPadding)
-            make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
+        profileImageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        textField.snp.makeConstraints { (textField) in
+            textField.centerY.equalTo(profileImageView.snp.centerY)
+            textField.height.equalTo(textFieldHeight)
+            textField.leading.equalTo(profileImageView.snp.trailing).offset(Metrics.padding)
+            textField.trailing.equalToSuperview().offset(-Metrics.doublePadding)
         }
+        
+        sendButton.snp.makeConstraints { (sendButton) in
+            sendButton.width.equalTo(sendButtonSize.width)
+            sendButton.height.equalTo(sendButtonSize.height)
+        }
+    }
+    
+    private func setupViews() {
+        setupProfileImageView()
+        setupTextField()
+        setupSendButton()
+    }
+    
+    private func setupProfileImageView() {
+        self.profileImageView.contentMode = .center
+        self.profileImageView.kf.setImage(with: URL(fileURLWithPath: ""), placeholder: Images.profilePlaceholderIcon())
+    }
+    
+    private func setupTextField() {
+        textField.rightView = sendButton
+        textField.rightViewMode = .always
+        textField.font = Fonts.h8()
+        textField.attributedPlaceholder = NSAttributedString(string: "Comment...".localized,
+                                                             attributes: [.foregroundColor: UIColor.white])
+    }
+    
+    private func setupSendButton() {
+        sendButton.titleLabel?.font = Fonts.h10()
+        sendButton.setTitleColor(.white, for: .normal)
+        sendButton.setTitle("Send".localized, for: .normal)
+        sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
     @objc func sendButtonPressed() {

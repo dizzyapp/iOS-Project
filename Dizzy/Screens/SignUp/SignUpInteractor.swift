@@ -46,7 +46,7 @@ class SignUpInteractor: SignUpInteractorType {
             switch result {
             case .failure(let error):
                 self?.delegate?.userSignedUpFailed(error: error)
-            case .success( _):
+            case .success:
                 self?.delegate?.userSignedUpSuccesfully(user: user)
             }
         }

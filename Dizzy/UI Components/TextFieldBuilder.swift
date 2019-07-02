@@ -25,18 +25,30 @@ extension UITextField {
         return self
     }
     
-    func withDarkPurpleRoundedCorners(withPlaceHolder placeHolder: String) -> UITextField {
+    func withDarkPurpleRoundedCorners(withPlaceholder placeholder: String) -> UITextField {
         textAlignment = .center
         layer.cornerRadius = 17
         font = Fonts.h10(weight: .bold)
         layer.borderColor = UIColor(red:0.65, green:0.69, blue:0.2, alpha: 1).cgColor
         layer.borderWidth = 1
         textColor = .white
-        attributedPlaceholder = NSAttributedString(string: placeHolder ,attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        attributedPlaceholder = NSAttributedString(string: placeholder ,attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         backgroundColor =  UIColor(red:0.01, green:0, blue:0.2, alpha:1)
         snp.makeConstraints { selfTextField in
             selfTextField.height.equalTo(32)
         }
         return  self
+    }
+    
+    func withTransperentRoundedCorners(borderColor: UIColor) -> UITextField {
+        layer.cornerRadius = 16
+        layer.borderWidth = 1.0
+        textColor = UIColor.white
+        layer.borderColor = borderColor.cgColor
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: Metrics.mediumPadding, height: 0))
+        leftView = leftPaddingView
+        leftViewMode = .always
+        
+        return self
     }
 }

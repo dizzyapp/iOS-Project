@@ -19,6 +19,7 @@ protocol PlaceStoryVMType {
     var delay: Double { get }
     var comments: Observable<[Comment]> { get }
     var delegate: PlaceStoryVMDelegate? { get set }
+    var place: PlaceInfo { get }
     
     func showNextImage()
     func showPrevImage()

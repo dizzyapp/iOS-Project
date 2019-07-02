@@ -13,11 +13,8 @@ import Kingfisher
 
 final class PlaceStoryVC: ViewController {
     
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
-        return imageView
-    }()
+    let topView = UIView()
+    let imageView = UIImageView()
     
     var commentsManager: CommentsManager?
     
@@ -28,6 +25,7 @@ final class PlaceStoryVC: ViewController {
     var playerVC: PlayerVC?
     
     let gestureViewWidth = CGFloat(150)
+    let topViewHeight = CGFloat(58)
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
@@ -37,9 +35,10 @@ final class PlaceStoryVC: ViewController {
         commentsManager?.dataSource = self
         addSubviews()
         layoutViews()
-        bindViewModel()
-        setupViews()
         setupNavigation()
+        setupViews()
+
+        bindViewModel()
         viewModel.showNextImage()
     }
     
@@ -47,26 +46,20 @@ final class PlaceStoryVC: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupNavigation() {
-        let closeButton = UIButton().smallRoundedBlackButton
-        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
-        closeButton.setImage(UIImage(named: "backArrowIcon"), for: .normal)
-        let closeBarButton = UIBarButtonItem(customView: closeButton)
-        navigationItem.leftBarButtonItem = closeBarButton
+    override func viewSafeAreaInsetsDidChange() {
+        topView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(topViewHeight + view.safeAreaInsets.top)
+        }
     }
-    
-    private func setupViews() {
-        rightGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapRight)))
-        leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
-        commentsManager?.showTextField(false)
-    }
-    
     private func addSubviews() {
-        view.addSubviews([imageView, rightGestureView, leftGestureView])
+        view.addSubviews([imageView, topView, rightGestureView, leftGestureView])
         commentsManager?.addCommentsViews()
     }
     
     private func layoutViews() {
+        
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -82,6 +75,36 @@ final class PlaceStoryVC: ViewController {
             make.width.equalTo(gestureViewWidth)
             make.left.equalToSuperview()
         }
+    }
+    
+    private func setupNavigation() {
+        let closeButton = UIButton().smallRoundedBlackButton
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        closeButton.setImage(Images.downArrowIcon(), for: .normal)
+        let closeBarButton = UIBarButtonItem(customView: closeButton)
+        navigationItem.rightBarButtonItem = closeBarButton
+        
+        self.title = self.viewModel.place.name
+    }
+    
+    private func setupViews() {
+        setupGestureView()
+        setupTopView()
+        setupCommentsManager()
+    }
+    
+    private func setupGestureView() {
+        rightGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapRight)))
+        leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
+    }
+    
+    private func setupTopView() {
+        topView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+    }
+    
+    private func setupCommentsManager() {
+        commentsManager?.showTextField(false)
+
     }
     
     private func bindViewModel() {
