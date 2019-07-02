@@ -202,7 +202,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     
     private func setupEnterAsAdminButton() {
         let text: NSMutableAttributedString = NSMutableAttributedString(string: "enter as admin".localized)
-        let range: NSRange = NSMakeRange(0, text.length)
+        let range: NSRange = NSRange(location: 0, length: text.length)
         
         text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
         text.addAttribute(.font, value: Fonts.h8(), range: range)

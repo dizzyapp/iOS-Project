@@ -21,6 +21,10 @@ struct Fonts {
         return Family.regular(size: size)
     }
     
+    static func medium(size: CGFloat) -> UIFont {
+        return Family.medium(size: size)
+    }
+    
     static func bold(size: CGFloat) -> UIFont {
         return Family.bold(size: size)
     }

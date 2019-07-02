@@ -34,9 +34,9 @@ class SignInInteractor: SignInInteractorType {
         let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithDizzy").withPost(signInDetails)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
-            case .failure( _):
+            case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success( _):
+            case .success:
                 self?.delegate?.userSignedInSuccesfully()
             }
         }
@@ -47,7 +47,7 @@ class SignInInteractor: SignInInteractorType {
         let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithFacebook").withPresentedVC(presentedVC)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
-            case .failure( _):
+            case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
             case .success(let user):
                 self?.saveUserOnRemote(user)
@@ -59,9 +59,9 @@ class SignInInteractor: SignInInteractorType {
         let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
         webResourcesDispatcher.load(saveUserResource) { [weak self] result in
             switch result {
-            case .failure( _):
+            case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success( _):
+            case .success:
                 self?.delegate?.userSignedInSuccesfully()
             }
         }

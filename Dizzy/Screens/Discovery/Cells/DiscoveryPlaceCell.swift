@@ -15,7 +15,7 @@ protocol DiscoveryPlaceCellDelegate: class {
 }
 
 class DiscoveryPlaceCell: UICollectionViewCell {
-    let placeImageView = UIImageView()
+    let placeImageView = PlaceImageView()
     let placeNameLabel = UILabel()
     let placeAddressLabel = UILabel()
     let distanceLabel = UILabel()
@@ -24,7 +24,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     let stackViewTrailingPadding = CGFloat(15)
     let smallLabelsFontSize = CGFloat(8)
     let placeImageViewSize = CGFloat(50)
-    
+
     weak var delegate: DiscoveryPlaceCellDelegate?
     
     init(placeInfo: PlaceInfo) {
@@ -33,6 +33,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         addSubviews()
         layoutViews()
         setupViews()
@@ -48,22 +49,28 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     }
     
     private func layoutViews() {
+        
+        self.layoutPlaceImageView()
+        self.layoutPlaceDetailsStackView()
+        self.layoutLabelsInStackView()
+    }
+    
+    private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.greaterThanOrEqualTo(self.snp.top).offset(Metrics.padding)
-            placeImageView.bottom.equalToSuperview().offset(-Metrics.padding)
             placeImageView.leading.equalToSuperview()
+            placeImageView.centerY.equalTo(self.snp.centerY)
             placeImageView.width.height.equalTo(placeImageViewSize)
         }
         
         placeImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
-        
+    }
+    
+    private func layoutPlaceDetailsStackView() {
         placeDetailsStackView.snp.makeConstraints { placeDetailsStackView in
             placeDetailsStackView.top.bottom.equalTo(placeImageView)
             placeDetailsStackView.leading.equalTo(placeImageView.snp.trailing).offset(stackViewTrailingPadding)
             placeDetailsStackView.trailing.equalToSuperview()
         }
-        
-        layoutLabelsInStackView()
     }
     
     private func layoutLabelsInStackView() {
@@ -73,10 +80,10 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .clear
         setupStackView()
         setupLabels()
-        setupPlacewImageView()
+        setupPlaceImageView()
     }
     
     private func setupStackView() {
@@ -87,31 +94,30 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     }
     
     private func setupLabels() {
-        placeNameLabel.font = Fonts.h12(weight: .bold)
+        placeNameLabel.font = Fonts.h10(weight: .bold)
         placeNameLabel.numberOfLines = 1
         placeNameLabel.textAlignment = .left
         
-        placeAddressLabel.font = Fonts.regular(size: smallLabelsFontSize)
+        placeAddressLabel.font = Fonts.medium(size: smallLabelsFontSize)
         placeAddressLabel.numberOfLines = 1
         placeAddressLabel.textAlignment = .left
         
-        distanceLabel.font = Fonts.regular(size: smallLabelsFontSize)
+        distanceLabel.font = Fonts.medium(size: smallLabelsFontSize)
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
     }
     
-    func setupPlacewImageView() {
+    func setupPlaceImageView() {
         placeImageView.layer.cornerRadius = placeImageViewSize/2
         placeImageView.clipsToBounds = true
-        placeImageView.layer.borderColor = UIColor.black.cgColor
-        placeImageView.layer.borderWidth = 2
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description
-        let imageUrl = URL(string: placeInfo.imageURLString ?? "")
-        placeImageView.kf.setImage(with: imageUrl, placeholder: Images.defaultPlaceAvatar())
+        if let imageURL = URL(string: placeInfo.imageURLString ?? "") {
+            placeImageView.setImage(from: imageURL)
+        }
         
         if let currentLocation = currentAppLocation {
             distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
