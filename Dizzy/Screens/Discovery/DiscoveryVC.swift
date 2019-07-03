@@ -16,9 +16,11 @@ class DiscoveryVC: ViewController {
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryVMType
     
-    let nearByPlacesViewCornerRadius = CGFloat(5)
     let nearByPlacesViewPadding = CGFloat(5)
-    let nearByPlacesViewHeightRatio = CGFloat(0.55)
+    let nearByPlacesViewHeightRatio = CGFloat(0.50)
+    
+    private var themeImageHeightConstraint: Constraint?
+    private var nearByPlacesTopConstraint: Constraint?
     
     init(viewModel: DiscoveryVMType) {
         self.viewModel = viewModel
@@ -48,15 +50,15 @@ class DiscoveryVC: ViewController {
         themeImageView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.height.equalTo(view.snp.height).multipliedBy(0.5)
+            themeImageHeightConstraint = themeImageView.height.equalTo(view.snp.height).constraint
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
             
-            nearByPlacesView.height.equalTo(view.snp.height).multipliedBy(nearByPlacesViewHeightRatio)
+            nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeImageView.snp.bottom).constraint
             nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
             nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
-            nearByPlacesView.bottom.equalTo(view.snp.bottom).offset(-nearByPlacesViewPadding)
+            nearByPlacesView.bottom.equalToSuperview()
         }
     }
     
@@ -96,6 +98,14 @@ class DiscoveryVC: ViewController {
         
         nearByPlacesView.showSpinner()
         nearByPlacesView.reloadData()
+    }
+    
+    private func showNewrByPlacesWithAnimation() {
+        UIView.animate(withDuration: 1) {
+            self.nearByPlacesTopConstraint?.update(offset: -25)
+            self.themeImageHeightConstraint?.update(offset: -self.view.frame.height / 2)
+            self.view.layoutIfNeeded()
+        }
     }
     
     public func showTopBar() {
