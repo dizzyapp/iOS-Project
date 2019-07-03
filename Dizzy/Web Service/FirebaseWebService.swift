@@ -65,6 +65,31 @@ final class FirebaseWebService: WebServiceType {
         }
     }
     
+    func uplaodFile(with path: String, data: UploadFileData,  completion: @escaping (Result<UploadFileResponse>) -> Void) {
+        let ref = storageReference.child(path)
+        let uploadTask = ref.putData(data.data, metadata: nil) { (metaData, error) in
+            if error != nil {
+                completion(Result.failure(error))
+            } else {
+                ref.downloadURL { (url, error) in
+                    if error != nil {
+                        completion(Result.failure(error))
+                    } else {
+                        let response = UploadFileResponse(downloadLink: url?.absoluteString ?? "")
+                        completion(Result.success(response))
+                    }
+                }
+            }
+            print("UplaodFile FINISHED !!!!")
+        }
+        
+        uploadTask.observe(.progress) { snapshot in
+            print(snapshot.progress.debugDescription)
+        }
+        
+        uploadTask.resume()
+    }
+    
     func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool where Response : Decodable, Response : Encodable, Body : Encodable {
         return resource.path != "signupWithDizzy" && resource.path != "signInWithDizzy" && resource.path != "getGMSPlace"
     }
