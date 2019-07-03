@@ -12,6 +12,7 @@ import Kingfisher
 protocol PlaceProfileViewDelegate: class {
     func placeProfileViewPublicistButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewWhatsappButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView)
 }
 
 final class PlaceProfileView: UIView {
@@ -96,6 +97,14 @@ final class PlaceProfileView: UIView {
         return stackView
     }()
     
+    private let storyButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setTitle("Story".localized, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.showsTouchWhenHighlighted = true
+        return button
+    }()
+    
     weak var delegate: PlaceProfileViewDelegate?
     
     init() {
@@ -106,6 +115,7 @@ final class PlaceProfileView: UIView {
         makeRoundedCorners()
         publicistButton.addTarget(self, action: #selector(publicistButtonPressed), for: .touchUpInside)
         sendWhatsappButton.addTarget(self, action: #selector(whatsappButtonPressed), for: .touchUpInside)
+        storyButton.addTarget(self, action: #selector(storyButtonPressed), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -144,7 +154,7 @@ final class PlaceProfileView: UIView {
     }
     
     private func addSubviews() {
-        addSubviews([profileImageView, titleLabel, descriptionLabel, ageLabel, openHoursLabel, addressLabel, buttonsStackView])
+        addSubviews([profileImageView, titleLabel, descriptionLabel, ageLabel, openHoursLabel, addressLabel, buttonsStackView, storyButton])
         buttonsStackView.addArrangedSubview(publicistButton)
         buttonsStackView.addArrangedSubview(sendWhatsappButton)
     }
@@ -187,6 +197,10 @@ final class PlaceProfileView: UIView {
             make.trailing.equalToSuperview().inset(Metrics.doublePadding)
             make.bottom.equalToSuperview().inset(Metrics.doublePadding)
         }
+        storyButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(Metrics.mediumPadding)
+            make.trailing.equalToSuperview().offset(Metrics.mediumPadding)
+        }
     }
     
     @objc func publicistButtonPressed() {
@@ -195,5 +209,9 @@ final class PlaceProfileView: UIView {
     
     @objc func whatsappButtonPressed() {
         delegate?.placeProfileViewWhatsappButtonPressed(self)
+    }
+    
+    @objc private func storyButtonPressed() {
+        delegate?.placeProfileViewStoryButtonPressed(self)
     }
 }

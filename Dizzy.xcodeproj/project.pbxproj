@@ -321,9 +321,9 @@
 		04E7808422B0274900A9E3F4 /* PlaceProfile */ = {
 			isa = PBXGroup;
 			children = (
+				04E7808722B0274900A9E3F4 /* PlaceProfileCoordinator.swift */,
 				04E7808522B0274900A9E3F4 /* PlaceProfileVC.swift */,
 				04E7808622B0274900A9E3F4 /* PlaceProfileVM.swift */,
-				04E7808722B0274900A9E3F4 /* PlaceProfileCoordinator.swift */,
 				04E7808822B0274900A9E3F4 /* PlaceProfileView.swift */,
 			);
 			path = PlaceProfile;

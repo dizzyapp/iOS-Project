@@ -93,6 +93,10 @@ final class PlaceProfileVC: AVPlayerViewController {
 }
 
 extension PlaceProfileVC: PlaceProfileViewDelegate {
+    func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView) {
+        viewModel.storyButtonPressed()
+    }
+    
     func placeProfileViewWhatsappButtonPressed(_ view: PlaceProfileView) {
         viewModel.whatsappToPublicistPressed()
     }

@@ -15,10 +15,12 @@ protocol PlaceProfileVMType {
     func closePressed()
     func whatsappToPublicistPressed()
     func callToPublicistPressed()
+    func storyButtonPressed()
 }
 
 protocol PlaceProfileVMDelegate: class {
     func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType)
+    func placeProfileVMStoryButtonPressed(_ viewModel: PlaceProfileVMType)
 }
 
 final class PlaceProfileVM: PlaceProfileVMType {
@@ -45,5 +47,9 @@ final class PlaceProfileVM: PlaceProfileVMType {
     
     func closePressed() {
         delegate?.placeProfileVMClosePressed(self)
+    }
+    
+    func storyButtonPressed() {
+        delegate?.placeProfileVMStoryButtonPressed(self)
     }
 }
