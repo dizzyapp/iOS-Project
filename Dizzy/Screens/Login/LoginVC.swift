@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
+final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
     
     let loginContainerView = UIView()
@@ -21,7 +21,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     let userProfileView = UserProfileView()
     
     let logoutButton: UIButton = UIButton(type: .system)
-
+    
     let dizzyLogoImageView = UIImageView()
     
     let enterAsAdminButton: UIButton = UIButton(type: .system)
@@ -37,7 +37,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .clear
         self.loginVM.delegate = self
-
+        
         addSubviews()
         layoutViews()
         setupViews()
@@ -48,7 +48,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     }
     
     private func addSubviews() {
-
+        
         self.view.addSubview(loginContainerView)
         loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
                                         userProfileView, logoutButton, appInfosView, dizzyLogoImageView, enterAsAdminButton])
@@ -206,7 +206,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         
         text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
         text.addAttribute(.font, value: Fonts.h8(), range: range)
-
+        
         enterAsAdminButton.setAttributedTitle(text, for: .normal)
         enterAsAdminButton.addTarget(self, action: #selector(enterAsAdminButtonPressed), for: .touchUpInside)
     }
@@ -268,7 +268,7 @@ extension LoginVC: LoginVMDelegate {
     
     func userSignedInFailed(error: SignInWebserviceError) {
         hideSpinner()
-        showAlert(title: "Error".localized, message: error.localizedDescription)
+        showPopup(with: "Error".localized, message: error.localizedDescription, buttonsLayer: .oneButton(buttonText: "Ok".localized, onClick: nil))
     }
     
     func userLoggedoutSuccessfully() {
@@ -278,6 +278,6 @@ extension LoginVC: LoginVMDelegate {
     
     func userLoggedoutFailed(error: Error) {
         hideSpinner()
-        showAlert(title: "Error".localized, message: error.localizedDescription)
+        showPopup(with: "Error".localized, message: error.localizedDescription, buttonsLayer: .oneButton(buttonText: "Ok".localized, onClick: nil))
     }
 }

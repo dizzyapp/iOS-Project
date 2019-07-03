@@ -10,7 +10,7 @@ import UIKit
 
 enum PopupButtonLayer {
     case oneButton(buttonText: String, onClick: (() -> Void)?)
-    case towButtons(confirmText: String, cancelText: String, confirmClicked: (() -> Void)?, cancelClicked: (() -> Void)?)
+    case twoButtons(confirmText: String, cancelText: String, confirmClicked: (() -> Void)?, cancelClicked: (() -> Void)?)
 }
 
 protocol PopupPresenter {
@@ -29,7 +29,7 @@ extension PopupPresenter where Self: UIViewController {
             }
             actions.append(cancelAction)
             
-        case .towButtons(confirmText: let confirmText, cancelText: let cancelText, confirmClicked: let confirmCompletion, cancelClicked: let cancelCompletion):
+        case .twoButtons(confirmText: let confirmText, cancelText: let cancelText, confirmClicked: let confirmCompletion, cancelClicked: let cancelCompletion):
             
             let cancelAction = UIAlertAction(title: cancelText, style: .default) { _ in
                 cancelCompletion?()
