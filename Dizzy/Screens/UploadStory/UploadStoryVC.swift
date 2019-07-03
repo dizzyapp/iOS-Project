@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class UploadStoryVC: ViewController, PopupPresenter {
+final class UploadStoryVC: ViewController {
     
     private let viewModel: UploadStoryVMType
     private let cameraButton =  UIButton(frame: .zero)
@@ -62,11 +62,11 @@ final class UploadStoryVC: ViewController, PopupPresenter {
             self.view.bringSubviewToFront(self.cameraButton)
         }
         
-        viewModel.errorString.bind { [weak self] errorString in
-            self?.showPopup(with: "Dizzy".localized, message: errorString, buttonsLayer: .oneButton(buttonText: "Confirm".localized, onClick: {
-                print("Clicked")
-            }))
-        }
+//        viewModel.errorString.bind { [weak self] errorString in
+//            self?.showAlert(title: "Dizzy".localized, message: errorString, buttonsLayer: .oneButton(buttonText: "Confirm".localized, onClick: {
+//                print("Clicked")
+//            }))
+//        }
     }
     
     private func buildView() {

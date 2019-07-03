@@ -59,7 +59,7 @@ final class PhotoPresenterVM: PhotoPresenterVMType {
                 self.delegate?.photoPresenterVMUploadPressed(self)
                 
             case .failure(let error):
-                print(error.debugDescription)
+                print(error.localizedDescription)
             }
         }
     }
