@@ -88,13 +88,12 @@ class SignInWebservice: WebServiceType {
             } else {
                 print("granted")
                 let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-                Auth.auth().signInAndRetrieveData(with: credential, completion: { (dataResult, error) in
-                    
+                Auth.auth().signIn(with: credential, completion: { (result, error) in
                     if let error = error {
                         let response = Result<Response>.failure(error)
                         completion(response)
                     } else {
-                        guard let result = dataResult else { return }
+                        guard let result = result else { return }
                         
                         let user = DizzyUser(id: result.user.uid,
                                              fullName: result.user.displayName ?? "",

@@ -81,4 +81,8 @@ struct Images {
     static func backArrowIcon() -> UIImage {
         return UIImage(named: "backArrowIcon")!
     }
+    
+    static func placeBackgroundIcon() -> UIImage {
+        return UIImage(named: "placeBackgroundIcon")!
+    }
 }

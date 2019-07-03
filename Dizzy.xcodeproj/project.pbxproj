@@ -61,6 +61,7 @@
 		4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */; };
 		4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */; };
 		4DAF17A922CBEC33004F7DB7 /* PlaceStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF17A822CBEC33004F7DB7 /* PlaceStory.swift */; };
+		4DA64E9A22C7F99B001D5A1A /* PlaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9922C7F99B001D5A1A /* PlaceImageView.swift */; };
 		4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117422B4429300CA0220 /* UserProfileView.swift */; };
 		4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */; };
 		4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */; };
@@ -160,6 +161,7 @@
 		4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutInteractor.swift; sourceTree = "<group>"; };
 		4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutWebService.swift; sourceTree = "<group>"; };
 		4DAF17A822CBEC33004F7DB7 /* PlaceStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceStory.swift; sourceTree = "<group>"; };
+		4DA64E9922C7F99B001D5A1A /* PlaceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceImageView.swift; sourceTree = "<group>"; };
 		4DDA117422B4429300CA0220 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithDizzyVC.swift; sourceTree = "<group>"; };
 		4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDetailsView.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				4DA64E9322C2BD91001D5A1A /* AlertPresentation.swift */,
 				0487FFA4228EB4AE00A8683C /* LocationLabel.swift */,
 				0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */,
+				4DA64E9922C7F99B001D5A1A /* PlaceImageView.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -759,6 +762,7 @@
 				4DAF17A922CBEC33004F7DB7 /* PlaceStory.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				047E86C122A84C2000C64FD1 /* CommentCell.swift in Sources */,
+				4DA64E9A22C7F99B001D5A1A /* PlaceImageView.swift in Sources */,
 				772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */,
 				4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */,
 				0470E6B52270B32600267278 /* MapSearchVC.swift in Sources */,

@@ -17,6 +17,8 @@ class DiscoveryVC: ViewController {
     var viewModel: DiscoveryVMType
     
     let nearByPlacesViewCornerRadius = CGFloat(5)
+    let nearByPlacesViewPadding = CGFloat(5)
+    let nearByPlacesViewHeightRatio = CGFloat(0.55)
     
     init(viewModel: DiscoveryVMType) {
         self.viewModel = viewModel
@@ -46,14 +48,15 @@ class DiscoveryVC: ViewController {
         themeImageView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.bottom.equalTo(view.snp.centerY).offset(25)
+            themeImageView.height.equalTo(view.snp.height).multipliedBy(0.5)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
             
-            nearByPlacesView.top.equalTo(view.snp.centerY)
-            nearByPlacesView.leading.trailing.equalToSuperview()
-            nearByPlacesView.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            nearByPlacesView.height.equalTo(view.snp.height).multipliedBy(nearByPlacesViewHeightRatio)
+            nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
+            nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
+            nearByPlacesView.bottom.equalTo(view.snp.bottom).offset(-nearByPlacesViewPadding)
         }
     }
     
@@ -72,7 +75,7 @@ class DiscoveryVC: ViewController {
     }
     
     private func setupViews() {
-        
+        view.backgroundColor = .clear
         setupThemeImageView()
         setupNearByPlacesView()
         setupTopBarView()
@@ -90,6 +93,8 @@ class DiscoveryVC: ViewController {
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
+        
+        nearByPlacesView.showSpinner()
         nearByPlacesView.reloadData()
     }
     
@@ -132,6 +137,11 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
+        
+    }
+    
+    func allPlacesArrived() {
+        nearByPlacesView.hideSpinner()
         nearByPlacesView.reloadData()
     }
 }

@@ -15,20 +15,19 @@ protocol HomeCoordinatorType: Coordinator {
 
 final class HomeCoordinator: HomeCoordinatorType {
     
-    private var tabsIconPadding: CGFloat { return Metrics.padding }
     private var discoveryVC: DiscoveryVC?
-    private var conversationsVC: ConversationsVC?
+    private var tabsIconPadding: CGFloat { return Metrics.padding }
     private let tabBarController = UITabBarController()
-    
+
     var window: UIWindow
     var container: Container?
     var childCoordinators = [CoordinatorKey : Coordinator]()
-
+    
     private var presentedViewControllers: [UIViewController] {
-        guard let discoveryVC = discoveryVC, let conversationsVC = conversationsVC  else {
+        guard let discoveryVC = discoveryVC else {
             return []
         }
-        return [discoveryVC, conversationsVC]
+        return [discoveryVC]
     }
     
     init(container: Container, window: UIWindow) {
@@ -37,28 +36,13 @@ final class HomeCoordinator: HomeCoordinatorType {
     }
     
     func start() {
-        createViewControllers()
-        guard !presentedViewControllers.isEmpty, !tabBarItems.isEmpty else { return }
+        createDiscoveryVC()
         tabBarController.viewControllers = presentedViewControllers
         customizeTabButtonsAppearance(tabBarItems)
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }
-    
-    private func createViewControllers() {
-        createConversationsVC()
-        createDiscoveryVC()
-    }
-    
-    private func createConversationsVC() {
-        guard let viewModel = container?.resolve(ConversationsViewModelType.self),
-            let conversationsVC = container?.resolve(ConversationsVC.self, argument: viewModel) else {
-                print("could not create conversations page")
-                return
-        }
-        self.conversationsVC = conversationsVC
-    }
-    
+
     private func createDiscoveryVC() {
         guard var viewModel = container?.resolve(DiscoveryVMType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
@@ -73,8 +57,8 @@ final class HomeCoordinator: HomeCoordinatorType {
 extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
   
     func mapButtonPressed(places: [PlaceInfo]) {
-        guard let presntingVC = presentedViewControllers.first,
-            let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC),
+        guard let presntingVC = self.discoveryVC,
+            let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC as UIViewController),
             let location = container?.resolve(LocationProviderType.self) else {
                                                     print("could not create MapCoordinator")
                                                     return
@@ -97,18 +81,24 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     }
     
     func menuButtonPressed() {
-        let vcc = container?.resolve(LoginCoordinatorType.self, argument: discoveryVC! as UIViewController)!
-        vcc?.start()
-        vcc?.onCoordinatorFinished = { [weak self] in
+        guard let presentingVC = self.discoveryVC,
+            let coordinator = container?.resolve(LoginCoordinatorType.self, argument: presentingVC as UIViewController) else {
+            print("could not create LoginCoordinator")
+            return
+        }
+
+        coordinator.start()
+        coordinator.onCoordinatorFinished = { [weak self] in
             self?.removeCoordinator(for: .login)
         }
-        discoveryVC?.hideTopBar()
-        add(coordinator: vcc!, for: .login)
+        presentingVC.hideTopBar()
+        add(coordinator: coordinator, for: .login)
     }
     
     func placeCellDetailsPressed(_ place: PlaceInfo) {
-        guard let presntingVC = presentedViewControllers.first,
-            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC),
+
+        guard let presntingVC = self.discoveryVC,
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
             place.profileVideoURL != nil  else {
                 print("could not create placeProfileCoordinator")
                 return
@@ -149,28 +139,22 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
 }
 
 extension HomeCoordinator {
-    
     var discoveryTabBarItem: TabItem? {
         guard let discoveryVC = discoveryVC else { return nil }
         return TabItem(rootController: discoveryVC, icon: Images.discoveryUnselectedTabIcon(), iconSelected: Images.discoverySelectedTabIcon())
     }
     
-    var conversationsTapBarItem: TabItem? {
-        guard let conversactionVC = conversationsVC else { return nil }
-        return TabItem(rootController: conversactionVC, icon: Images.conversationsUnselectedTabIcon(), iconSelected: Images.conversationsSelectedTabIcon())
-    }
-    
     var tabBarItems: [TabItem] {
-        guard let discoveryTabBarItem = discoveryTabBarItem,
-            let conversationsTapBarItem = conversationsTapBarItem else { return [] }
-        return [discoveryTabBarItem, conversationsTapBarItem]
+        guard let discoveryTabBarItem = discoveryTabBarItem else { return [] }
+        
+        return [discoveryTabBarItem]
     }
     
     func customizeTabButtonsAppearance(_ tabItems: [TabItem]) {
         guard let tabBarItems = tabBarController.tabBar.items else {
             return
         }
-        
+        tabBarController.tabBar.isHidden = true
         for (index, tabBarItem) in tabBarItems.enumerated() {
             tabBarItem.image = tabItems[index].icon
             tabBarItem.selectedImage = tabItems[index].iconSelected

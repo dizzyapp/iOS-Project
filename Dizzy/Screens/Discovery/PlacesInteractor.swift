@@ -32,7 +32,7 @@ class PlacesInteractor: PlacesInteractorType {
             case .success( let places):
                 self?.delegate?.allPlacesArrived(places: places)
             case .failure(let error):
-                print(error ?? "")
+                print(error.localizedDescription)
             }
             
         }
