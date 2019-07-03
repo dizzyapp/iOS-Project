@@ -10,12 +10,13 @@ import UIKit
 
 final class PhotoPresenterVC: ViewController, LoadingContainer {
     
-    private let buttonHeight: CGFloat = 80
+    private let cameraButtonHeight: CGFloat = 80
     private let buttonBottomPadding: CGFloat = 40
 
     private let viewModel: PhotoPresenterVMType
     private let imageView = UIImageView()
     private let cameraButton =  UIButton(frame: .zero)
+    private let placeIcon = UIImageView(frame: .zero)
     
     private let borderRodius: CGFloat = 5.0
     
@@ -38,6 +39,12 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
     private func setupViews() {
         setupImageView()
         setupCameraButton()
+        setupPlaceIcon()
+    }
+    
+    private func setupPlaceIcon() {
+        placeIcon.kf.setImage(with: viewModel.placeIconURL)
+        placeIcon.contentMode = .scaleAspectFit
     }
     
     private func setupCameraButton() {
@@ -61,7 +68,7 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
     }
     
     private func buildView() {
-        view.addSubviews([imageView, cameraButton])
+        view.addSubviews([imageView, cameraButton, placeIcon])
     }
     
     private func buildConstraints() {
@@ -70,9 +77,14 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
         }
         
         cameraButton.snp.makeConstraints { make in
-            make.height.width.equalTo(buttonHeight)
+            make.height.width.equalTo(cameraButtonHeight)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(buttonBottomPadding)
+        }
+        
+        placeIcon.snp.makeConstraints { make in
+            make.center.equalTo(cameraButton.snp.center)
+            make.height.width.equalTo(cameraButtonHeight / 2)
         }
     }
     

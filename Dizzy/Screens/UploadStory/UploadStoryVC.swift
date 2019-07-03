@@ -13,7 +13,6 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     private let viewModel: UploadStoryVMType
     private let cameraButton =  UIButton(frame: .zero)
     private let switchCameraButton = UIButton(frame: .zero)
-    private let placeIcon = UIImageView(frame: .zero)
     
     private let cameraButtonHeight: CGFloat = 80
     private let buttonBottomPadding: CGFloat = 40
@@ -39,19 +38,13 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     private func setupViews() {
         setupCameraButton()
         setupSwitchCameraButton()
-        setupPlaceIcon()
     }
     
     private func setupSwitchCameraButton() {
         switchCameraButton.setImage(UIImage(named: "switch_camera_icon"), for: .normal)
         switchCameraButton.addTarget(self, action: #selector(switchCameraButtonPressed), for: .touchUpInside)
     }
-    
-    private func setupPlaceIcon() {
-        placeIcon.kf.setImage(with: viewModel.placeIconURL)
-        placeIcon.contentMode = .scaleAspectFit
-    }
-    
+
     private func setupCameraButton() {
         cameraButton.backgroundColor = .clear
         cameraButton.layer.borderColor = UIColor.white.cgColor
@@ -90,11 +83,6 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         switchCameraButton.snp.makeConstraints { make in
             make.centerY.equalTo(cameraButton.snp.centerY)
             make.trailing.equalToSuperview().inset(switchCameraPadding)
-        }
-        
-        placeIcon.snp.makeConstraints { make in
-            make.center.equalTo(cameraButton.snp.center)
-            make.height.width.equalTo(cameraButtonHeight / 2)
         }
     }
     

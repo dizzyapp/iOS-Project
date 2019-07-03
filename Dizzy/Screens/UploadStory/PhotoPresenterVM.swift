@@ -12,6 +12,7 @@ protocol PhotoPresenterVMType {
     var photo: UIImage { get }
     var loading: Observable<Bool> { get }
     var delegate: PhotoPresenterVMDelegate? { get set }
+    var placeIconURL: URL? { get }
     
     func backPressed()
     func uploadImageTapped()
@@ -30,6 +31,10 @@ final class PhotoPresenterVM: PhotoPresenterVMType {
     var loading = Observable<Bool>(false)
     
     var delegate: PhotoPresenterVMDelegate?
+    
+    var placeIconURL: URL? {
+        return URL(string: placeInfo.imageURLString ?? "")
+    }
     
     init(photo: UIImage,
          uploadFileInteractor: UploadFileInteractorType,

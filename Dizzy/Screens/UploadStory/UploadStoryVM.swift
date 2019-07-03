@@ -13,7 +13,6 @@ protocol UploadStoryVMType {
     var captureVideoLayer: Observable<AVCaptureVideoPreviewLayer?> { get }
     var errorString: Observable<String> { get }
     var delegate: UploadStoryVMDelegate? { get set }
-    var placeIconURL: URL? { get set }
     
     func takeShot()
     func openCamera()
@@ -35,10 +34,6 @@ final class UploadStoryVM: UploadStoryVMType {
     var captureVideoLayer = Observable<AVCaptureVideoPreviewLayer?>(nil)
     
     weak var delegate: UploadStoryVMDelegate?
-    
-    var placeIconURL: URL? {
-        return URL(string: placeInfo.imageURLString ?? "")
-    }
     
     init(placeInfo: PlaceInfo) {
         self.placeInfo = placeInfo
