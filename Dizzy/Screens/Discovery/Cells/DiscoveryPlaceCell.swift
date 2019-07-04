@@ -111,6 +111,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     func setupPlaceImageView() {
         placeImageView.layer.cornerRadius = placeImageViewSize/2
         placeImageView.clipsToBounds = true
+        placeImageView.addTarget(self, action: #selector(didPressIcon), for: .touchUpInside)
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {

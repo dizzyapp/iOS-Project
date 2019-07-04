@@ -85,4 +85,12 @@ struct Images {
     static func placeBackgroundIcon() -> UIImage {
         return UIImage(named: "placeBackgroundIcon")!
     }
+    
+    static func showIcon() -> UIImage {
+        return UIImage(named: "showIcon")!
+    }
+    
+    static func hideIcon() -> UIImage {
+        return UIImage(named: "hideIcon")!
+    }
 }
