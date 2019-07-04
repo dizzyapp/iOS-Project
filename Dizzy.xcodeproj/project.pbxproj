@@ -56,6 +56,7 @@
 		4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */; };
 		4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */; };
 		4DA64E9A22C7F99B001D5A1A /* PlaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA64E9922C7F99B001D5A1A /* PlaceImageView.swift */; };
+		4DAF17BC22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAF17BB22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift */; };
 		4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117422B4429300CA0220 /* UserProfileView.swift */; };
 		4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */; };
 		4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */; };
@@ -151,6 +152,7 @@
 		4DA64E9522C4041F001D5A1A /* LogoutInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutInteractor.swift; sourceTree = "<group>"; };
 		4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutWebService.swift; sourceTree = "<group>"; };
 		4DA64E9922C7F99B001D5A1A /* PlaceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceImageView.swift; sourceTree = "<group>"; };
+		4DAF17BB22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalNavigationProvider.swift; sourceTree = "<group>"; };
 		4DDA117422B4429300CA0220 /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		4DDA117822B58F9800CA0220 /* SignInWithDizzyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWithDizzyVC.swift; sourceTree = "<group>"; };
 		4DDA117922B58F9800CA0220 /* SignInDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInDetailsView.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				4DFBA48022BEB3C100BB0F4F /* SignInDetails.swift */,
 				77AD08AF22B1870B004F8588 /* DizzyUser.swift */,
 				4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */,
+				4DAF17BB22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -709,6 +712,7 @@
 				04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				04ECE40F2263B47800E10F70 /* MapVM.swift in Sources */,
+				4DAF17BC22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
 				4DDA118122B596CE00CA0220 /* SignInWebservice.swift in Sources */,
 				772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */,

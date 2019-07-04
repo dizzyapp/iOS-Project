@@ -27,6 +27,8 @@ final class PlaceProfileVM: PlaceProfileVMType {
     var placeInfo: PlaceInfo
     weak var delegate: PlaceProfileVMDelegate?
     
+    var externalNavigationProvider = ExternalNavigationProvider()
+    
     init(placeInfo: PlaceInfo) {
         self.placeInfo = placeInfo
     }
@@ -36,7 +38,7 @@ final class PlaceProfileVM: PlaceProfileVMType {
             return
         }
         
-        self.openWaze(location: location)
+        self.externalNavigationProvider.openWaze(location: location)
     }
     
     func callButtonPressed() {
@@ -50,20 +52,6 @@ final class PlaceProfileVM: PlaceProfileVMType {
         guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
             let url = URL(string: "https://wa.me/\(placeInfo.publicistPhoneNumber ?? "")/?text=\(whatsappText ??    "")") else { return }
         UIApplication.shared.open(url, options: [:])
-    }
-    
-    func openWaze(location : Location) {
-        if let url = URL(string: "waze://"), UIApplication.shared.canOpenURL(url) {
-            let urlStr: String = "waze://?ll=\(location.latitude),\(location.longitude)&navigate=yes"
-            if let url = URL(string: urlStr) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        } else {
-            // Waze is not installed. Launch AppStore to install Waze app
-            if let url = URL(string: "http://itunes.apple.com/us/app/id323229106") {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
     }
     
     func closePressed() {
