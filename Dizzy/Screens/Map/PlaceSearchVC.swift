@@ -1,5 +1,5 @@
 //
-//  MapSearchVM.swift
+//  PlaceSearchVM.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 22/04/2019.
@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-final class MapSearchVC: ViewController {
+final class PlaceSearchVC: ViewController {
     
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar(frame: .zero)
@@ -24,9 +24,9 @@ final class MapSearchVC: ViewController {
     
     private let searchBarHeight: CGFloat = 90
 
-    private let viewModel: MapSearchVMType
+    private let viewModel: PlaceSearchVMType
     
-    init(viewModel: MapSearchVMType) {
+    init(viewModel: PlaceSearchVMType) {
         self.viewModel = viewModel
         super.init()
         setupTableView()
@@ -71,7 +71,7 @@ final class MapSearchVC: ViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(MapSearchTableViewCell.self)
+        tableView.register(PlaceSearchTableViewCell.self)
     }
     
     private func setupNavigation() {
@@ -83,14 +83,14 @@ final class MapSearchVC: ViewController {
     }
 }
 
-extension MapSearchVC: UITableViewDelegate, UITableViewDataSource {
+extension PlaceSearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = viewModel.itemAt(indexPath)
-        let cell: MapSearchTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        let cell: PlaceSearchTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: item)
         return cell
     }
@@ -100,7 +100,7 @@ extension MapSearchVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension MapSearchVC: UISearchBarDelegate {
+extension PlaceSearchVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.workItem?.cancel()
         

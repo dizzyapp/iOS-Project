@@ -1,5 +1,5 @@
 //
-//  MapSearchVM.swift
+//  PlaceSearchVM.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 22/04/2019.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol MapSearchVMType {
-    var delegate: MapSearchVMDelegate? { get set }
+protocol PlaceSearchVMType {
+    var delegate: PlaceSearchVMDelegate? { get set }
     
     func numberOfRowsInSection() -> Int
     func itemAt(_ indexPath: IndexPath) -> PlaceInfo
@@ -18,14 +18,14 @@ protocol MapSearchVMType {
     func closeButtonPressed()
 }
 
-protocol MapSearchVMDelegate: class {
+protocol PlaceSearchVMDelegate: class {
     func didSelect(place: PlaceInfo)
     func cancelButtonPressed()
 }
 
-final class MapSearchVM: MapSearchVMType {
+final class PlaceSearchVM: PlaceSearchVMType {
     
-    weak var delegate: MapSearchVMDelegate?
+    weak var delegate: PlaceSearchVMDelegate?
     let autoCompleteFilter = AutoCompleteFilter<PlaceInfo>(fullEntryList: [PlaceInfo]())
     
     init(places: [PlaceInfo]) {

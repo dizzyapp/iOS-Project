@@ -1,5 +1,5 @@
 //
-//  MapSearchVM.swift
+//  PlaceSearchVM.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 23/04/2019.

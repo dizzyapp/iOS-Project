@@ -56,9 +56,9 @@ extension MapCoordinator: MapVMDelegate {
     }
 
     func searchButtonPressed() {
-        guard var viewModel = container?.resolve(MapSearchVMType.self),
-            let searchVC = container?.resolve(MapSearchVC.self, argument: viewModel) else {
-                print("could not create MapSearchVC page")
+        guard var viewModel = container?.resolve(PlaceSearchVMType.self),
+            let searchVC = container?.resolve(PlaceSearchVC.self, argument: viewModel) else {
+                print("could not create PlaceSearchVC page")
                 return
         }
         viewModel.delegate = self
@@ -66,7 +66,7 @@ extension MapCoordinator: MapVMDelegate {
     }
 }
 
-extension MapCoordinator: MapSearchVMDelegate {
+extension MapCoordinator: PlaceSearchVMDelegate {
 
     func didSelect(place: PlaceInfo) {
         cancelButtonPressed()
