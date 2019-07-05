@@ -14,6 +14,7 @@ class MapVC: ViewController {
     private var viewModel: MapVMType
     private var googleMap: MapType
     private var locationLabel = LocationLabel()
+    private let currentLocationButton = UIButton()
     
     init(viewModel: MapVMType, googleMap: MapType) {
         self.viewModel = viewModel
@@ -21,6 +22,8 @@ class MapVC: ViewController {
         super.init()
         bindViewModel()
         addSubviews()
+        layoutSubviews()
+        setupViews()
         setupNavigation()
     }
     
@@ -32,9 +35,27 @@ class MapVC: ViewController {
         super.viewDidAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
-
+    
     private func addSubviews() {
         view = googleMap.mapView
+        view.addSubview(currentLocationButton)
+    }
+    
+    private func setupViews() {
+        setupCurrentLocationButton()
+    }
+    
+    private func setupCurrentLocationButton() {
+        currentLocationButton.isHidden = true
+        currentLocationButton.setImage(UIImage(named: "current_location_icon"), for: .normal)
+        currentLocationButton.addTarget(self, action: #selector(currentLocationButtonPressed), for: .touchUpInside)
+    }
+    
+    private func layoutSubviews() {
+        currentLocationButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(Metrics.doublePadding)
+            make.right.equalToSuperview().inset(Metrics.doublePadding)
+        }
     }
 
     private func bindViewModel() {
@@ -54,11 +75,7 @@ class MapVC: ViewController {
         }
 
         viewModel.showLocationBadge.bind { [weak self] show in
-            self?.locationLabel.setbadgeVisable(show)
-        }
-
-        locationLabel.onbadgeButtonPressed = { [weak self] in
-            self?.viewModel.resetMapToInitialState()
+            self?.currentLocationButton.isHidden = !show
         }
     }
     
@@ -82,5 +99,9 @@ class MapVC: ViewController {
 
     @objc func searchButtonPressed() {
         viewModel.searchButtonPressed()
+    }
+    
+    @objc private func currentLocationButtonPressed() {
+        viewModel.resetMapToInitialState()
     }
 }
