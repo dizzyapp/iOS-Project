@@ -14,6 +14,7 @@ protocol MapVMType {
     var selectedLocation: Observable<Location?> { get set }
     var marks: Observable<[Mark?]> { get set }
     var showLocationBadge: Observable<Bool> { get set }
+    var zoom: Float { get }
 
     var delegate: MapVMDelegate? { get set }
     
@@ -29,7 +30,7 @@ protocol MapVMDelegate: class {
 }
 
 final class MapVM: MapVMType {
-    
+
     private var locationProvider: LocationProviderType
     private var places: [PlaceInfo]
     
@@ -40,6 +41,15 @@ final class MapVM: MapVMType {
     var showLocationBadge = Observable<Bool>(false)
 
     weak var delegate: MapVMDelegate?
+
+    var zoom: Float {
+        if currentLocation.value?.latitude == selectedLocation.value?.latitude &&
+            currentLocation.value?.longitude == selectedLocation.value?.longitude {
+            return 13
+        } else {
+            return 16
+        }
+    }
     
     init(places: [PlaceInfo], locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider

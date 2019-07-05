@@ -41,7 +41,7 @@ class MapVC: ViewController {
         viewModel.selectedLocation.bind { [weak self] location  in
             guard let self = self, let location = location else { return }
             self.locationLabel.isHidden = false
-            self.googleMap.changeMapFocus(location, zoom: 13.0)
+            self.googleMap.changeMapFocus(location, zoom: self.viewModel.zoom)
         }
 
         viewModel.currentAddress.bind { [weak self] address in
