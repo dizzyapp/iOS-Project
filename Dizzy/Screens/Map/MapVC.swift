@@ -65,12 +65,12 @@ class MapVC: ViewController {
     private func setupNavigation() {
         navigationItem.titleView = locationLabel
         locationLabel.isHidden = true
-        let closeButton = UIButton().smallRoundedBlackButton
+        let closeButton = UIButton().navigaionCloseButton
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         let closeBarButton = UIBarButtonItem(customView: closeButton)
         navigationItem.leftBarButtonItem = closeBarButton
 
-        let searchButton = UIButton().smallRoundedBlackButton
+        let searchButton = UIButton().roundedSearchButton
         searchButton.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
         let searchBarButton = UIBarButtonItem(customView: searchButton)
         navigationItem.rightBarButtonItem = searchBarButton

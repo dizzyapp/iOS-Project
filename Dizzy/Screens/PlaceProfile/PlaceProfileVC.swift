@@ -67,8 +67,7 @@ final class PlaceProfileVC: AVPlayerViewController {
     }
     
     private func setupNavigation() {
-        let closeButton = UIButton().smallRoundedBlackButton
-        closeButton.setImage(Images.downArrowIcon(), for: .normal)
+        let closeButton = UIButton().navigaionCloseButton
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         let closeBarButton = UIBarButtonItem(customView: closeButton)
         navigationItem.rightBarButtonItem = closeBarButton

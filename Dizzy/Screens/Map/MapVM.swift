@@ -73,8 +73,18 @@ final class MapVM: MapVMType {
     }
     
     private func setMarks(from places: [PlaceInfo]) {
-        marks.value = places.map { return Mark(title: $0.name, snippet: $0.description, location: $0.location, displayView: PlaceMarkerView(imageURL: $0.imageURLString ?? "")) }
+        marks.value = places.map({ place -> Mark in
+            let placeImageView = PlaceImageView()
+            
+            if let url = URL(string: place.imageURLString ?? "") {
+                placeImageView.setImage(from: url)
+            }
+            
+            let mark = Mark(title: place.name, snippet: place.description, location: place.location, displayView: placeImageView)
+            return mark
+        })
     }
+    
     
     func close() {
         delegate?.closeButtonPressed()
