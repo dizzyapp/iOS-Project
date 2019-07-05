@@ -16,7 +16,8 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
     private let viewModel: PhotoPresenterVMType
     private let imageView = UIImageView()
     private let cameraButton =  UIButton(frame: .zero)
-    private let placeIcon = UIImageView(frame: .zero)
+    private let retakeButtom = UIButton(frame: .zero)
+    private let placeIcon = PlaceImageView()
     
     private let borderRodius: CGFloat = 5.0
     
@@ -28,7 +29,6 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
         buildView()
         buildConstraints()
         bindViewModel()
-        setupNavigation()
         setupViews()
     }
     
@@ -37,13 +37,27 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
     }
     
     private func setupViews() {
+        stupNavigation()
         setupImageView()
         setupCameraButton()
         setupPlaceIcon()
+        setupRetakeButton()
+    }
+    
+    private func stupNavigation() {
+        navigationItem.setHidesBackButton(true, animated: false)
+    }
+    
+    private func setupRetakeButton() {
+        retakeButtom.setTitle("Retake".localized, for: .normal)
+        retakeButtom.showsTouchWhenHighlighted = true
+        retakeButtom.setTitleColor(.white, for: .normal)
+        retakeButtom.addTarget(self, action: #selector(backPressed), for: .touchUpInside)
     }
     
     private func setupPlaceIcon() {
-        placeIcon.kf.setImage(with: viewModel.placeIconURL)
+        guard let url = viewModel.placeIconURL else { return }
+        placeIcon.setImage(from: url)
         placeIcon.contentMode = .scaleAspectFit
     }
     
@@ -68,7 +82,7 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
     }
     
     private func buildView() {
-        view.addSubviews([imageView, cameraButton, placeIcon])
+        view.addSubviews([imageView, placeIcon, retakeButtom, cameraButton])
     }
     
     private func buildConstraints() {
@@ -84,15 +98,13 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
         
         placeIcon.snp.makeConstraints { make in
             make.center.equalTo(cameraButton.snp.center)
-            make.height.width.equalTo(cameraButtonHeight / 2)
+            make.height.width.equalTo(cameraButtonHeight * 0.7)
         }
-    }
-    
-    private func setupNavigation() {
-        let backButton = UIButton().smallRoundedBlackButton
-        backButton.addTarget(self, action: #selector(backPressed), for: .touchUpInside)
-        let backButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.leftBarButtonItem = backButtonItem
+        
+        retakeButtom.snp.makeConstraints { make in
+            make.centerY.equalTo(cameraButton.snp.centerY)
+            make.trailing.equalTo(cameraButton.snp.leading).inset(-Metrics.doublePadding)
+        }
     }
     
     @objc private func backPressed() {

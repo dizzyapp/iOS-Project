@@ -99,8 +99,7 @@ final class PlaceProfileView: UIView {
     
     private let storyButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setTitle("Story".localized, for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setImage(UIImage(named: "camera_icon"), for: .normal)
         button.showsTouchWhenHighlighted = true
         return button
     }()
@@ -199,7 +198,7 @@ final class PlaceProfileView: UIView {
         }
         storyButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(Metrics.mediumPadding)
-            make.trailing.equalToSuperview().offset(Metrics.mediumPadding)
+            make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
         }
     }
     
