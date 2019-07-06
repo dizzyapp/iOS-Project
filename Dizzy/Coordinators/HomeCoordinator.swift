@@ -68,8 +68,8 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
             MapVM(places: places, locationProvider: location)
         }
 
-        container?.register(MapSearchVMType.self, factory: { _ in
-            MapSearchVM(places: places)
+        container?.register(PlaceSearchVMType.self, factory: { _ in
+            PlaceSearchVM(places: places, locationProvider: location)
         })
 
         coordinator.onCoordinatorFinished = { [weak self] in

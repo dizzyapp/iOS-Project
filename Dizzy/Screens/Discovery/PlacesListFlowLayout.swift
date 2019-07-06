@@ -29,6 +29,11 @@ class PlacesListFlowLayout: UICollectionViewLayout {
         return CGSize(width: contentWidth, height: contentHeight)
     }
     
+    override func invalidateLayout() {
+        super.invalidateLayout()
+        cache.removeAll()
+    }
+    
     override func prepare() {
         guard cache.isEmpty, let collectionView = collectionView else {
             return

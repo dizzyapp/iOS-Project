@@ -13,8 +13,9 @@ protocol PlaceProfileVMType {
     var delegate: PlaceProfileVMDelegate? { get set }
     
     func closePressed()
-    func whatsappToPublicistPressed()
-    func callToPublicistPressed()
+    func addressButtonPressed(view: PlaceProfileView)
+    func callButtonPressed()
+    func requestTableButtonPressed()
 }
 
 protocol PlaceProfileVMDelegate: class {
@@ -26,17 +27,27 @@ final class PlaceProfileVM: PlaceProfileVMType {
     var placeInfo: PlaceInfo
     weak var delegate: PlaceProfileVMDelegate?
     
+    var externalNavigationProvider = ExternalNavigationProvider()
+    
     init(placeInfo: PlaceInfo) {
         self.placeInfo = placeInfo
     }
     
-    func callToPublicistPressed() {
+    func addressButtonPressed(view: PlaceProfileView) {
+        guard let location = view.placeInfo?.location else {
+            return
+        }
+        
+        self.externalNavigationProvider.openWaze(location: location)
+    }
+    
+    func callButtonPressed() {
         guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
             let url = URL(string: "tel://" + phoneNumber) else { return }
         UIApplication.shared.open(url, options: [:])
     }
     
-    func whatsappToPublicistPressed() {
+    func requestTableButtonPressed() {
         let whatsappText = "Hi I want to order a table".localized.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
             let url = URL(string: "https://wa.me/\(placeInfo.publicistPhoneNumber ?? "")/?text=\(whatsappText ??    "")") else { return }

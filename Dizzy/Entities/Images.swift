@@ -93,4 +93,16 @@ struct Images {
     static func hideIcon() -> UIImage {
         return UIImage(named: "hideIcon")!
     }
+    
+    static func addressBackgroundIcon() -> UIImage {
+        return UIImage(named: "addressBackgroundIcon")!
+    }
+    
+    static func requestTableIcon() -> UIImage {
+        return UIImage(named: "requestTableIcon")!
+    }
+    
+    static func callIcon() -> UIImage {
+        return UIImage(named: "callIcon")!
+    }
 }

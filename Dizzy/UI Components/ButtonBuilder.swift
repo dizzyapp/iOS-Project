@@ -16,4 +16,18 @@ extension UIButton {
         button.layer.cornerRadius = 16.0
         return button
     }
+    
+    var navigaionCloseButton: UIButton {
+        let button = UIButton()
+        let image = UIImage(named: "close_button")
+        button.setImage(image, for: .normal)
+        return button
+    }
+    
+    var roundedSearchButton: UIButton {
+        let button = UIButton()
+        let image = UIImage(named: "navigation_search_button")
+        button.setImage(image, for: .normal)
+        return button
+    }
 }

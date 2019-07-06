@@ -14,7 +14,7 @@ class PlaceImageView: UIControl {
     private var backgroundImageView = UIImageView()
     private var imageURL: URL?
     
-    var imageSize: CGFloat = 50 {
+    var imageSize: CGFloat = 45 {
         didSet {
             layoutViews()
         }

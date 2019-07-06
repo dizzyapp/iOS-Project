@@ -27,7 +27,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     weak var delegate: NearByPlacesViewDelegate?
     weak var dataSource: NearByPlacesViewDataSource?
     
-    private let searchButton = UIButton()
+    private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
     private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
     
@@ -106,7 +106,24 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     func reloadData() {
+        placesCollectionView.collectionViewLayout.invalidateLayout()
         placesCollectionView.reloadData()
+    }
+    
+    func set(title: String) {
+        titleLabel.text = title
+    }
+    
+    func set(collectionViewContentInsets: UIEdgeInsets) {
+        placesCollectionView.contentInset = collectionViewContentInsets
+    }
+    
+    func set(keyboardDismissMode: UIScrollView.KeyboardDismissMode) {
+        placesCollectionView.keyboardDismissMode = keyboardDismissMode
+    }
+    
+    func hideSearchButton() {
+        searchButton.isHidden = true
     }
 }
 
