@@ -30,7 +30,7 @@ final class PhotoPresenterVM: PhotoPresenterVMType {
     let placeInfo: PlaceInfo
     var loading = Observable<Bool>(false)
     
-    var delegate: PhotoPresenterVMDelegate?
+    weak var delegate: PhotoPresenterVMDelegate?
     
     var placeIconURL: URL? {
         return URL(string: placeInfo.imageURLString ?? "")

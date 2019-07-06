@@ -58,7 +58,7 @@ class Assembly {
         container.autoregister(MapCoordinatorType.self, argument: UIViewController.self, initializer: MapCoordinator.init)
         container.autoregister(LoginCoordinatorType.self, argument: UIViewController.self, initializer: LoginCoordinator.init)
         container.autoregister(PlaceProfileCoordinatorType.self, argument: UIViewController.self, initializer: PlaceProfileCoodinator.init)
-        container.autoregister(UploadStoryCoordinatorType.self, arguments: UINavigationController.self, PlaceInfo.self, initializer: UploadStoryCoordinator.init)
+        container.autoregister(UploadStoryCoordinatorType.self, argument: UINavigationController.self, initializer: UploadStoryCoordinator.init)
 
         // MARK: Entities:
         container.autoregister(MapType.self, initializer: GoogleMap.init).inObjectScope(.container)

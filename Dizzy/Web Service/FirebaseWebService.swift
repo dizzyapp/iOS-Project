@@ -70,14 +70,7 @@ final class FirebaseWebService: WebServiceType {
             if let error = error {
                 completion(Result.failure(error))
             } else {
-                ref.downloadURL { (url, error) in
-                    if let error = error {
-                        completion(Result.failure(error))
-                    } else {
-                        let response = UploadFileResponse(downloadLink: url?.absoluteString ?? "")
-                        completion(Result.success(response))
-                    }
-                }
+                self.getDownloadURL(from: ref, completion: completion)
             }
             print("UplaodFile FINISHED !!!!")
         }
@@ -87,6 +80,17 @@ final class FirebaseWebService: WebServiceType {
         }
         
         uploadTask.resume()
+    }
+    
+    private func getDownloadURL(from ref: StorageReference, completion: @escaping (Result<UploadFileResponse>) -> Void) {
+        ref.downloadURL { (url, error) in
+            if let error = error {
+                completion(Result.failure(error))
+            } else {
+                let response = UploadFileResponse(downloadLink: url?.absoluteString ?? "")
+                completion(Result.success(response))
+            }
+        }
     }
     
     func shouldHandle<Response, Body>(_ resource: Resource<Response, Body>) -> Bool where Response : Decodable, Response : Encodable, Body : Encodable {

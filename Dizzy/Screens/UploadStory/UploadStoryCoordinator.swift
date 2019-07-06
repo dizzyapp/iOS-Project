@@ -19,14 +19,11 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
     var navigationController: UINavigationController
     var container: Container?
     var childCoordinators: [CoordinatorKey : Coordinator] = [:]
-    let placeInfo: PlaceInfo
 
     init(container: Container,
-         navigationController: UINavigationController,
-         placeInfo: PlaceInfo) {
+         navigationController: UINavigationController) {
         self.container = container
         self.navigationController = navigationController
-        self.placeInfo = placeInfo
     }
     
     func start() {
@@ -39,14 +36,14 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
         navigationController.pushViewController(uploadStoryVC, animated: true)
     }
     
-    private func showPhotoPresenter(with photo: UIImage) {
+    private func showPhotoPresenter(with photo: UIImage, placeInfo: PlaceInfo) {
         guard let uploadFileInteractor = container?.resolve(UploadFileInteractorType.self) else {
             print("cannot load uploadFileInteractor")
             return
         }
         
         container?.register(PhotoPresenterVMType.self) { _ in
-            PhotoPresenterVM(photo: photo, uploadFileInteractor: uploadFileInteractor, placeInfo: self.placeInfo)
+            PhotoPresenterVM(photo: photo, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
         }
         
         guard var photoPresenterVM = container?.resolve(PhotoPresenterVMType.self),
@@ -65,8 +62,8 @@ extension UploadStoryCoordinator: UploadStoryVMDelegate {
         onCoordinatorFinished(false)
     }
     
-    func uploadStoryVMdidFinishProcessing(_ viewModel: UploadStoryVMType, photo: UIImage) {
-        showPhotoPresenter(with: photo)
+    func uploadStoryVMdidFinishProcessing(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo) {
+        showPhotoPresenter(with: photo, placeInfo: placeInfo)
     }
 }
 

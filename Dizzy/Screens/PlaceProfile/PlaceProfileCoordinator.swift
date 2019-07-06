@@ -44,7 +44,7 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType {
     }
     
     private func showStory(with place: PlaceInfo) {
-        guard let uploadStoryCoordinator = container?.resolve(UploadStoryCoordinatorType.self, arguments: navigationController, place) else {
+        guard let uploadStoryCoordinator = container?.resolve(UploadStoryCoordinatorType.self, argument: navigationController) else {
             print("could not create uploadStoryCoordinator")
             return
         }

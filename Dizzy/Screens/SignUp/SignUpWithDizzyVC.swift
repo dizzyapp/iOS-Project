@@ -80,7 +80,8 @@ extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
 extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate {
     func validationFailed(inputValidation: InputValidationResult) {
         self.hideSpinner()
-        showPopup(with: "Validation Error".localized, message: inputValidation.rawValue, buttonsLayer: .oneButton(buttonText: "Ok".localized, onClick: nil))
+        let action = Action(title: "Ok".localized)
+        showPopup(with: "Validation Error".localized, message: inputValidation.rawValue, actions: [action])
     }
     
     func userSignedUpSuccesfully(user: DizzyUser) {
@@ -89,6 +90,7 @@ extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate {
     
     func userSignedUpFailed(error: Error) {
         self.hideSpinner()
-       showPopup(with: "Error".localized, message: error.localizedDescription, buttonsLayer: .oneButton(buttonText: "Ok".localized, onClick: nil))
+        let action = Action(title: "Ok".localized)
+       showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
     }
 }

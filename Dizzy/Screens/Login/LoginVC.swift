@@ -268,7 +268,8 @@ extension LoginVC: LoginVMDelegate {
     
     func userSignedInFailed(error: SignInWebserviceError) {
         hideSpinner()
-        showPopup(with: "Error".localized, message: error.localizedDescription, buttonsLayer: .oneButton(buttonText: "Ok".localized, onClick: nil))
+        let action = Action(title: "Ok".localized)
+        showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
     }
     
     func userLoggedoutSuccessfully() {
@@ -278,6 +279,7 @@ extension LoginVC: LoginVMDelegate {
     
     func userLoggedoutFailed(error: Error) {
         hideSpinner()
-        showPopup(with: "Error".localized, message: error.localizedDescription, buttonsLayer: .oneButton(buttonText: "Ok".localized, onClick: nil))
+        let action = Action(title: "Ok".localized)
+        showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
     }
 }

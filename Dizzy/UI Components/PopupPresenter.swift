@@ -8,42 +8,40 @@
 
 import UIKit
 
-enum PopupButtonLayer {
-    case oneButton(buttonText: String, onClick: (() -> Void)?)
-    case twoButtons(confirmText: String, cancelText: String, confirmClicked: (() -> Void)?, cancelClicked: (() -> Void)?)
+final class Action {
+    let title: String
+    let style: UIAlertAction.Style
+    let action: (() -> Void)?
+    
+    init(title: String,
+         style: UIAlertAction.Style = .default,
+         action: (() -> Void)? = nil) {
+        self.title = title
+        self.action = action
+        self.style = style
+    }
 }
 
 protocol PopupPresenter {
-    func showPopup(with title: String, message: String, buttonsLayer: PopupButtonLayer)
+    func showPopup(with title: String, message: String, actions: [Action])
 }
 
 extension PopupPresenter where Self: UIViewController {
     
-    func showPopup(with title: String, message: String, buttonsLayer: PopupButtonLayer) {
-        var actions = [UIAlertAction]()
+    func showPopup(with title: String, message: String, actions: [Action]) {
         
-        switch buttonsLayer {
-        case .oneButton(buttonText: let text, onClick: let completion):
-            let cancelAction = UIAlertAction(title: text, style: .default) { _ in
-                completion?()
+        var alertActions = [UIAlertAction]()
+        actions.forEach { action in
+            let alertAction = UIAlertAction(title: action.title, style: action.style) { _ in
+                action.action?()
             }
-            actions.append(cancelAction)
-            
-        case .twoButtons(confirmText: let confirmText, cancelText: let cancelText, confirmClicked: let confirmCompletion, cancelClicked: let cancelCompletion):
-            
-            let cancelAction = UIAlertAction(title: cancelText, style: .default) { _ in
-                cancelCompletion?()
-            }
-            let confirmAction = UIAlertAction(title: confirmText, style: .default) { _ in
-                confirmCompletion?()
-            }
-            actions.append(cancelAction)
-            actions.append(confirmAction)
+            alertActions.append(alertAction)
         }
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        for action in actions {
-            alertController.addAction(action)
+        
+        for alertAction in alertActions {
+            alertController.addAction(alertAction)
         }
         
         present(alertController, animated: true)

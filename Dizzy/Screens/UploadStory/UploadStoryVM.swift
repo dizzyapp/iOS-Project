@@ -22,7 +22,7 @@ protocol UploadStoryVMType {
 
 protocol UploadStoryVMDelegate: class {
     func uploadStoryVMBackPressed(_ viewModel: UploadStoryVMType)
-    func uploadStoryVMdidFinishProcessing(_ viewModel: UploadStoryVMType, photo: UIImage)
+    func uploadStoryVMdidFinishProcessing(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo)
 }
 
 final class UploadStoryVM: UploadStoryVMType {
@@ -86,6 +86,6 @@ extension UploadStoryVM: CameraSessionControllerDelegate {
     }
     
     func cameraSessionControllerdidFinishProcessing(_ controller: CameraSessionController, image: UIImage) {
-        delegate?.uploadStoryVMdidFinishProcessing(self, photo: image)
+        delegate?.uploadStoryVMdidFinishProcessing(self, photo: image, placeInfo: placeInfo)
     }
 }

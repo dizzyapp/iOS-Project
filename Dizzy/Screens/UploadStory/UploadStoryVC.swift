@@ -55,7 +55,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     }
     
     private func bindViewModel() {
-        viewModel.captureVideoLayer.bind {                   [weak self] layer in
+        viewModel.captureVideoLayer.bind { [weak self] layer in
             guard let self = self, let layer = layer else { return }
             layer.frame = self.view.bounds
             self.view.layer.addSublayer(layer)
@@ -63,9 +63,11 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         }
         
         viewModel.errorString.bind { [weak self] errorString in
-            self?.showPopup(with: "Dizzy".localized, message: errorString, buttonsLayer: .oneButton(buttonText: "Confirm".localized, onClick: {
+            let action = Action(title: "Confirm".localized) { [weak self] in
                 print("Clicked")
-            }))
+            }
+            
+            self?.showPopup(with: "Dizzy".localized, message: errorString, actions: [action])
         }
     }
     
