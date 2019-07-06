@@ -32,6 +32,7 @@ final class PlaceProfileVC: AVPlayerViewController {
         setupNavigation()
         layoutSubview()
         setupView()
+        view.backgroundColor = .white
         player?.play()
     }
     
@@ -56,9 +57,11 @@ final class PlaceProfileVC: AVPlayerViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onResineActive), name: UIApplication.willResignActiveNotification, object: nil)
         showsPlaybackControls = false
         videoGravity = .resizeAspectFill
+        
     }
 
     private func makePlayerRepeat() {
+        
          playerItemDidPlayToEndObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem, queue: .main) {
             [weak self] _ in
             self?.player?.seek(to: CMTime.zero)
@@ -78,6 +81,7 @@ final class PlaceProfileVC: AVPlayerViewController {
     }
     
     private func layoutSubview() {
+        
         placeProfileView.snp.makeConstraints { placeProfileView in
             placeProfileView.top.equalTo(contentOverlayView!.snp.centerY).offset(Metrics.tinyPadding)
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
