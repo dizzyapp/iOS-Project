@@ -18,6 +18,10 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     private let viewModel: PlaceProfileVMType
     
+    let placeProfileViewCornerRadius = CGFloat(8)
+    let placeProfileViewPadding = CGFloat(8)
+    let placeProfileTopOffset = CGFloat(5)
+    
     init(viewModel: PlaceProfileVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -64,9 +68,10 @@ final class PlaceProfileVC: AVPlayerViewController {
     
     private func setupNavigation() {
         let closeButton = UIButton().smallRoundedBlackButton
+        closeButton.setImage(Images.downArrowIcon(), for: .normal)
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         let closeBarButton = UIBarButtonItem(customView: closeButton)
-        navigationItem.leftBarButtonItem = closeBarButton
+        navigationItem.rightBarButtonItem = closeBarButton
     }
     
     private func addSubviews() {
@@ -74,9 +79,11 @@ final class PlaceProfileVC: AVPlayerViewController {
     }
     
     private func layoutSubview() {
-        placeProfileView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(Metrics.doublePadding)
-            make.leading.trailing.equalToSuperview().inset(Metrics.padding)
+        placeProfileView.snp.makeConstraints { placeProfileView in
+            placeProfileView.top.equalTo(contentOverlayView!.snp.centerY).offset(Metrics.tinyPadding)
+            placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
+            placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
+            placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding)
         }
     }
     
@@ -93,11 +100,15 @@ final class PlaceProfileVC: AVPlayerViewController {
 }
 
 extension PlaceProfileVC: PlaceProfileViewDelegate {
-    func placeProfileViewWhatsappButtonPressed(_ view: PlaceProfileView) {
-        viewModel.whatsappToPublicistPressed()
+    func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView) {
+        viewModel.addressButtonPressed(view: view)
     }
     
-    func placeProfileViewPublicistButtonPressed(_ view: PlaceProfileView) {
-        viewModel.callToPublicistPressed()
+    func placeProfileViewCallButtonPressed(_ view: PlaceProfileView) {
+        viewModel.callButtonPressed()
+    }
+    
+    func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView) {
+        viewModel.requestTableButtonPressed()
     }
 }

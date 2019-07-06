@@ -10,115 +10,177 @@ import UIKit
 import Kingfisher
 
 protocol PlaceProfileViewDelegate: class {
-    func placeProfileViewPublicistButtonPressed(_ view: PlaceProfileView)
-    func placeProfileViewWhatsappButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewCallButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView)
 }
 
 final class PlaceProfileView: UIView {
     
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleToFill
-        return imageView
-    }()
+    var backgroundView = UIView()
+    var placeImageView = PlaceImageView()
+    var titleLabel = UILabel()
+    var descriptionLabel = UILabel()
+    var addressButton = UIButton(type: .system)
+    var openHoursLabel = UILabel()
+    var ageLabel = UILabel()
+    var callButton = UIButton(type: .system)
+    var requestTableButton = UIButton(type: .system)
     
-    private let titleLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.textAlignment = .center
-        label.textColor = .white
-        label.font = Fonts.i3(weight: .bold)
-        return label
-    }()
-    
-    private let descriptionLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.textAlignment = .center
-        label.textColor = .lightGray
-        label.font = Fonts.h5()
-        return label
-    }()
-    
-    private let addressLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.textAlignment = .center
-        label.textColor = UIColor(red: 145, green: 154, blue: 222)
-        label.font = Fonts.h5()
-        return label
-    }()
-    
-    private let ageLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.textAlignment = .center
-        label.textColor = .white
-        label.font = Fonts.h5()
-        return label
-    }()
-    
-    private let openHoursLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.textAlignment = .center
-        label.textColor = .white
-        label.font = Fonts.h5()
-        return label
-    }()
-    
-    private let publicistButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setTitle("call".localized, for: .normal)
-        button.setTitleColor(UIColor.primeryPurple, for: .normal)
-        button.backgroundColor = UIColor(red: 0, green: 0, blue: 46)
-        button.layer.cornerRadius = 16.0
-        button.layer.borderColor = UIColor.primeryPurple.cgColor
-        button.layer.borderWidth = 1.0
-        button.showsTouchWhenHighlighted = true
-        return button
-    }()
-    
-    private let sendWhatsappButton: UIButton = {
-        let button = UIButton(frame: .zero)
-        button.setTitle("send whatsapp".localized, for: .normal)
-        button.setTitleColor(UIColor.primeryPurple, for: .normal)
-        button.backgroundColor = UIColor(red: 0, green: 0, blue: 46)
-        button.layer.cornerRadius = 16.0
-        button.layer.borderColor = UIColor.primeryPurple.cgColor
-        button.layer.borderWidth = 1.0
-        button.showsTouchWhenHighlighted = true
-        return button
-    }()
-    
-    private let buttonsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8.0
-        return stackView
-    }()
-    
-    weak var delegate: PlaceProfileViewDelegate?
+    var placeInfo: PlaceInfo?
+    var stackView = UIStackView()
+    let placeImageViewSize = CGFloat(65)
+    let backgroundViewCornerRadius = CGFloat(25)
+    let backgroundImageOffset = CGFloat(40)
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        
         addSubviews()
         layoutViews()
-        makeRoundedCorners()
-        publicistButton.addTarget(self, action: #selector(publicistButtonPressed), for: .touchUpInside)
-        sendWhatsappButton.addTarget(self, action: #selector(whatsappButtonPressed), for: .touchUpInside)
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func addSubviews() {
+        stackView.addArrangedSubview(placeImageView)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(descriptionLabel)
+        stackView.addArrangedSubview(addressButton)
+        stackView.addArrangedSubview(ageLabel)
+        stackView.addArrangedSubview(openHoursLabel)
+        stackView.addArrangedSubview(requestTableButton)
+
+        self.addSubviews([backgroundView, stackView, callButton])
+    }
+    
+    private func layoutViews() {
+        layoutBackgroundView()
+        layoutPlaceImageView()
+        layoutCallButton()
+        layoutStackView()
+    }
+    
+    private func layoutBackgroundView() {
+        backgroundView.snp.makeConstraints { backgroundView in
+            backgroundView.top.equalToSuperview().offset(backgroundImageOffset)
+            backgroundView.leading.equalToSuperview()
+            backgroundView.trailing.equalToSuperview()
+            backgroundView.bottom.equalToSuperview()
+        }
+    }
+    
+    private func layoutPlaceImageView() {
+        placeImageView.snp.makeConstraints { placeImageView in
+            placeImageView.width.height.equalTo(placeImageViewSize)
+        }
+    }
+    
+    private func layoutCallButton() {
+        callButton.snp.makeConstraints { callButton in
+            callButton.top.equalTo(backgroundView.snp.top).offset(Metrics.padding)
+            callButton.leading.equalTo(backgroundView.snp.leading).offset(Metrics.padding)
+        }
+    }
+    
+    private func layoutStackView() {
+        stackView.snp.makeConstraints { stackView in
+            stackView.top.equalToSuperview().offset(Metrics.padding)
+            stackView.leading.trailing.equalToSuperview()
+            stackView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
+        }
+    }
+    
+    private func setupViews() {
+        setupBackgroundView()
+        setupPlaceImageView()
+        setupCallButton()
+        setupStackView()
+        setupTitleLabel()
+        setupDescriptionLabel()
+        setupAddressButton()
+        setupOpenHoursLabel()
+        setupAgeLabel()
+        setupRequestTableButton()
+    }
+    
+    private func setupBackgroundView() {
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        backgroundView.layer.cornerRadius = backgroundViewCornerRadius
+    }
+    
+    private func setupPlaceImageView() {
+        placeImageView.imageSize = placeImageViewSize
+    }
+    
+    private func setupStackView() {
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+    }
+    
+    private func setupTitleLabel() {
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .white
+        titleLabel.font = Fonts.h1(weight: .bold)
+    }
+    
+    private func setupDescriptionLabel() {
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.textColor = .white
+        descriptionLabel.font = Fonts.h10()
+    }
+    
+    private func setupAddressButton() {
+        addressButton.setBackgroundImage(Images.addressBackgroundIcon(), for: .normal)
+        addressButton.setTitleColor(UIColor(hexString: "A7B0FF"), for: .normal)
+        addressButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: Metrics.doublePadding, bottom: 0.0, right: Metrics.doublePadding)
+        addressButton.titleLabel?.font = Fonts.h10()
+        addressButton.addTarget(self, action: #selector(addressButtonPressed), for: .touchUpInside)
+    }
+    
+    private func setupOpenHoursLabel() {
+        openHoursLabel.textAlignment = .center
+        openHoursLabel.textColor = .white
+        openHoursLabel.font = Fonts.h10()
+    }
+    
+    private func setupAgeLabel() {
+        ageLabel.textAlignment = .center
+        ageLabel.textColor = .white
+        ageLabel.font = Fonts.h5()
+    }
+    
+    private func setupCallButton() {
+        callButton.setImage(Images.callIcon().withRenderingMode(.alwaysOriginal), for: .normal)
+        callButton.addTarget(self, action: #selector(callButtonPressed), for: .touchUpInside)
+    }
+    
+    private func setupRequestTableButton() {
+        requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
+        requestTableButton.setTitle("Request a table".localized, for: .normal)
+        requestTableButton.setTitleColor(UIColor(hexString: "C2A7FF"), for: .normal)
+        requestTableButton.titleLabel?.font = Fonts.h10()
+        requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
+    }
+    
+    weak var delegate: PlaceProfileViewDelegate?
+    
     func configure(with place: PlaceInfo) {
         
+        self.placeInfo = place
         place.location.getCurrentAddress { [weak self] address in
-            self?.addressLabel.text = "\(address?.street ?? ""), \(address?.city ?? ""), \(address?.country ?? "")"
+            let title: String = "\(address?.street ?? ""), \(address?.city ?? ""), \(address?.country ?? "")"
+            self?.addressButton.setTitle(title, for: .normal)
         }
     
-        setupImageView(with: place.imageURLString ?? "")
+        if let imageURLString = place.imageURLString, let imageURL = URL(string: imageURLString) {
+            self.placeImageView.setImage(from: imageURL)
+        }
+        
         titleLabel.text = place.name
         descriptionLabel.text = place.description
         ageLabel.text = place.authorizedAge
@@ -130,70 +192,18 @@ final class PlaceProfileView: UIView {
             openHoursLabel.text = openHourText
         }
     }
-    
-    private func setupImageView(with urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        profileImageView.kf.setImage(with: url,placeholder: Images.defaultPlaceAvatar(), options: [.scaleFactor(UIScreen.main.scale)])
-        layoutIfNeeded()
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+}
+
+extension PlaceProfileView {
+    @objc func addressButtonPressed() {
+        delegate?.placeProfileViewAddressButtonPressed(self)
     }
     
-    private func makeRoundedCorners() {
-        layer.cornerRadius = 25.0
+    @objc func callButtonPressed() {
+        delegate?.placeProfileViewCallButtonPressed(self)
     }
     
-    private func addSubviews() {
-        addSubviews([profileImageView, titleLabel, descriptionLabel, ageLabel, openHoursLabel, addressLabel, buttonsStackView])
-        buttonsStackView.addArrangedSubview(publicistButton)
-        buttonsStackView.addArrangedSubview(sendWhatsappButton)
-    }
-    
-    private func layoutViews() {
-        profileImageView.snp.makeConstraints { make in
-            make.centerY.equalTo(snp.top)
-            make.centerX.equalToSuperview()
-            make.height.width.equalTo(100)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(profileImageView.snp.bottom).offset(Metrics.doublePadding)
-            make.leading.trailing.equalToSuperview().offset(Metrics.mediumPadding)
-        }
-        
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(Metrics.padding)
-            make.leading.trailing.equalTo(titleLabel)
-        }
-        
-        addressLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(Metrics.padding)
-            make.leading.trailing.equalTo(titleLabel)
-        }
-        
-        ageLabel.snp.makeConstraints { make in
-            make.top.equalTo(addressLabel.snp.bottom).offset(Metrics.padding)
-            make.leading.trailing.equalTo(titleLabel)
-        }
-        
-        openHoursLabel.snp.makeConstraints { make in
-            make.top.equalTo(ageLabel.snp.bottom).offset(Metrics.padding)
-            make.leading.trailing.equalTo(titleLabel)
-        }
-        
-        buttonsStackView.snp.makeConstraints { make in
-            make.top.equalTo(openHoursLabel.snp.bottom).offset(Metrics.padding)
-            make.leading.equalToSuperview().offset(Metrics.doublePadding)
-            make.trailing.equalToSuperview().inset(Metrics.doublePadding)
-            make.bottom.equalToSuperview().inset(Metrics.doublePadding)
-        }
-    }
-    
-    @objc func publicistButtonPressed() {
-        delegate?.placeProfileViewPublicistButtonPressed(self)
-    }
-    
-    @objc func whatsappButtonPressed() {
-        delegate?.placeProfileViewWhatsappButtonPressed(self)
+    @objc func requestTableButtonPressed() {
+        delegate?.placeProfileViewRequestTableButtonPressed(self)
     }
 }
