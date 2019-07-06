@@ -113,6 +113,10 @@ class NearByPlacesView: UIView, LoadingContainer {
         titleLabel.text = title
     }
     
+    func set(collectionViewContentInsets: UIEdgeInsets) {
+        placesCollectionView.contentInset = collectionViewContentInsets
+    }
+    
     func set(keyboardDismissMode: UIScrollView.KeyboardDismissMode) {
         placesCollectionView.keyboardDismissMode = keyboardDismissMode
     }

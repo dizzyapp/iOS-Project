@@ -60,7 +60,9 @@ final class PlaceSearchVC: ViewController {
     private func setupViews() {
         view.backgroundColor = .clear
         modalPresentationStyle = .overCurrentContext
-
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         setupPlacesView()
         setupSearchTextField()
         setupCloseButton()
@@ -75,6 +77,7 @@ final class PlaceSearchVC: ViewController {
         placesViews.set(title: "Search".localized)
         placesViews.set(keyboardDismissMode: .onDrag)
         placesViews.dataSource = self
+        placesViews.delegate = self
         placesViews.reloadData()
     }
     
@@ -89,6 +92,18 @@ final class PlaceSearchVC: ViewController {
     
     @objc private func close() {
         viewModel.closeButtonPressed()
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let keyboardSize = keyboardFrame.cgSizeValue
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+        placesViews.set(collectionViewContentInsets: contentInsets)
+    }
+    
+    @objc func keyboardWillHide() {
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        placesViews.set(collectionViewContentInsets: contentInsets)
     }
 }
 
@@ -107,6 +122,16 @@ extension PlaceSearchVC: NearByPlacesViewDataSource {
     
     func getCurrentLocation() -> Location? {
         return viewModel.currentLocation.value
+    }
+}
+
+extension PlaceSearchVC: NearByPlacesViewDelegate {
+    func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
+       viewModel.didSelectRowAt(indexPath)
+    }
+    
+    func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
+        viewModel.didSelectRowAt(indexPath)
     }
 }
 
