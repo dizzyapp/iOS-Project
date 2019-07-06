@@ -106,6 +106,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     func reloadData() {
+        placesCollectionView.collectionViewLayout.invalidateLayout()
         placesCollectionView.reloadData()
     }
     

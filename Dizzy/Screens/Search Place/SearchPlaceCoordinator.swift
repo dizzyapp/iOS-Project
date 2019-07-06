@@ -56,4 +56,3 @@ extension SearchPlaceCoordinator: PlaceSearchVMDelegate {
         delegate?.searchPlaceCoordinatorDidCancel()
     }
 }
-

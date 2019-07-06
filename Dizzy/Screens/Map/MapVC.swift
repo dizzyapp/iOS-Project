@@ -46,7 +46,6 @@ class MapVC: ViewController {
     }
     
     private func setupCurrentLocationButton() {
-        currentLocationButton.isHidden = true
         currentLocationButton.setImage(UIImage(named: "current_location_icon"), for: .normal)
         currentLocationButton.addTarget(self, action: #selector(currentLocationButtonPressed), for: .touchUpInside)
     }
@@ -72,10 +71,6 @@ class MapVC: ViewController {
         
         viewModel.marks.bind(shouldObserveIntial: true) { [weak self] marks in
             self?.googleMap.addMarks(marks)
-        }
-
-        viewModel.showLocationBadge.bind { [weak self] show in
-            self?.currentLocationButton.isHidden = !show
         }
     }
     

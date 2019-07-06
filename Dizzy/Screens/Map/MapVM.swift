@@ -13,7 +13,6 @@ protocol MapVMType {
     var currentAddress: Observable<Address?> { get set }
     var selectedLocation: Observable<Location?> { get set }
     var marks: Observable<[Mark?]> { get set }
-    var showLocationBadge: Observable<Bool> { get set }
     var zoom: Float { get }
 
     var delegate: MapVMDelegate? { get set }
@@ -38,7 +37,6 @@ final class MapVM: MapVMType {
     var currentAddress = Observable<Address?>(nil)
     var selectedLocation = Observable<Location?>(nil)
     var marks = Observable<[Mark?]>([])
-    var showLocationBadge = Observable<Bool>(false)
 
     weak var delegate: MapVMDelegate?
 
@@ -63,6 +61,7 @@ final class MapVM: MapVMType {
             guard let self = self else { return }
             if location != nil {
                 self.currentLocation.value = location
+                self.setMyPlaceMark()
             } else {
                 self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
             }
@@ -95,6 +94,12 @@ final class MapVM: MapVMType {
         })
     }
     
+    private func setMyPlaceMark() {
+        if let currentLocation = currentLocation.value {
+           let mark = Mark(title: "Me".localized, snippet: "", location: currentLocation, displayView: nil)
+            marks.value = [mark]
+        }
+    }
     
     func close() {
         delegate?.closeButtonPressed()
@@ -107,12 +112,10 @@ final class MapVM: MapVMType {
     func didSelect(place: PlaceInfo) {
         selectedLocation.value = place.location
         getCurrentAddress()
-        showLocationBadge.value = true
     }
 
     func resetMapToInitialState() {
         selectedLocation.value = currentLocation.value
         getCurrentAddress()
-        showLocationBadge.value = false
     }
 }
