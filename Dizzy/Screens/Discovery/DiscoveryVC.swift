@@ -24,6 +24,8 @@ class DiscoveryVC: ViewController {
     private var themeImageHeightConstraint: Constraint?
     private var nearByPlacesTopConstraint: Constraint?
     
+    var isItFirstPageLoad = true
+    
     init(viewModel: DiscoveryVMType) {
         self.viewModel = viewModel
         super.init()
@@ -40,8 +42,12 @@ class DiscoveryVC: ViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setupThemeVideoView()
-        themeVideoView.play()
+        if isItFirstPageLoad {
+            setupThemeVideoView()
+            themeVideoView.play()
+            isItFirstPageLoad = false
+        }
+        
     }
     
     private func addSubviews() {
@@ -95,7 +101,7 @@ class DiscoveryVC: ViewController {
     }
     
     private func setupThemeVideoView() {
-        let path = Bundle.main.path(forResource: "dizzysplash", ofType:"mp4")!
+        let path = Bundle.main.path(forResource: "dizzySplash", ofType:"mp4")!
         themeVideoView.configure(url: path)
         themeVideoView.play()
     }
@@ -103,8 +109,7 @@ class DiscoveryVC: ViewController {
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
-        
-        nearByPlacesView.showSpinner()
+        nearByPlacesView.alpha = 0.9
         nearByPlacesView.reloadData()
     }
     
@@ -159,9 +164,10 @@ extension DiscoveryVC: DiscoveryVMDelegate {
     }
     
     func allPlacesArrived() {
-        nearByPlacesView.hideSpinner()
         nearByPlacesView.reloadData()
-        showNewrByPlacesWithAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+            self.showNewrByPlacesWithAnimation()
+        })
     }
 }
 

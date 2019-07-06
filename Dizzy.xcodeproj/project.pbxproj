@@ -92,8 +92,7 @@
 		772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D6226A040100BD1488 /* MapCoordinator.swift */; };
 		772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D8226A045A00BD1488 /* PlaceInfo.swift */; };
 		7752953522CD3F0E009A85C1 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752953422CD3F0E009A85C1 /* VideoView.swift */; };
-		7752953722CD4787009A85C1 /* dizzysplash.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7752953622CD4787009A85C1 /* dizzysplash.mp4 */; };
-		7752953922CD4D69009A85C1 /* test.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7752953822CD4D69009A85C1 /* test.mov */; };
+		7762328D22D14EE900156DC7 /* dizzySplash.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7762328C22D14EE900156DC7 /* dizzySplash.mp4 */; };
 		77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */; };
 		77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */; };
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
@@ -191,8 +190,7 @@
 		772354D6226A040100BD1488 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		772354D8226A045A00BD1488 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
 		7752953422CD3F0E009A85C1 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
-		7752953622CD4787009A85C1 /* dizzysplash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dizzysplash.mp4; sourceTree = "<group>"; };
-		7752953822CD4D69009A85C1 /* test.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = test.mov; sourceTree = "<group>"; };
+		7762328C22D14EE900156DC7 /* dizzySplash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dizzySplash.mp4; sourceTree = "<group>"; };
 		77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVC.swift; sourceTree = "<group>"; };
 		77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVM.swift; sourceTree = "<group>"; };
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
@@ -391,7 +389,6 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
-				7752953822CD4D69009A85C1 /* test.mov */,
 				0487FF9D228EB4AE00A8683C /* UI Components */,
 				76B41EDE22534A4B00C1A290 /* Extensions */,
 				4DFBA48222BEB89300BB0F4F /* Protocols */,
@@ -401,9 +398,9 @@
 				76B41EC92252145D00C1A290 /* Entities */,
 				76B41EBA2250C87E00C1A290 /* Coordinators */,
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
-				7752953622CD4787009A85C1 /* dizzysplash.mp4 */,
 				76B41EAA224EE9FC00C1A290 /* Assets.xcassets */,
 				76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */,
+				7762328C22D14EE900156DC7 /* dizzySplash.mp4 */,
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
 				76B41EB5224EF16200C1A290 /* Assembly.swift */,
 				76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */,
@@ -590,8 +587,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7752953922CD4D69009A85C1 /* test.mov in Resources */,
-				7752953722CD4787009A85C1 /* dizzysplash.mp4 in Resources */,
+				7762328D22D14EE900156DC7 /* dizzySplash.mp4 in Resources */,
 				76B41EAE224EE9FC00C1A290 /* LaunchScreen.storyboard in Resources */,
 				76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */,
 				76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */,
