@@ -1,5 +1,5 @@
 //
-//  MapSearchVM.swift
+//  PlaceSearchVM.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 23/04/2019.
@@ -39,7 +39,7 @@ class AutoCompleteFilter<DataType: FilterEntry> {
     func filter(by type: FilterType, filterString: String?) {
         guard !fullEntryList.isEmpty else { return }
         
-        if let filterString = filterString {
+        if let filterString = filterString, !filterString.isEmpty {
             filteredEntryList = fullEntryList.filter { type.predicate(filterString: filterString).evaluate(with: $0.filterString) }
         } else {
            filteredEntryList = fullEntryList
