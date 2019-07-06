@@ -106,7 +106,24 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     func reloadData() {
+        placesCollectionView.collectionViewLayout.invalidateLayout()
         placesCollectionView.reloadData()
+    }
+    
+    func set(title: String) {
+        titleLabel.text = title
+    }
+    
+    func set(collectionViewContentInsets: UIEdgeInsets) {
+        placesCollectionView.contentInset = collectionViewContentInsets
+    }
+    
+    func set(keyboardDismissMode: UIScrollView.KeyboardDismissMode) {
+        placesCollectionView.keyboardDismissMode = keyboardDismissMode
+    }
+    
+    func hideSearchButton() {
+        searchButton.isHidden = true
     }
 }
 

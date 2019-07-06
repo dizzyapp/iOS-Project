@@ -24,6 +24,8 @@ struct Mark {
 
 final class GoogleMap: MapType {
     
+    let iconViewRect = CGRect(x: 0, y: 0, width: 50, height: 50)
+    
     var mapView: UIView {
         return googleMapView
     }
@@ -55,6 +57,7 @@ final class GoogleMap: MapType {
         googleMarker.title = mark.title
         googleMarker.snippet = mark.snippet
         if let displayView = mark.displayView {
+            displayView.frame = iconViewRect
             googleMarker.iconView = displayView
         }
         googleMarker.map = googleMapView

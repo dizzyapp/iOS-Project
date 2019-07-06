@@ -12,7 +12,7 @@ import SnapKit
 class LocationLabel: UIView {
     
     private let textLabel = UILabel()
-    private let badgeButton = UIButton().smallRoundedBlackButton
+    private let badgeButton = UIButton().navigaionCloseButton
     private let textLabelHorizontalPadding = CGFloat(4)
     private let cornersRadius = CGFloat(13)
     private let backgroundAlpha = CGFloat(0.5)
