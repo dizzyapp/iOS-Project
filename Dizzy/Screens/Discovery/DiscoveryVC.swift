@@ -8,11 +8,13 @@
 
 import UIKit
 import SnapKit
+import AVKit
+import AVFoundation
 
 class DiscoveryVC: ViewController {
     
     let topBar = DiscoveryTopBar()
-    let themeImageView = UIImageView()
+    let themeVideoView = VideoView()
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryVMType
     
@@ -30,14 +32,20 @@ class DiscoveryVC: ViewController {
         setupViews()
         bindViewModel()
         self.viewModel.delegate = self
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        setupThemeVideoView()
+        themeVideoView.play()
+    }
+    
     private func addSubviews() {
-        self.view.addSubviews([themeImageView, topBar, nearByPlacesView])
+        self.view.addSubviews([themeVideoView, topBar, nearByPlacesView])
     }
     
     private func layoutViews() {
@@ -47,7 +55,7 @@ class DiscoveryVC: ViewController {
             topBar.trailing.leading.equalToSuperview()
         }
         
-        themeImageView.snp.makeConstraints { themeImageView in
+        themeVideoView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
             themeImageHeightConstraint = themeImageView.height.equalTo(view.snp.height).constraint
@@ -55,7 +63,7 @@ class DiscoveryVC: ViewController {
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
             
-            nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeImageView.snp.bottom).constraint
+            nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeVideoView.snp.bottom).constraint
             nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
             nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
             nearByPlacesView.bottom.equalToSuperview()
@@ -78,7 +86,6 @@ class DiscoveryVC: ViewController {
     
     private func setupViews() {
         view.backgroundColor = .clear
-        setupThemeImageView()
         setupNearByPlacesView()
         setupTopBarView()
     }
@@ -87,9 +94,10 @@ class DiscoveryVC: ViewController {
         topBar.delegate = self
     }
     
-    private func setupThemeImageView() {
-        themeImageView.contentMode = .scaleAspectFill
-        themeImageView.image = Images.discoveryThemeImage()
+    private func setupThemeVideoView() {
+        let path = Bundle.main.path(forResource: "dizzysplash", ofType:"mp4")!
+        themeVideoView.configure(url: path)
+        themeVideoView.play()
     }
     
     private func setupNearByPlacesView() {
@@ -147,12 +155,13 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
-        
+        nearByPlacesView.reloadData()
     }
     
     func allPlacesArrived() {
         nearByPlacesView.hideSpinner()
         nearByPlacesView.reloadData()
+        showNewrByPlacesWithAnimation()
     }
 }
 

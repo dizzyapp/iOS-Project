@@ -91,6 +91,9 @@
 		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
 		772354D7226A040100BD1488 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D6226A040100BD1488 /* MapCoordinator.swift */; };
 		772354D9226A045A00BD1488 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772354D8226A045A00BD1488 /* PlaceInfo.swift */; };
+		7752953522CD3F0E009A85C1 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752953422CD3F0E009A85C1 /* VideoView.swift */; };
+		7752953722CD4787009A85C1 /* dizzysplash.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7752953622CD4787009A85C1 /* dizzysplash.mp4 */; };
+		7752953922CD4D69009A85C1 /* test.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7752953822CD4D69009A85C1 /* test.mov */; };
 		77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */; };
 		77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */; };
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
@@ -187,6 +190,9 @@
 		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
 		772354D6226A040100BD1488 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		772354D8226A045A00BD1488 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
+		7752953422CD3F0E009A85C1 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		7752953622CD4787009A85C1 /* dizzysplash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dizzysplash.mp4; sourceTree = "<group>"; };
+		7752953822CD4D69009A85C1 /* test.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = test.mov; sourceTree = "<group>"; };
 		77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVC.swift; sourceTree = "<group>"; };
 		77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVM.swift; sourceTree = "<group>"; };
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
@@ -280,6 +286,7 @@
 				0487FFA4228EB4AE00A8683C /* LocationLabel.swift */,
 				0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */,
 				4DA64E9922C7F99B001D5A1A /* PlaceImageView.swift */,
+				7752953422CD3F0E009A85C1 /* VideoView.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -384,6 +391,7 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
+				7752953822CD4D69009A85C1 /* test.mov */,
 				0487FF9D228EB4AE00A8683C /* UI Components */,
 				76B41EDE22534A4B00C1A290 /* Extensions */,
 				4DFBA48222BEB89300BB0F4F /* Protocols */,
@@ -393,6 +401,7 @@
 				76B41EC92252145D00C1A290 /* Entities */,
 				76B41EBA2250C87E00C1A290 /* Coordinators */,
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
+				7752953622CD4787009A85C1 /* dizzysplash.mp4 */,
 				76B41EAA224EE9FC00C1A290 /* Assets.xcassets */,
 				76B41EAC224EE9FC00C1A290 /* LaunchScreen.storyboard */,
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
@@ -581,6 +590,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7752953922CD4D69009A85C1 /* test.mov in Resources */,
+				7752953722CD4787009A85C1 /* dizzysplash.mp4 in Resources */,
 				76B41EAE224EE9FC00C1A290 /* LaunchScreen.storyboard in Resources */,
 				76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */,
 				76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */,
@@ -728,6 +739,7 @@
 				4DDA117F22B58F9800CA0220 /* SignInWithDizzyVM.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
 				4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */,
+				7752953522CD3F0E009A85C1 /* VideoView.swift in Sources */,
 				4DFBA48422BEB8B600BB0F4F /* KeyboardHandler.swift in Sources */,
 				76B41EDA2253381900C1A290 /* Images.swift in Sources */,
 				76B41EE222534C1C00C1A290 /* Metrics.swift in Sources */,
@@ -895,13 +907,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 737C35C673;
+				DEVELOPMENT_TEAM = QP6TP4A84N;
 				INFOPLIST_FILE = Dizzy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy122;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -914,13 +926,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 737C35C673;
+				DEVELOPMENT_TEAM = QP6TP4A84N;
 				INFOPLIST_FILE = Dizzy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy122;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
