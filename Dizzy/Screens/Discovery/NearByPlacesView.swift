@@ -108,6 +108,18 @@ class NearByPlacesView: UIView, LoadingContainer {
     func reloadData() {
         placesCollectionView.reloadData()
     }
+    
+    func set(title: String) {
+        titleLabel.text = title
+    }
+    
+    func set(keyboardDismissMode: UIScrollView.KeyboardDismissMode) {
+        placesCollectionView.keyboardDismissMode = keyboardDismissMode
+    }
+    
+    func hideSearchButton() {
+        searchButton.isHidden = true
+    }
 }
 
 extension NearByPlacesView: UICollectionViewDataSource {

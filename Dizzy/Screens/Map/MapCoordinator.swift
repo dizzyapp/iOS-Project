@@ -56,24 +56,27 @@ extension MapCoordinator: MapVMDelegate {
     }
 
     func searchButtonPressed() {
-        guard var viewModel = container?.resolve(PlaceSearchVMType.self),
-            let searchVC = container?.resolve(PlaceSearchVC.self, argument: viewModel) else {
-                print("could not create PlaceSearchVC page")
-                return
+        guard let presentingViewController = navigationController.topViewController,
+            let searchCoordinator = container?.resolve(SearchPlaceCoordinatorType.self, argument: presentingViewController) else {
+            print("Could not create SearhPlaceCoordinator")
+            return
         }
-        viewModel.delegate = self
-        navigationController.pushViewController(searchVC, animationType: .fade)
+        
+        navigationController.setNavigationBarHidden(true, animated: false)
+        searchCoordinator.delegate = self
+        add(coordinator: searchCoordinator, for: .placeSearch)
+        searchCoordinator.start()
     }
 }
 
-extension MapCoordinator: PlaceSearchVMDelegate {
-
-    func didSelect(place: PlaceInfo) {
-        cancelButtonPressed()
+extension MapCoordinator: SearchPlaceCoordinatorDelegate {
+    func searchPlaceCoordinatorDidSelect(place: PlaceInfo) {
+        navigationController.setNavigationBarHidden(false, animated: false)
         mapViewModel?.didSelect(place: place)
     }
     
-    func cancelButtonPressed() {
-        navigationController.popViewController(with: .fade)
+    func searchPlaceCoordinatorDidCancel() {
+        navigationController.setNavigationBarHidden(false, animated: false)
+        removeCoordinator(for: .placeSearch)
     }
 }

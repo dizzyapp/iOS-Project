@@ -10,6 +10,8 @@ import Foundation
 
 protocol PlaceSearchVMType {
     var delegate: PlaceSearchVMDelegate? { get set }
+    var currentLocation: Observable<Location?> { get }
+
     
     func numberOfRowsInSection() -> Int
     func itemAt(_ indexPath: IndexPath) -> PlaceInfo
@@ -26,10 +28,21 @@ protocol PlaceSearchVMDelegate: class {
 final class PlaceSearchVM: PlaceSearchVMType {
     
     weak var delegate: PlaceSearchVMDelegate?
+    var currentLocation = Observable<Location?>(nil)
+    private let locationProvider: LocationProviderType
     let autoCompleteFilter = AutoCompleteFilter<PlaceInfo>(fullEntryList: [PlaceInfo]())
     
-    init(places: [PlaceInfo]) {
+    init(places: [PlaceInfo], locationProvider: LocationProviderType) {
         autoCompleteFilter.fullEntryList = places
+        self.locationProvider = locationProvider
+        locationProvider.requestUserLocation()
+        bindLocationProvider()
+    }
+    
+    private func bindLocationProvider() {
+        locationProvider.dizzyLocation.bind { [weak self] location in
+            self?.currentLocation.value = location
+        }
     }
     
     func closeButtonPressed() {

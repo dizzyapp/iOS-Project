@@ -69,7 +69,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         }
 
         container?.register(PlaceSearchVMType.self, factory: { _ in
-            PlaceSearchVM(places: places)
+            PlaceSearchVM(places: places, locationProvider: location)
         })
 
         coordinator.onCoordinatorFinished = { [weak self] in
