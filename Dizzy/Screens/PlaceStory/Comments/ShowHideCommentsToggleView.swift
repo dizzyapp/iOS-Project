@@ -20,6 +20,11 @@ class ShowHideCommentsToggleView: UIControl {
     private let showCommentsImageView = UIImageView()
     private let showHideCommentsLabel = UILabel()
     
+    override var isHighlighted: Bool {
+        didSet {
+            self.alpha = self.isHighlighted ? 0.5 : 1.0
+        }
+    }
     var toggleState: ToggleState = .show {
         didSet {
             setupViews()

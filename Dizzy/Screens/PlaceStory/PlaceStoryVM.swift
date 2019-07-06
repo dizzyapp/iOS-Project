@@ -18,6 +18,7 @@ protocol PlaceStoryVMType {
     var currentImageURLString: Observable<String?> { get set }
     var delay: Double { get }
     var comments: Observable<[Comment]> { get }
+    var stories: Observable<[PlaceStory]> { get }
     var delegate: PlaceStoryVMDelegate? { get set }
     var place: PlaceInfo { get }
     
@@ -40,19 +41,19 @@ final class PlaceStoryVM: PlaceStoryVMType {
     var displayedImageIndex = -1
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
+    var storiesInteractor: StoriesInteractorType
     var comments = Observable<[Comment]>([Comment]())
+    var stories = Observable<[PlaceStory]>([PlaceStory]())
     
     var currentImageURLString = Observable<String?>(nil)
     
-    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType) {
+    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType) {
         self.place = place
         self.commentsInteractor = commentsInteractor
-        self.commentsInteractor.getAllPlaceComments(with: place.id)
+        self.storiesInteractor = storiesInteractor
+        self.storiesInteractor.getAllPlaceStories(with: place.id)
         self.commentsInteractor.delegate = self
-        
-        if let placesStories = place.placesStories {
-            imagesURL = placesStories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
-        }
+        self.storiesInteractor.delegate = self
     }
     
     func showNextImage() {
@@ -102,7 +103,20 @@ final class PlaceStoryVM: PlaceStoryVMType {
 
 extension PlaceStoryVM: CommentsInteractorDelegate {
     func commentsInteractor(_ interactor: CommentsInteractorType, comments: [Comment]) {
+        
         let sortedComments = comments.sorted { $0.timeStamp < $1.timeStamp }
         self.comments.value = sortedComments
+    }
+}
+
+extension PlaceStoryVM: StoriesInteractorDelegate {
+    func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceStory]?) {
+        if let stories = stories, !stories.isEmpty {
+            self.stories.value = stories
+            self.imagesURL = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
+            
+            self.showNextImage()
+            self.commentsInteractor.getAllPlaceComments(with: place.id)
+        }
     }
 }

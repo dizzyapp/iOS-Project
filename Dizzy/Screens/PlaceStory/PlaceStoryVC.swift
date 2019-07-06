@@ -10,10 +10,12 @@ import UIKit
 import AVKit
 import AVFoundation
 import Kingfisher
+import SnapKit
 
 final class PlaceStoryVC: ViewController {
     
     let topView = UIView()
+    let placeholderView = UIView()
     let imageView = UIImageView()
     
     var commentsManager: CommentsManager?
@@ -30,16 +32,16 @@ final class PlaceStoryVC: ViewController {
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
-        commentsManager = CommentsManager(parentView: view)
+        commentsManager = CommentsManager(parentView: placeholderView)
         commentsManager?.delegate = self
         commentsManager?.dataSource = self
+        
         addSubviews()
         layoutViews()
         setupNavigation()
         setupViews()
 
         bindViewModel()
-        viewModel.showNextImage()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,21 +49,24 @@ final class PlaceStoryVC: ViewController {
     }
     
     override func viewSafeAreaInsetsDidChange() {
-        topView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(topViewHeight + view.safeAreaInsets.top)
-        }
+        layoutTopView()
     }
+    
     private func addSubviews() {
-        view.addSubviews([imageView, topView, rightGestureView, leftGestureView])
-        commentsManager?.addCommentsViews()
+        view.insertSubview(imageView, at: 0)
+        view.addSubviews([topView, rightGestureView, leftGestureView])
+        view.addSubview(placeholderView)
     }
     
     private func layoutViews() {
         
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        placeholderView.snp.makeConstraints { make in
+            make.top.equalTo(topView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
         }
         
         rightGestureView.snp.makeConstraints { make in
@@ -74,6 +79,14 @@ final class PlaceStoryVC: ViewController {
             make.height.equalToSuperview()
             make.width.equalTo(gestureViewWidth)
             make.left.equalToSuperview()
+        }
+    }
+    
+    private func layoutTopView() {
+        topView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(topViewHeight + view.safeAreaInsets.top)
         }
     }
     
@@ -104,7 +117,6 @@ final class PlaceStoryVC: ViewController {
     
     private func setupCommentsManager() {
         commentsManager?.showTextField(false)
-
     }
     
     private func bindViewModel() {
@@ -144,7 +156,7 @@ final class PlaceStoryVC: ViewController {
 
 extension PlaceStoryVC: CommentsManagerDelegate {
     
-    func commecntView(isHidden: Bool) { }
+    func commentView(isHidden: Bool) { }
     
     func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
         let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)

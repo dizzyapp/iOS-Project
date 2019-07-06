@@ -40,8 +40,8 @@ extension UITextField {
         return  self
     }
     
-    func withTransperentRoundedCorners(borderColor: UIColor) -> UITextField {
-        layer.cornerRadius = 16
+    func withTransperentRoundedCorners(borderColor: UIColor, cornerRadius: CGFloat? = nil) -> UITextField {
+        layer.cornerRadius = cornerRadius ?? 16
         layer.borderWidth = 1.0
         textColor = UIColor.white
         layer.borderColor = borderColor.cgColor

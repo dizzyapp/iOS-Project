@@ -26,6 +26,7 @@ class Assembly {
         container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         container.autoregister(GooglePlaceInteractorType.self, initializer: GooglePlaceInteractor.init)
         container.autoregister(CommentsInteractorType.self, initializer: CommentsInteractor.init)
+        container.autoregister(StoriesInteractorType.self, initializer: StoriesInteractor.init)
         container.autoregister(SignUpInteractorType.self, initializer: SignUpInteractor.init)
         container.autoregister(SignInInteractorType.self, initializer: SignInInteractor.init)
         container.autoregister(LogoutInteractorType.self, initializer: LogoutInteractor.init)

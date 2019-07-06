@@ -120,13 +120,13 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         guard let presntingVC = presentedViewControllers.first,
             let placeStoryCoordinator = container?.resolve(PlaceStoryCoordinatorType.self, argument: presntingVC),
             let commentsInteractor = container?.resolve(CommentsInteractorType.self),
-            place.placesStories != nil else {
+            let storiesInteractor = container?.resolve(StoriesInteractorType.self) else {
                 print("could not create placeProfileCoordinator")
                 return
         }
-    
+        
         container?.register(PlaceStoryVMType.self) { _ in
-            PlaceStoryVM(place: place, commentsInteractor: commentsInteractor)
+            PlaceStoryVM(place: place, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor)
         }
         
         placeStoryCoordinator.onCoordinatorFinished = { [weak self] in

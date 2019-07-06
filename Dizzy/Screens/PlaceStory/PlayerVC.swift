@@ -62,7 +62,6 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     private func addSubviews() {
         contentOverlayView?.addSubviews([rightGestureView, leftGestureView])
-        commentsManager?.addCommentsViews()
     }
     
     private func setupNavigation() {
@@ -138,7 +137,7 @@ extension PlayerVC: CommentsManagerDelegate {
         commentsDelegate?.playerVCSendPressed(self, with: message)
     }
     
-    func commecntView(isHidden: Bool) {
+    func commentView(isHidden: Bool) {
         isHidden ? play() : pause()
     }
 }
