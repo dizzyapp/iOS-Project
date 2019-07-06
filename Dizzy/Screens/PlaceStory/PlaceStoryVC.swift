@@ -15,14 +15,14 @@ import SnapKit
 final class PlaceStoryVC: ViewController {
     
     let topView = UIView()
-    let placeholderView = UIView()
     let imageView = UIImageView()
     
     var commentsManager: CommentsManager?
     
     let rightGestureView = UIView()
     let leftGestureView = UIView()
-    
+    let commentsPlaceholderView = UIView()
+
     var viewModel: PlaceStoryVMType
     var playerVC: PlayerVC?
     
@@ -32,7 +32,7 @@ final class PlaceStoryVC: ViewController {
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
-        commentsManager = CommentsManager(parentView: placeholderView)
+        commentsManager = CommentsManager(parentView: commentsPlaceholderView)
         commentsManager?.delegate = self
         commentsManager?.dataSource = self
         
@@ -54,31 +54,34 @@ final class PlaceStoryVC: ViewController {
     
     private func addSubviews() {
         view.insertSubview(imageView, at: 0)
-        view.addSubviews([topView, rightGestureView, leftGestureView])
-        view.addSubview(placeholderView)
+        view.addSubviews([topView, commentsPlaceholderView, rightGestureView, leftGestureView])
     }
     
     private func layoutViews() {
-        
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        placeholderView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-        }
-        
         rightGestureView.snp.makeConstraints { make in
-            make.height.equalToSuperview()
+            make.top.equalTo(topView.snp.bottom)
             make.width.equalTo(gestureViewWidth)
+            make.height.equalToSuperview()
             make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         leftGestureView.snp.makeConstraints { make in
-            make.height.equalToSuperview()
+            make.top.equalTo(topView.snp.bottom)
             make.width.equalTo(gestureViewWidth)
+            make.height.equalToSuperview()
             make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        commentsPlaceholderView.snp.makeConstraints { make in
+            make.top.equalTo(topView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Metrics.doublePadding)
         }
     }
     
@@ -103,7 +106,8 @@ final class PlaceStoryVC: ViewController {
     private func setupViews() {
         setupGestureView()
         setupTopView()
-        setupCommentsManager()
+        setupCommentTextFieldView()
+//        setupCommentsManager()
     }
     
     private func setupGestureView() {
@@ -115,21 +119,25 @@ final class PlaceStoryVC: ViewController {
         topView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
     }
     
-    private func setupCommentsManager() {
-        commentsManager?.showTextField(false)
+    private func setupCommentTextFieldView() {
+        
     }
+
+//    private func setupCommentsManager() {
+//        commentsManager?.showTextField(false)
+//    }
     
     private func bindViewModel() {
         viewModel.currentImageURLString.bind { [weak self] urlString in
             guard let urlString = urlString else { return }
-            self?.commentsManager?.resetManagerToInitialState()
+//            self?.commentsManager?.resetManagerToInitialState()
             if let url = URL(string: urlString) {
                 guard let self = self else { return }
                 self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
-                self.commentsManager?.showTextField(false)
+//                self.commentsManager?.showTextField(false)
                 self.imageView.kf.setImage(with: url) { [weak self] _ in
-                    self?.commentsManager?.showTextField(true)
+//                    self?.commentsManager?.showTextField(true)
                 }
                 
                 self.playerVC?.dismiss(animated: false)
@@ -140,7 +148,7 @@ final class PlaceStoryVC: ViewController {
             self?.commentsManager?.reloadTableView()
         }
     }
-
+    
     @objc func didTapRight() {
         viewModel.showNextImage()
     }

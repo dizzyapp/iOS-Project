@@ -19,7 +19,6 @@ final class CommentTextFieldView: UIView {
     private let sendButton = UIButton(type: .system)
     
     weak var delegate: CommentTextFieldViewDelegate?
-    var commentsTextFieldInputView = CommentsTextFieldInputView()
     let sendButtonSize = CGSize(width: 60, height: 30)
     
     init() {
@@ -86,7 +85,6 @@ final class CommentTextFieldView: UIView {
         textField.font = Fonts.h8()
         textField.attributedPlaceholder = NSAttributedString(string: "Comment...".localized,
                                                              attributes: [.foregroundColor: UIColor.white])
-        textField.inputAccessoryView = commentsTextFieldInputView
     }
     
     private func setupSendButton() {

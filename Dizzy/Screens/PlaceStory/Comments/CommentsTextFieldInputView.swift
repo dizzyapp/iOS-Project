@@ -8,6 +8,16 @@
 
 import UIKit
 
+protocol CommentsTextFieldInputViewDelegate: class {
+    func commentView(isHidden: Bool)
+    func commentsTextFieldInputViewSendPressed(_ inputView: CommentsTextFieldInputView, with message: String)
+}
+
+protocol CommentsTextFieldInputViewDataSource: class {
+    func numberOfRowsInSection() -> Int
+    func comment(at indexPath: IndexPath) -> Comment?
+}
+
 final class CommentsTextFieldInputView: UIView {
     
     private var stackView = UIStackView()
@@ -18,21 +28,25 @@ final class CommentsTextFieldInputView: UIView {
     private let chatTextFieldAccessoryView = CommentTextFieldView()
     private weak var parentView: UIView?
     
-    weak var delegate: CommentsManagerDelegate?
-    weak var dataSource: CommentsManagerDataSource?
+    weak var delegate: CommentsTextFieldInputViewDelegate?
+    weak var dataSource: CommentsTextFieldInputViewDataSource?
 
     let cornerRadius: CGFloat = 25.0
     let bottomPadding = CGFloat(27)
 
-    init(parentView: UIView) {
-        self.parentView = parentView
+    init() {
+        super.init(frame: .zero)
         
         addListeners()
         addSubviews()
         layoutViews()
         setupViews()
     }
- 
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func addListeners() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         chatTextFieldAccessoryView.textField.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
@@ -55,8 +69,12 @@ final class CommentsTextFieldInputView: UIView {
     }
     
     private func layoutStackView() {
+        guard let parentView = self.parentView else {
+            return
+        }
+        
         stackView.snp.makeConstraints { (stackView) in
-            stackView.leading.trailing.equalToSuperview()
+            stackView.leading.trailing.equalTo(parentView)
             stackView.bottom.equalTo(chatTextFieldView.snp.top).offset(-Metrics.oneAndHalfPadding)
         }
     }
@@ -70,10 +88,12 @@ final class CommentsTextFieldInputView: UIView {
     }
     
     private func layoutChatTextFieldView() {
+        guard let parentView = self.parentView else {
+            return
+        }
         chatTextFieldView.snp.makeConstraints { (chatTextFieldView) in
-            chatTextFieldView.bottom.equalTo(parentView?.safeAreaLayoutGuide.snp.bottom ?? 0).offset(-bottomPadding)
-            chatTextFieldView.leading.trailing.equalToSuperview()
-            chatTextFieldView.height.equalTo(50)
+            chatTextFieldView.bottom.equalTo(parentView.safeAreaLayoutGuide.snp.bottom ).offset(-bottomPadding)
+            chatTextFieldView.leading.trailing.equalTo(parentView)
         }
     }
     
@@ -133,7 +153,7 @@ final class CommentsTextFieldInputView: UIView {
     }
 }
 
-extension CommentsManager {
+extension CommentsTextFieldInputView {
     @objc func textFieldValueChanged() {
         chatTextFieldView.textField.text = chatTextFieldAccessoryView.textField.text
     }
@@ -143,7 +163,7 @@ extension CommentsManager {
     }
 }
 
-extension CommentsManager: CommentsViewDelegate {
+extension CommentsTextFieldInputView: CommentsViewDelegate {
     func commentsViewPressed() {
         commentsView.isHidden = true
         chatTextFieldView.textField.text = ""
@@ -154,7 +174,17 @@ extension CommentsManager: CommentsViewDelegate {
     }
 }
 
-extension CommentsManager {
+extension CommentsTextFieldInputView: CommentsViewDataSource {
+    func numberOfRowsInSection() -> Int {
+        return dataSource?.numberOfRowsInSection() ?? 0
+    }
+    
+    func comment(at indexPath: IndexPath) -> Comment? {
+        return dataSource?.comment(at: indexPath)
+    }
+}
+
+extension CommentsTextFieldInputView {
     @objc func keyboardWillShow(notification: NSNotification) {
         commentsView.isHidden = false
         chatTextFieldView.isHidden = true
@@ -163,18 +193,8 @@ extension CommentsManager {
     }
 }
 
-extension CommentsManager: CommentTextFieldViewDelegate {
+extension CommentsTextFieldInputView: CommentTextFieldViewDelegate {
     func commentTextFieldViewSendPressed(_ view: UIView, with message: String) {
-        delegate?.commentsManagerSendPressed(self, with: message)
-    }
-}
-
-extension CommentsManager: CommentsViewDataSource {
-    func numberOfRowsInSection() -> Int {
-        return dataSource?.numberOfRowsInSection() ?? 0
-    }
-    
-    func comment(at indexPath: IndexPath) -> Comment? {
-        return dataSource?.comment(at: indexPath)
+        delegate?.commentsTextFieldInputViewSendPressed(self, with: message)
     }
 }
