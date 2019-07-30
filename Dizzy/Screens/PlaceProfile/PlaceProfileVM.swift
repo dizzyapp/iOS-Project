@@ -16,8 +16,6 @@ protocol PlaceProfileVMType {
     func addressButtonPressed(view: PlaceProfileView)
     func callButtonPressed()
     func requestTableButtonPressed()
-    func whatsappToPublicistPressed()
-    func callToPublicistPressed()
     func storyButtonPressed()
 }
 
@@ -64,18 +62,5 @@ final class PlaceProfileVM: PlaceProfileVMType {
 
     func storyButtonPressed() {
         delegate?.placeProfileVMStoryButtonPressed(self)
-    }
-    
-    func callToPublicistPressed() {
-        guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
-            let url = URL(string: "tel://" + phoneNumber) else { return }
-        UIApplication.shared.open(url, options: [:])
-    }
-    
-    func whatsappToPublicistPressed() {
-        let whatsappText = "Hi I want to order a table".localized.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
-            let url = URL(string: "https://wa.me/\(placeInfo.publicistPhoneNumber ?? "")/?text=\(whatsappText ??    "")") else { return }
-        UIApplication.shared.open(url, options: [:])
     }
 }

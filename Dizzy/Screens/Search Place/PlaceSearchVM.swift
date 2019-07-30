@@ -11,7 +11,7 @@ import Foundation
 protocol PlaceSearchVMType {
     var delegate: PlaceSearchVMDelegate? { get set }
     var currentLocation: Observable<Location?> { get }
-    
+
     func numberOfRowsInSection() -> Int
     func itemAt(_ indexPath: IndexPath) -> PlaceInfo
     func didSelectRowAt(_ indexPath: IndexPath) 
@@ -37,7 +37,7 @@ final class PlaceSearchVM: PlaceSearchVMType {
         locationProvider.requestUserLocation()
         bindLocationProvider()
     }
-    
+
     private func bindLocationProvider() {
         locationProvider.dizzyLocation.bind { [weak self] location in
             self?.currentLocation.value = location

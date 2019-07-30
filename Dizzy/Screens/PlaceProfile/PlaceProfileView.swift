@@ -10,12 +10,10 @@ import UIKit
 import Kingfisher
 
 protocol PlaceProfileViewDelegate: class {
-    func placeProfileViewPublicistButtonPressed(_ view: PlaceProfileView)
-    func placeProfileViewWhatsappButtonPressed(_ view: PlaceProfileView)
-    func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView)
 }
 
 final class PlaceProfileView: UIView {
@@ -29,7 +27,7 @@ final class PlaceProfileView: UIView {
     var ageLabel = UILabel()
     var callButton = UIButton(type: .system)
     var requestTableButton = UIButton(type: .system)
-    
+
     var placeInfo: PlaceInfo?
     var stackView = UIStackView()
     let placeImageViewSize = CGFloat(65)
@@ -43,15 +41,12 @@ final class PlaceProfileView: UIView {
         return button
     }()
 
-    weak var delegate: PlaceProfileViewDelegate?
-
     init() {
         super.init(frame: .zero)
 
         addSubviews()
         layoutViews()
         setupViews()
-        makeRoundedCorners()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -73,9 +68,9 @@ final class PlaceProfileView: UIView {
     private func layoutViews() {
         layoutBackgroundView()
         layoutPlaceImageView()
-        layoutStoryButton()
         layoutCallButton()
         layoutStackView()
+        layoutStoryButton()
     }
 
     private func layoutBackgroundView() {
@@ -99,19 +94,19 @@ final class PlaceProfileView: UIView {
             callButton.leading.equalTo(backgroundView.snp.leading).offset(Metrics.padding)
         }
     }
-    
-    private func layoutStoryButton() {
-        storyButton.snp.makeConstraints { storyButton in
-            storyButton.top.equalTo(backgroundView.snp.top).offset(Metrics.padding)
-            storyButton.trailing.equalTo(backgroundView.snp.trailing).offset(-Metrics.padding)
-        }
-    }
 
     private func layoutStackView() {
         stackView.snp.makeConstraints { stackView in
             stackView.top.equalToSuperview().offset(Metrics.padding)
             stackView.leading.trailing.equalToSuperview()
             stackView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
+        }
+    }
+    
+    private func layoutStoryButton() {
+        storyButton.snp.makeConstraints { storyButton in
+            storyButton.top.equalTo(backgroundView.snp.top).offset(Metrics.padding)
+            storyButton.trailing.equalTo(backgroundView.snp.trailing).offset(-Metrics.padding)
         }
     }
 
@@ -193,6 +188,8 @@ final class PlaceProfileView: UIView {
         storyButton.addTarget(self, action: #selector(storyButtonPressed), for: .touchUpInside)
     }
 
+    weak var delegate: PlaceProfileViewDelegate?
+
     func configure(with place: PlaceInfo) {
         
         self.placeInfo = place
@@ -215,10 +212,6 @@ final class PlaceProfileView: UIView {
             openHourText = openHourText.replacingOccurrences(of: "[Y]", with: dateType.rawValue)
             openHoursLabel.text = openHourText
         }
-    }
-    
-    private func makeRoundedCorners() {
-        layer.cornerRadius = 25.0
     }
 }
 
