@@ -26,6 +26,7 @@ class Assembly {
         container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         container.autoregister(GooglePlaceInteractorType.self, initializer: GooglePlaceInteractor.init)
         container.autoregister(SignUpInteractorType.self, initializer: SignUpInteractor.init)
+        container.autoregister(UploadFileInteractorType.self, initializer: UploadFileInteractor.init)
         container.autoregister(SignInInteractorType.self, initializer: SignInInteractor.init)
         container.autoregister(LogoutInteractorType.self, initializer: LogoutInteractor.init)
 
@@ -46,6 +47,8 @@ class Assembly {
         container.autoregister(LoginVC.self, argument:LoginVMType.self,  initializer: LoginVC.init)
         container.autoregister(PlaceProfileVC.self, argument: PlaceProfileVMType.self, initializer: PlaceProfileVC.init)
         container.autoregister(SignUpWithDizzyVC.self, argument: SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVC.init)
+        container.autoregister(UploadStoryVC.self, argument: UploadStoryVMType.self, initializer: UploadStoryVC.init)
+        container.autoregister(PhotoPresenterVC.self, argument: PhotoPresenterVMType.self, initializer: PhotoPresenterVC.init)
         container.autoregister(SignInWithDizzyVC.self, argument: SignInWithDizzyVMType.self, initializer: SignInWithDizzyVC.init)
 
         // MARK: coordinators
@@ -55,6 +58,7 @@ class Assembly {
         container.autoregister(MapCoordinatorType.self, argument: UIViewController.self, initializer: MapCoordinator.init)
         container.autoregister(LoginCoordinatorType.self, argument: UIViewController.self, initializer: LoginCoordinator.init)
         container.autoregister(PlaceProfileCoordinatorType.self, argument: UIViewController.self, initializer: PlaceProfileCoodinator.init)
+        container.autoregister(UploadStoryCoordinatorType.self, argument: UINavigationController.self, initializer: UploadStoryCoordinator.init)
         container.autoregister(SearchPlaceCoordinatorType.self, argument: UIViewController.self, initializer: SearchPlaceCoordinator.init)
 
         // MARK: Entities:

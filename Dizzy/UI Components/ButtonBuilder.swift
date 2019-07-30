@@ -23,4 +23,11 @@ extension UIButton {
         button.setImage(image, for: .normal)
         return button
     }
+    
+    var smallRoundedBlackButton: UIButton {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        button.layer.cornerRadius = 16.0
+        return button
+    }
 }

@@ -20,6 +20,7 @@ struct PlaceInfo: Codable, FilterEntry {
 
     let name: String
     let description: String
+    let id: String
     let location: Location
     let imageURLString: String?
     let profileVideoURL: String?

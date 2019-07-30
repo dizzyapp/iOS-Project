@@ -42,11 +42,36 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType {
         navigationController = nvc
         presentingVC?.present(navigationController, animated: true)
     }
+    
+    private func showStory(with place: PlaceInfo) {
+        guard let uploadStoryCoordinator = container?.resolve(UploadStoryCoordinatorType.self, argument: navigationController) else {
+            print("could not create uploadStoryCoordinator")
+            return
+        }
+        
+        container?.register(UploadStoryVMType.self) { _ in
+            UploadStoryVM(placeInfo: place)
+        }
+        
+        uploadStoryCoordinator.onCoordinatorFinished = { [weak self] dismiss in
+            self?.removeCoordinator(for: .uploadStory)
+            if dismiss {
+                self?.onCoordinatorFinished()
+            }
+        }
+        
+        uploadStoryCoordinator.start()
+        add(coordinator: uploadStoryCoordinator, for: .uploadStory)
+    }
 }
 
 extension PlaceProfileCoodinator: PlaceProfileVMDelegate {
     func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType) {
         presentingVC?.dismiss(animated: true)
         onCoordinatorFinished()
+    }
+    
+    func placeProfileVMStoryButtonPressed(_ viewModel: PlaceProfileVMType) {
+        showStory(with: viewModel.placeInfo)
     }
 }
