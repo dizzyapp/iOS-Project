@@ -1,5 +1,5 @@
 //
-//  MapSearchTableViewCell.swift
+//  PlaceSearchTableViewCell.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 23/04/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class MapSearchTableViewCell: UITableViewCell {
+final class PlaceSearchTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)

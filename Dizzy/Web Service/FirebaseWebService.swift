@@ -66,7 +66,7 @@ final class FirebaseWebService: WebServiceType {
     
     func uplaodFile(with path: String, data: UploadFileData,  completion: @escaping (Result<UploadFileResponse>) -> Void) {
         let ref = storageReference.child(path)
-        let uploadTask = ref.putData(data.data, metadata: nil) { (metaData, error) in
+        let uploadTask = ref.putData(data.data, metadata: nil) { (_, error) in
             if let error = error {
                 completion(Result.failure(error))
             } else {

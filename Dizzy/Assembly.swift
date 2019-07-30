@@ -43,7 +43,7 @@ class Assembly {
         container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(PlaceStoryVC.self, argument: PlaceStoryVMType.self ,initializer: PlaceStoryVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
-        container.autoregister(MapSearchVC.self, argument: MapSearchVMType.self ,initializer: MapSearchVC.init)
+        container.autoregister(PlaceSearchVC.self, argument: PlaceSearchVMType.self ,initializer: PlaceSearchVC.init)
         container.autoregister(LoginVC.self, argument:LoginVMType.self,  initializer: LoginVC.init)
         container.autoregister(PlaceProfileVC.self, argument: PlaceProfileVMType.self, initializer: PlaceProfileVC.init)
         container.autoregister(SignUpWithDizzyVC.self, argument: SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVC.init)
@@ -59,6 +59,7 @@ class Assembly {
         container.autoregister(LoginCoordinatorType.self, argument: UIViewController.self, initializer: LoginCoordinator.init)
         container.autoregister(PlaceProfileCoordinatorType.self, argument: UIViewController.self, initializer: PlaceProfileCoodinator.init)
         container.autoregister(UploadStoryCoordinatorType.self, argument: UINavigationController.self, initializer: UploadStoryCoordinator.init)
+        container.autoregister(SearchPlaceCoordinatorType.self, argument: UIViewController.self, initializer: SearchPlaceCoordinator.init)
 
         // MARK: Entities:
         container.autoregister(MapType.self, initializer: GoogleMap.init).inObjectScope(.container)

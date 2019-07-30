@@ -63,7 +63,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         }
         
         viewModel.errorString.bind { [weak self] errorString in
-            let action = Action(title: "Confirm".localized) { [weak self] in
+            let action = Action(title: "Confirm".localized) {
                 print("Clicked")
             }
             

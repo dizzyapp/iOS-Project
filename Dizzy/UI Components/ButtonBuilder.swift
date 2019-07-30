@@ -10,6 +10,20 @@ import UIKit
 
 extension UIButton {
     
+    var navigaionCloseButton: UIButton {
+        let button = UIButton()
+        let image = UIImage(named: "close_button")
+        button.setImage(image, for: .normal)
+        return button
+    }
+    
+    var roundedSearchButton: UIButton {
+        let button = UIButton()
+        let image = UIImage(named: "navigation_search_button")
+        button.setImage(image, for: .normal)
+        return button
+    }
+    
     var smallRoundedBlackButton: UIButton {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.black.withAlphaComponent(0.5)
