@@ -12,7 +12,6 @@ protocol PlaceSearchVMType {
     var delegate: PlaceSearchVMDelegate? { get set }
     var currentLocation: Observable<Location?> { get }
 
-    
     func numberOfRowsInSection() -> Int
     func itemAt(_ indexPath: IndexPath) -> PlaceInfo
     func didSelectRowAt(_ indexPath: IndexPath) 

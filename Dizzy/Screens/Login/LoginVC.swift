@@ -187,6 +187,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
         userProfileView.isHidden = !self.loginVM.isUserLoggedIn()
+        userProfileView.delegate = self
     }
     
     private func setupLogoutButton() {
@@ -279,5 +280,33 @@ extension LoginVC: LoginVMDelegate {
     func userLoggedoutFailed(error: Error) {
         hideSpinner()
         showAlert(title: "Error".localized, message: error.localizedDescription)
+    }
+}
+
+extension LoginVC: UserProfileViewDelegate {
+    func profileButtonPressed() {
+        self.loginVM.profileButtonPressed()
+    }
+}
+
+extension LoginVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImage: UIImage?
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImage = editedImage
+        } else {
+            selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        }
+        
+        if let selectedImage = selectedImage {
+            userProfileView.updateProfileImage(selectedImage)
+        }
+        
+        userProfileView.saveChanges()
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

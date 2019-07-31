@@ -18,6 +18,7 @@ protocol LoginVMType {
     func loginWithFacebookButtonPressed(presentedVC: UIViewController)
     func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
+    func profileButtonPressed()
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
     var delegate: LoginVMDelegate? { get set }
@@ -31,6 +32,7 @@ protocol LoginVMNavigationDelegate: class {
     func navigateToSignInScreen()
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
+    func navigateToPhotoSelectionScreen()
 }
 
 protocol LoginVMDelegate: class {
@@ -81,6 +83,10 @@ class LoginVM: LoginVMType {
     
     func enterAsAdminButtonPressed() {
         self.navigationDelegate?.navigateToAdminScreen()
+    }
+    
+    func profileButtonPressed() {
+        self.navigationDelegate?.navigateToPhotoSelectionScreen()
     }
     
     private func isLoggedInViaFacebook() -> Bool {
