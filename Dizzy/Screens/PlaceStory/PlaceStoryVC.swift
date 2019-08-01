@@ -136,7 +136,8 @@ final class PlaceStoryVC: ViewController {
                 self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
 //                self.commentsManager?.showTextField(false)
-                self.imageView.kf.setImage(with: url) { [weak self] _ in
+                self.imageView.kf.setImage(with: url) { _ in
+                    print(url)
 //                    self?.commentsManager?.showTextField(true)
                 }
                 

@@ -11,7 +11,7 @@ import Foundation
 protocol CommentsInteractorType {
     var delegate: CommentsInteractorDelegate? { get set }
     
-    func getAllPlaceComments(with placeId: String)
+    func getAllComments(forPlaceId placeId: String)
     func sendComment(_ comment: Comment, placeId: String)
 }
 
@@ -28,7 +28,7 @@ final class CommentsInteractor: CommentsInteractorType {
         self.dispacher = dispacher
     }
     
-    func getAllPlaceComments(with placeId: String) {
+    func getAllComments(forPlaceId placeId: String) {
         let resource = Resource<[Comment], Bool>(path: "commentPerPlaceId/\(placeId)").withGet()
         dispacher.load(resource) { [weak self] result in
             guard let self = self else { return }// todo:- add error handler

@@ -116,7 +116,7 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
             self.imagesURL = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
             
             self.showNextImage()
-            self.commentsInteractor.getAllPlaceComments(with: place.id)
+            self.commentsInteractor.getAllComments(forPlaceId: place.id)
         }
     }
 }

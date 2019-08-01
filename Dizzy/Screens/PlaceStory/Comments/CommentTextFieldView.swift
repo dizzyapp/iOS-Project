@@ -95,8 +95,8 @@ final class CommentTextFieldView: UIView {
     }
     
     @objc private func sendButtonPressed() {
-        if let massage = textField.text {
-            delegate?.commentTextFieldViewSendPressed(self, with: massage)
+        if let message = textField.text {
+            delegate?.commentTextFieldViewSendPressed(self, with: message)
             textField.text = ""
         }
     }
