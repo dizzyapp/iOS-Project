@@ -29,6 +29,9 @@ final class FirebaseWebService: WebServiceType {
             
         case .post:
             sendPostRequest(resource: resource, completion: completion)
+            
+        case .delete:
+            sendDeleteRequest(resource: resource, completion: completion)
         }
     }
     
@@ -53,14 +56,51 @@ final class FirebaseWebService: WebServiceType {
     private func sendPostRequest<Response, Body>(resource: Resource<Response, Body>,
                                                  completion: @escaping (Result<Response>) -> Void) {
         if let json = resource.makeJson() {
+
             databaseReference.child("\(resource.path)").setValue(json) { (error, _) in
                 if let error = error {
                     completion(Result<Response>.failure(error))
-                } else {
-                    let response = Result.success("")
-                    completion(response as! Result<Response>)
+                } else if let response = Result.success("") as? Result<Response> {
+                    completion(response)
                 }
-                
+            }
+        }
+    }
+    
+    private func sendDeleteRequest<Response, Body>(resource: Resource<Response, Body>,
+                                                                  completion: @escaping (Result<Response>) -> Void) {
+        databaseReference.child(resource.path).removeValue { (error, _) in 
+            if error != nil {
+                completion(Result<Response>.failure(error!))
+            }
+        }
+    }
+    
+    func uplaodFile(with path: String, data: UploadFileData,  completion: @escaping (Result<UploadFileResponse>) -> Void) {
+        let ref = storageReference.child(path)
+        let uploadTask = ref.putData(data.data, metadata: nil) { (_, error) in
+            if let error = error {
+                completion(Result.failure(error))
+            } else {
+                self.getDownloadURL(from: ref, completion: completion)
+            }
+            print("UplaodFile FINISHED !!!!")
+        }
+        
+        uploadTask.observe(.progress) { snapshot in
+            print(snapshot.progress.debugDescription)
+        }
+        
+        uploadTask.resume()
+    }
+    
+    private func getDownloadURL(from ref: StorageReference, completion: @escaping (Result<UploadFileResponse>) -> Void) {
+        ref.downloadURL { (url, error) in
+            if let error = error {
+                completion(Result.failure(error))
+            } else {
+                let response = UploadFileResponse(downloadLink: url?.absoluteString ?? "")
+                completion(Result.success(response))
             }
         }
     }
@@ -76,7 +116,8 @@ final class FirebaseWebService: WebServiceType {
         
         var jsonToParse = [[String: Any]]()
         for (_,value) in jsonsArray {
-            jsonToParse.append(value as! [String : Any])
+            let valueMap = value as! [String : Any]
+            jsonToParse.append(valueMap)
         }
         return jsonToParse
     }

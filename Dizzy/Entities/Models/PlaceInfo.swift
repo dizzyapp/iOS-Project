@@ -13,11 +13,13 @@ enum DistanceScale {
     case kilometers
     case meters
 }
+
 struct PlaceInfo: Codable, FilterEntry {
     var filterString: String {
         return name
     }
 
+    let id: String
     let name: String
     let description: String
     let location: Location

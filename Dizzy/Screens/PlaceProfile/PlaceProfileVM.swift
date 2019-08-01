@@ -16,10 +16,12 @@ protocol PlaceProfileVMType {
     func addressButtonPressed(view: PlaceProfileView)
     func callButtonPressed()
     func requestTableButtonPressed()
+    func storyButtonPressed()
 }
 
 protocol PlaceProfileVMDelegate: class {
     func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType)
+    func placeProfileVMStoryButtonPressed(_ viewModel: PlaceProfileVMType)
 }
 
 final class PlaceProfileVM: PlaceProfileVMType {
@@ -28,7 +30,7 @@ final class PlaceProfileVM: PlaceProfileVMType {
     weak var delegate: PlaceProfileVMDelegate?
     
     var externalNavigationProvider = ExternalNavigationProvider()
-    
+
     init(placeInfo: PlaceInfo) {
         self.placeInfo = placeInfo
     }
@@ -37,10 +39,10 @@ final class PlaceProfileVM: PlaceProfileVMType {
         guard let location = view.placeInfo?.location else {
             return
         }
-        
+
         self.externalNavigationProvider.openWaze(location: location)
     }
-    
+
     func callButtonPressed() {
         guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
             let url = URL(string: "tel://" + phoneNumber) else { return }
@@ -56,5 +58,9 @@ final class PlaceProfileVM: PlaceProfileVMType {
     
     func closePressed() {
         delegate?.placeProfileVMClosePressed(self)
+    }
+
+    func storyButtonPressed() {
+        delegate?.placeProfileVMStoryButtonPressed(self)
     }
 }

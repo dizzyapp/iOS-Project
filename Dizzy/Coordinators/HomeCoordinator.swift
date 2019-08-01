@@ -55,7 +55,7 @@ final class HomeCoordinator: HomeCoordinatorType {
 }
 
 extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
- 
+  
     func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = self.discoveryVC,
             let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC as UIViewController),
@@ -75,7 +75,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         coordinator.onCoordinatorFinished = { [weak self] in
             self?.removeCoordinator(for: .map)
         }
-        
+
         coordinator.start()
         add(coordinator: coordinator, for: .map)
     }
@@ -96,7 +96,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     }
     
     func placeCellDetailsPressed(_ place: PlaceInfo) {
-        
+
         guard let presntingVC = self.discoveryVC,
             let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
             place.profileVideoURL != nil  else {
@@ -114,6 +114,27 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         
         placeProfileCoordinator.start()
         add(coordinator: placeProfileCoordinator, for: .placeProfile)
+    }
+    
+    func placeCellIconPressed(_ place: PlaceInfo) {
+        guard let presntingVC = presentedViewControllers.first,
+            let placeStoryCoordinator = container?.resolve(PlaceStoryCoordinatorType.self, argument: presntingVC),
+            let commentsInteractor = container?.resolve(CommentsInteractorType.self),
+            let storiesInteractor = container?.resolve(StoriesInteractorType.self) else {
+                print("could not create placeProfileCoordinator")
+                return
+        }
+        
+        container?.register(PlaceStoryVMType.self) { _ in
+            PlaceStoryVM(place: place, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor)
+        }
+        
+        placeStoryCoordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .placeStory)
+        }
+        
+        placeStoryCoordinator.start()
+        add(coordinator: placeStoryCoordinator, for: .placeStory)
     }
 }
 

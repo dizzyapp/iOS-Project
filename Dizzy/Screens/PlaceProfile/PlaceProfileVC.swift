@@ -21,7 +21,7 @@ final class PlaceProfileVC: AVPlayerViewController {
     let placeProfileViewCornerRadius = CGFloat(8)
     let placeProfileViewPadding = CGFloat(8)
     let placeProfileTopOffset = CGFloat(5)
-    
+
     init(viewModel: PlaceProfileVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -106,11 +106,15 @@ extension PlaceProfileVC: PlaceProfileViewDelegate {
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView) {
         viewModel.addressButtonPressed(view: view)
     }
-    
+
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView) {
         viewModel.callButtonPressed()
     }
-    
+
+    func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView) {
+        viewModel.storyButtonPressed()
+    }
+
     func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView) {
         viewModel.requestTableButtonPressed()
     }
