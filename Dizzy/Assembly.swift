@@ -25,6 +25,8 @@ class Assembly {
         // MARK: Interactors
         container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
         container.autoregister(GooglePlaceInteractorType.self, initializer: GooglePlaceInteractor.init)
+        container.autoregister(CommentsInteractorType.self, initializer: CommentsInteractor.init)
+        container.autoregister(StoriesInteractorType.self, initializer: StoriesInteractor.init)
         container.autoregister(SignUpInteractorType.self, initializer: SignUpInteractor.init)
         container.autoregister(UploadFileInteractorType.self, initializer: UploadFileInteractor.init)
         container.autoregister(SignInInteractorType.self, initializer: SignInInteractor.init)
@@ -59,6 +61,7 @@ class Assembly {
         container.autoregister(LoginCoordinatorType.self, argument: UIViewController.self, initializer: LoginCoordinator.init)
         container.autoregister(PlaceProfileCoordinatorType.self, argument: UIViewController.self, initializer: PlaceProfileCoodinator.init)
         container.autoregister(UploadStoryCoordinatorType.self, argument: UINavigationController.self, initializer: UploadStoryCoordinator.init)
+        container.autoregister(PlaceStoryCoordinatorType.self, argument: UIViewController.self, initializer: PlaceStoryCoordinator.init)
         container.autoregister(SearchPlaceCoordinatorType.self, argument: UIViewController.self, initializer: SearchPlaceCoordinator.init)
 
         // MARK: Entities:

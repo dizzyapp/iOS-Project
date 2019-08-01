@@ -16,8 +16,8 @@ final class SignInDetailsView: UIView {
 
     let titleLabel = UILabel()
     let stackView = UIStackView()
-    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Email".localized)
-    let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Password".localized)
+    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Email".localized)
+    let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Password".localized)
     let signInButton = UIButton(type: .system)
     
     let screenCornerRadius = CGFloat(30)

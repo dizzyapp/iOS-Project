@@ -14,6 +14,7 @@ protocol DiscoveryVMType {
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
     
     func placeCellDetailsPressed(atIndexPath indexPath: IndexPath)
+    func placeCellIconPressed(atIndexPath indexPath: IndexPath)
     
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryVMDelegate? { get set }
@@ -33,10 +34,11 @@ protocol DiscoveryViewModelNavigationDelegate: class {
     func mapButtonPressed(places: [PlaceInfo])
     func menuButtonPressed()
     func placeCellDetailsPressed(_ place: PlaceInfo)
+    func placeCellIconPressed(_ place: PlaceInfo)
 }
 
 class DiscoveryVM: DiscoveryVMType {
-   
+
     weak var delegate: DiscoveryVMDelegate?
     var placesToDisplay = Observable<[PlaceInfo]>([])
     var currentLocation = Observable<Location?>(nil)
@@ -111,6 +113,10 @@ class DiscoveryVM: DiscoveryVMType {
     
     func placeCellDetailsPressed(atIndexPath indexPath: IndexPath) {
         navigationDelegate?.placeCellDetailsPressed(allPlaces[indexPath.row])
+    }
+    
+    func placeCellIconPressed(atIndexPath indexPath: IndexPath) {
+        navigationDelegate?.placeCellIconPressed(allPlaces[indexPath.row])
     }
 }
 

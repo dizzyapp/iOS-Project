@@ -2,11 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84aa8f7e-2722-446b-a8e9-c019e8843cc9" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/camera_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/camera_icon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/camera_icon@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/switch_camera_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/switch_camera_icon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/switch_camera_icon@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/CameraSessionController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/Interactors/UploadFileInteractor.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/UploadFileData.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/PhotoPresenterVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/PhotoPresenterVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/UploadStoryCoordinator.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/UploadStoryVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/UploadStoryVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/PopupPresenter.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dizzy.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assembly.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assembly.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Coordinators/CoordinatorKey.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Coordinators/CoordinatorKey.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/Models/PlaceInfo.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/Models/PlaceInfo.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileCoordinator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileCoordinator.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVC.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVM.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileView.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Search Place/PlaceSearchVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Search Place/PlaceSearchVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInWithDizzyVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInWithDizzyVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpWithDizzyVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpWithDizzyVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/UI Components/AlertPresentation.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/UI Components/ButtonBuilder.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/UI Components/ButtonBuilder.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Web Service/FirebaseWebService.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Web Service/FirebaseWebService.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Web Service/WebServiceDispatcher.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Web Service/WebServiceDispatcher.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Manifest.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Manifest.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
     </list>
     <ignored path="$USER_HOME$/Library/Caches/AppCode2019.1/DerivedData/Dizzy-frgvxbmkbvbncpfxbipngeswzsmo/Build/Intermediates.noindex/" />
     <ignored path="$USER_HOME$/Library/Caches/AppCode2019.1/DerivedData/Dizzy-amvfaoiwxlsuevbfxjvqskszzzrh/Build/Intermediates.noindex/" />
@@ -16,7 +51,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_6f02dcac7e6fd5ed615d524ac79cd6b53edb8c2e" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_F9A0FC9F-5EEF-428C-9B7F-B1CC45506ECC" />
   <component name="FindInProjectRecents">
     <findStrings>
       <find>LSApplicationQueriesSchemes</find>
@@ -32,11 +67,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Dizzy/Entities/LocationProvider.swift" />
-        <option value="$PROJECT_DIR$/Dizzy.xcodeproj/project.pbxproj" />
         <option value="$PROJECT_DIR$/Dizzy/Info.plist" />
         <option value="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVC.swift" />
         <option value="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileView.swift" />
         <option value="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVM.swift" />
+        <option value="$PROJECT_DIR$/Dizzy.xcodeproj/project.pbxproj" />
       </list>
     </option>
   </component>
@@ -99,16 +134,17 @@
       <workItem from="1557248893692" duration="1714000" />
       <workItem from="1564150604973" duration="1315000" />
       <workItem from="1564520072493" duration="1068000" />
+      <workItem from="1564680511791" duration="572000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4473000" />
+    <option name="totallyTimeSpent" value="5045000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="952" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25885227" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26190478" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />

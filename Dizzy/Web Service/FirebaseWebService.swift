@@ -29,6 +29,9 @@ final class FirebaseWebService: WebServiceType {
             
         case .post:
             sendPostRequest(resource: resource, completion: completion)
+            
+        case .delete:
+            sendDeleteRequest(resource: resource, completion: completion)
         }
     }
     
@@ -53,13 +56,22 @@ final class FirebaseWebService: WebServiceType {
     private func sendPostRequest<Response, Body>(resource: Resource<Response, Body>,
                                                  completion: @escaping (Result<Response>) -> Void) {
         if let json = resource.makeJson() {
+
             databaseReference.child("\(resource.path)").setValue(json) { (error, _) in
                 if let error = error {
                     completion(Result<Response>.failure(error))
                 } else if let response = Result.success("") as? Result<Response> {
                     completion(response)
                 }
-                
+            }
+        }
+    }
+    
+    private func sendDeleteRequest<Response, Body>(resource: Resource<Response, Body>,
+                                                                  completion: @escaping (Result<Response>) -> Void) {
+        databaseReference.child(resource.path).removeValue { (error, _) in 
+            if error != nil {
+                completion(Result<Response>.failure(error!))
             }
         }
     }
@@ -104,7 +116,8 @@ final class FirebaseWebService: WebServiceType {
         
         var jsonToParse = [[String: Any]]()
         for (_,value) in jsonsArray {
-            jsonToParse.append(value as! [String : Any])
+            let valueMap = value as! [String : Any]
+            jsonToParse.append(valueMap)
         }
         return jsonToParse
     }

@@ -10,29 +10,43 @@ import UIKit
 import AVFoundation
 import AVKit
 
-protocol PlayerVCDelegate: class {
+protocol PlayerVCGestureDelegate: class {
     func rightButtonPressed()
     func leftButtonPressed()
+}
+
+protocol PlayerVCCommentsDelegate: class {
+    func playerVCSendPressed(_ player: PlayerVC, with message: String)
+    func playerVCNumberOfSections(_ player: PlayerVC) -> Int
+    func playerVCComment(_ player: PlayerVC, at indexPath: IndexPath) -> Comment?
 }
 
 final class PlayerVC: AVPlayerViewController, LoadingContainer {
     
     var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .whiteLarge)
     var commentsManager: CommentsManager?
+    let viewModel: PlaceStoryVMType
     
-    init(with url: URL) {
+    init(with url: URL, viewModel: PlaceStoryVMType) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         player = AVPlayer(url: url)
+        player?.currentItem?.audioTimePitchAlgorithm = .lowQualityZeroLatency
+        showsPlaybackControls = false
+        videoGravity = .resizeAspectFill
     
         if let contentOverlayView = contentOverlayView {
             commentsManager = CommentsManager(parentView: contentOverlayView)
             commentsManager?.delegate = self
+            commentsManager?.dataSource = self
         }
         
         addGestures()
         addSubviews()
         layoutViews()
         showSpinner()
+        setupNavigation()
+        bindViewModel()
         player?.play()
     }
     
@@ -40,14 +54,22 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         fatalError("init(coder:) has not been implemented")
     }
     
-    weak var gestureDelegate: PlayerVCDelegate?
+    weak var gestureDelegate: PlayerVCGestureDelegate?
+    weak var commentsDelegate: PlayerVCCommentsDelegate?
     
     let rightGestureView = UIView()
     let leftGestureView = UIView()
     
     private func addSubviews() {
         contentOverlayView?.addSubviews([rightGestureView, leftGestureView])
-        commentsManager?.addCommentsViews()
+    }
+    
+    private func setupNavigation() {
+        let closeButton = UIButton().smallRoundedBlackButton
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        closeButton.setImage(UIImage(named: "backArrowIcon"), for: .normal)
+        let closeBarButton = UIBarButtonItem(customView: closeButton)
+        navigationItem.leftBarButtonItem = closeBarButton
     }
 
     private func layoutViews() {
@@ -61,6 +83,12 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
             make.height.equalToSuperview()
             make.width.equalTo(150)
             make.left.equalToSuperview()
+        }
+    }
+    
+    private func bindViewModel() {
+        viewModel.comments.bind {[weak self] _ in
+            self?.commentsManager?.reloadTableView()
         }
     }
     
@@ -91,6 +119,10 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
         }
     }
     
+    @objc func close() {
+        viewModel.close()
+    }
+    
     func pause() {
         player?.pause()
     }
@@ -101,7 +133,21 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
 }
 
 extension PlayerVC: CommentsManagerDelegate {
-    func commecntView(isHidden: Bool) {
+    func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
+        commentsDelegate?.playerVCSendPressed(self, with: message)
+    }
+    
+    func commentView(isHidden: Bool) {
         isHidden ? play() : pause()
+    }
+}
+
+extension PlayerVC: CommentsManagerDataSource {
+    func numberOfRowsInSection() -> Int {
+        return commentsDelegate?.playerVCNumberOfSections(self) ?? 0
+    }
+    
+    func comment(at indexPath: IndexPath) -> Comment? {
+        return commentsDelegate?.playerVCComment(self, at: indexPath)
     }
 }

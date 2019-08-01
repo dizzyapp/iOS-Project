@@ -15,6 +15,7 @@ enum CoordinatorKey {
     case map
     case login
     case placeProfile
+    case placeStory
     case placeSearch
     case uploadStory
 }

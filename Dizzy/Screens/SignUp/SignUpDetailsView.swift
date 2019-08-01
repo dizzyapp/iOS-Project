@@ -16,10 +16,10 @@ final class SignUpDetailsView: UIView {
 
     let titleLabel = UILabel()
     let stackView = UIStackView()
-    let fullNameTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "What's your name?".localized)
-    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Whats your email?".localized)
-    let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Password".localized)
-    let confirmPasswordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Confirm your password".localized)
+    let fullNameTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "What's your name?".localized)
+    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Whats your email?".localized)
+    let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Password".localized)
+    let confirmPasswordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Confirm your password".localized)
     let signUpButton = UIButton(type: .system)
     
     let screenCornerRadius = CGFloat(30)

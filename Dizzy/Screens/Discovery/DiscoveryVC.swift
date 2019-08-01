@@ -148,7 +148,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
 
 extension DiscoveryVC: NearByPlacesViewDelegate {
     func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
-        
+        viewModel.placeCellIconPressed(atIndexPath: indexPath)
     }
     
     func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {

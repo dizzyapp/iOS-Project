@@ -12,6 +12,7 @@ import Kingfisher
 
 protocol DiscoveryPlaceCellDelegate: class {
     func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell)
+    func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell)
 }
 
 class DiscoveryPlaceCell: UICollectionViewCell {
@@ -83,6 +84,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .clear
         setupStackView()
         setupLabels()
+        setupPlaceImageView()
     }
     
     private func setupStackView() {
@@ -105,6 +107,12 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
     }
+    
+    func setupPlaceImageView() {
+        placeImageView.layer.cornerRadius = placeImageViewSize/2
+        placeImageView.clipsToBounds = true
+        placeImageView.addTarget(self, action: #selector(didPressIcon), for: .touchUpInside)
+    }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
         placeNameLabel.text = placeInfo.name
@@ -122,5 +130,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     @objc func didPressDetails() {
         delegate?.discoveryPlaceCellDidPressDetails(self)
+    }
+    
+    @objc func didPressIcon() {
+        delegate?.discoveryPlaceCellDidPressIcon(self)
     }
 }
