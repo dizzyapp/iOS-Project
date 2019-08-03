@@ -8,17 +8,23 @@
 
 import UIKit
 import SnapKit
+import AVKit
+import AVFoundation
 
 class DiscoveryVC: ViewController {
     
     let topBar = DiscoveryTopBar()
-    let themeImageView = UIImageView()
+    let themeVideoView = VideoView()
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryVMType
     
-    let nearByPlacesViewCornerRadius = CGFloat(5)
     let nearByPlacesViewPadding = CGFloat(5)
-    let nearByPlacesViewHeightRatio = CGFloat(0.55)
+    let nearByPlacesViewHeightRatio = CGFloat(0.50)
+    
+    private var themeImageHeightConstraint: Constraint?
+    private var nearByPlacesTopConstraint: Constraint?
+    
+    var isItFirstPageLoad = true
     
     init(viewModel: DiscoveryVMType) {
         self.viewModel = viewModel
@@ -28,14 +34,24 @@ class DiscoveryVC: ViewController {
         setupViews()
         bindViewModel()
         self.viewModel.delegate = self
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if isItFirstPageLoad {
+            setupThemeVideoView()
+            themeVideoView.play()
+            isItFirstPageLoad = false
+        }
+        
+    }
+    
     private func addSubviews() {
-        self.view.addSubviews([themeImageView, topBar, nearByPlacesView])
+        self.view.addSubviews([themeVideoView, topBar, nearByPlacesView])
     }
     
     private func layoutViews() {
@@ -45,18 +61,18 @@ class DiscoveryVC: ViewController {
             topBar.trailing.leading.equalToSuperview()
         }
         
-        themeImageView.snp.makeConstraints { themeImageView in
+        themeVideoView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.height.equalTo(view.snp.height).multipliedBy(0.5)
+            themeImageHeightConstraint = themeImageView.height.equalTo(view.snp.height).constraint
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
             
-            nearByPlacesView.height.equalTo(view.snp.height).multipliedBy(nearByPlacesViewHeightRatio)
+            nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeVideoView.snp.bottom).constraint
             nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
             nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
-            nearByPlacesView.bottom.equalTo(view.snp.bottom).offset(-nearByPlacesViewPadding)
+            nearByPlacesView.bottom.equalToSuperview()
         }
     }
     
@@ -76,7 +92,6 @@ class DiscoveryVC: ViewController {
     
     private func setupViews() {
         view.backgroundColor = .clear
-        setupThemeImageView()
         setupNearByPlacesView()
         setupTopBarView()
     }
@@ -85,17 +100,25 @@ class DiscoveryVC: ViewController {
         topBar.delegate = self
     }
     
-    private func setupThemeImageView() {
-        themeImageView.contentMode = .scaleAspectFill
-        themeImageView.image = Images.discoveryThemeImage()
+    private func setupThemeVideoView() {
+        let path = Bundle.main.path(forResource: "dizzySplash", ofType:"mp4")!
+        themeVideoView.configure(url: path)
+        themeVideoView.play()
     }
     
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
-        
-        nearByPlacesView.showSpinner()
+        nearByPlacesView.alpha = 0.9
         nearByPlacesView.reloadData()
+    }
+    
+    private func showNewrByPlacesWithAnimation() {
+        UIView.animate(withDuration: 1) {
+            self.nearByPlacesTopConstraint?.update(offset: -25)
+            self.themeImageHeightConstraint?.update(offset: -self.view.frame.height / 2)
+            self.view.layoutIfNeeded()
+        }
     }
     
     public func showTopBar() {
@@ -137,12 +160,14 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
-        
+        nearByPlacesView.reloadData()
     }
     
     func allPlacesArrived() {
-        nearByPlacesView.hideSpinner()
         nearByPlacesView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+            self.showNewrByPlacesWithAnimation()
+        })
     }
 }
 

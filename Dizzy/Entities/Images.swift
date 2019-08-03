@@ -105,4 +105,8 @@ struct Images {
     static func callIcon() -> UIImage {
         return UIImage(named: "callIcon")!
     }
+    
+    static func loadingLogo() -> UIImage {
+        return UIImage(named: "loadingLogo")!
+    }
 }
