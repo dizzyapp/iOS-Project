@@ -35,6 +35,8 @@ class UserProfileView: UIView {
         addSubviews()
         layoutViews()
         setupViews()
+        
+        updateUserDetails()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,17 +78,6 @@ class UserProfileView: UIView {
         self.profileButton.layer.masksToBounds = true
         self.profileButton.contentMode = .center
         
-        if let uid = Auth.auth().currentUser?.uid {
-            databaseReference.child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                print(snapshot)
-                if let dict = snapshot.value as? [String: AnyObject] {
-                    if let imageURLString = dict["photoURL"] as? String {
-                        self.profileButton.kf.setImage(with: URL(string: imageURLString), for: .normal, placeholder: Images.profilePlaceholderIcon())
-                    }
-                }
-            }
-        }
-        
         self.profileButton.addTarget(self, action: #selector(profileButtonPressed), for: .touchUpInside)
     }
     
@@ -100,12 +91,30 @@ class UserProfileView: UIView {
         self.profileButton.setImage(image, for: .normal)
     }
     
+    private func updateUserDetails() {
+        if let uid = Auth.auth().currentUser?.uid {
+            databaseReference.child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+                print(snapshot)
+                if let dict = snapshot.value as? [String: AnyObject] {
+                    if let imageURLString = dict["photoURL"] as? String {
+                        self.profileButton.kf.setImage(with: URL(string: imageURLString), for: .normal, placeholder: Images.profilePlaceholderIcon())
+                    } else {
+                        self.profileButton.setImage(Images.profilePlaceholderIcon(), for: .normal)
+                    }
+                    if let displayName = dict["fullName"] as? String {
+                        self.profileNameLabel.text = displayName
+                    }
+                }
+            }
+        }
+    }
+    
     public func saveChanges() {
         let imageName = NSUUID().uuidString
         let storedImage = storageReference.child("profile_images").child(imageName)
         
         if let image = self.profileButton.image(for: .normal), let imageData = image.jpegData(compressionQuality: 0.8) {
-            storedImage.putData(imageData, metadata: nil) { (metadata, error) in
+            storedImage.putData(imageData, metadata: nil) { (_, error) in
                 if error != nil {
                     print(error)
                     return
@@ -118,7 +127,7 @@ class UserProfileView: UIView {
                     }
                     
                     if let urlText = url?.absoluteString, let uid = Auth.auth().currentUser?.uid {
-                        self.databaseReference.child("users").child(uid).updateChildValues(["photoURL" : urlText], withCompletionBlock: { (error, reference) in
+                        self.databaseReference.child("users").child(uid).updateChildValues(["photoURL" : urlText], withCompletionBlock: { (error, _) in
                             if error != nil {
                                 print(error)
                                 return
