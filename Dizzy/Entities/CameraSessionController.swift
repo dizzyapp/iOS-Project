@@ -46,7 +46,7 @@ final class CameraSessionController: NSObject {
     }
     
     private func setupCamera() {
-        let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+        let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInTelephotoCamera], mediaType: .video, position: .unspecified)
         
         for device in session.devices {
             if device.position == .front {
