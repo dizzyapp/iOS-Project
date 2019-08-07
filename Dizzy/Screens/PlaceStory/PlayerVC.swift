@@ -67,7 +67,7 @@ final class PlayerVC: AVPlayerViewController, LoadingContainer {
     private func setupNavigation() {
         let closeButton = UIButton().smallRoundedBlackButton
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
-        closeButton.setImage(UIImage(named: "backArrowIcon"), for: .normal)
+        closeButton.setImage(Images.backArrowIcon(), for: .normal)
         let closeBarButton = UIBarButtonItem(customView: closeButton)
         navigationItem.leftBarButtonItem = closeBarButton
     }

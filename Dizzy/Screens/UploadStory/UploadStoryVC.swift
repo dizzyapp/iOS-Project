@@ -24,13 +24,16 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         self.viewModel = viewModel
         super.init()
         bindViewModel()
-        viewModel.openCamera()
         buildView()
         buildConstraints()
         setupViews()
         setupNavigation()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.openCamera()
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -41,7 +44,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     }
     
     private func setupSwitchCameraButton() {
-        switchCameraButton.setImage(UIImage(named: "switch_camera_icon"), for: .normal)
+         switchCameraButton.setImage(UIImage(named: "switch_camera_icon"), for: .normal)
         switchCameraButton.addTarget(self, action: #selector(switchCameraButtonPressed), for: .touchUpInside)
     }
 
@@ -60,6 +63,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
             layer.frame = self.view.bounds
             self.view.layer.addSublayer(layer)
             self.view.bringSubviewToFront(self.cameraButton)
+            self.view.bringSubviewToFront(self.switchCameraButton)
         }
         
         viewModel.errorString.bind { [weak self] errorString in
@@ -89,7 +93,8 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     }
     
     private func setupNavigation() {
-        let backButton = UIButton().smallRoundedBlackButton
+        let backButton = UIButton(type: .system)
+        backButton.setImage(Images.backArrowIcon(), for: .normal)
         backButton.addTarget(self, action: #selector(backPressed), for: .touchUpInside)
         let backButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = backButtonItem
