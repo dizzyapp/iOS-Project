@@ -49,7 +49,6 @@ final class CommentsTextFieldInputView: UIView {
     
     private func addListeners() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        chatTextFieldAccessoryView.textField.addTarget(self, action: #selector(textFieldValueChanged), for: .editingChanged)
     }
     
     private func addSubviews() {
@@ -137,7 +136,6 @@ final class CommentsTextFieldInputView: UIView {
     
     private func setupInputAccessoryView() {
         chatTextFieldAccessoryView.frame = CGRect(x: 0, y: 0, width: chatTextFieldView.frame.width, height: chatTextFieldView.frame.height)
-        chatTextFieldView.textField.inputAccessoryView = chatTextFieldAccessoryView
     }
     
     func resetManagerToInitialState() {

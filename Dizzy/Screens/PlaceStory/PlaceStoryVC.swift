@@ -14,25 +14,23 @@ import SnapKit
 
 final class PlaceStoryVC: ViewController {
     
-    let topView = UIView()
     let imageView = UIImageView()
     
     var commentsManager: CommentsManager?
     
     let rightGestureView = UIView()
     let leftGestureView = UIView()
-    let commentsPlaceholderView = UIView()
 
     var viewModel: PlaceStoryVMType
-    var playerVC: PlayerVC?
     
     let gestureViewWidth = CGFloat(150)
     let topViewHeight = CGFloat(58)
+    let commentTextFieldView = CommentTextFieldView()
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
-        commentsManager = CommentsManager(parentView: commentsPlaceholderView)
+        commentsManager = CommentsManager(parentView: UIView())
         commentsManager?.delegate = self
         commentsManager?.dataSource = self
         
@@ -40,7 +38,6 @@ final class PlaceStoryVC: ViewController {
         layoutViews()
         setupNavigation()
         setupViews()
-
         bindViewModel()
     }
     
@@ -49,12 +46,10 @@ final class PlaceStoryVC: ViewController {
     }
     
     override func viewSafeAreaInsetsDidChange() {
-        layoutTopView()
     }
     
     private func addSubviews() {
-        view.insertSubview(imageView, at: 0)
-        view.addSubviews([topView, commentsPlaceholderView, rightGestureView, leftGestureView])
+        view.addSubviews([imageView, rightGestureView, leftGestureView, commentTextFieldView])
     }
     
     private func layoutViews() {
@@ -63,7 +58,7 @@ final class PlaceStoryVC: ViewController {
         }
         
         rightGestureView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+            make.top.equalTo(view.snp.topMargin)
             make.width.equalTo(gestureViewWidth)
             make.height.equalToSuperview()
             make.right.equalToSuperview()
@@ -71,25 +66,16 @@ final class PlaceStoryVC: ViewController {
         }
         
         leftGestureView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.width.equalTo(gestureViewWidth)
             make.height.equalToSuperview()
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        commentsPlaceholderView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+        commentTextFieldView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Metrics.doublePadding)
-        }
-    }
-    
-    private func layoutTopView() {
-        topView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(topViewHeight + view.safeAreaInsets.top)
         }
     }
     
@@ -105,9 +91,8 @@ final class PlaceStoryVC: ViewController {
     
     private func setupViews() {
         setupGestureView()
-        setupTopView()
         setupCommentTextFieldView()
-//        setupCommentsManager()
+        setupCommentsManager()
     }
     
     private func setupGestureView() {
@@ -115,33 +100,27 @@ final class PlaceStoryVC: ViewController {
         leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
     }
     
-    private func setupTopView() {
-        topView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-    }
-    
     private func setupCommentTextFieldView() {
         
     }
 
-//    private func setupCommentsManager() {
-//        commentsManager?.showTextField(false)
-//    }
+    private func setupCommentsManager() {
+        commentsManager?.commentsTextFieldInputView.showTextField(false)
+    }
     
     private func bindViewModel() {
         viewModel.currentImageURLString.bind { [weak self] urlString in
             guard let urlString = urlString else { return }
-//            self?.commentsManager?.resetManagerToInitialState()
+            self?.commentsManager?.commentsTextFieldInputView.resetManagerToInitialState()
             if let url = URL(string: urlString) {
                 guard let self = self else { return }
                 self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
-//                self.commentsManager?.showTextField(false)
-                self.imageView.kf.setImage(with: url) { _ in
+                self.commentsManager?.commentsTextFieldInputView.showTextField(false)
+                self.imageView.kf.setImage(with: url) {[weak self] _ in
                     print(url)
-//                    self?.commentsManager?.showTextField(true)
+                    self?.commentsManager?.commentsTextFieldInputView.showTextField(true)
                 }
-                
-                self.playerVC?.dismiss(animated: false)
             }
         }
         

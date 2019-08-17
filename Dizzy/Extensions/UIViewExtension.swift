@@ -15,4 +15,10 @@ extension UIView {
             self.addSubview(subview)
         }
     }
+    
+    func setBorder(borderColor: UIColor, cornerRadius: CGFloat = 16) {
+        layer.cornerRadius = cornerRadius
+        layer.borderWidth = 1.0
+        layer.borderColor = borderColor.cgColor
+    }
 }

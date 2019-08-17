@@ -53,7 +53,6 @@ class CommentsManager: NSObject {
     
     private func setupCommentTextFieldView() {
         commentTextFieldView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        commentTextFieldView.textField.inputAccessoryView = commentsTextFieldInputView
     }
     
     func reloadTableView() {
