@@ -116,7 +116,6 @@ final class CommentsTextFieldInputView: UIView {
     }
     
     private func setupCommentsView() {
-        commentsView.delegate = self
         commentsView.isHidden = true
         commentsView.dataSource = self
     }
@@ -158,17 +157,6 @@ extension CommentsTextFieldInputView {
     
     @objc private func showHideCommentsPressed() {
         showHideCommentsView.toggleShowHide()
-    }
-}
-
-extension CommentsTextFieldInputView: CommentsViewDelegate {
-    func commentsViewPressed() {
-        commentsView.isHidden = true
-        chatTextFieldView.textField.text = ""
-        chatTextFieldAccessoryView.textField.text = ""
-        delegate?.commentView(isHidden: commentsView.isHidden)
-        chatTextFieldAccessoryView.textField.resignFirstResponder()
-        parentView?.endEditing(true)
     }
 }
 

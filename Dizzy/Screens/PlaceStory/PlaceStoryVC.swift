@@ -15,9 +15,6 @@ import SnapKit
 final class PlaceStoryVC: ViewController {
     
     let imageView = UIImageView()
-    
-    var commentsManager: CommentsManager?
-    
     let rightGestureView = UIView()
     let leftGestureView = UIView()
 
@@ -26,17 +23,16 @@ final class PlaceStoryVC: ViewController {
     let gestureViewWidth = CGFloat(150)
     let topViewHeight = CGFloat(58)
     let commentTextFieldView = CommentTextFieldView()
+    let commentsView = CommentsView()
+    let bottomBackgroundView = UIView()
+    let commentsViewHeightScale = 0.75
+    let closedCommentsViewHeight = 40
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
-        commentsManager = CommentsManager(parentView: UIView())
-        commentsManager?.delegate = self
-        commentsManager?.dataSource = self
-        
         addSubviews()
         layoutViews()
-        setupNavigation()
         setupViews()
         bindViewModel()
     }
@@ -49,10 +45,16 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([imageView, rightGestureView, leftGestureView, commentTextFieldView])
+        view.addSubviews([imageView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
     }
     
     private func layoutViews() {
+        commentsView.snp.makeConstraints { commentsView in
+            commentsView.leading.trailing.equalToSuperview()
+            commentsView.height.equalTo(closedCommentsViewHeight)
+            commentsView.bottom.equalTo(commentTextFieldView.snp.top)
+        }
+                
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -77,6 +79,11 @@ final class PlaceStoryVC: ViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Metrics.doublePadding)
         }
+        
+        bottomBackgroundView.snp.makeConstraints { bottomBackgroundView in
+            bottomBackgroundView.leading.trailing.bottom.equalToSuperview()
+            bottomBackgroundView.top.equalTo(commentTextFieldView.snp.bottom)
+        }
     }
     
     private func setupNavigation() {
@@ -90,9 +97,15 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func setupViews() {
+        setupNavigation()
+        setupBottomBackgroundView()
         setupGestureView()
-        setupCommentTextFieldView()
-        setupCommentsManager()
+        setupCommentsView()
+    }
+    
+    private func setupCommentsView() {
+        commentsView.dataSource = self
+        commentsView.delegate = self
     }
     
     private func setupGestureView() {
@@ -100,32 +113,25 @@ final class PlaceStoryVC: ViewController {
         leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
     }
     
-    private func setupCommentTextFieldView() {
-        
-    }
-
-    private func setupCommentsManager() {
-        commentsManager?.commentsTextFieldInputView.showTextField(false)
+    private func setupBottomBackgroundView() {
+        bottomBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
     }
     
     private func bindViewModel() {
         viewModel.currentImageURLString.bind { [weak self] urlString in
             guard let urlString = urlString else { return }
-            self?.commentsManager?.commentsTextFieldInputView.resetManagerToInitialState()
             if let url = URL(string: urlString) {
                 guard let self = self else { return }
                 self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
-                self.commentsManager?.commentsTextFieldInputView.showTextField(false)
                 self.imageView.kf.setImage(with: url) {[weak self] _ in
                     print(url)
-                    self?.commentsManager?.commentsTextFieldInputView.showTextField(true)
                 }
             }
         }
         
         viewModel.comments.bind { [weak self] _ in
-            self?.commentsManager?.reloadTableView()
+            self?.commentsView.reloadTableView()
         }
     }
     
@@ -142,22 +148,42 @@ final class PlaceStoryVC: ViewController {
     }
 }
 
-extension PlaceStoryVC: CommentsManagerDelegate {
-    
-    func commentView(isHidden: Bool) { }
-    
-    func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
-        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
-        viewModel.send(comment: comment)
-    }
-}
-
-extension PlaceStoryVC: CommentsManagerDataSource {
+extension PlaceStoryVC: CommentsViewDataSource {
     func numberOfRowsInSection() -> Int {
-        return viewModel.numberOfRowsInSection()
+        return  viewModel.numberOfRowsInSection()
     }
     
     func comment(at indexPath: IndexPath) -> Comment? {
-        return viewModel.comment(at: indexPath)
+        return  viewModel.comment(at: indexPath)
+    }
+}
+
+extension PlaceStoryVC: CommentsViewDelegate {
+    func commentPressed() {
+        
+    }
+    
+    func hideCommentsPressed() {
+        UIView.animate(withDuration: 1.0) {
+            self.commentsView.snp.remakeConstraints { commentsView in
+                commentsView.height.equalTo(self.closedCommentsViewHeight)
+                commentsView.leading.trailing.equalToSuperview()
+                commentsView.bottom.equalTo(self.commentTextFieldView.snp.top)
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    
+    func showCommentsPressed() {
+        UIView.animate(withDuration: 1.0) {
+            self.commentsView.snp.remakeConstraints { commentsView in
+                commentsView.height.equalTo(self.view.snp.height).multipliedBy(self.commentsViewHeightScale)
+                commentsView.leading.trailing.equalToSuperview()
+                commentsView.bottom.equalTo(self.commentTextFieldView.snp.top)
+            }
+            
+            self.view.layoutIfNeeded()
+        }
     }
 }

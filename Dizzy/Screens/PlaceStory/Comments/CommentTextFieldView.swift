@@ -21,7 +21,7 @@ final class CommentTextFieldView: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .black
+        backgroundColor = UIColor.black.withAlphaComponent(0.8)
         addSubviews()
         layoutViews()
         setupViews()
@@ -36,7 +36,6 @@ final class CommentTextFieldView: UIView {
     }
     
     private func layoutViews() {
-        
         layoutProfileImageView()
         layoutTextField()
     }

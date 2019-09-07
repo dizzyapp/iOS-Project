@@ -9,7 +9,9 @@
 import UIKit
 
 protocol CommentsViewDelegate: class {
-    func commentsViewPressed()
+    func commentPressed()
+    func hideCommentsPressed()
+    func showCommentsPressed()
 }
 
 protocol CommentsViewDataSource: class {
@@ -19,22 +21,32 @@ protocol CommentsViewDataSource: class {
 
 final class CommentsView: UIView {
     
-    let tableView = UITableView()
-    let spaceView = UIView()
-    
+    private let tableView = UITableView()
+    private let commentsVisabilityButton = UIButton()
     weak var delegate: CommentsViewDelegate?
     weak var dataSource: CommentsViewDataSource?
- 
+    private var areCommentsVisible = false
+    var tableViewHight: CGFloat {
+        return tableView.frame.height
+    }
+    
     init() {
         super.init(frame: .zero)
-        addDarkBlur()
-        setupTableView()
+        setupViews()
+        layoutViews()
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewPressed)))
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupViews() {
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        layer.cornerRadius = 25
+        backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        setupTableView()
+        setupVisabillityButton()
     }
     
     private func setupTableView() {
@@ -44,15 +56,29 @@ final class CommentsView: UIView {
         tableView.separatorStyle = .none
         
         tableView.register(CommentCell.self)
+    }
+    
+    private func setupVisabillityButton() {
+        commentsVisabilityButton.setImage(Images.downArrowIcon(), for: .normal)
+        commentsVisabilityButton.addTarget(self, action: #selector(visabillityButtonPressed), for: .touchUpInside)
+    }
+    
+    private func layoutViews() {
+        addSubviews([tableView, commentsVisabilityButton])
         
-        addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        commentsVisabilityButton.snp.makeConstraints { commentsVisabilityButton in
+            commentsVisabilityButton.top.equalToSuperview().offset(Metrics.tinyPadding)
+            commentsVisabilityButton.bottom.equalTo(tableView.snp.top).offset(-Metrics.tinyPadding)
+            commentsVisabilityButton.centerX.equalToSuperview()
+        }
+        
+        tableView.snp.makeConstraints { tableView in
+            tableView.bottom.leading.trailing.equalToSuperview()
         }
     }
     
     @objc func viewPressed() {
-        delegate?.commentsViewPressed()
+        delegate?.commentPressed()
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -79,6 +105,16 @@ final class CommentsView: UIView {
             let bottomIntextPath = IndexPath(item: lastItem, section: 0)
             tableView.scrollToRow(at: bottomIntextPath, at: .bottom, animated: true)
         }
+    }
+    
+    @objc private func visabillityButtonPressed() {
+        if areCommentsVisible {
+            self.delegate?.hideCommentsPressed()
+        } else {
+            self.delegate?.showCommentsPressed()
+        }
+        
+        areCommentsVisible = !areCommentsVisible
     }
 }
 

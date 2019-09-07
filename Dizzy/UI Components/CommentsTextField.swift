@@ -34,7 +34,7 @@ class CommentsTextField: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .black
+        backgroundColor = .clear
         setupSendButton()
         setupTextField()
     }
