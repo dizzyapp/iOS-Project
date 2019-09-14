@@ -25,8 +25,8 @@ final class PlaceStoryVC: ViewController {
     let commentTextFieldView = CommentTextFieldView()
     let commentsView = CommentsView()
     let bottomBackgroundView = UIView()
-    let commentsViewHeightScale = 0.75
-    let closedCommentsViewHeight = 40
+    
+    var commentsViewTopConstraint: Constraint?
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
@@ -36,9 +36,18 @@ final class PlaceStoryVC: ViewController {
         setupViews()
         bindViewModel()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        commentsViewTopConstraint?.update(offset: commentsView.frame.height - 20 )
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5) {
+            self.commentsView.alpha = 1
+            self.view.layoutIfNeeded()
+        }
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -51,7 +60,7 @@ final class PlaceStoryVC: ViewController {
     private func layoutViews() {
         commentsView.snp.makeConstraints { commentsView in
             commentsView.leading.trailing.equalToSuperview()
-            commentsView.height.equalTo(closedCommentsViewHeight)
+            self.commentsViewTopConstraint = commentsView.top.equalTo(view.snp.topMargin).offset(Metrics.doublePadding).constraint
             commentsView.bottom.equalTo(commentTextFieldView.snp.top)
         }
                 
@@ -106,6 +115,7 @@ final class PlaceStoryVC: ViewController {
     private func setupCommentsView() {
         commentsView.dataSource = self
         commentsView.delegate = self
+        commentsView.alpha = 0
     }
     
     private func setupGestureView() {
@@ -165,11 +175,7 @@ extension PlaceStoryVC: CommentsViewDelegate {
     
     func hideCommentsPressed() {
         UIView.animate(withDuration: 1.0) {
-            self.commentsView.snp.remakeConstraints { commentsView in
-                commentsView.height.equalTo(self.closedCommentsViewHeight)
-                commentsView.leading.trailing.equalToSuperview()
-                commentsView.bottom.equalTo(self.commentTextFieldView.snp.top)
-            }
+            self.commentsViewTopConstraint?.update(offset: self.commentsView.frame.height - 20)
             self.view.layoutIfNeeded()
         }
         
@@ -177,12 +183,7 @@ extension PlaceStoryVC: CommentsViewDelegate {
     
     func showCommentsPressed() {
         UIView.animate(withDuration: 1.0) {
-            self.commentsView.snp.remakeConstraints { commentsView in
-                commentsView.height.equalTo(self.view.snp.height).multipliedBy(self.commentsViewHeightScale)
-                commentsView.leading.trailing.equalToSuperview()
-                commentsView.bottom.equalTo(self.commentTextFieldView.snp.top)
-            }
-            
+            self.commentsViewTopConstraint?.update(offset: Metrics.doublePadding)
             self.view.layoutIfNeeded()
         }
     }
