@@ -51,6 +51,7 @@ class CommentsTextField: UIView {
         textField.font = Fonts.h8()
         textField.attributedPlaceholder = NSAttributedString(string: "Comment...".localized,
                                                              attributes: [.foregroundColor: UIColor.white])
+        textField.delegate = self
     }
     
     private func addSubviews() {
@@ -84,5 +85,12 @@ class CommentsTextField: UIView {
     
     @objc private func sendButtonPressed() {
         delegate?.sendPressed()
+    }
+}
+
+extension CommentsTextField: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.endEditing(true)
+        return false
     }
 }

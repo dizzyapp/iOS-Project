@@ -27,6 +27,11 @@ final class PlaceStoryVC: ViewController {
     let bottomBackgroundView = UIView()
     
     var commentsViewTopConstraint: Constraint?
+    var commentsTextInputViewBottomConstraint: Constraint?
+    let commentsViewTopOffset: CGFloat = 13
+    var areCommentsVisible = false
+    var isKeyboardOpen = false
+    var bottomBarHeight: CGFloat = 0
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
@@ -42,11 +47,15 @@ final class PlaceStoryVC: ViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        commentsViewTopConstraint?.update(offset: commentsView.frame.height - 20 )
+        commentsViewTopConstraint?.update(offset: commentsView.frame.height - commentsViewTopOffset )
         view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5) {
             self.commentsView.alpha = 1
             self.view.layoutIfNeeded()
+        }
+        
+        if #available(iOS 11.0, *) {
+            bottomBarHeight = view.safeAreaInsets.bottom
         }
     }
     
@@ -86,7 +95,7 @@ final class PlaceStoryVC: ViewController {
         
         commentTextFieldView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Metrics.doublePadding)
+            commentsTextInputViewBottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Metrics.doublePadding).constraint
         }
         
         bottomBackgroundView.snp.makeConstraints { bottomBackgroundView in
@@ -106,6 +115,9 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func setupViews() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         setupNavigation()
         setupBottomBackgroundView()
         setupGestureView()
@@ -156,6 +168,40 @@ final class PlaceStoryVC: ViewController {
     @objc func close() {
         viewModel.close()
     }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard !isKeyboardOpen,
+            let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardSize = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardSize.height
+        isKeyboardOpen = true
+        let bottomViewHeight = self.bottomBackgroundView.bounds.height
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
+            self?.updateCommentsViewTopConstraint(ByKeyboardHeight: keyboardHeight - bottomViewHeight)
+            self?.commentsTextInputViewBottomConstraint?.update(offset: -Metrics.doublePadding - keyboardHeight + bottomViewHeight )
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardSize = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardSize.height
+        let bottomSpace = bottomBarHeight + Metrics.doublePadding
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
+            self?.updateCommentsViewTopConstraint(ByKeyboardHeight: -keyboardHeight + bottomSpace)
+            self?.commentsTextInputViewBottomConstraint?.update(offset: -Metrics.doublePadding)
+        }
+        isKeyboardOpen = false
+    }
+    
+    private func updateCommentsViewTopConstraint(ByKeyboardHeight keyboardHeight: CGFloat) {
+        if !areCommentsVisible {
+            let currentOffset = commentsViewTopConstraint?.layoutConstraints[0].constant ?? 0
+            commentsViewTopConstraint?.update(offset: currentOffset - keyboardHeight)
+        }
+    }
 }
 
 extension PlaceStoryVC: CommentsViewDataSource {
@@ -174,14 +220,16 @@ extension PlaceStoryVC: CommentsViewDelegate {
     }
     
     func hideCommentsPressed() {
+        areCommentsVisible = false
         UIView.animate(withDuration: 1.0) {
-            self.commentsViewTopConstraint?.update(offset: self.commentsView.frame.height - 20)
+            self.commentsViewTopConstraint?.update(offset: self.commentsView.frame.height - self.commentsViewTopOffset)
             self.view.layoutIfNeeded()
         }
         
     }
     
     func showCommentsPressed() {
+        areCommentsVisible = true
         UIView.animate(withDuration: 1.0) {
             self.commentsViewTopConstraint?.update(offset: Metrics.doublePadding)
             self.view.layoutIfNeeded()

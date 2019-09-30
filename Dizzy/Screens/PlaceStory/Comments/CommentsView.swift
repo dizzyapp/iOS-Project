@@ -43,7 +43,7 @@ final class CommentsView: UIView {
     
     private func setupViews() {
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        layer.cornerRadius = 25
+        layer.cornerRadius = 20
         backgroundColor = UIColor.black.withAlphaComponent(0.8)
         setupTableView()
         setupVisabillityButton()
@@ -79,17 +79,6 @@ final class CommentsView: UIView {
     
     @objc func viewPressed() {
         delegate?.commentPressed()
-    }
-    
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let keyboardSize = keyboardFrame.cgSizeValue
-        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
-        tableView.contentInset = contentInsets
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
-            self?.scrollToBottomIfNeeded()
-        }
     }
     
     func reloadTableView() {
