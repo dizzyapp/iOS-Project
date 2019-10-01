@@ -90,6 +90,6 @@ extension PlaceStoryCoordinator: PlayerVCCommentsDelegate {
     
     func playerVCSendPressed(_ playerVC: PlayerVC, with message: String) {
         let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
-        placeStoryVM?.send(comment: comment)
+        //placeStoryVM?.send(comment: comment)
     }
 }

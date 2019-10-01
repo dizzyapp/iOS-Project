@@ -122,6 +122,7 @@ final class PlaceStoryVC: ViewController {
         setupBottomBackgroundView()
         setupGestureView()
         setupCommentsView()
+        setupCommentsTextField()
     }
     
     private func setupCommentsView() {
@@ -133,6 +134,10 @@ final class PlaceStoryVC: ViewController {
     private func setupGestureView() {
         rightGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapRight)))
         leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
+    }
+    
+    private func setupCommentsTextField() {
+        commentTextFieldView.delegate = self
     }
     
     private func setupBottomBackgroundView() {
@@ -234,5 +239,11 @@ extension PlaceStoryVC: CommentsViewDelegate {
             self.commentsViewTopConstraint?.update(offset: Metrics.doublePadding)
             self.view.layoutIfNeeded()
         }
+    }
+}
+
+extension PlaceStoryVC: CommentTextFieldViewDelegate {
+    func commentTextFieldViewSendPressed(_ view: UIView, with message: String) {
+        viewModel.send(message: message)
     }
 }

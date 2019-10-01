@@ -24,7 +24,7 @@ protocol PlaceStoryVMType {
     
     func showNextImage()
     func showPrevImage()
-    func send(comment: Comment)
+    func send(message: String)
     func close()
     
     func numberOfRowsInSection() -> Int
@@ -80,7 +80,8 @@ final class PlaceStoryVM: PlaceStoryVMType {
         }
     }
     
-    func send(comment: Comment) {
+    func send(message: String) {
+        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
         commentsInteractor.sendComment(comment, placeId: place.id)
     }
     
