@@ -51,8 +51,10 @@ final class PlaceStoryVC: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         commentsViewTopConstraint?.update(offset: commentsView.frame.height - commentsViewTopOffset )
         view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.15) {
             self.commentsView.alpha = 1
+            self.commentTextFieldView.alpha = 1
+            self.bottomBackgroundView.alpha = 1
             self.view.layoutIfNeeded()
         }
         
@@ -129,6 +131,7 @@ final class PlaceStoryVC: ViewController {
         setupGestureView()
         setupCommentsView()
         setupCommentsTextField()
+        bottomBackgroundView.alpha = 0
     }
     
     private func setupCommentsView() {
@@ -144,6 +147,7 @@ final class PlaceStoryVC: ViewController {
     
     private func setupCommentsTextField() {
         commentTextFieldView.delegate = self
+        commentTextFieldView.alpha = 0
     }
     
     private func setupBottomBackgroundView() {
