@@ -9,9 +9,11 @@
 import Foundation
 
 protocol PlaceStoryVMDelegate: class {
-    func placeStoryVMDidFinised(_ viewModel: PlaceStoryVMType)
     func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String)
+}
 
+protocol PlaceStoryVMNavigationDelegate: class {
+    func placeStoryVMDidFinised(_ viewModel: PlaceStoryVMType)
 }
 
 protocol PlaceStoryVMType {
@@ -20,6 +22,7 @@ protocol PlaceStoryVMType {
     var comments: Observable<[Comment]> { get }
     var stories: Observable<[PlaceStory]> { get }
     var delegate: PlaceStoryVMDelegate? { get set }
+    var navigationDelegate: PlaceStoryVMNavigationDelegate? {get set}
     var place: PlaceInfo { get }
     
     func showNextImage()
@@ -35,6 +38,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     
     let place: PlaceInfo
     weak var delegate: PlaceStoryVMDelegate?
+    weak var navigationDelegate: PlaceStoryVMNavigationDelegate?
     
     var imagesURL = [String]()
     
@@ -60,12 +64,13 @@ final class PlaceStoryVM: PlaceStoryVMType {
         if displayedImageIndex + 1 <= imagesURL.count - 1 {
             displayedImageIndex += 1
             if isVideo(string: imagesURL[displayedImageIndex]) {
+                print("debug log - video")
                 delegate?.placeStoryShowVideo(self, stringURL: imagesURL[displayedImageIndex])
             } else {
                 currentImageURLString.value = imagesURL[displayedImageIndex]
             }
         } else {
-            delegate?.placeStoryVMDidFinised(self)
+            navigationDelegate?.placeStoryVMDidFinised(self)
         }
     }
     
@@ -94,11 +99,11 @@ final class PlaceStoryVM: PlaceStoryVMType {
     }
     
     func close() {
-        delegate?.placeStoryVMDidFinised(self)
+        navigationDelegate?.placeStoryVMDidFinised(self)
     }
     
     private func isVideo(string: String) -> Bool {
-        return string.contains(".MOV")
+        return string.contains(".mp4")
     }
 }
 
@@ -113,6 +118,7 @@ extension PlaceStoryVM: CommentsInteractorDelegate {
 extension PlaceStoryVM: StoriesInteractorDelegate {
     func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceStory]?) {
         if let stories = stories, !stories.isEmpty {
+            print("debug log - stories: \(stories)")
             self.stories.value = stories
             self.imagesURL = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
             

@@ -15,6 +15,7 @@ import SnapKit
 final class PlaceStoryVC: ViewController {
     
     let imageView = UIImageView()
+    let videoView = VideoView()
     let rightGestureView = UIView()
     let leftGestureView = UIView()
 
@@ -36,6 +37,7 @@ final class PlaceStoryVC: ViewController {
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
+        self.viewModel.delegate = self
         addSubviews()
         layoutViews()
         setupViews()
@@ -63,7 +65,7 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([imageView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
+        view.addSubviews([imageView, videoView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
     }
     
     private func layoutViews() {
@@ -75,6 +77,10 @@ final class PlaceStoryVC: ViewController {
                 
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        videoView.snp.makeConstraints { videoView in
+            videoView.edges.equalToSuperview()
         }
         
         rightGestureView.snp.makeConstraints { make in
@@ -149,6 +155,8 @@ final class PlaceStoryVC: ViewController {
             guard let urlString = urlString else { return }
             if let url = URL(string: urlString) {
                 guard let self = self else { return }
+                self.imageView.isHidden = false
+                self.videoView.isHidden = true
                 self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
                 self.imageView.kf.setImage(with: url) {[weak self] _ in
@@ -245,5 +253,16 @@ extension PlaceStoryVC: CommentsViewDelegate {
 extension PlaceStoryVC: CommentTextFieldViewDelegate {
     func commentTextFieldViewSendPressed(_ view: UIView, with message: String) {
         viewModel.send(message: message)
+    }
+}
+
+extension PlaceStoryVC: PlaceStoryVMDelegate {
+    func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String) {
+        guard let videoUrl = URL(string: stringURL) else { return }
+        videoView.isHidden = false
+        imageView.isHidden = true
+        
+        videoView.configure(url: videoUrl)
+        videoView.play()
     }
 }
