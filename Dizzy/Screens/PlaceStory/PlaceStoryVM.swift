@@ -103,7 +103,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     }
     
     private func isVideo(string: String) -> Bool {
-        return string.contains(".mp4")
+        return string.contains(".mp4") || string.contains(".mov")
     }
 }
 
