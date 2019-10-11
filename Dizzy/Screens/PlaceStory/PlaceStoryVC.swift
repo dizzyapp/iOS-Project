@@ -163,9 +163,7 @@ final class PlaceStoryVC: ViewController {
                 self.videoView.isHidden = true
                 self.imageView.kf.cancelDownloadTask()
                 self.imageView.kf.indicatorType = .activity
-                self.imageView.kf.setImage(with: url) {[weak self] _ in
-                    print(url)
-                }
+                self.imageView.kf.setImage(with: url)
             }
         }
         

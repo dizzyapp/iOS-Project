@@ -20,7 +20,6 @@ final class PlaceStoryCoordinator: PlaceStoryCoordinatorType {
     var container: Container?
     var childCoordinators = [CoordinatorKey : Coordinator]()
     let presentingViewController: UIViewController
-    var placeStoryVM: PlaceStoryVMType?
     
     init(container: Container?,
         presentingViewController: UIViewController) {
@@ -36,7 +35,6 @@ final class PlaceStoryCoordinator: PlaceStoryCoordinatorType {
                 return
         }
         viewModel.navigationDelegate = self
-        placeStoryVM = viewModel
         let nvc = placeStoryVC.embdedInNavigationController().withTransparentStyle()
         nvc.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController = nvc
