@@ -55,6 +55,20 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         view.layoutIfNeeded()
         cameraButton.layer.cornerRadius = cameraButton.frame.height / 2
         cameraButton.addTarget(self, action: #selector(cameraButtonPressed), for: .touchUpInside)
+        setupLongPressForCameraButton()
+    }
+    
+    private func setupLongPressForCameraButton() {
+        let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(onLongPress))
+        cameraButton.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc private func onLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            debugPrint("long press started")
+        } else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
+            debugPrint("longpress ended")
+        }
     }
     
     private func bindViewModel() {
