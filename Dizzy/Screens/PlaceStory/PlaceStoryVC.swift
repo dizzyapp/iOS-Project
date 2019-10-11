@@ -14,82 +14,103 @@ import SnapKit
 
 final class PlaceStoryVC: ViewController {
     
-    let topView = UIView()
     let imageView = UIImageView()
-    
-    var commentsManager: CommentsManager?
-    
+    let videoView = VideoView()
     let rightGestureView = UIView()
     let leftGestureView = UIView()
-    let commentsPlaceholderView = UIView()
+    let loadingView = DizzyLoadingView()
 
     var viewModel: PlaceStoryVMType
-    var playerVC: PlayerVC?
     
     let gestureViewWidth = CGFloat(150)
-    let topViewHeight = CGFloat(58)
+    let commentTextFieldView = CommentTextFieldView()
+    let commentsView = CommentsView()
+    let bottomBackgroundView = UIView()
+    
+    var commentsViewTopConstraint: Constraint?
+    var commentsTextInputViewBottomConstraint: Constraint?
+    let commentsViewTopOffset: CGFloat = 13
+    var areCommentsVisible = false
+    var isKeyboardOpen = false
+    var bottomBarHeight: CGFloat = 0
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
         super.init()
-        commentsManager = CommentsManager(parentView: commentsPlaceholderView)
-        commentsManager?.delegate = self
-        commentsManager?.dataSource = self
-        
+        self.viewModel.delegate = self
         addSubviews()
         layoutViews()
-        setupNavigation()
         setupViews()
-
         bindViewModel()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        commentsViewTopConstraint?.update(offset: commentsView.frame.height - commentsViewTopOffset )
+        view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.15) {
+            self.commentsView.alpha = 1
+            self.commentTextFieldView.alpha = 1
+            self.bottomBackgroundView.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+        
+        if #available(iOS 11.0, *) {
+            bottomBarHeight = view.safeAreaInsets.bottom
+        }
+    }
+    
     override func viewSafeAreaInsetsDidChange() {
-        layoutTopView()
     }
     
     private func addSubviews() {
-        view.insertSubview(imageView, at: 0)
-        view.addSubviews([topView, commentsPlaceholderView, rightGestureView, leftGestureView])
+        view.addSubviews([loadingView, imageView, videoView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
     }
     
     private func layoutViews() {
+        commentsView.snp.makeConstraints { commentsView in
+            commentsView.leading.trailing.equalToSuperview()
+            self.commentsViewTopConstraint = commentsView.top.equalTo(view.snp.topMargin).offset(Metrics.doublePadding).constraint
+            commentsView.bottom.equalTo(commentTextFieldView.snp.top)
+        }
+        
+        loadingView.snp.makeConstraints { loadingView in
+            loadingView.edges.equalToSuperview()
+        }
+                
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
+        videoView.snp.makeConstraints { videoView in
+            videoView.edges.equalToSuperview()
+        }
+        
         rightGestureView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+            make.top.equalTo(view.snp.topMargin)
             make.width.equalTo(gestureViewWidth)
-            make.height.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
         leftGestureView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.width.equalTo(gestureViewWidth)
-            make.height.equalToSuperview()
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        commentsPlaceholderView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom)
+        commentTextFieldView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Metrics.doublePadding)
+            commentsTextInputViewBottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-Metrics.doublePadding).constraint
         }
-    }
-    
-    private func layoutTopView() {
-        topView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(topViewHeight + view.safeAreaInsets.top)
+        
+        bottomBackgroundView.snp.makeConstraints { bottomBackgroundView in
+            bottomBackgroundView.leading.trailing.bottom.equalToSuperview()
+            bottomBackgroundView.top.equalTo(commentTextFieldView.snp.bottom)
         }
     }
     
@@ -104,10 +125,25 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func setupViews() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        setupNavigation()
+        setupLoadingView()
+        setupBottomBackgroundView()
         setupGestureView()
-        setupTopView()
-        setupCommentTextFieldView()
-//        setupCommentsManager()
+        setupCommentsView()
+        setupCommentsTextField()
+    }
+    
+    private func setupLoadingView() {
+        loadingView.startLoadingAnimation()
+    }
+    
+    private func setupCommentsView() {
+        commentsView.dataSource = self
+        commentsView.delegate = self
+        commentsView.alpha = 0
     }
     
     private func setupGestureView() {
@@ -115,39 +151,36 @@ final class PlaceStoryVC: ViewController {
         leftGestureView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapLeft)))
     }
     
-    private func setupTopView() {
-        topView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+    private func setupCommentsTextField() {
+        commentTextFieldView.delegate = self
+        commentTextFieldView.alpha = 0
     }
     
-    private func setupCommentTextFieldView() {
-        
+    private func setupBottomBackgroundView() {
+        bottomBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        bottomBackgroundView.alpha = 0
     }
-
-//    private func setupCommentsManager() {
-//        commentsManager?.showTextField(false)
-//    }
     
     private func bindViewModel() {
         viewModel.currentImageURLString.bind { [weak self] urlString in
             guard let urlString = urlString else { return }
-//            self?.commentsManager?.resetManagerToInitialState()
             if let url = URL(string: urlString) {
                 guard let self = self else { return }
+                self.shoewImageView()
                 self.imageView.kf.cancelDownloadTask()
-                self.imageView.kf.indicatorType = .activity
-//                self.commentsManager?.showTextField(false)
-                self.imageView.kf.setImage(with: url) { _ in
-                    print(url)
-//                    self?.commentsManager?.showTextField(true)
-                }
-                
-                self.playerVC?.dismiss(animated: false)
+                self.imageView.kf.setImage(with: url)
             }
         }
         
         viewModel.comments.bind { [weak self] _ in
-            self?.commentsManager?.reloadTableView()
+            self?.commentsView.reloadTableView()
         }
+    }
+    
+    private func shoewImageView() {
+        self.imageView.isHidden = false
+        self.videoView.isHidden = true
+        self.videoView.stop()
     }
     
     @objc func didTapRight() {
@@ -161,24 +194,91 @@ final class PlaceStoryVC: ViewController {
     @objc func close() {
         viewModel.close()
     }
-}
-
-extension PlaceStoryVC: CommentsManagerDelegate {
     
-    func commentView(isHidden: Bool) { }
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard !isKeyboardOpen,
+            let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardSize = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardSize.height
+        isKeyboardOpen = true
+        let bottomViewHeight = self.bottomBackgroundView.bounds.height
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
+            self?.updateCommentsViewTopConstraint(ByKeyboardHeight: keyboardHeight - bottomViewHeight)
+            self?.commentsTextInputViewBottomConstraint?.update(offset: -Metrics.doublePadding - keyboardHeight + bottomViewHeight )
+        }
+    }
     
-    func commentsManagerSendPressed(_ manager: CommentsManager, with message: String) {
-        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
-        viewModel.send(comment: comment)
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardSize = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardSize.height
+        let bottomSpace = bottomBarHeight + Metrics.doublePadding
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
+            self?.updateCommentsViewTopConstraint(ByKeyboardHeight: -keyboardHeight + bottomSpace)
+            self?.commentsTextInputViewBottomConstraint?.update(offset: -Metrics.doublePadding)
+        }
+        isKeyboardOpen = false
+    }
+    
+    private func updateCommentsViewTopConstraint(ByKeyboardHeight keyboardHeight: CGFloat) {
+        if !areCommentsVisible {
+            let currentOffset = commentsViewTopConstraint?.layoutConstraints[0].constant ?? 0
+            commentsViewTopConstraint?.update(offset: currentOffset - keyboardHeight)
+        }
     }
 }
 
-extension PlaceStoryVC: CommentsManagerDataSource {
+extension PlaceStoryVC: CommentsViewDataSource {
     func numberOfRowsInSection() -> Int {
-        return viewModel.numberOfRowsInSection()
+        return  viewModel.numberOfRowsInSection()
     }
     
     func comment(at indexPath: IndexPath) -> Comment? {
-        return viewModel.comment(at: indexPath)
+        return  viewModel.comment(at: indexPath)
+    }
+}
+
+extension PlaceStoryVC: CommentsViewDelegate {
+    func commentPressed() {
+        
+    }
+    
+    func hideCommentsPressed() {
+        areCommentsVisible = false
+        UIView.animate(withDuration: 1.0) {
+            self.commentsViewTopConstraint?.update(offset: self.commentsView.frame.height - self.commentsViewTopOffset)
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    
+    func showCommentsPressed() {
+        areCommentsVisible = true
+        UIView.animate(withDuration: 1.0) {
+            self.commentsViewTopConstraint?.update(offset: Metrics.doublePadding)
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+
+extension PlaceStoryVC: CommentTextFieldViewDelegate {
+    func commentTextFieldViewSendPressed(_ view: UIView, with message: String) {
+        viewModel.send(message: message)
+    }
+}
+
+extension PlaceStoryVC: PlaceStoryVMDelegate {
+    func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String) {
+        guard let videoUrl = URL(string: stringURL) else { return }
+        self.showVideoView()
+        videoView.configure(url: videoUrl)
+        videoView.play()
+    }
+    
+    private func showVideoView() {
+        videoView.isHidden = false
+        imageView.isHidden = true
     }
 }

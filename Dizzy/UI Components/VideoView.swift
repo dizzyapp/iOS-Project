@@ -25,9 +25,9 @@ class VideoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(url: String) {
-        let videoURL = URL(fileURLWithPath: url)
-            player = AVPlayer(url: videoURL)
+    func configure(url: URL) {
+            playerLayer = nil
+            player = AVPlayer(url: url)
             playerLayer = AVPlayerLayer(player: player)
             playerLayer?.frame = bounds
             playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill

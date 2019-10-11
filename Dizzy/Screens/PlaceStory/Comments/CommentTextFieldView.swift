@@ -15,14 +15,13 @@ protocol CommentTextFieldViewDelegate: class {
 final class CommentTextFieldView: UIView {
     
     private let profileImageView: UIImageView = UIImageView()
-    let textField = UITextField().withTransperentRoundedCorners(borderColor: UIColor(hexString: "A7B0FF"), cornerRadius: 20)
-    private let sendButton = UIButton(type: .system)
+    let textField = CommentsTextField()
     
     weak var delegate: CommentTextFieldViewDelegate?
-    let sendButtonSize = CGSize(width: 60, height: 30)
     
     init() {
         super.init(frame: .zero)
+        backgroundColor = UIColor.black.withAlphaComponent(0.8)
         addSubviews()
         layoutViews()
         setupViews()
@@ -37,16 +36,14 @@ final class CommentTextFieldView: UIView {
     }
     
     private func layoutViews() {
-        
         layoutProfileImageView()
         layoutTextField()
-        layoutSendButton()
     }
     
     private func layoutProfileImageView() {
         profileImageView.snp.makeConstraints { (profileImageView) in
             profileImageView.leading.equalToSuperview().offset(Metrics.doublePadding)
-            profileImageView.bottom.equalToSuperview()
+            profileImageView.bottom.top.equalToSuperview()
         }
         
         profileImageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -61,17 +58,9 @@ final class CommentTextFieldView: UIView {
         }
     }
     
-    private func layoutSendButton() {
-        sendButton.snp.makeConstraints { (sendButton) in
-            sendButton.width.equalTo(sendButtonSize.width)
-            sendButton.height.equalTo(sendButtonSize.height)
-        }
-    }
-    
     private func setupViews() {
         setupProfileImageView()
         setupTextField()
-        setupSendButton()
     }
     
     private func setupProfileImageView() {
@@ -80,24 +69,14 @@ final class CommentTextFieldView: UIView {
     }
     
     private func setupTextField() {
-        textField.rightView = sendButton
-        textField.rightViewMode = .always
-        textField.font = Fonts.h8()
-        textField.attributedPlaceholder = NSAttributedString(string: "Comment...".localized,
-                                                             attributes: [.foregroundColor: UIColor.white])
+        textField.setBorder(borderColor: UIColor(hexString: "A7B0FF"), cornerRadius: 20)
+        textField.delegate = self
     }
-    
-    private func setupSendButton() {
-        sendButton.titleLabel?.font = Fonts.h10()
-        sendButton.setTitleColor(.white, for: .normal)
-        sendButton.setTitle("Send".localized, for: .normal)
-        sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
-    }
-    
-    @objc private func sendButtonPressed() {
-        if let message = textField.text {
-            delegate?.commentTextFieldViewSendPressed(self, with: message)
-            textField.text = ""
-        }
+}
+
+extension CommentTextFieldView: CommentsTextFieldDelegate {
+    func sendPressed() {
+        delegate?.commentTextFieldViewSendPressed(self, with: textField.text)
+        textField.text = ""
     }
 }

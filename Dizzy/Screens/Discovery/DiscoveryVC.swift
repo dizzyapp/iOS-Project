@@ -101,8 +101,12 @@ class DiscoveryVC: ViewController {
     }
     
     private func setupThemeVideoView() {
-        let path = Bundle.main.path(forResource: "dizzySplash", ofType:"mp4")!
-        themeVideoView.configure(url: path)
+        guard let path = Bundle.main.path(forResource: "dizzySplash", ofType:"mp4") else {
+                print("coult not find vieo url of discovery vc")
+            return
+        }
+        let videoUrl = URL(fileURLWithPath: path)
+        themeVideoView.configure(url: videoUrl)
         themeVideoView.play()
     }
     

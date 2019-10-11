@@ -9,9 +9,11 @@
 import Foundation
 
 protocol PlaceStoryVMDelegate: class {
-    func placeStoryVMDidFinised(_ viewModel: PlaceStoryVMType)
     func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String)
+}
 
+protocol PlaceStoryVMNavigationDelegate: class {
+    func placeStoryVMDidFinised(_ viewModel: PlaceStoryVMType)
 }
 
 protocol PlaceStoryVMType {
@@ -20,11 +22,12 @@ protocol PlaceStoryVMType {
     var comments: Observable<[Comment]> { get }
     var stories: Observable<[PlaceStory]> { get }
     var delegate: PlaceStoryVMDelegate? { get set }
+    var navigationDelegate: PlaceStoryVMNavigationDelegate? {get set}
     var place: PlaceInfo { get }
     
     func showNextImage()
     func showPrevImage()
-    func send(comment: Comment)
+    func send(message: String)
     func close()
     
     func numberOfRowsInSection() -> Int
@@ -35,6 +38,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     
     let place: PlaceInfo
     weak var delegate: PlaceStoryVMDelegate?
+    weak var navigationDelegate: PlaceStoryVMNavigationDelegate?
     
     var imagesURL = [String]()
     
@@ -65,7 +69,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
                 currentImageURLString.value = imagesURL[displayedImageIndex]
             }
         } else {
-            delegate?.placeStoryVMDidFinised(self)
+            navigationDelegate?.placeStoryVMDidFinised(self)
         }
     }
     
@@ -80,7 +84,8 @@ final class PlaceStoryVM: PlaceStoryVMType {
         }
     }
     
-    func send(comment: Comment) {
+    func send(message: String) {
+        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
         commentsInteractor.sendComment(comment, placeId: place.id)
     }
     
@@ -93,11 +98,11 @@ final class PlaceStoryVM: PlaceStoryVMType {
     }
     
     func close() {
-        delegate?.placeStoryVMDidFinised(self)
+        navigationDelegate?.placeStoryVMDidFinised(self)
     }
     
     private func isVideo(string: String) -> Bool {
-        return string.contains(".MOV")
+        return string.contains(".mp4") || string.contains(".mov")
     }
 }
 
