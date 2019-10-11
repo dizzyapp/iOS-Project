@@ -23,7 +23,6 @@ final class PlaceStoryVC: ViewController {
     var viewModel: PlaceStoryVMType
     
     let gestureViewWidth = CGFloat(150)
-    let topViewHeight = CGFloat(58)
     let commentTextFieldView = CommentTextFieldView()
     let commentsView = CommentsView()
     let bottomBackgroundView = UIView()
@@ -93,7 +92,6 @@ final class PlaceStoryVC: ViewController {
         rightGestureView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.topMargin)
             make.width.equalTo(gestureViewWidth)
-            make.height.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
@@ -101,7 +99,6 @@ final class PlaceStoryVC: ViewController {
         leftGestureView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.width.equalTo(gestureViewWidth)
-            make.height.equalToSuperview()
             make.left.equalToSuperview()
             make.bottom.equalToSuperview()
         }

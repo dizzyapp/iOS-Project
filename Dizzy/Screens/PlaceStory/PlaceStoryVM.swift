@@ -64,7 +64,6 @@ final class PlaceStoryVM: PlaceStoryVMType {
         if displayedImageIndex + 1 <= imagesURL.count - 1 {
             displayedImageIndex += 1
             if isVideo(string: imagesURL[displayedImageIndex]) {
-                print("debug log - video")
                 delegate?.placeStoryShowVideo(self, stringURL: imagesURL[displayedImageIndex])
             } else {
                 currentImageURLString.value = imagesURL[displayedImageIndex]
@@ -118,7 +117,6 @@ extension PlaceStoryVM: CommentsInteractorDelegate {
 extension PlaceStoryVM: StoriesInteractorDelegate {
     func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceStory]?) {
         if let stories = stories, !stories.isEmpty {
-            print("debug log - stories: \(stories)")
             self.stories.value = stories
             self.imagesURL = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
             
