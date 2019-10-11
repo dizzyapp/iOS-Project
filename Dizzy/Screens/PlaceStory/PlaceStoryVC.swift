@@ -18,6 +18,7 @@ final class PlaceStoryVC: ViewController {
     let videoView = VideoView()
     let rightGestureView = UIView()
     let leftGestureView = UIView()
+    let loadingView = DizzyLoadingView()
 
     var viewModel: PlaceStoryVMType
     
@@ -67,7 +68,7 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([imageView, videoView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
+        view.addSubviews([loadingView, imageView, videoView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
     }
     
     private func layoutViews() {
@@ -75,6 +76,10 @@ final class PlaceStoryVC: ViewController {
             commentsView.leading.trailing.equalToSuperview()
             self.commentsViewTopConstraint = commentsView.top.equalTo(view.snp.topMargin).offset(Metrics.doublePadding).constraint
             commentsView.bottom.equalTo(commentTextFieldView.snp.top)
+        }
+        
+        loadingView.snp.makeConstraints { loadingView in
+            loadingView.edges.equalToSuperview()
         }
                 
         imageView.snp.makeConstraints { make in
@@ -127,11 +132,15 @@ final class PlaceStoryVC: ViewController {
          NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setupNavigation()
+        setupLoadingView()
         setupBottomBackgroundView()
         setupGestureView()
         setupCommentsView()
         setupCommentsTextField()
-        bottomBackgroundView.alpha = 0
+    }
+    
+    private func setupLoadingView() {
+        loadingView.startLoadingAnimation()
     }
     
     private func setupCommentsView() {
@@ -152,6 +161,7 @@ final class PlaceStoryVC: ViewController {
     
     private func setupBottomBackgroundView() {
         bottomBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        bottomBackgroundView.alpha = 0
     }
     
     private func bindViewModel() {
@@ -159,10 +169,8 @@ final class PlaceStoryVC: ViewController {
             guard let urlString = urlString else { return }
             if let url = URL(string: urlString) {
                 guard let self = self else { return }
-                self.imageView.isHidden = false
-                self.videoView.isHidden = true
+                self.shoewImageView()
                 self.imageView.kf.cancelDownloadTask()
-                self.imageView.kf.indicatorType = .activity
                 self.imageView.kf.setImage(with: url)
             }
         }
@@ -170,6 +178,12 @@ final class PlaceStoryVC: ViewController {
         viewModel.comments.bind { [weak self] _ in
             self?.commentsView.reloadTableView()
         }
+    }
+    
+    private func shoewImageView() {
+        self.imageView.isHidden = false
+        self.videoView.isHidden = true
+        self.videoView.stop()
     }
     
     @objc func didTapRight() {
@@ -261,10 +275,13 @@ extension PlaceStoryVC: CommentTextFieldViewDelegate {
 extension PlaceStoryVC: PlaceStoryVMDelegate {
     func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String) {
         guard let videoUrl = URL(string: stringURL) else { return }
-        videoView.isHidden = false
-        imageView.isHidden = true
-        
+        self.showVideoView()
         videoView.configure(url: videoUrl)
         videoView.play()
+    }
+    
+    private func showVideoView() {
+        videoView.isHidden = false
+        imageView.isHidden = true
     }
 }
