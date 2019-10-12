@@ -36,7 +36,8 @@ class SignInInteractor: SignInInteractorType {
             switch result {
             case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success:
+            case .success(let user):
+                self?.saveUserOnRemote(user)
                 self?.delegate?.userSignedInSuccesfully()
             }
         }
@@ -51,6 +52,7 @@ class SignInInteractor: SignInInteractorType {
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
             case .success(let user):
                 self?.saveUserOnRemote(user)
+                self?.delegate?.userSignedInSuccesfully()
             }
         }
     }
