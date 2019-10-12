@@ -11,6 +11,8 @@ import UIKit
 final class UploadStoryVC: ViewController, PopupPresenter {
     
     private let viewModel: UploadStoryVMType
+    private let recordingIndicator = UILabel(frame: .zero)
+    private var recordingTimer: Timer?
     private let cameraButton =  UIButton(frame: .zero)
     private let switchCameraButton = UIButton(frame: .zero)
     
@@ -39,8 +41,15 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     }
     
     private func setupViews() {
+        setupRecordingIndicator()
         setupCameraButton()
         setupSwitchCameraButton()
+    }
+    
+    private func setupRecordingIndicator() {
+        recordingIndicator.alpha = 0
+        recordingIndicator.text = "recording".localized
+        recordingIndicator.textColor = .white
     }
     
     private func setupSwitchCameraButton() {
@@ -65,11 +74,30 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     
     @objc private func onLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
-            debugPrint("long press started")
+            showRecordingIndicator()
             viewModel.startCapturingVideo()
         } else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
-            debugPrint("longpress ended")
             viewModel.stopCapturingVideo()
+            hideRecordingIndicator()
+        }
+    }
+    
+    private func showRecordingIndicator() {
+        recordingIndicator.alpha = 1
+        recordingTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(changeRecordingIndicatorVisability), userInfo: nil, repeats: true)
+    }
+    
+    func hideRecordingIndicator() {
+        recordingTimer?.invalidate()
+        recordingTimer = nil
+        recordingIndicator.alpha = 0
+    }
+    
+    @objc func changeRecordingIndicatorVisability() {
+        UIView.animate(withDuration: 2.0) { [weak self] in
+            guard let self = self else { return }
+            self.recordingIndicator.alpha = 1 - self.recordingIndicator.alpha
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -78,6 +106,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
             guard let self = self, let layer = layer else { return }
             layer.frame = self.view.bounds
             self.view.layer.addSublayer(layer)
+            self.view.bringSubviewToFront(self.recordingIndicator)
             self.view.bringSubviewToFront(self.cameraButton)
             self.view.bringSubviewToFront(self.switchCameraButton)
         }
@@ -92,10 +121,15 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     }
     
     private func buildView() {
-        view.addSubviews([cameraButton, switchCameraButton])
+        view.addSubviews([recordingIndicator ,cameraButton, switchCameraButton])
     }
     
     private func buildConstraints() {
+        recordingIndicator.snp.makeConstraints { recordingIndicator in
+            recordingIndicator.top.equalTo(view.snp.topMargin)
+            recordingIndicator.centerX.equalToSuperview()
+        }
+        
         cameraButton.snp.makeConstraints { make in
             make.height.width.equalTo(cameraButtonHeight)
             make.centerX.equalToSuperview()
