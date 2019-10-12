@@ -66,8 +66,10 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     @objc private func onLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
             debugPrint("long press started")
+            viewModel.startCapturingVideo()
         } else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
             debugPrint("longpress ended")
+            viewModel.stopCapturingVideo()
         }
     }
     

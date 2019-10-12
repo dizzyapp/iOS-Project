@@ -15,6 +15,8 @@ protocol UploadStoryVMType {
     var delegate: UploadStoryVMDelegate? { get set }
     
     func takeShot()
+    func startCapturingVideo()
+    func stopCapturingVideo()
     func openCamera()
     func switchCamera()
     func backPressed()
@@ -22,7 +24,8 @@ protocol UploadStoryVMType {
 
 protocol UploadStoryVMDelegate: class {
     func uploadStoryVMBackPressed(_ viewModel: UploadStoryVMType)
-    func uploadStoryVMdidFinishProcessing(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo)
+    func uploadStoryVMdidFinishProcessingPhoto(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo)
+    func uploadStoryVMdidFinishProcessingVideo(_ viewModel: UploadStoryVMType, videoPathUrl: URL, placeInfo: PlaceInfo)
 }
 
 final class UploadStoryVM: UploadStoryVMType {
@@ -59,6 +62,14 @@ final class UploadStoryVM: UploadStoryVMType {
     func backPressed() {
         delegate?.uploadStoryVMBackPressed(self)
     }
+    
+    func startCapturingVideo() {
+        cameraSessionController.startCapturingVideo()
+    }
+    
+    func stopCapturingVideo() {
+        cameraSessionController.stopCapturingVideo()
+    }
 }
 
 extension UploadStoryVM: CameraSessionControllerDelegate {
@@ -86,6 +97,10 @@ extension UploadStoryVM: CameraSessionControllerDelegate {
     }
     
     func cameraSessionControllerdidFinishProcessing(_ controller: CameraSessionController, image: UIImage) {
-        delegate?.uploadStoryVMdidFinishProcessing(self, photo: image, placeInfo: placeInfo)
+        delegate?.uploadStoryVMdidFinishProcessingPhoto(self, photo: image, placeInfo: placeInfo)
+    }
+    
+    func cameraSessionContreollerSavedVideoTo(File url: URL) {
+        delegate?.uploadStoryVMdidFinishProcessingVideo(self, videoPathUrl: url, placeInfo: placeInfo)
     }
 }

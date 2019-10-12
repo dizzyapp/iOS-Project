@@ -54,16 +54,28 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
         photoPresenterVM.delegate = self
         navigationController.pushViewController(photoPresenterVC, animated: false)
     }
+    
+    private func showVideoPresenter(WithVideoFilePath filePath: URL, placeInfo: PlaceInfo) {
+        let vcc = UploadVideoVC()
+        vcc.setURL(url: filePath)
+        
+        navigationController.pushViewController(vcc, animated: true)
+    }
 }
 
 extension UploadStoryCoordinator: UploadStoryVMDelegate {
+    
     func uploadStoryVMBackPressed(_ viewModel: UploadStoryVMType) {
         navigationController.popViewController(animated: true)
         onCoordinatorFinished(false)
     }
     
-    func uploadStoryVMdidFinishProcessing(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo) {
+    func uploadStoryVMdidFinishProcessingPhoto(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo) {
         showPhotoPresenter(with: photo, placeInfo: placeInfo)
+    }
+    
+    func uploadStoryVMdidFinishProcessingVideo(_ viewModel: UploadStoryVMType, videoPathUrl: URL, placeInfo: PlaceInfo) {
+        showVideoPresenter(WithVideoFilePath: videoPathUrl, placeInfo: placeInfo)
     }
 }
 
