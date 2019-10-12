@@ -45,9 +45,14 @@ final class HomeCoordinator: HomeCoordinatorType {
 
     private func createDiscoveryVC() {
         guard var viewModel = container?.resolve(DiscoveryVMType.self),
+            let appStartViewModel = container?.resolve(AppStartVMType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
                 print("could not create discovery page")
                 return
+        }
+        appStartViewModel.appUser.bind { [weak self] user in
+            guard let user = user else {return}
+            self?.container?.autoregister(DizzyUser.self, initializer: {return user})
         }
         viewModel.navigationDelegate = self
         self.discoveryVC = discoveryVC
