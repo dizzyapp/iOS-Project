@@ -51,7 +51,7 @@ final class PhotoPresenterVM: PhotoPresenterVMType {
     func uploadImageTapped() {
         guard let data = photo.jpegData(compressionQuality: 0.1) else { return }
         loading.value = true
-        let uploadData = UploadFileData(data: data)
+        let uploadData = UploadFileData(data: data, fileURL: nil)
         uploadFileInteractor.uplaodImage(path: "\(placeInfo.name)/\(UUID().uuidString)", data: uploadData, placeInfo: placeInfo) { result in
             self.loading.value = false
             switch result {

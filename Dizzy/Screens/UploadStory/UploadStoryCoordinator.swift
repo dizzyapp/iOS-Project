@@ -56,7 +56,8 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
     }
     
     private func showVideoPresenter(WithVideoFilePath filePath: URL, placeInfo: PlaceInfo) {
-        let vcc = UploadVideoVC()
+        guard let interactor = container?.resolve(UploadFileInteractorType.self) else { return }
+        let vcc = UploadVideoVC(interactor: interactor, place: placeInfo)
         vcc.setURL(url: filePath)
         
         navigationController.pushViewController(vcc, animated: true)

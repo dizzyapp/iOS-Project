@@ -77,21 +77,35 @@ final class FirebaseWebService: WebServiceType {
     }
     
     func uplaodFile(with path: String, data: UploadFileData,  completion: @escaping (Result<UploadFileResponse>) -> Void) {
-        let ref = storageReference.child(path)
-        let uploadTask = ref.putData(data.data, metadata: nil) { (_, error) in
-            if let error = error {
-                completion(Result.failure(error))
-            } else {
+        let ref = storageReference.child("Kanta").child("test2.mp4")
+        
+        if let data = data.data {
+            let uploadTask = ref.putData(data, metadata: nil) { (_, error) in
+                if let error = error {
+                    completion(Result.failure(error))
+                } else {
+                    self.getDownloadURL(from: ref, completion: completion)
+                }
+                print("UplaodFile FINISHED !!!!")
+            }
+            
+            uploadTask.observe(.progress) { snapshot in
+                print(snapshot.progress.debugDescription)
+            }
+            
+            uploadTask.resume()
+        } else if let fileURL = data.fileURL {
+            let uploadTask = ref.putFile(from: fileURL, metadata: nil) { metaData, error in
+                guard let metaData = metaData else { return }
                 self.getDownloadURL(from: ref, completion: completion)
             }
-            print("UplaodFile FINISHED !!!!")
+            uploadTask.observe(.progress) { snapshot in
+                print(snapshot.progress.debugDescription)
+            }
+            
+            uploadTask.resume()
         }
         
-        uploadTask.observe(.progress) { snapshot in
-            print(snapshot.progress.debugDescription)
-        }
-        
-        uploadTask.resume()
     }
     
     private func getDownloadURL(from ref: StorageReference, completion: @escaping (Result<UploadFileResponse>) -> Void) {
