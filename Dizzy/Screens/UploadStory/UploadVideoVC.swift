@@ -60,7 +60,7 @@ class UploadVideoVC: UIViewController {
     
     @objc private func onUploadPressed() {
         print("menash logs - uploadingVideo")
-        interactor.uplaodVideo(path: "\(place.name)/\(UUID().uuidString)", data: UploadFileData(data: nil, fileURL: self.videoPathURL!), placeInfo: place) { result in
+        interactor.uplaodVideo(path: "\(place.name)/\(UUID().uuidString).mp4", data: UploadFileData(data: nil, fileURL: self.videoPathURL!), placeInfo: place) { result in
             switch result {
             case .success(let uploadRes):
                 print("menash logs - success: \(uploadRes)")

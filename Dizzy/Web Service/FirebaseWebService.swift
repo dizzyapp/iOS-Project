@@ -77,7 +77,7 @@ final class FirebaseWebService: WebServiceType {
     }
     
     func uplaodFile(with path: String, data: UploadFileData,  completion: @escaping (Result<UploadFileResponse>) -> Void) {
-        let ref = storageReference.child("Kanta").child("test2.mp4")
+        let ref = storageReference.child(path)
         
         if let data = data.data {
             let uploadTask = ref.putData(data, metadata: nil) { (_, error) in
