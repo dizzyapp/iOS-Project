@@ -28,6 +28,7 @@ final class CameraSessionController: NSObject {
     private var frontCamera: AVCaptureDevice?
     private var currentCamera: AVCaptureDevice?
     private var currentInput: AVCaptureDeviceInput?
+    private var isCameraOpen = false
 
     weak var delegate: CameraSessionControllerDelegate?
     
@@ -37,10 +38,13 @@ final class CameraSessionController: NSObject {
     }
 
     func openCamera() {
-        setupSession()
-        addInput()
-        addOutputs()
-        setupLayer()
+        if !isCameraOpen {
+            setupSession()
+            addInput()
+            addOutputs()
+            setupLayer()
+            isCameraOpen = true
+        }
     }
     
     func startCapturingVideo() {

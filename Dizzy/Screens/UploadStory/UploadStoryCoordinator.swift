@@ -66,7 +66,6 @@ extension UploadStoryCoordinator: UploadStoryVMDelegate {
     func uploadStoryVMDidFinishCampturingMedia(_ viewModel: UploadStoryVMType, presentedMediaType: PresentedMediaType, placeInfo: PlaceInfo) {
         showPhotoPresenter(with: presentedMediaType, placeInfo: placeInfo)
     }
-    
 }
 
 extension UploadStoryCoordinator: MediaPresenterVMDelegate {
