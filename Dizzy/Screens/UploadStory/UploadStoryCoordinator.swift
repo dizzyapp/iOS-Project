@@ -36,14 +36,14 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
         navigationController.pushViewController(uploadStoryVC, animated: true)
     }
     
-    private func showPhotoPresenter(with photo: UIImage, placeInfo: PlaceInfo) {
+    private func showPhotoPresenter(with mediaType: PresentedMediaType, placeInfo: PlaceInfo) {
         guard let uploadFileInteractor = container?.resolve(UploadFileInteractorType.self) else {
             print("cannot load uploadFileInteractor")
             return
         }
         
         container?.register(MediaPresenterVMType.self) { _ in
-            MediaPresenterVM(photo: photo, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
+            MediaPresenterVM(presentedMediaType: mediaType, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
         }
         
         guard var photoPresenterVM = container?.resolve(MediaPresenterVMType.self),
@@ -54,14 +54,6 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
         photoPresenterVM.delegate = self
         navigationController.pushViewController(photoPresenterVC, animated: false)
     }
-    
-    private func showVideoPresenter(WithVideoFilePath filePath: URL, placeInfo: PlaceInfo) {
-        guard let interactor = container?.resolve(UploadFileInteractorType.self) else { return }
-        let vcc = UploadVideoVC(interactor: interactor, place: placeInfo)
-        vcc.setURL(url: filePath)
-        
-        navigationController.pushViewController(vcc, animated: true)
-    }
 }
 
 extension UploadStoryCoordinator: UploadStoryVMDelegate {
@@ -71,13 +63,10 @@ extension UploadStoryCoordinator: UploadStoryVMDelegate {
         onCoordinatorFinished(false)
     }
     
-    func uploadStoryVMdidFinishProcessingPhoto(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo) {
-        showPhotoPresenter(with: photo, placeInfo: placeInfo)
+    func uploadStoryVMDidFinishCampturingMedia(_ viewModel: UploadStoryVMType, presentedMediaType: PresentedMediaType, placeInfo: PlaceInfo) {
+        showPhotoPresenter(with: presentedMediaType, placeInfo: placeInfo)
     }
     
-    func uploadStoryVMdidFinishProcessingVideo(_ viewModel: UploadStoryVMType, videoPathUrl: URL, placeInfo: PlaceInfo) {
-        showVideoPresenter(WithVideoFilePath: videoPathUrl, placeInfo: placeInfo)
-    }
 }
 
 extension UploadStoryCoordinator: MediaPresenterVMDelegate {

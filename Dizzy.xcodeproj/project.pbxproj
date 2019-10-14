@@ -114,7 +114,6 @@
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
 		77A0605122AD8AE3008FE39D /* SignUpDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605022AD8AE3008FE39D /* SignUpDetails.swift */; };
 		77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605422AD9284008FE39D /* SignupWebservice.swift */; };
-		77ACCD15235251A600D79E22 /* UploadVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ACCD14235251A600D79E22 /* UploadVideoVC.swift */; };
 		77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */; };
 		77AD08B022B1870B004F8588 /* DizzyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AF22B1870B004F8588 /* DizzyUser.swift */; };
 		77DAA9A423033CA6003EDC3E /* CommentsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DAA9A323033CA6003EDC3E /* CommentsTextField.swift */; };
@@ -230,7 +229,6 @@
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
 		77A0605022AD8AE3008FE39D /* SignUpDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetails.swift; sourceTree = "<group>"; };
 		77A0605422AD9284008FE39D /* SignupWebservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupWebservice.swift; sourceTree = "<group>"; };
-		77ACCD14235251A600D79E22 /* UploadVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadVideoVC.swift; sourceTree = "<group>"; };
 		77AD08AD22B16DD8004F8588 /* SignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractor.swift; sourceTree = "<group>"; };
 		77AD08AF22B1870B004F8588 /* DizzyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DizzyUser.swift; sourceTree = "<group>"; };
 		77DAA9A323033CA6003EDC3E /* CommentsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTextField.swift; sourceTree = "<group>"; };
@@ -341,7 +339,6 @@
 				04B454F322CD315B001C7AD4 /* UploadStoryVC.swift */,
 				04B454F622CD315B001C7AD4 /* MediaPresenterVM.swift */,
 				04B454F222CD315B001C7AD4 /* MediaPresenterVC.swift */,
-				77ACCD14235251A600D79E22 /* UploadVideoVC.swift */,
 			);
 			path = UploadStory;
 			sourceTree = "<group>";
@@ -850,7 +847,6 @@
 				4D0705A122D15579009D6236 /* Comment.swift in Sources */,
 				04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */,
 				77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */,
-				77ACCD15235251A600D79E22 /* UploadVideoVC.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				4DA64E9A22C7F99B001D5A1A /* PlaceImageView.swift in Sources */,
 				4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */,

@@ -26,15 +26,15 @@ class VideoView: UIView {
     }
     
     func configure(url: URL) {
-            playerLayer = nil
-            player = AVPlayer(url: url)
-            playerLayer = AVPlayerLayer(player: player)
-            playerLayer?.frame = bounds
-            playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-            if let playerLayer = self.playerLayer {
-                layer.addSublayer(playerLayer)
-            }
-            NotificationCenter.default.addObserver(self, selector: #selector(reachTheEndOfTheVideo(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem)
+        playerLayer = nil
+        player = AVPlayer(url: url)
+        playerLayer = AVPlayerLayer(player: player)
+        playerLayer?.frame = bounds
+        playerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        if let playerLayer = self.playerLayer {
+            layer.addSublayer(playerLayer)
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(reachTheEndOfTheVideo(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem)
         
     }
     

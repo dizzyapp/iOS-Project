@@ -24,8 +24,7 @@ protocol UploadStoryVMType {
 
 protocol UploadStoryVMDelegate: class {
     func uploadStoryVMBackPressed(_ viewModel: UploadStoryVMType)
-    func uploadStoryVMdidFinishProcessingPhoto(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo)
-    func uploadStoryVMdidFinishProcessingVideo(_ viewModel: UploadStoryVMType, videoPathUrl: URL, placeInfo: PlaceInfo)
+    func uploadStoryVMDidFinishCampturingMedia(_ viewModel: UploadStoryVMType, presentedMediaType: PresentedMediaType, placeInfo: PlaceInfo)
 }
 
 final class UploadStoryVM: UploadStoryVMType {
@@ -97,10 +96,10 @@ extension UploadStoryVM: CameraSessionControllerDelegate {
     }
     
     func cameraSessionControllerdidFinishProcessing(_ controller: CameraSessionController, image: UIImage) {
-        delegate?.uploadStoryVMdidFinishProcessingPhoto(self, photo: image, placeInfo: placeInfo)
+        delegate?.uploadStoryVMDidFinishCampturingMedia(self, presentedMediaType: .image(image: image), placeInfo: placeInfo)
     }
     
     func cameraSessionContreollerSavedVideoTo(File url: URL) {
-        delegate?.uploadStoryVMdidFinishProcessingVideo(self, videoPathUrl: url, placeInfo: placeInfo)
+        delegate?.uploadStoryVMDidFinishCampturingMedia(self, presentedMediaType: .video(videoURL: url), placeInfo: placeInfo)
     }
 }

@@ -8,14 +8,19 @@
 
 import UIKit
 
+enum PresentedMediaType {
+    case image(image: UIImage)
+    case video(videoURL: URL)
+}
+
 protocol MediaPresenterVMType {
-    var photo: UIImage { get }
+    var presentedMediaType: PresentedMediaType { get }
     var loading: Observable<Bool> { get }
     var delegate: MediaPresenterVMDelegate? { get set }
     var placeIconURL: URL? { get }
     
     func backPressed()
-    func uploadImageTapped()
+    func uploadPressed()
 }
 
 protocol MediaPresenterVMDelegate: class {
@@ -25,7 +30,7 @@ protocol MediaPresenterVMDelegate: class {
 
 final class MediaPresenterVM: MediaPresenterVMType {
     
-    var photo: UIImage
+    var presentedMediaType: PresentedMediaType
     let uploadFileInteractor: UploadFileInteractorType
     let placeInfo: PlaceInfo
     var loading = Observable<Bool>(false)
@@ -36,10 +41,10 @@ final class MediaPresenterVM: MediaPresenterVMType {
         return URL(string: placeInfo.imageURLString ?? "")
     }
     
-    init(photo: UIImage,
+    init(presentedMediaType: PresentedMediaType,
          uploadFileInteractor: UploadFileInteractorType,
          placeInfo: PlaceInfo) {
-        self.photo = photo
+        self.presentedMediaType = presentedMediaType
         self.uploadFileInteractor = uploadFileInteractor
         self.placeInfo = placeInfo
     }
@@ -48,8 +53,17 @@ final class MediaPresenterVM: MediaPresenterVMType {
         delegate?.photoPresenterVMBackPressed(self)
     }
     
-    func uploadImageTapped() {
-        guard let data = photo.jpegData(compressionQuality: 0.1) else { return }
+    func uploadPressed() {
+        switch presentedMediaType {
+        case .video(let videoLocalURL):
+            uploadVideo(videoLocalUrl: videoLocalURL)
+        case .image(let image):
+            uploadImage(image: image)
+        }
+    }
+    
+    private func uploadImage(image: UIImage) {
+        guard let data = image.jpegData(compressionQuality: 0.1) else { return }
         loading.value = true
         let uploadData = UploadFileData(data: data, fileURL: nil)
         uploadFileInteractor.uplaodImage(path: "\(placeInfo.name)/\(UUID().uuidString)", data: uploadData, placeInfo: placeInfo) { result in
@@ -60,6 +74,19 @@ final class MediaPresenterVM: MediaPresenterVMType {
                 
             case .failure(let error):
                 print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func uploadVideo(videoLocalUrl: URL) {
+        uploadFileInteractor.uplaodVideo(path: "\(placeInfo.name)/\(UUID().uuidString).mp4", data: UploadFileData(data: nil, fileURL: videoLocalUrl), placeInfo: placeInfo) { result in
+            switch result {
+            case .success(let uploadRes):
+                print("menash logs - success: \(uploadRes)")
+                self.delegate?.photoPresenterVMUploadPressed(self)
+                return
+            case .failure(let error):
+                print(error)
             }
         }
     }
