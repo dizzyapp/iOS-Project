@@ -80,32 +80,44 @@ final class FirebaseWebService: WebServiceType {
         let ref = storageReference.child(path)
         
         if let data = data.data {
-            let uploadTask = ref.putData(data, metadata: nil) { (_, error) in
-                if let error = error {
-                    completion(Result.failure(error))
-                } else {
-                    self.getDownloadURL(from: ref, completion: completion)
-                }
-                print("UplaodFile FINISHED !!!!")
-            }
-            
-            uploadTask.observe(.progress) { snapshot in
-                print(snapshot.progress.debugDescription)
-            }
-            
-            uploadTask.resume()
+            uploadImage(ref: ref, data: data, completion: completion)
         } else if let fileURL = data.fileURL {
-            let uploadTask = ref.putFile(from: fileURL, metadata: nil) { metaData, error in
-                guard let metaData = metaData else { return }
-                self.getDownloadURL(from: ref, completion: completion)
-            }
-            uploadTask.observe(.progress) { snapshot in
-                print(snapshot.progress.debugDescription)
-            }
-            
-            uploadTask.resume()
+            uploadVideo(ref: ref, videoUrl: fileURL, completion: completion)
         }
         
+    }
+    
+    private func uploadImage(ref: StorageReference, data: Data, completion: @escaping (Result<UploadFileResponse>) -> Void ) {
+        let uploadTask = ref.putData(data, metadata: nil) { (_, error) in
+            if let error = error {
+                completion(Result.failure(error))
+            } else {
+                self.getDownloadURL(from: ref, completion: completion)
+            }
+            print("UplaodFile FINISHED !!!!")
+        }
+        
+        uploadTask.observe(.progress) { snapshot in
+            print(snapshot.progress.debugDescription)
+        }
+        
+        uploadTask.resume()
+    }
+    
+    private func uploadVideo(ref: StorageReference, videoUrl: URL, completion: @escaping (Result<UploadFileResponse>) -> Void ) {
+        let uploadTask = ref.putFile(from: videoUrl, metadata: nil) { _, error in
+            if let error = error {
+                print("could not upload video: \(error)")
+                completion(Result.failure(error))
+                return
+            }
+            self.getDownloadURL(from: ref, completion: completion)
+        }
+        uploadTask.observe(.progress) { snapshot in
+            print(snapshot.progress.debugDescription)
+        }
+        
+        uploadTask.resume()
     }
     
     private func getDownloadURL(from ref: StorageReference, completion: @escaping (Result<UploadFileResponse>) -> Void) {
