@@ -44,6 +44,7 @@ class VideoView: UIView {
     }
     
     func play(completion: (() -> Void)? = nil) {
+        self.completion = completion
         if player?.timeControlStatus != AVPlayer.TimeControlStatus.playing {
             player?.play()
         }
