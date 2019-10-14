@@ -1,5 +1,5 @@
 //
-//  PhotoPresenterVM.swift
+//  MediaPresenterVM.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 23/06/2019.
@@ -8,29 +8,29 @@
 
 import UIKit
 
-protocol PhotoPresenterVMType {
+protocol MediaPresenterVMType {
     var photo: UIImage { get }
     var loading: Observable<Bool> { get }
-    var delegate: PhotoPresenterVMDelegate? { get set }
+    var delegate: MediaPresenterVMDelegate? { get set }
     var placeIconURL: URL? { get }
     
     func backPressed()
     func uploadImageTapped()
 }
 
-protocol PhotoPresenterVMDelegate: class {
-    func photoPresenterVMBackPressed(_ viewModel: PhotoPresenterVMType)
-    func photoPresenterVMUploadPressed(_ videwModel: PhotoPresenterVMType)
+protocol MediaPresenterVMDelegate: class {
+    func photoPresenterVMBackPressed(_ viewModel: MediaPresenterVMType)
+    func photoPresenterVMUploadPressed(_ videwModel: MediaPresenterVMType)
 }
 
-final class PhotoPresenterVM: PhotoPresenterVMType {
+final class MediaPresenterVM: MediaPresenterVMType {
     
     var photo: UIImage
     let uploadFileInteractor: UploadFileInteractorType
     let placeInfo: PlaceInfo
     var loading = Observable<Bool>(false)
     
-    weak var delegate: PhotoPresenterVMDelegate?
+    weak var delegate: MediaPresenterVMDelegate?
     
     var placeIconURL: URL? {
         return URL(string: placeInfo.imageURLString ?? "")

@@ -1,5 +1,5 @@
 //
-//  PhotoPresenterVC.swift
+//  MediaPresenterVC.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 23/06/2019.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-final class PhotoPresenterVC: ViewController, LoadingContainer {
+final class MediaPresenterVC: ViewController, LoadingContainer {
     
     private let cameraButtonHeight: CGFloat = 80
     private let buttonBottomPadding: CGFloat = 40
 
-    private let viewModel: PhotoPresenterVMType
+    private let viewModel: MediaPresenterVMType
     private let imageView = UIImageView()
     private let cameraButton =  UIButton(frame: .zero)
     private let retakeButtom = UIButton(frame: .zero)
@@ -23,7 +23,7 @@ final class PhotoPresenterVC: ViewController, LoadingContainer {
     
     var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .whiteLarge)
 
-    init(viewModel: PhotoPresenterVMType) {
+    init(viewModel: MediaPresenterVMType) {
         self.viewModel = viewModel
         super.init()
         buildView()

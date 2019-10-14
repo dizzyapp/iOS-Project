@@ -42,12 +42,12 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
             return
         }
         
-        container?.register(PhotoPresenterVMType.self) { _ in
-            PhotoPresenterVM(photo: photo, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
+        container?.register(MediaPresenterVMType.self) { _ in
+            MediaPresenterVM(photo: photo, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
         }
         
-        guard var photoPresenterVM = container?.resolve(PhotoPresenterVMType.self),
-            let photoPresenterVC = container?.resolve(PhotoPresenterVC.self, argument: photoPresenterVM) else {
+        guard var photoPresenterVM = container?.resolve(MediaPresenterVMType.self),
+            let photoPresenterVC = container?.resolve(MediaPresenterVC.self, argument: photoPresenterVM) else {
                 print("Could not load photoPresenterVC")
                 return
         }
@@ -80,12 +80,12 @@ extension UploadStoryCoordinator: UploadStoryVMDelegate {
     }
 }
 
-extension UploadStoryCoordinator: PhotoPresenterVMDelegate {
-    func photoPresenterVMBackPressed(_ viewModel: PhotoPresenterVMType) {
+extension UploadStoryCoordinator: MediaPresenterVMDelegate {
+    func photoPresenterVMBackPressed(_ viewModel: MediaPresenterVMType) {
         navigationController.popViewController(animated: true)
     }
     
-    func photoPresenterVMUploadPressed(_ videwModel: PhotoPresenterVMType) {
+    func photoPresenterVMUploadPressed(_ videwModel: MediaPresenterVMType) {
         navigationController.dismiss(animated: true)
         onCoordinatorFinished(true)
     }

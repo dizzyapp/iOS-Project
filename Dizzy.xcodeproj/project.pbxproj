@@ -31,11 +31,11 @@
 		0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA4228EB4AE00A8683C /* LocationLabel.swift */; };
 		0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */; };
 		04A6308222D10EC500CA5331 /* SearchPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A6308122D10EC500CA5331 /* SearchPlaceCoordinator.swift */; };
-		04B454F722CD315B001C7AD4 /* PhotoPresenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F222CD315B001C7AD4 /* PhotoPresenterVC.swift */; };
+		04B454F722CD315B001C7AD4 /* MediaPresenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F222CD315B001C7AD4 /* MediaPresenterVC.swift */; };
 		04B454F822CD315B001C7AD4 /* UploadStoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F322CD315B001C7AD4 /* UploadStoryVC.swift */; };
 		04B454F922CD315B001C7AD4 /* UploadStoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F422CD315B001C7AD4 /* UploadStoryCoordinator.swift */; };
 		04B454FA22CD315B001C7AD4 /* UploadStoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F522CD315B001C7AD4 /* UploadStoryVM.swift */; };
-		04B454FB22CD315B001C7AD4 /* PhotoPresenterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F622CD315B001C7AD4 /* PhotoPresenterVM.swift */; };
+		04B454FB22CD315B001C7AD4 /* MediaPresenterVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F622CD315B001C7AD4 /* MediaPresenterVM.swift */; };
 		04B454FD22CD337F001C7AD4 /* CameraSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454FC22CD337F001C7AD4 /* CameraSessionController.swift */; };
 		04B454FF22CD338A001C7AD4 /* UploadFileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454FE22CD338A001C7AD4 /* UploadFileData.swift */; };
 		04B4550522CD3423001C7AD4 /* GooglePlaceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B4550322CD3423001C7AD4 /* GooglePlaceInteractor.swift */; };
@@ -145,11 +145,11 @@
 		0487FFA4228EB4AE00A8683C /* LocationLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationLabel.swift; sourceTree = "<group>"; };
 		0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
 		04A6308122D10EC500CA5331 /* SearchPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceCoordinator.swift; sourceTree = "<group>"; };
-		04B454F222CD315B001C7AD4 /* PhotoPresenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPresenterVC.swift; sourceTree = "<group>"; };
+		04B454F222CD315B001C7AD4 /* MediaPresenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPresenterVC.swift; sourceTree = "<group>"; };
 		04B454F322CD315B001C7AD4 /* UploadStoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadStoryVC.swift; sourceTree = "<group>"; };
 		04B454F422CD315B001C7AD4 /* UploadStoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadStoryCoordinator.swift; sourceTree = "<group>"; };
 		04B454F522CD315B001C7AD4 /* UploadStoryVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadStoryVM.swift; sourceTree = "<group>"; };
-		04B454F622CD315B001C7AD4 /* PhotoPresenterVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPresenterVM.swift; sourceTree = "<group>"; };
+		04B454F622CD315B001C7AD4 /* MediaPresenterVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPresenterVM.swift; sourceTree = "<group>"; };
 		04B454FC22CD337F001C7AD4 /* CameraSessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraSessionController.swift; sourceTree = "<group>"; };
 		04B454FE22CD338A001C7AD4 /* UploadFileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadFileData.swift; sourceTree = "<group>"; };
 		04B4550322CD3423001C7AD4 /* GooglePlaceInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlaceInteractor.swift; sourceTree = "<group>"; };
@@ -339,8 +339,8 @@
 				04B454F422CD315B001C7AD4 /* UploadStoryCoordinator.swift */,
 				04B454F522CD315B001C7AD4 /* UploadStoryVM.swift */,
 				04B454F322CD315B001C7AD4 /* UploadStoryVC.swift */,
-				04B454F622CD315B001C7AD4 /* PhotoPresenterVM.swift */,
-				04B454F222CD315B001C7AD4 /* PhotoPresenterVC.swift */,
+				04B454F622CD315B001C7AD4 /* MediaPresenterVM.swift */,
+				04B454F222CD315B001C7AD4 /* MediaPresenterVC.swift */,
 				77ACCD14235251A600D79E22 /* UploadVideoVC.swift */,
 			);
 			path = UploadStory;
@@ -815,7 +815,7 @@
 				04B454FD22CD337F001C7AD4 /* CameraSessionController.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
 				4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */,
-				04B454FB22CD315B001C7AD4 /* PhotoPresenterVM.swift in Sources */,
+				04B454FB22CD315B001C7AD4 /* MediaPresenterVM.swift in Sources */,
 				04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				4DAF17BC22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift in Sources */,
@@ -861,7 +861,7 @@
 				4DFBA48622BEC5D800BB0F4F /* InputValidator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
 				04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */,
-				04B454F722CD315B001C7AD4 /* PhotoPresenterVC.swift in Sources */,
+				04B454F722CD315B001C7AD4 /* MediaPresenterVC.swift in Sources */,
 				0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */,
 				4D0705B022D1558B009D6236 /* MapSearchVM.swift in Sources */,
 				77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */,

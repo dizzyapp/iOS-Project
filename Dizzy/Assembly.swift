@@ -50,7 +50,7 @@ class Assembly {
         container.autoregister(PlaceProfileVC.self, argument: PlaceProfileVMType.self, initializer: PlaceProfileVC.init)
         container.autoregister(SignUpWithDizzyVC.self, argument: SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVC.init)
         container.autoregister(UploadStoryVC.self, argument: UploadStoryVMType.self, initializer: UploadStoryVC.init)
-        container.autoregister(PhotoPresenterVC.self, argument: PhotoPresenterVMType.self, initializer: PhotoPresenterVC.init)
+        container.autoregister(MediaPresenterVC.self, argument: MediaPresenterVMType.self, initializer: MediaPresenterVC.init)
         container.autoregister(SignInWithDizzyVC.self, argument: SignInWithDizzyVMType.self, initializer: SignInWithDizzyVC.init)
 
         // MARK: coordinators
