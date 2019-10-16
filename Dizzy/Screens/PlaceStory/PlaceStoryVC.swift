@@ -274,7 +274,9 @@ extension PlaceStoryVC: PlaceStoryVMDelegate {
         guard let videoUrl = URL(string: stringURL) else { return }
         self.showVideoView()
         videoView.configure(url: videoUrl)
-        videoView.play()
+        videoView.play { [weak self] in
+            self?.didTapRight()
+        }
     }
     
     private func showVideoView() {

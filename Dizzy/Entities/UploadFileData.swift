@@ -9,7 +9,13 @@
 import Foundation
 
 struct UploadFileData: Codable {
-    var data: Data
+    var data: Data?
+    var fileURL: URL?
+    
+    init(data: Data?, fileURL: URL?) {
+        self.data = data
+        self.fileURL = fileURL
+    }
 }
 
 struct UploadFileResponse: Codable {

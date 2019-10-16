@@ -36,18 +36,18 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
         navigationController.pushViewController(uploadStoryVC, animated: true)
     }
     
-    private func showPhotoPresenter(with photo: UIImage, placeInfo: PlaceInfo) {
+    private func showPhotoPresenter(with mediaType: PresentedMediaType, placeInfo: PlaceInfo) {
         guard let uploadFileInteractor = container?.resolve(UploadFileInteractorType.self) else {
             print("cannot load uploadFileInteractor")
             return
         }
         
-        container?.register(PhotoPresenterVMType.self) { _ in
-            PhotoPresenterVM(photo: photo, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
+        container?.register(MediaPresenterVMType.self) { _ in
+            MediaPresenterVM(presentedMediaType: mediaType, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
         }
         
-        guard var photoPresenterVM = container?.resolve(PhotoPresenterVMType.self),
-            let photoPresenterVC = container?.resolve(PhotoPresenterVC.self, argument: photoPresenterVM) else {
+        guard var photoPresenterVM = container?.resolve(MediaPresenterVMType.self),
+            let photoPresenterVC = container?.resolve(MediaPresenterVC.self, argument: photoPresenterVM) else {
                 print("Could not load photoPresenterVC")
                 return
         }
@@ -57,22 +57,23 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
 }
 
 extension UploadStoryCoordinator: UploadStoryVMDelegate {
+    
     func uploadStoryVMBackPressed(_ viewModel: UploadStoryVMType) {
         navigationController.popViewController(animated: true)
         onCoordinatorFinished(false)
     }
     
-    func uploadStoryVMdidFinishProcessing(_ viewModel: UploadStoryVMType, photo: UIImage, placeInfo: PlaceInfo) {
-        showPhotoPresenter(with: photo, placeInfo: placeInfo)
+    func uploadStoryVMDidFinishCampturingMedia(_ viewModel: UploadStoryVMType, presentedMediaType: PresentedMediaType, placeInfo: PlaceInfo) {
+        showPhotoPresenter(with: presentedMediaType, placeInfo: placeInfo)
     }
 }
 
-extension UploadStoryCoordinator: PhotoPresenterVMDelegate {
-    func photoPresenterVMBackPressed(_ viewModel: PhotoPresenterVMType) {
+extension UploadStoryCoordinator: MediaPresenterVMDelegate {
+    func photoPresenterVMBackPressed(_ viewModel: MediaPresenterVMType) {
         navigationController.popViewController(animated: true)
     }
     
-    func photoPresenterVMUploadPressed(_ videwModel: PhotoPresenterVMType) {
+    func photoPresenterVMUploadPressed(_ videwModel: MediaPresenterVMType) {
         navigationController.dismiss(animated: true)
         onCoordinatorFinished(true)
     }
