@@ -26,7 +26,7 @@ class VideoView: UIView {
     }
     
     func configure(url: URL) {
-        playerLayer = nil
+        playerLayer?.removeFromSuperlayer()
         player = AVPlayer(url: url)
         playerLayer = AVPlayerLayer(player: player)
         playerLayer?.frame = bounds
