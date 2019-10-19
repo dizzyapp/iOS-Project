@@ -109,14 +109,16 @@ final class FirebaseWebService: WebServiceType {
         return resource.path != "signupWithDizzy" && resource.path != "signInWithDizzy" && resource.path != "getGMSPlace"
     }
     
-    private func getJsonToParse(from snapshot: DataSnapshot) -> [[String: Any]]? {
+    private func getJsonToParse(from snapshot: DataSnapshot) -> Any? {
         guard let jsonsArray = snapshot.value as? [String: Any] else {
             return nil
         }
         
         var jsonToParse = [[String: Any]]()
         for (_,value) in jsonsArray {
-            let valueMap = value as! [String : Any]
+            guard let valueMap = value as? [String : Any] else {
+                return jsonsArray
+            }
             jsonToParse.append(valueMap)
         }
         return jsonToParse

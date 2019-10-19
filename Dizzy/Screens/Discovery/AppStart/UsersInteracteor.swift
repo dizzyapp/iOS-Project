@@ -23,20 +23,18 @@ class UsersInteracteor: UsersInteracteorType {
     }
     
     func getUser(_ completion: @escaping (DizzyUser?) -> Void) {
-        print("menash logs - get user")
         guard let loggedInUserId = userDefaults.getLogedInUserId() else {
-            print("menash logs - id does not exists")
+            print("no logged in id")
             completion(nil)
             return
         }
         
-        print("menash logs - id exists")
         
         let resource = Resource<DizzyUser, String>(path: "users/\(loggedInUserId)").withGet()
         webResourcesDispatcher.load(resource) { result in
             switch result {
             case .failure(let error):
-                print("menash logs - failed to fetch user, reason: \(error)")
+                print("failed to get user for id: \(loggedInUserId)")
                 return
             case .success(let user):
                 print("menash logs - user arrived: \(user)")
