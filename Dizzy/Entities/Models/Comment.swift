@@ -12,4 +12,10 @@ struct Comment: Codable {
     var id: String
     var value: String
     var timeStamp: Double
+    var writerId: String
+}
+
+struct CommentWithWriter {
+    var comment: Comment
+    var writer: DizzyUser
 }

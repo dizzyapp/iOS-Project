@@ -16,7 +16,7 @@ protocol CommentsViewDelegate: class {
 
 protocol CommentsViewDataSource: class {
     func numberOfRowsInSection() -> Int
-    func comment(at indexPath: IndexPath) -> Comment?
+    func comment(at indexPath: IndexPath) -> CommentWithWriter?
 }
 
 final class CommentsView: UIView {

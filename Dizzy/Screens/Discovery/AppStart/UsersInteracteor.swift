@@ -9,6 +9,7 @@
 import UIKit
 
 protocol UsersInteracteorType {
+    func getAllUsers(_ completion: @escaping ([DizzyUser]) -> Void)
     func getUser(_ completion: @escaping (DizzyUser?) -> Void)
     func saveUserOnRemote(_ user: DizzyUser)
 }
@@ -21,6 +22,20 @@ class UsersInteracteor: UsersInteracteorType {
     init(userDefaults: MyUserDefaultsType, webResourcesDispatcher: WebServiceDispatcherType) {
         self.userDefaults = userDefaults
         self.webResourcesDispatcher = webResourcesDispatcher
+    }
+    
+    func getAllUsers(_ completion: @escaping ([DizzyUser]) -> Void) {
+        let resource = Resource<[DizzyUser], String>(path: "users").withGet()
+        webResourcesDispatcher.load(resource) { result in
+            switch result {
+            case .failure:
+                print("failed to get all users")
+                return
+            case .success(let users):
+                completion(users)
+                return
+            }
+        }
     }
     
     func getUser(_ completion: @escaping (DizzyUser?) -> Void) {

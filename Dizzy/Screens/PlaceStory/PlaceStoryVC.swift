@@ -235,7 +235,7 @@ extension PlaceStoryVC: CommentsViewDataSource {
         return  viewModel.numberOfRowsInSection()
     }
     
-    func comment(at indexPath: IndexPath) -> Comment? {
+    func comment(at indexPath: IndexPath) -> CommentWithWriter? {
         return  viewModel.comment(at: indexPath)
     }
 }
