@@ -10,6 +10,8 @@ import Foundation
 
 protocol PlaceStoryVMDelegate: class {
     func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String)
+    func placeStoryClearTextFieldText(_ viewModel: PlaceStoryVMType)
+    func showPopupWithText(_ text: String, title: String)
 }
 
 protocol PlaceStoryVMNavigationDelegate: class {
@@ -48,13 +50,15 @@ final class PlaceStoryVM: PlaceStoryVMType {
     var storiesInteractor: StoriesInteractorType
     var comments = Observable<[Comment]>([Comment]())
     var stories = Observable<[PlaceStory]>([PlaceStory]())
+    let user: DizzyUser
     
     var currentImageURLString = Observable<String?>(nil)
     
-    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType) {
+    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser) {
         self.place = place
         self.commentsInteractor = commentsInteractor
         self.storiesInteractor = storiesInteractor
+        self.user = user
         self.storiesInteractor.getAllPlaceStories(with: place.id)
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
@@ -85,8 +89,13 @@ final class PlaceStoryVM: PlaceStoryVMType {
     }
     
     func send(message: String) {
+        guard user.role != .guest else {
+            self.delegate?.showPopupWithText("You must be logged in, in order to comment to a story".localized, title: "Please login or sign up".localized)
+            return
+        }
         let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
         commentsInteractor.sendComment(comment, placeId: place.id)
+        self.delegate?.placeStoryClearTextFieldText(self)
     }
     
     func numberOfRowsInSection() -> Int {

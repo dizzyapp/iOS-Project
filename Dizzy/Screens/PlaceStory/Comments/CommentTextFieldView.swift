@@ -16,6 +16,14 @@ final class CommentTextFieldView: UIView {
     
     private let profileImageView: UIImageView = UIImageView()
     let textField = CommentsTextField()
+    var text: String {
+        get {
+            return textField.text
+        }
+        set {
+            textField.text = newValue
+        }
+    }
     
     weak var delegate: CommentTextFieldViewDelegate?
     
@@ -77,6 +85,5 @@ final class CommentTextFieldView: UIView {
 extension CommentTextFieldView: CommentsTextFieldDelegate {
     func sendPressed() {
         delegate?.commentTextFieldViewSendPressed(self, with: textField.text)
-        textField.text = ""
     }
 }

@@ -33,7 +33,7 @@ class UsersInteracteor: UsersInteracteorType {
         let resource = Resource<DizzyUser, String>(path: "users/\(loggedInUserId)").withGet()
         webResourcesDispatcher.load(resource) { result in
             switch result {
-            case .failure(let error):
+            case .failure:
                 print("failed to get user for id: \(loggedInUserId)")
                 return
             case .success(let user):
@@ -45,7 +45,7 @@ class UsersInteracteor: UsersInteracteorType {
     
     func saveUserOnRemote(_ user: DizzyUser) {
         let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
-        webResourcesDispatcher.load(saveUserResource) { [weak self] result in
+        webResourcesDispatcher.load(saveUserResource) { result in
             switch result {
             case .failure:
                 print("could not save user on remote")
