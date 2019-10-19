@@ -10,6 +10,7 @@ import UIKit
 
 protocol UsersInteracteorType {
     func getUser(_ completion: @escaping (DizzyUser?) -> Void)
+    func saveUserOnRemote(_ user: DizzyUser)
 }
 
 class UsersInteracteor: UsersInteracteorType {
@@ -29,7 +30,6 @@ class UsersInteracteor: UsersInteracteorType {
             return
         }
         
-        
         let resource = Resource<DizzyUser, String>(path: "users/\(loggedInUserId)").withGet()
         webResourcesDispatcher.load(resource) { result in
             switch result {
@@ -37,9 +37,20 @@ class UsersInteracteor: UsersInteracteorType {
                 print("failed to get user for id: \(loggedInUserId)")
                 return
             case .success(let user):
-                print("menash logs - user arrived: \(user)")
                 completion(user)
                 return
+            }
+        }
+    }
+    
+    func saveUserOnRemote(_ user: DizzyUser) {
+        let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
+        webResourcesDispatcher.load(saveUserResource) { [weak self] result in
+            switch result {
+            case .failure:
+                print("could not save user on remote")
+            case .success:
+                print("usert saved successfully")
             }
         }
     }

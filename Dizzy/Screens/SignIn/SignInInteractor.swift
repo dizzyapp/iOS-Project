@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignInInteractorDelegate: class {
-    func userSignedInSuccesfully()
+    func userSignedInSuccesfully(_ user: DizzyUser)
     func userSignedInFailed(error: SignInWebserviceError)
 }
 
@@ -37,8 +37,7 @@ class SignInInteractor: SignInInteractorType {
             case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
             case .success(let user):
-                self?.saveUserOnRemote(user)
-                self?.delegate?.userSignedInSuccesfully()
+                self?.delegate?.userSignedInSuccesfully(user)
             }
         }
     }
@@ -51,20 +50,7 @@ class SignInInteractor: SignInInteractorType {
             case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
             case .success(let user):
-                self?.saveUserOnRemote(user)
-                self?.delegate?.userSignedInSuccesfully()
-            }
-        }
-    }
-    
-    private func saveUserOnRemote(_ user: DizzyUser) {
-        let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
-        webResourcesDispatcher.load(saveUserResource) { [weak self] result in
-            switch result {
-            case .failure:
-                self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success:
-                self?.delegate?.userSignedInSuccesfully()
+                self?.delegate?.userSignedInSuccesfully(user)
             }
         }
     }

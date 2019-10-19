@@ -25,7 +25,6 @@ class AppStartVM: AppStartVMType {
     }
     
     func getLoggedInUser() {
-        print("menash logs - getLoggedInUser")
         loggedInUsersInteractor.getUser { [weak self] user in
             self?.appUser.value = user
             self?.appUserReturned = true

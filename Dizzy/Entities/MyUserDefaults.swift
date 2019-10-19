@@ -11,6 +11,7 @@ import UIKit
 protocol MyUserDefaultsType {
     func getLogedInUserId() -> String?
     func saveLoggedInUserId(userId: String)
+    func clearLoggedInUserId()
 }
 
 class MyUserDefaults: MyUserDefaultsType {
@@ -22,5 +23,9 @@ class MyUserDefaults: MyUserDefaultsType {
     
     func saveLoggedInUserId(userId: String) {
         UserDefaults.standard.set(userId, forKey: loggedInUserIdKey)
+    }
+    
+    func clearLoggedInUserId() {
+        UserDefaults.standard.set(nil, forKey: loggedInUserIdKey)
     }
 }

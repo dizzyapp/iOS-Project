@@ -14,8 +14,8 @@ protocol LoginCoordinatorType: NavigationCoordinator {
 
 }
 
-final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate, SignInWithDizzyVMNavigationDelegate {
-        
+final class LoginCoordinator: LoginCoordinatorType {
+    
     var container: Container?
     var childCoordinators = [CoordinatorKey : Coordinator]()
     var navigationController = UINavigationController()
@@ -42,8 +42,19 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, S
         self.navigationController = navigationController
         self.presentingVC.present(navigationController, animated: true)
     }
+   
+}
+
+extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate {
     
-    func navigateToHomeScreen() {
+    func userLoggedIn(user: DizzyUser) {
+        container?.autoregister(DizzyUser.self, initializer: {
+            return user
+        })
+        closePressed()
+    }
+    
+    func closePressed() {
         if let discoveryVC = self.presentingVC as? DiscoveryVC {
             discoveryVC.showTopBar()
         }

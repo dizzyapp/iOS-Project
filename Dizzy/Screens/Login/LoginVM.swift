@@ -27,10 +27,11 @@ protocol LoginVMType {
 
 protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
-    func navigateToHomeScreen()
+    func userLoggedIn(user: DizzyUser)
     func navigateToSignInScreen()
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
+    func closePressed()
 }
 
 protocol LoginVMDelegate: class {
@@ -47,14 +48,20 @@ class LoginVM: LoginVMType {
 
     var signInInteractor: SignInInteractorType
     var logoutInteractor: LogoutInteractorType
+    let userDefaults: MyUserDefaultsType
+    let usersInteractor: UsersInteracteorType
+    var user: DizzyUser
     
-    init(signInInteractor: SignInInteractorType, logoutInteractor: LogoutInteractorType) {
+    init(signInInteractor: SignInInteractorType, logoutInteractor: LogoutInteractorType, userDefaults: MyUserDefaultsType, usersInteractor: UsersInteracteorType, user: DizzyUser) {
         self.signInInteractor = signInInteractor
         self.logoutInteractor = logoutInteractor
+        self.userDefaults = userDefaults
+        self.usersInteractor = usersInteractor
+        self.user = user
     }
     
     func closeButtonPressed() {
-        self.navigationDelegate?.navigateToHomeScreen()
+        self.navigationDelegate?.closePressed()
     }
     
     func logoutButtonPressed() {
@@ -92,14 +99,17 @@ class LoginVM: LoginVMType {
     }
     
     func isUserLoggedIn() -> Bool {
-        return self.isLoggedInViaDizzy() || self.isLoggedInViaFacebook()
+        return self.user.role != .guest
     }
 }
 
 extension LoginVM: SignInInteractorDelegate {
-    func userSignedInSuccesfully() {
+    func userSignedInSuccesfully(_ user: DizzyUser) {
+        self.user = user
+        usersInteractor.saveUserOnRemote(user)
+        userDefaults.saveLoggedInUserId(userId: user.id)
         self.delegate?.userSignedInSuccesfully()
-        self.navigationDelegate?.navigateToHomeScreen()
+        self.navigationDelegate?.userLoggedIn(user: user)
     }
     
     func userSignedInFailed(error: SignInWebserviceError) {
@@ -109,6 +119,7 @@ extension LoginVM: SignInInteractorDelegate {
 
 extension LoginVM: LogoutInteractorDelegate {
     func userLoggedoutSuccessfully() {
+        userDefaults.clearLoggedInUserId()
         self.delegate?.userLoggedoutSuccessfully()
     }
     
