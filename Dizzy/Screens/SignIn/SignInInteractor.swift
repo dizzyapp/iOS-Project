@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignInInteractorDelegate: class {
-    func userSignedInSuccesfully(_ user: DizzyUser)
+    func userSignedInSuccesfully(_ userId: String)
     func userSignedInFailed(error: SignInWebserviceError)
 }
 
@@ -31,26 +31,26 @@ class SignInInteractor: SignInInteractorType {
     
     func signInWithDizzy(_ signInDetails: SignInDetails) {
         
-        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithDizzy").withPost(signInDetails)
+        let signInResource = Resource<String, SignInDetails>(path: "signInWithDizzy").withPost(signInDetails)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
             case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success(let user):
-                self?.delegate?.userSignedInSuccesfully(user)
+            case .success(let userId):
+                self?.delegate?.userSignedInSuccesfully(userId)
             }
         }
     }
     
     func signInWithFacebook(presentedVC: UIViewController) {
         
-        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithFacebook").withPresentedVC(presentedVC)
+        let signInResource = Resource<String, SignInDetails>(path: "signInWithFacebook").withPresentedVC(presentedVC)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
             case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success(let user):
-                self?.delegate?.userSignedInSuccesfully(user)
+            case .success(let userId):
+                self?.delegate?.userSignedInSuccesfully(userId)
             }
         }
     }

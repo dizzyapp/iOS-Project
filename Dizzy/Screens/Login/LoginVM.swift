@@ -104,12 +104,18 @@ class LoginVM: LoginVMType {
 }
 
 extension LoginVM: SignInInteractorDelegate {
-    func userSignedInSuccesfully(_ user: DizzyUser) {
-        self.user = user
-        usersInteractor.saveUserOnRemote(user)
-        userDefaults.saveLoggedInUserId(userId: user.id)
-        self.delegate?.userSignedInSuccesfully()
-        self.navigationDelegate?.userLoggedIn(user: user)
+    func userSignedInSuccesfully(_ userId: String) {
+        
+        usersInteractor.getUserForId(userId: userId) { [weak self] user in
+            guard let user = user else {
+                print("error getting user for id: \(userId)")
+                return
+            }
+            
+            self?.userDefaults.saveLoggedInUserId(userId: user.id)
+            self?.delegate?.userSignedInSuccesfully()
+            self?.navigationDelegate?.userLoggedIn(user: user)
+        }
     }
     
     func userSignedInFailed(error: SignInWebserviceError) {

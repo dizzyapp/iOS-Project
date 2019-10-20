@@ -59,11 +59,16 @@ class SignInWithDizzyVM: SignInWithDizzyVMType {
 }
 
 extension SignInWithDizzyVM: SignInInteractorDelegate {
-    func userSignedInSuccesfully(_ user: DizzyUser) {
-        usersInteractor.saveUserOnRemote(user)
-        userDefaults.saveLoggedInUserId(userId: user.id)
-        self.navigationDelegate?.userLoggedIn(user: user)
-        self.delegate?.userSignedInSuccesfully()
+    func userSignedInSuccesfully(_ userId: String) {
+        usersInteractor.getUserForId(userId: userId) { [weak self] user in
+            guard let user = user else {
+                print("could not get user for id: \(userId)")
+                return
+            }
+            self?.userDefaults.saveLoggedInUserId(userId: user.id)
+            self?.navigationDelegate?.userLoggedIn(user: user)
+            self?.delegate?.userSignedInSuccesfully()
+        }
     }
     
     func userSignedInFailed(error: SignInWebserviceError) {

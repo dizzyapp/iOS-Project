@@ -11,6 +11,7 @@ import UIKit
 protocol UsersInteracteorType {
     func getAllUsers(_ completion: @escaping ([DizzyUser]) -> Void)
     func getUser(_ completion: @escaping (DizzyUser?) -> Void)
+    func getUserForId(userId: String, _ completion: @escaping (DizzyUser?) -> Void)
     func saveUserOnRemote(_ user: DizzyUser)
 }
 
@@ -50,6 +51,20 @@ class UsersInteracteor: UsersInteracteorType {
             switch result {
             case .failure:
                 print("failed to get user for id: \(loggedInUserId)")
+                return
+            case .success(let user):
+                completion(user)
+                return
+            }
+        }
+    }
+    
+    func getUserForId(userId: String, _ completion: @escaping (DizzyUser?) -> Void) {
+        let resource = Resource<DizzyUser, String>(path: "users/\(userId)").withGet()
+        webResourcesDispatcher.load(resource) { result in
+            switch result {
+            case .failure:
+                print("failed to get user for id: \(userId)")
                 return
             case .success(let user):
                 completion(user)
