@@ -35,6 +35,7 @@ final class CommentCell: UITableViewCell {
         backgroundColor = .clear
         addSubViews()
         layoutSubViews()
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,6 +46,15 @@ final class CommentCell: UITableViewCell {
         messageLabel.text = comment.comment.value
         senderPictureImageView.kf.setImage(with: comment.writer.photoURL, placeholder: Images.defaultPlaceAvatar())
         senderNameLabel.text = comment.writer.fullName
+    }
+    
+    private func setupViews() {
+        setupImageView()
+    }
+    
+    private func setupImageView() {
+        senderPictureImageView.clipsToBounds = true
+        senderPictureImageView.layer.cornerRadius = placeImageViewSize / 2
     }
     
     private func addSubViews() {
