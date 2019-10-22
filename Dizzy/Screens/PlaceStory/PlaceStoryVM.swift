@@ -10,6 +10,8 @@ import Foundation
 
 protocol PlaceStoryVMDelegate: class {
     func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String)
+    func placeStoryClearTextFieldText(_ viewModel: PlaceStoryVMType)
+    func showPopupWithText(_ text: String, title: String)
 }
 
 protocol PlaceStoryVMNavigationDelegate: class {
@@ -19,7 +21,7 @@ protocol PlaceStoryVMNavigationDelegate: class {
 protocol PlaceStoryVMType {
     var currentImageURLString: Observable<String?> { get set }
     var delay: Double { get }
-    var comments: Observable<[Comment]> { get }
+    var comments: Observable<[CommentWithWriter]> { get }
     var stories: Observable<[PlaceStory]> { get }
     var delegate: PlaceStoryVMDelegate? { get set }
     var navigationDelegate: PlaceStoryVMNavigationDelegate? {get set}
@@ -31,7 +33,7 @@ protocol PlaceStoryVMType {
     func close()
     
     func numberOfRowsInSection() -> Int
-    func comment(at indexPath: IndexPath) -> Comment
+    func comment(at indexPath: IndexPath) -> CommentWithWriter
 }
 
 final class PlaceStoryVM: PlaceStoryVMType {
@@ -46,15 +48,19 @@ final class PlaceStoryVM: PlaceStoryVMType {
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
     var storiesInteractor: StoriesInteractorType
-    var comments = Observable<[Comment]>([Comment]())
+    var comments = Observable<[CommentWithWriter]>([CommentWithWriter]())
     var stories = Observable<[PlaceStory]>([PlaceStory]())
+    let usersInteractor: UsersInteracteorType
+    let user: DizzyUser
     
     var currentImageURLString = Observable<String?>(nil)
     
-    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType) {
+    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType) {
         self.place = place
         self.commentsInteractor = commentsInteractor
         self.storiesInteractor = storiesInteractor
+        self.user = user
+        self.usersInteractor = usersInteractor
         self.storiesInteractor.getAllPlaceStories(with: place.id)
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
@@ -85,15 +91,20 @@ final class PlaceStoryVM: PlaceStoryVMType {
     }
     
     func send(message: String) {
-        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970)
+        guard user.role != .guest else {
+            self.delegate?.showPopupWithText("You must be logged in, in order to comment to a story".localized, title: "Please login or sign up".localized)
+            return
+        }
+        let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970, writerId: user.id)
         commentsInteractor.sendComment(comment, placeId: place.id)
+        self.delegate?.placeStoryClearTextFieldText(self)
     }
     
     func numberOfRowsInSection() -> Int {
         return comments.value.count
     }
     
-    func comment(at indexPath: IndexPath) -> Comment {
+    func comment(at indexPath: IndexPath) -> CommentWithWriter {
         return comments.value[indexPath.row]
     }
     
@@ -110,7 +121,18 @@ extension PlaceStoryVM: CommentsInteractorDelegate {
     func commentsInteractor(_ interactor: CommentsInteractorType, comments: [Comment]) {
         
         let sortedComments = comments.sorted { $0.timeStamp < $1.timeStamp }
-        self.comments.value = sortedComments
+        usersInteractor.getAllUsers { [weak self] allUsers in
+            let allCommentsWithUser = sortedComments.map({  comment -> CommentWithWriter in
+                
+                let user = allUsers.first(where: { user in
+                    user.id == comment.writerId
+                })
+                
+                return CommentWithWriter(comment: comment, writer: user!)
+            })
+            
+            self?.comments.value = allCommentsWithUser
+        }
     }
 }
 

@@ -16,7 +16,8 @@ protocol SignInWithDizzyVMType {
 }
 
 protocol SignInWithDizzyVMNavigationDelegate: class {
-    func navigateToHomeScreen()
+    func userLoggedIn(user: DizzyUser)
+    func closePressed()
 }
 
 protocol SignInWithDizzyVMDelegate: class {
@@ -31,11 +32,15 @@ class SignInWithDizzyVM: SignInWithDizzyVMType {
     weak var delegate: SignInWithDizzyVMDelegate?
     
     var signInInteractor: SignInInteractorType
+    let usersInteractor: UsersInteracteorType
+    let userDefaults: MyUserDefaultsType
     let inputValidator: InputValidator
     
-    init(signInInteractor: SignInInteractorType, inputValidator: InputValidator) {
+    init(signInInteractor: SignInInteractorType, inputValidator: InputValidator, usersInteractor: UsersInteracteorType, userDefaults: MyUserDefaultsType) {
         self.signInInteractor = signInInteractor
         self.inputValidator = inputValidator
+        self.usersInteractor = usersInteractor
+        self.userDefaults = userDefaults
     }
     
     func onSignInPressed(_ signInDetails: SignInDetails) {
@@ -49,14 +54,21 @@ class SignInWithDizzyVM: SignInWithDizzyVMType {
     }
     
     func closeButtonPressed() {
-        self.navigationDelegate?.navigateToHomeScreen()
+        self.navigationDelegate?.closePressed()
     }
 }
 
 extension SignInWithDizzyVM: SignInInteractorDelegate {
-    func userSignedInSuccesfully() {
-        self.delegate?.userSignedInSuccesfully()
-        self.navigationDelegate?.navigateToHomeScreen()
+    func userSignedInSuccesfully(_ userId: String) {
+        usersInteractor.getUserForId(userId: userId) { [weak self] user in
+            guard let user = user else {
+                print("could not get user for id: \(userId)")
+                return
+            }
+            self?.userDefaults.saveLoggedInUserId(userId: user.id)
+            self?.navigationDelegate?.userLoggedIn(user: user)
+            self?.delegate?.userSignedInSuccesfully()
+        }
     }
     
     func userSignedInFailed(error: SignInWebserviceError) {

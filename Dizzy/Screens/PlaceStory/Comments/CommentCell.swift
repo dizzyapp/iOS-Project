@@ -35,16 +35,26 @@ final class CommentCell: UITableViewCell {
         backgroundColor = .clear
         addSubViews()
         layoutSubViews()
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with comment: Comment) {
-        messageLabel.text = comment.value
-        senderPictureImageView.kf.setImage(with: URL(string: ""), placeholder: Images.defaultPlaceAvatar())
-        senderNameLabel.text = "NamePlaceHolder"
+    func configure(with comment: CommentWithWriter) {
+        messageLabel.text = comment.comment.value
+        senderPictureImageView.kf.setImage(with: comment.writer.photoURL, placeholder: Images.defaultPlaceAvatar())
+        senderNameLabel.text = comment.writer.fullName
+    }
+    
+    private func setupViews() {
+        setupImageView()
+    }
+    
+    private func setupImageView() {
+        senderPictureImageView.clipsToBounds = true
+        senderPictureImageView.layer.cornerRadius = placeImageViewSize / 2
     }
     
     private func addSubViews() {

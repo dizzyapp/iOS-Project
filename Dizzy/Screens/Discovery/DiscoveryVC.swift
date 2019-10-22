@@ -17,6 +17,7 @@ class DiscoveryVC: ViewController {
     let themeVideoView = VideoView()
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryVMType
+    let appStartVM: AppStartVMType
     
     let nearByPlacesViewPadding = CGFloat(5)
     let nearByPlacesViewHeightRatio = CGFloat(0.50)
@@ -26,15 +27,16 @@ class DiscoveryVC: ViewController {
     
     var isItFirstPageLoad = true
     
-    init(viewModel: DiscoveryVMType) {
+    init(viewModel: DiscoveryVMType, appStartVM: AppStartVMType) {
         self.viewModel = viewModel
+        self.appStartVM = appStartVM
         super.init()
+        appStartVM.getLoggedInUser()
         addSubviews()
         layoutViews()
         setupViews()
         bindViewModel()
         self.viewModel.delegate = self
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -170,6 +172,10 @@ extension DiscoveryVC: DiscoveryVMDelegate {
     func allPlacesArrived() {
         nearByPlacesView.reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+            guard self.appStartVM.appUserReturned else {
+                self.allPlacesArrived()
+                return
+            }
             self.showNewrByPlacesWithAnimation()
         })
     }

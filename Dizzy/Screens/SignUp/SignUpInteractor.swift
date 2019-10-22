@@ -35,18 +35,6 @@ class SignUpInteractor: SignUpInteractorType {
             case .failure(let error):
                 self?.delegate?.userSignedUpFailed(error: error)
             case .success(let user):
-                self?.saveUserOnRemote(user)
-            }
-        }
-    }
-    
-    private func saveUserOnRemote(_ user: DizzyUser) {
-        let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
-        webResourcesDispatcher.load(saveUserResource) { [weak self] result in            
-            switch result {
-            case .failure(let error):
-                self?.delegate?.userSignedUpFailed(error: error)
-            case .success:
                 self?.delegate?.userSignedUpSuccesfully(user: user)
             }
         }

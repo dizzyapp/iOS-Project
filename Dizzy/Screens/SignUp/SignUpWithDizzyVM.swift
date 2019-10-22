@@ -16,7 +16,8 @@ protocol SignUpWithDizzyVMType {
 }
 
 protocol SignUpWithDizzyVMNavigationDelegate: class {
-    func navigateToHomeScreen()
+    func closePressed()
+    func userLoggedIn(user: DizzyUser)
 }
 
 protocol SignUpWithDizzyVMDelegate: class {
@@ -31,11 +32,15 @@ class SignUpWithDizzyVM: SignUpWithDizzyVMType {
     weak var delegate: SignUpWithDizzyVMDelegate?
 
     var signupInteractor: SignUpInteractorType
+    let userDefaults: MyUserDefaultsType
+    let usersInteractor: UsersInteracteorType
     let inputValidator: InputValidator
     
-    init(signupInteractor: SignUpInteractorType, inputValidator: InputValidator) {
+    init(signupInteractor: SignUpInteractorType, inputValidator: InputValidator, usersInteractor: UsersInteracteorType, userDefaults: MyUserDefaultsType) {
         self.signupInteractor = signupInteractor
         self.inputValidator = inputValidator
+        self.usersInteractor = usersInteractor
+        self.userDefaults = userDefaults
     }
     
     func onSignupPressed(_ signUpDetails: SignUpDetails) {
@@ -49,14 +54,16 @@ class SignUpWithDizzyVM: SignUpWithDizzyVMType {
     }
     
     func closeButtonPressed() {
-        self.navigationDelegate?.navigateToHomeScreen()
+        self.navigationDelegate?.closePressed()
     }
 }
 
 extension SignUpWithDizzyVM: SignUpInteractorDelegate {
     func userSignedUpSuccesfully(user: DizzyUser) {
+        userDefaults.saveLoggedInUserId(userId: user.id)
+        usersInteractor.saveUserOnRemote(user)
         self.delegate?.userSignedUpSuccesfully(user: user)
-        self.navigationDelegate?.navigateToHomeScreen()
+        self.navigationDelegate?.userLoggedIn(user: user)
     }
     
     func userSignedUpFailed(error: Error) {

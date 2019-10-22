@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SignInInteractorDelegate: class {
-    func userSignedInSuccesfully()
+    func userSignedInSuccesfully(_ userId: String)
     func userSignedInFailed(error: SignInWebserviceError)
 }
 
@@ -31,38 +31,26 @@ class SignInInteractor: SignInInteractorType {
     
     func signInWithDizzy(_ signInDetails: SignInDetails) {
         
-        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithDizzy").withPost(signInDetails)
+        let signInResource = Resource<String, SignInDetails>(path: "signInWithDizzy").withPost(signInDetails)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
             case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success:
-                self?.delegate?.userSignedInSuccesfully()
+            case .success(let userId):
+                self?.delegate?.userSignedInSuccesfully(userId)
             }
         }
     }
     
     func signInWithFacebook(presentedVC: UIViewController) {
         
-        let signInResource = Resource<DizzyUser, SignInDetails>(path: "signInWithFacebook").withPresentedVC(presentedVC)
+        let signInResource = Resource<String, SignInDetails>(path: "signInWithFacebook").withPresentedVC(presentedVC)
         webResourcesDispatcher.load(signInResource) { [weak self] result in
             switch result {
             case .failure:
                 self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success(let user):
-                self?.saveUserOnRemote(user)
-            }
-        }
-    }
-    
-    private func saveUserOnRemote(_ user: DizzyUser) {
-        let saveUserResource = Resource<String, DizzyUser>(path: "users/\(user.id)").withPost(user)
-        webResourcesDispatcher.load(saveUserResource) { [weak self] result in
-            switch result {
-            case .failure:
-                self?.delegate?.userSignedInFailed(error: SignInWebserviceError.userNotExist)
-            case .success:
-                self?.delegate?.userSignedInSuccesfully()
+            case .success(let userId):
+                self?.delegate?.userSignedInSuccesfully(userId)
             }
         }
     }

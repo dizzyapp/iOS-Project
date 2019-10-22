@@ -16,12 +16,12 @@ enum UserRole: String, Codable {
         case "customer":
             self = .customer
         default:
-            self = .unknown
+            self = .guest
         }
     }
     
     case customer
-    case unknown
+    case guest
 }
 
 struct DizzyUser: Codable {

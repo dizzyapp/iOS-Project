@@ -235,7 +235,7 @@ extension PlaceStoryVC: CommentsViewDataSource {
         return  viewModel.numberOfRowsInSection()
     }
     
-    func comment(at indexPath: IndexPath) -> Comment? {
+    func comment(at indexPath: IndexPath) -> CommentWithWriter? {
         return  viewModel.comment(at: indexPath)
     }
 }
@@ -269,7 +269,12 @@ extension PlaceStoryVC: CommentTextFieldViewDelegate {
     }
 }
 
-extension PlaceStoryVC: PlaceStoryVMDelegate {
+extension PlaceStoryVC: PlaceStoryVMDelegate, PopupPresenter {
+    func showPopupWithText(_ text: String, title: String) {
+        let action = Action(title: "Ok".localized)
+        showPopup(with: title, message: text, actions: [action])
+    }
+    
     func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String) {
         guard let videoUrl = URL(string: stringURL) else { return }
         self.showVideoView()
@@ -283,4 +288,9 @@ extension PlaceStoryVC: PlaceStoryVMDelegate {
         videoView.isHidden = false
         imageView.isHidden = true
     }
+    
+    func placeStoryClearTextFieldText(_ viewModel: PlaceStoryVMType) {
+        self.commentTextFieldView.text = ""
+    }
+    
 }
