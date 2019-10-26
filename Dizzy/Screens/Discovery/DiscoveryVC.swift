@@ -166,7 +166,6 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
-        print("menash logs - reload data")
         nearByPlacesView.reloadData()
     }
     
