@@ -81,8 +81,7 @@ final class MediaPresenterVM: MediaPresenterVMType {
     private func uploadVideo(videoLocalUrl: URL) {
         uploadFileInteractor.uplaodVideo(path: "\(placeInfo.name)/\(UUID().uuidString).mp4", data: UploadFileData(data: nil, fileURL: videoLocalUrl), placeInfo: placeInfo) { result in
             switch result {
-            case .success(let uploadRes):
-                print("menash logs - success: \(uploadRes)")
+            case .success:
                 self.delegate?.photoPresenterVMUploadPressed(self)
                 return
             case .failure(let error):

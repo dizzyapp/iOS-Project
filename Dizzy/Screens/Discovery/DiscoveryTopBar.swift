@@ -66,9 +66,7 @@ class DiscoveryTopBar: UIView {
     }
     
     private func setupLocationLabel() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(locationNamePressed))
-        locationNameLabel.addGestureRecognizer(tapGesture)
-        locationNameLabel.isUserInteractionEnabled = true
+        locationNameLabel.delegate = self
     }
     
     private func setupMenuButton() {
@@ -90,5 +88,11 @@ class DiscoveryTopBar: UIView {
     
     public func setLocationName(_ name: String) {
         locationNameLabel.setText(name)
+    }
+}
+
+extension DiscoveryTopBar: LocationLabelDelegate {
+    func locationLabelPressed() {
+        delegate?.locationLablePressed()
     }
 }

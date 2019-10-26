@@ -9,8 +9,12 @@
 import UIKit
 import SnapKit
 
+protocol LocationLabelDelegate: class {
+    func locationLabelPressed()
+}
+
 class LocationLabel: UIView {
-    
+    weak var delegate: LocationLabelDelegate?
     private let textLabel = UILabel()
     private let textLabelHorizontalPadding = CGFloat(4)
     private let cornersRadius = CGFloat(13)
@@ -55,5 +59,18 @@ class LocationLabel: UIView {
 
     func setText(_ text: String) {
         textLabel.text = text
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard delegate != nil else {
+           return
+        }
+        
+        alpha = 0.5
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        alpha = 1
+        delegate?.locationLabelPressed()
     }
 }
