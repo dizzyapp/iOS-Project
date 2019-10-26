@@ -23,6 +23,7 @@ protocol DiscoveryVMType {
     
     func mapButtonPressed()
     func menuButtonPressed()
+    func locationLablePressed()
 }
 
 protocol DiscoveryVMDelegate: class {
@@ -54,7 +55,6 @@ class DiscoveryVM: DiscoveryVMType {
         self.placesInteractor.delegate = self
         self.placesInteractor.getAllPlaces()
 
-        locationProvider.requestUserLocation()
         bindLocationProvider()
     }
     
@@ -117,6 +117,10 @@ class DiscoveryVM: DiscoveryVMType {
     
     func placeCellIconPressed(atIndexPath indexPath: IndexPath) {
         navigationDelegate?.placeCellIconPressed(allPlaces[indexPath.row])
+    }
+
+    func locationLablePressed() {
+        locationProvider.requestUserLocation()
     }
 }
 

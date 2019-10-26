@@ -155,6 +155,10 @@ extension DiscoveryVC: NearByPlacesViewDataSource {
 }
 
 extension DiscoveryVC: DiscoveryTopBarDelegate {
+    func locationLablePressed() {
+        viewModel.locationLablePressed()
+    }
+    
     func mapButtonPressed() {
         viewModel.mapButtonPressed()
     }

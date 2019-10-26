@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        NotificationCenter.default.post(name: .NSExtensionHostDidBecomeActive, object: nil)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
