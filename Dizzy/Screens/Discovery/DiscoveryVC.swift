@@ -11,7 +11,7 @@ import SnapKit
 import AVKit
 import AVFoundation
 
-class DiscoveryVC: ViewController {
+class DiscoveryVC: ViewController, PopupPresenter {
     
     let topBar = DiscoveryTopBar()
     let themeVideoView = VideoView()
