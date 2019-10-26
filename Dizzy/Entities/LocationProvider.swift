@@ -20,6 +20,10 @@ protocol LocationProviderType {
 
 final class LocationProvider: NSObject, LocationProviderType {
     
+    lazy var didBecomeActive: (Notification) -> Void = { [weak self] _ in
+        self?.requestUserLocation()
+    }
+    
     private var currentLocation: CLLocation?
     
     var dizzyLocation = Observable<Location?>(nil)
@@ -45,6 +49,15 @@ final class LocationProvider: NSObject, LocationProviderType {
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         super.init()
         locationManager.delegate = self
+        observeWhenAppReturnsFromBackground()
+    }
+    
+    func observeWhenAppReturnsFromBackground() {
+        // swiftlint:disable discarded_notification_center_observer
+        NotificationCenter.default.addObserver(forName: .NSExtensionHostDidBecomeActive,
+                                               object: nil,
+                                               queue:.main,
+                                               using: didBecomeActive)
     }
     
     func requestUserLocation() {
@@ -85,6 +98,7 @@ final class LocationProvider: NSObject, LocationProviderType {
 
         dizzyLocation.value = location
     }
+    
 }
 
 extension LocationProvider: CLLocationManagerDelegate {
