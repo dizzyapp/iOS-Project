@@ -86,10 +86,6 @@ class DiscoveryVC: ViewController {
             }
             self?.topBar.setLocationName(currentCity)
         })
-        
-        viewModel.currentLocation.bind { _ in
-            self.reloadData()
-        }
     }
     
     private func setupViews() {
@@ -170,6 +166,7 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func reloadData() {
+        print("menash logs - reload data")
         nearByPlacesView.reloadData()
     }
     
