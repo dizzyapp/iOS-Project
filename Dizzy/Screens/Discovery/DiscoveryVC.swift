@@ -86,10 +86,6 @@ class DiscoveryVC: ViewController {
             }
             self?.topBar.setLocationName(currentCity)
         })
-        
-        viewModel.currentLocation.bind { _ in
-            self.reloadData()
-        }
     }
     
     private func setupViews() {
