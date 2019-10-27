@@ -131,8 +131,8 @@ class DizzyPopup: UIView {
         cancelButton.setTitle("NO".localized, for: .normal)
         cancelButton.setTitleColor(.primeryPurple, for: .normal)
         cancelButton.titleLabel?.font = Fonts.h7(weight: .bold)
-        cancelButton.layer.cornerRadius = buttonsCornerRadius
         cancelButton.backgroundColor = .white
+        cancelButton.addTarget(self, action: #selector(onDecline), for: .touchDragInside)
     }
     
     private func setupBackgroundView() {
@@ -142,5 +142,9 @@ class DizzyPopup: UIView {
     
     @objc private func onApprove() {
         onOk?()
+    }
+    
+    @objc private func onDecline() {
+        onCancel?()
     }
 }

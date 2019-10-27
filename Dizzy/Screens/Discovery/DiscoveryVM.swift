@@ -16,6 +16,8 @@ protocol DiscoveryVMType {
     func placeCellDetailsPressed(atIndexPath indexPath: IndexPath)
     func placeCellIconPressed(atIndexPath indexPath: IndexPath)
     
+    func userApprovedHeIsIn(place activePlace: PlaceInfo)
+    
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryVMDelegate? { get set }
     var currentLocation: Observable<Location?> { get }
@@ -29,6 +31,7 @@ protocol DiscoveryVMType {
 protocol DiscoveryVMDelegate: class {
     func reloadData()
     func allPlacesArrived()
+    func askIfUserIsInThisPlace(_ place: PlaceInfo)
 }
 
 protocol DiscoveryViewModelNavigationDelegate: class {
@@ -36,6 +39,7 @@ protocol DiscoveryViewModelNavigationDelegate: class {
     func menuButtonPressed()
     func placeCellDetailsPressed(_ place: PlaceInfo)
     func placeCellIconPressed(_ place: PlaceInfo)
+    func activePlaceWasSet(_ activePlace: PlaceInfo)
 }
 
 class DiscoveryVM: DiscoveryVMType {
@@ -48,6 +52,7 @@ class DiscoveryVM: DiscoveryVMType {
     private let locationProvider: LocationProviderType
     var currentCity = Observable<String>("")
     weak var navigationDelegate: DiscoveryViewModelNavigationDelegate?
+    private let maxMetersFromPlaceToVisit: Double = 50
     
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
@@ -63,6 +68,7 @@ class DiscoveryVM: DiscoveryVMType {
             self?.askForCurrentAddress()
             self?.currentLocation.value = location
             self?.sortAllPlacesByDistance()
+            self?.checkClosestPlace()
             self?.delegate?.reloadData()
         }
     }
@@ -122,12 +128,31 @@ class DiscoveryVM: DiscoveryVMType {
     func locationLablePressed() {
         locationProvider.requestUserLocation()
     }
+    
+    private func checkClosestPlace() {
+        guard let currentLocation = currentLocation.value,
+            !allPlaces.isEmpty else {
+            return
+        }
+        
+        let closestPlace = allPlaces[0]
+        let distanceToPlaceInMeters = currentLocation.getDistanceTo(closestPlace.location, inScaleOf: .kilometers)
+        
+        if distanceToPlaceInMeters < maxMetersFromPlaceToVisit {
+            self.delegate?.askIfUserIsInThisPlace(closestPlace)
+        }
+    }
+    
+    func userApprovedHeIsIn(place activePlace: PlaceInfo) {
+        self.navigationDelegate?.activePlaceWasSet(activePlace)
+    }
 }
 
 extension DiscoveryVM: PlacesInteractorDelegate {
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
         sortAllPlacesByDistance()
+        checkClosestPlace()
         delegate?.allPlacesArrived()
     }
 }

@@ -61,12 +61,16 @@ extension PopupPresenter where Self: UIViewController {
         }
         
         popup.onOk = {
-            transparentBackground.removeFromSuperview()
-            onOk()
+            DispatchQueue.main.async {
+                transparentBackground.removeFromSuperview()
+                onOk()
+            }
         }
         
         popup.onCancel = {
-            transparentBackground.removeFromSuperview()
+            DispatchQueue.main.async {
+                transparentBackground.removeFromSuperview()
+            }
         }
     }
     

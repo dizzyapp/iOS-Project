@@ -165,6 +165,12 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 }
 
 extension DiscoveryVC: DiscoveryVMDelegate {
+    func askIfUserIsInThisPlace(_ place: PlaceInfo) {
+        showDizzyPopup(withMessage: "Are you in \(place.name)?", imageUrl: place.imageURLString, onOk: { [weak self] in
+            self?.viewModel.userApprovedHeIsIn(place: place)
+        })
+    }
+    
     func reloadData() {
         nearByPlacesView.reloadData()
     }
