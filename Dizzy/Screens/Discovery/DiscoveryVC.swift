@@ -11,7 +11,7 @@ import SnapKit
 import AVKit
 import AVFoundation
 
-class DiscoveryVC: ViewController {
+class DiscoveryVC: ViewController, PopupPresenter {
     
     let topBar = DiscoveryTopBar()
     let themeVideoView = VideoView()
@@ -81,7 +81,7 @@ class DiscoveryVC: ViewController {
     private func bindViewModel() {
         viewModel.currentCity.bind(shouldObserveIntial: true, observer: { [weak self] currentCity in
             guard !currentCity.isEmpty else {
-                self?.topBar.setLocationName("getting location")
+                self?.topBar.setLocationName("Getting location".localized)
                 return
             }
             self?.topBar.setLocationName(currentCity)
@@ -165,6 +165,14 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 }
 
 extension DiscoveryVC: DiscoveryVMDelegate {
+    func askIfUserIsInThisPlace(_ place: PlaceInfo) {
+        showDizzyPopup(withMessage: "Are you in \(place.name)?", imageUrl: place.imageURLString, onOk: { [weak self] in
+            self?.viewModel.userApprovedHeIsIn(place: place)
+            }, onCancel: { [weak self] in
+               self?.viewModel.userDeclinedHeIsInPlace()
+        })
+    }
+    
     func reloadData() {
         nearByPlacesView.reloadData()
     }

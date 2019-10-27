@@ -30,6 +30,10 @@ struct PlaceInfo: Codable, FilterEntry {
     let placeSchedule: PlaceSchedule?
 }
 
+struct ActivePlace {
+    let activePlaceInfo: PlaceInfo?
+}
+
 struct PlaceSchedule: Codable {
     var sunday: String?
     var monday: String?

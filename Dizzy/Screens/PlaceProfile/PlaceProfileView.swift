@@ -213,6 +213,10 @@ final class PlaceProfileView: UIView {
             openHoursLabel.text = openHourText
         }
     }
+    
+    func hideStoryButton() {
+        storyButton.isHidden = true
+    }
 }
 
 extension PlaceProfileView {

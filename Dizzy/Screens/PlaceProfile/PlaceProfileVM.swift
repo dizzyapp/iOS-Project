@@ -17,6 +17,7 @@ protocol PlaceProfileVMType {
     func callButtonPressed()
     func requestTableButtonPressed()
     func storyButtonPressed()
+    func sholdShowStoryButton() -> Bool
 }
 
 protocol PlaceProfileVMDelegate: class {
@@ -27,12 +28,14 @@ protocol PlaceProfileVMDelegate: class {
 final class PlaceProfileVM: PlaceProfileVMType {
    
     var placeInfo: PlaceInfo
+    let activePlace: PlaceInfo?
     weak var delegate: PlaceProfileVMDelegate?
     
     var externalNavigationProvider = ExternalNavigationProvider()
 
-    init(placeInfo: PlaceInfo) {
+    init(placeInfo: PlaceInfo, activePlace: ActivePlace) {
         self.placeInfo = placeInfo
+        self.activePlace = activePlace.activePlaceInfo
     }
     
     func addressButtonPressed(view: PlaceProfileView) {
@@ -62,5 +65,9 @@ final class PlaceProfileVM: PlaceProfileVMType {
 
     func storyButtonPressed() {
         delegate?.placeProfileVMStoryButtonPressed(self)
+    }
+    
+    func sholdShowStoryButton() -> Bool {
+        return placeInfo.id == activePlace?.id
     }
 }
