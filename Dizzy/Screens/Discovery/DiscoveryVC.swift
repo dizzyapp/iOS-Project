@@ -81,7 +81,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func bindViewModel() {
         viewModel.currentCity.bind(shouldObserveIntial: true, observer: { [weak self] currentCity in
             guard !currentCity.isEmpty else {
-                self?.topBar.setLocationName("getting location")
+                self?.topBar.setLocationName("Getting location".localized)
                 return
             }
             self?.topBar.setLocationName(currentCity)

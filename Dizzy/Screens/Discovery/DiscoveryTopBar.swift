@@ -93,6 +93,7 @@ class DiscoveryTopBar: UIView {
 
 extension DiscoveryTopBar: LocationLabelDelegate {
     func locationLabelPressed() {
+        locationNameLabel.setText("Getting location".localized)
         delegate?.locationLablePressed()
     }
 }
