@@ -124,7 +124,7 @@ class DizzyPopup: UIView {
         approveButton.titleLabel?.font = Fonts.h7(weight: .bold)
         approveButton.layer.cornerRadius = buttonsCornerRadius
         approveButton.backgroundColor = .primeryPurple
-        approveButton.addTarget(self, action: #selector(onApprove), for: .touchDragInside)
+        approveButton.addTarget(self, action: #selector(onApprove), for: .touchUpInside)
     }
     
     private func setupCancelButton() {
@@ -132,7 +132,7 @@ class DizzyPopup: UIView {
         cancelButton.setTitleColor(.primeryPurple, for: .normal)
         cancelButton.titleLabel?.font = Fonts.h7(weight: .bold)
         cancelButton.backgroundColor = .white
-        cancelButton.addTarget(self, action: #selector(onDecline), for: .touchDragInside)
+        cancelButton.addTarget(self, action: #selector(onDecline), for: .touchUpInside)
     }
     
     private func setupBackgroundView() {

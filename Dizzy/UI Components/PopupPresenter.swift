@@ -24,7 +24,7 @@ final class Action {
 
 protocol PopupPresenter {
     func showPopup(with title: String, message: String, actions: [Action])
-    func showDizzyPopup(withMessage messgae: String, imageUrl: String?, onOk: @escaping () -> Void) 
+    func showDizzyPopup(withMessage messgae: String, imageUrl: String?, onOk: @escaping () -> Void, onCancel: (() -> Void)?)
 }
 
 extension PopupPresenter where Self: UIViewController {
@@ -48,7 +48,7 @@ extension PopupPresenter where Self: UIViewController {
         present(alertController, animated: true)
     }
     
-    func showDizzyPopup(withMessage messgae: String, imageUrl: String?, onOk: @escaping () -> Void) {
+    func showDizzyPopup(withMessage messgae: String, imageUrl: String?, onOk: @escaping () -> Void, onCancel: (() -> Void)? = nil) {
         let transparentBackground = setupTransparentBackground()
         let popup = DizzyPopup(imageUrl: imageUrl, message: messgae)
         
@@ -70,6 +70,7 @@ extension PopupPresenter where Self: UIViewController {
         popup.onCancel = {
             DispatchQueue.main.async {
                 transparentBackground.removeFromSuperview()
+                onCancel?()
             }
         }
     }

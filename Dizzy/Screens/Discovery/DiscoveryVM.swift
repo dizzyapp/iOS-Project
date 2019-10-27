@@ -17,11 +17,13 @@ protocol DiscoveryVMType {
     func placeCellIconPressed(atIndexPath indexPath: IndexPath)
     
     func userApprovedHeIsIn(place activePlace: PlaceInfo)
+    func userDeclinedHeIsInPlace()
     
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryVMDelegate? { get set }
     var currentLocation: Observable<Location?> { get }
     var currentCity: Observable<String> { get }
+    var activePlace: PlaceInfo? { get }
     
     func mapButtonPressed()
     func menuButtonPressed()
@@ -39,7 +41,7 @@ protocol DiscoveryViewModelNavigationDelegate: class {
     func menuButtonPressed()
     func placeCellDetailsPressed(_ place: PlaceInfo)
     func placeCellIconPressed(_ place: PlaceInfo)
-    func activePlaceWasSet(_ activePlace: PlaceInfo)
+    func activePlaceWasSet(_ activePlace: PlaceInfo?)
 }
 
 class DiscoveryVM: DiscoveryVMType {
@@ -53,6 +55,7 @@ class DiscoveryVM: DiscoveryVMType {
     var currentCity = Observable<String>("")
     weak var navigationDelegate: DiscoveryViewModelNavigationDelegate?
     private let maxMetersFromPlaceToVisit: Double = 50
+    var activePlace: PlaceInfo?
     
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
@@ -136,15 +139,22 @@ class DiscoveryVM: DiscoveryVMType {
         }
         
         let closestPlace = allPlaces[0]
-        let distanceToPlaceInMeters = currentLocation.getDistanceTo(closestPlace.location, inScaleOf: .kilometers)
+        let distanceToPlaceInMeters = currentLocation.getDistanceTo(closestPlace.location, inScaleOf: .meters)
         
         if distanceToPlaceInMeters < maxMetersFromPlaceToVisit {
             self.delegate?.askIfUserIsInThisPlace(closestPlace)
+        } else {
+            self.navigationDelegate?.activePlaceWasSet(nil)
         }
     }
     
     func userApprovedHeIsIn(place activePlace: PlaceInfo) {
+        self.activePlace = activePlace
         self.navigationDelegate?.activePlaceWasSet(activePlace)
+    }
+    
+    func userDeclinedHeIsInPlace() {
+        navigationDelegate?.activePlaceWasSet(nil)
     }
 }
 

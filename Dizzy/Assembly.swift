@@ -98,5 +98,9 @@ class Assembly {
         container.autoregister(DizzyUser.self) {
             return DizzyUser(id: "", fullName: "", email: "", role: .guest, photoURL: nil)
         }
+        
+        container.autoregister(ActivePlace.self) {
+            return ActivePlace(activePlaceInfo: nil)
+        }
     }
 }

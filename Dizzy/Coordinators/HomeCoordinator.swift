@@ -60,6 +60,16 @@ final class HomeCoordinator: HomeCoordinatorType {
 }
 
 extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
+    
+    func activePlaceWasSet(_ activePlace: PlaceInfo?) {
+        container?.autoregister(ActivePlace.self, initializer: {
+            return ActivePlace(activePlaceInfo: activePlace)
+        })
+        
+        if let activePlace = activePlace {
+            placeCellDetailsPressed(activePlace)
+        }
+    }
   
     func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = self.discoveryVC,
@@ -103,6 +113,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     func placeCellDetailsPressed(_ place: PlaceInfo) {
 
         guard let presntingVC = self.discoveryVC,
+            let activePlace = container?.resolve(ActivePlace.self),
             let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
             place.profileVideoURL != nil  else {
                 print("could not create placeProfileCoordinator")
@@ -114,7 +125,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         }
         
         container?.register(PlaceProfileVMType.self) { _ in
-            PlaceProfileVM(placeInfo: place)
+            PlaceProfileVM(placeInfo: place, activePlace: activePlace)
         }
         
         placeProfileCoordinator.start()

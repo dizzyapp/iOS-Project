@@ -58,6 +58,10 @@ final class PlaceProfileVC: AVPlayerViewController {
         showsPlaybackControls = false
         videoGravity = .resizeAspectFill
         
+        if !viewModel.sholdShowStoryButton() {
+            placeProfileView.hideStoryButton()
+        }
+        
     }
 
     private func makePlayerRepeat() {
