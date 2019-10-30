@@ -16,14 +16,14 @@ final class SignUpDetailsView: UIView {
 
     let titleLabel = UILabel()
     let stackView = UIStackView()
-    let fullNameTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "What's your name?".localized)
-    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Whats your email?".localized)
-    let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Password".localized)
-    let confirmPasswordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceholder: "Confirm your password".localized)
+    let fullNameTextField = UITextField().loginTextfield(withPlaceholder: "Name".localized)
+    let emailTextField = UITextField().loginTextfield(withPlaceholder: "Email".localized)
+    let passwordTextField = UITextField().loginTextfield(withPlaceholder: "Password".localized)
+    let confirmPasswordTextField = UITextField().loginTextfield(withPlaceholder: "Confirm Password".localized)
     let signUpButton = UIButton(type: .system)
     
     let screenCornerRadius = CGFloat(30)
-    let buttonsWidthPrecentage = CGFloat(0.5)
+    let buttonsWidthPrecentage = CGFloat(0.75)
     let signupButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
     let signupCornerRadius = CGFloat(17)
     
@@ -119,12 +119,13 @@ final class SignUpDetailsView: UIView {
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.font = Fonts.h10(weight: .medium)
-        titleLabel.text = "Create new account".localized
+        titleLabel.font = Fonts.h10(weight: .bold)
+        titleLabel.textColor = .blue
+        titleLabel.text = "SIGN UP".localized
     }
     
     private func setupStackView() {
-        stackView.spacing = Metrics.padding
+        stackView.spacing = Metrics.doublePadding
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.backgroundColor = .white

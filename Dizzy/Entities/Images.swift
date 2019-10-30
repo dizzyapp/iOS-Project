@@ -109,4 +109,10 @@ struct Images {
     static func loadingLogo() -> UIImage {
         return UIImage(named: "loadingLogo")!
     }
+    static func signUpTextfield() -> UIImage {
+           return UIImage(named: "signupTextField")!
+       }
+    static func loginWithFacebookButton() -> UIImage {
+        return UIImage(named: "facebookButtonBackground")!
+    }
 }

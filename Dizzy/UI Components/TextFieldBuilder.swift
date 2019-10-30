@@ -54,4 +54,14 @@ extension UITextField {
         rightView = rightPaddingView
         rightViewMode = .always
     }
+    
+    func loginTextfield(withPlaceholder placeholder: String) -> UITextField {
+        background = Images.signUpTextfield()
+        borderStyle = .none
+        font = Fonts.h10()
+        textAlignment = .left
+        textColor = .black
+        attributedPlaceholder = NSAttributedString(string: placeholder ,attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        return self
+    }
 }
