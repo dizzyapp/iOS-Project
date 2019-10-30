@@ -32,7 +32,7 @@ final class PlaceProfileVC: AVPlayerViewController {
         setupNavigation()
         layoutSubview()
         setupView()
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         player?.play()
     }
     

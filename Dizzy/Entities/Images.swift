@@ -94,10 +94,6 @@ struct Images {
         return UIImage(named: "hideIcon")!
     }
     
-    static func addressBackgroundIcon() -> UIImage {
-        return UIImage(named: "addressBackgroundIcon")!
-    }
-    
     static func requestTableIcon() -> UIImage {
         return UIImage(named: "requestTableIcon")!
     }
@@ -114,5 +110,8 @@ struct Images {
        }
     static func loginWithFacebookButton() -> UIImage {
         return UIImage(named: "facebookButtonBackground")!
+    }
+    static func profileBackgroundIcon() -> UIImage {
+        return UIImage(named: "profilePlaceBackgroundIcon")!
     }
 }
