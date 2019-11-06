@@ -153,7 +153,6 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     }
     
     private func setupNavigationView() {
-        self.navigationItem.title = "".localized
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
     }
     
