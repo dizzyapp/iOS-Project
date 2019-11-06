@@ -9,11 +9,12 @@
 import Foundation
 import AVFoundation
 import AVKit
+import Kingfisher
 
-final class PlaceProfileVC: AVPlayerViewController {
-    
-    private var playerItemDidPlayToEndObserver: NSObjectProtocol?
-    
+final class PlaceProfileVC: UIViewController {
+    private let loadingView = DizzyLoadingView()
+    private let videoView = VideoView()
+    private let imageView = UIImageView()
     private var placeProfileView = PlaceProfileView()
     
     private let viewModel: PlaceProfileVMType
@@ -25,52 +26,36 @@ final class PlaceProfileVC: AVPlayerViewController {
     init(viewModel: PlaceProfileVMType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        loadVideo()
         placeProfileView.configure(with: viewModel.placeInfo)
         placeProfileView.delegate = self
         addSubviews()
-        setupNavigation()
-        layoutSubview()
+        bindViewModel()
+        layoutViews()
         setupView()
-        view.backgroundColor = .white
-        player?.play()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        if let playerItemDidPlayToEndObserver = playerItemDidPlayToEndObserver {
-          NotificationCenter.default.removeObserver(playerItemDidPlayToEndObserver)
-        }
-    }
-    
-    private func loadVideo() {
-        if let url = URL(string: viewModel.placeInfo.profileVideoURL ?? "") {
-            player = AVPlayer(url: url)
-            makePlayerRepeat()
-        }
-    }
-    
     private func setupView() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onResineActive), name: UIApplication.willResignActiveNotification, object: nil)
-        showsPlaybackControls = false
-        videoGravity = .resizeAspectFill
-        
-        if !viewModel.sholdShowStoryButton() {
-            placeProfileView.hideStoryButton()
-        }
-        
+        view.backgroundColor = .white
+        addSwipeListeners()
+        setupPlaceProfileView()
+        setupNavigation()
+        setupImageView()
+        setupVideoView()
+        setupLoadingView()
     }
-
-    private func makePlayerRepeat() {
+    
+    private func addSwipeListeners() {
+        let left = UISwipeGestureRecognizer(target : self, action : #selector(onLeftSwipe))
+        left.direction = .left
+        self.view.addGestureRecognizer(left)
         
-         playerItemDidPlayToEndObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem, queue: .main) {
-            [weak self] _ in
-            self?.player?.seek(to: CMTime.zero)
-            self?.player?.play()
-        }
+        let right = UISwipeGestureRecognizer(target : self, action : #selector(onRightSwipe))
+        right.direction = .right
+        self.view.addGestureRecognizer(right)
     }
     
     private func setupNavigation() {
@@ -80,29 +65,95 @@ final class PlaceProfileVC: AVPlayerViewController {
         navigationItem.rightBarButtonItem = closeBarButton
     }
     
-    private func addSubviews() {
-        contentOverlayView?.addSubviews([placeProfileView])
+    private func setupImageView() {
+        imageView.isHidden = true
     }
     
-    private func layoutSubview() {
+    private func setupVideoView() {
+        videoView.isHidden = true
+    }
+    
+    private func setupLoadingView() {
+        loadingView.startLoadingAnimation()
+    }
+    
+    private func setupPlaceProfileView() {
+        if !viewModel.sholdShowStoryButton() {
+            placeProfileView.hideStoryButton()
+        }
+    }
+    
+    private func addSubviews() {
+        view.addSubviews([loadingView, imageView, videoView, placeProfileView])
+    }
+    
+    private func layoutViews() {
+        loadingView.snp.makeConstraints { loadingView in
+            loadingView.edges.equalToSuperview()
+        }
+        
+        videoView.snp.makeConstraints { videoView in
+            videoView.edges.equalToSuperview()
+        }
+        
+        imageView.snp.makeConstraints { imageView in
+            imageView.edges.equalToSuperview()
+        }
         
         placeProfileView.snp.makeConstraints { placeProfileView in
-            placeProfileView.top.equalTo(contentOverlayView!.snp.centerY).offset(Metrics.tinyPadding)
+            placeProfileView.top.equalTo(view.snp.centerY).offset(Metrics.tinyPadding)
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
             placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
             placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding)
         }
     }
     
+    private func bindViewModel() {
+        viewModel.mediaUrlToShow.bind { [weak self] mediaToShow in
+            guard let mediaToShow = mediaToShow,
+            let downloadLink = mediaToShow.downloadLink else {
+                return
+            }
+            
+            if mediaToShow.isVideo() {
+                self?.showVideo(videoUrlString: downloadLink)
+            } else {
+                self?.showImage(imageUrlString: downloadLink)
+            }
+            
+        }
+    }
+    
+    private func showVideo(videoUrlString: String) {
+        guard let videoUrl = URL(string: videoUrlString) else {
+            return
+        }
+        imageView.isHidden = true
+        videoView.isHidden = false
+        videoView.configure(url: videoUrl)
+        videoView.play()
+    }
+    
+    private func showImage(imageUrlString: String) {
+        guard let imageUrl = URL(string: imageUrlString) else {
+            return
+        }
+        videoView.stop()
+        imageView.isHidden = false
+        videoView.isHidden = true
+        imageView.kf.setImage(with: imageUrl)
+    }
+    
     @objc func close() {
         viewModel.closePressed()
     }
-
-    @objc private func onResineActive() {
-        let isPlaying = player?.rate != 0 && player?.error == nil
-        if isPlaying == false {
-            player?.play()
-        }
+    
+    @objc func onLeftSwipe() {
+        viewModel.onLeft()
+    }
+    
+    @objc func onRightSwipe() {
+        viewModel.onRight()
     }
 }
 

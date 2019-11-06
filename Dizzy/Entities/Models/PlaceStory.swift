@@ -10,4 +10,8 @@ import UIKit
 
 struct PlaceStory: Codable {
     var downloadLink: String?
+    
+    public func isVideo() -> Bool {
+        return downloadLink?.contains(".mp4") ?? false
+    }
 }

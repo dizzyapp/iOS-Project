@@ -114,6 +114,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
 
         guard let presntingVC = self.discoveryVC,
             let activePlace = container?.resolve(ActivePlace.self),
+            let placesInteractor  = container?.resolve(PlacesInteractorType.self),
             let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
             place.profileVideoURL != nil  else {
                 print("could not create placeProfileCoordinator")
@@ -125,7 +126,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         }
         
         container?.register(PlaceProfileVMType.self) { _ in
-            PlaceProfileVM(placeInfo: place, activePlace: activePlace)
+            PlaceProfileVM(placeInfo: place, activePlace: activePlace, placesInteractor: placesInteractor)
         }
         
         placeProfileCoordinator.start()

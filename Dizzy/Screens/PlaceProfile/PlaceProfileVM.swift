@@ -11,6 +11,7 @@ import UIKit
 protocol PlaceProfileVMType {
     var placeInfo: PlaceInfo { get }
     var delegate: PlaceProfileVMDelegate? { get set }
+    var mediaUrlToShow: Observable<PlaceStory?> { get }
     
     func closePressed()
     func addressButtonPressed(view: PlaceProfileView)
@@ -18,6 +19,8 @@ protocol PlaceProfileVMType {
     func requestTableButtonPressed()
     func storyButtonPressed()
     func sholdShowStoryButton() -> Bool
+    func onLeft()
+    func onRight()
 }
 
 protocol PlaceProfileVMDelegate: class {
@@ -26,16 +29,24 @@ protocol PlaceProfileVMDelegate: class {
 }
 
 final class PlaceProfileVM: PlaceProfileVMType {
-   
+    var mediaUrlToShow = Observable<PlaceStory?>(nil)
     var placeInfo: PlaceInfo
     let activePlace: PlaceInfo?
+    let placesInteractor: PlacesInteractorType
+    var profileMedia = [PlaceStory]()
     weak var delegate: PlaceProfileVMDelegate?
     
     var externalNavigationProvider = ExternalNavigationProvider()
 
-    init(placeInfo: PlaceInfo, activePlace: ActivePlace) {
+    init(placeInfo: PlaceInfo, activePlace: ActivePlace, placesInteractor: PlacesInteractorType) {
         self.placeInfo = placeInfo
         self.activePlace = activePlace.activePlaceInfo
+        self.placesInteractor = placesInteractor
+        
+        placesInteractor.getProfileMedia(forPlaceId: placeInfo.id) { [weak self] profileMedia in
+            self?.profileMedia = profileMedia
+            self?.mediaUrlToShow.value = profileMedia[0]
+        }
     }
     
     func addressButtonPressed(view: PlaceProfileView) {
@@ -69,5 +80,23 @@ final class PlaceProfileVM: PlaceProfileVMType {
     
     func sholdShowStoryButton() -> Bool {
         return placeInfo.id == activePlace?.id
+    }
+    
+    func onLeft() {
+        
+    }
+    
+    func onRight() {
+        
+    }
+    
+    func getDisplayingMediaIndex() -> Int? {
+        guard let index = profileMedia.firstIndex(where: { placeMedia -> Bool in
+            return placeMedia.downloadLink == placeMedia.downloadLink
+        }) else {
+            return nil
+        }
+        
+        return index
     }
 }
