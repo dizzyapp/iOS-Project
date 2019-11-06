@@ -90,10 +90,10 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.h6()
+        titleLabel.font = Fonts.h6(weight: .bold)
         titleLabel.numberOfLines = 1
         titleLabel.textColor = UIColor(hexString: "4C69EF")
-        titleLabel.text = "Discover".localized
+        titleLabel.text = "DISCOVER".localized
     }
     
     private func setupPlacesCollectionView() {

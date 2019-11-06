@@ -91,7 +91,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
             subtitleLabel.leading.trailing.equalToSuperview()
         }
     }
-    
+
     private func layoutLoginSelectionView() {
         loginSelectionView.snp.makeConstraints { loginSelectionView in
             loginSelectionView.top.equalTo(subtitleLabel.snp.bottom)
@@ -153,7 +153,6 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     }
     
     private func setupNavigationView() {
-        self.navigationItem.title = "Login".localized
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
     }
     
@@ -165,8 +164,9 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.font = Fonts.h5()
-        titleLabel.text = "Menu".localized
+        titleLabel.font = Fonts.h7(weight: .bold)
+        titleLabel.textColor = .blue
+        titleLabel.text = "CONNECT".localized
     }
     
     private func setupSubtitleLabel() {

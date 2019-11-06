@@ -17,8 +17,8 @@ class LocationLabel: UIView {
     weak var delegate: LocationLabelDelegate?
     private let textLabel = UILabel()
     private let textLabelHorizontalPadding = CGFloat(4)
-    private let cornersRadius = CGFloat(13)
-    private let backgroundAlpha = CGFloat(0.5)
+    private let cornersRadius = CGFloat(16)
+    private let backgroundAlpha = CGFloat(0.9)
 
     init() {
         super.init(frame: CGRect.zero)
@@ -45,15 +45,15 @@ class LocationLabel: UIView {
     }
     
     private func setupView() {
-        self.backgroundColor = UIColor.black.withAlphaComponent(backgroundAlpha)
+        self.backgroundColor = UIColor.white.withAlphaComponent(backgroundAlpha)
         self.layer.cornerRadius = cornersRadius
         setupTextLabel()
     }
     
     private func setupTextLabel() {
         textLabel.numberOfLines = 1
-        textLabel.font = Fonts.h8()
-        textLabel.textColor = .white
+        textLabel.font = Fonts.h5()
+        textLabel.textColor = .blue
         textLabel.contentMode = .center
     }
 

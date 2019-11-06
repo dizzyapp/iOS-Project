@@ -21,7 +21,7 @@ class PlaceImageView: UIControl {
     }
 
     let backgroundImageInset: CGFloat = 4
-    
+   
     init() {
         super.init(frame: .zero)
         
