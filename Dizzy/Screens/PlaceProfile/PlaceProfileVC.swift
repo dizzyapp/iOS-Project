@@ -15,6 +15,7 @@ final class PlaceProfileVC: UIViewController {
     private let loadingView = DizzyLoadingView()
     private let videoView = VideoView()
     private let imageView = UIImageView()
+    private let swipesContainerView = UIView()
     private var placeProfileView = PlaceProfileView()
     
     private let viewModel: PlaceProfileVMType
@@ -51,11 +52,11 @@ final class PlaceProfileVC: UIViewController {
     private func addSwipeListeners() {
         let left = UISwipeGestureRecognizer(target : self, action : #selector(onLeftSwipe))
         left.direction = .left
-        self.view.addGestureRecognizer(left)
+        swipesContainerView.addGestureRecognizer(left)
         
         let right = UISwipeGestureRecognizer(target : self, action : #selector(onRightSwipe))
         right.direction = .right
-        self.view.addGestureRecognizer(right)
+        swipesContainerView.addGestureRecognizer(right)
     }
     
     private func setupNavigation() {
@@ -84,7 +85,7 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, imageView, videoView, placeProfileView])
+        view.addSubviews([loadingView, imageView, videoView, swipesContainerView, placeProfileView])
     }
     
     private func layoutViews() {
@@ -100,6 +101,10 @@ final class PlaceProfileVC: UIViewController {
             imageView.edges.equalToSuperview()
         }
         
+        swipesContainerView.snp.makeConstraints { swipesContainerView in
+            swipesContainerView.edges.equalToSuperview()
+        }
+        
         placeProfileView.snp.makeConstraints { placeProfileView in
             placeProfileView.top.equalTo(view.snp.centerY).offset(Metrics.tinyPadding)
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
@@ -109,7 +114,7 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.mediaUrlToShow.bind { [weak self] mediaToShow in
+        viewModel.mediaToShow.bind { [weak self] mediaToShow in
             guard let mediaToShow = mediaToShow,
             let downloadLink = mediaToShow.downloadLink else {
                 return
@@ -149,11 +154,11 @@ final class PlaceProfileVC: UIViewController {
     }
     
     @objc func onLeftSwipe() {
-        viewModel.onLeft()
+        viewModel.onSwipeLeft()
     }
     
     @objc func onRightSwipe() {
-        viewModel.onRight()
+        viewModel.onSwipeRight()
     }
 }
 

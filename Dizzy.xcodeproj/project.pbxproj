@@ -52,7 +52,7 @@
 		04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */; };
 		4D0705A122D15579009D6236 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07059E22D15579009D6236 /* Comment.swift */; };
 		4D0705A222D1557A009D6236 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07059F22D15579009D6236 /* PlaceInfo.swift */; };
-		4D0705A322D1557A009D6236 /* PlaceStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0705A022D15579009D6236 /* PlaceStory.swift */; };
+		4D0705A322D1557A009D6236 /* PlaceMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0705A022D15579009D6236 /* PlaceMedia.swift */; };
 		4D0705AB22D1558B009D6236 /* MapSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0705A522D1558B009D6236 /* MapSearchVC.swift */; };
 		4D0705AC22D1558B009D6236 /* MapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0705A622D1558B009D6236 /* MapCoordinator.swift */; };
 		4D0705AD22D1558B009D6236 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0705A722D1558B009D6236 /* MapVM.swift */; };
@@ -170,7 +170,7 @@
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		4D07059E22D15579009D6236 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4D07059F22D15579009D6236 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
-		4D0705A022D15579009D6236 /* PlaceStory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceStory.swift; sourceTree = "<group>"; };
+		4D0705A022D15579009D6236 /* PlaceMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMedia.swift; sourceTree = "<group>"; };
 		4D0705A522D1558B009D6236 /* MapSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSearchVC.swift; sourceTree = "<group>"; };
 		4D0705A622D1558B009D6236 /* MapCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCoordinator.swift; sourceTree = "<group>"; };
 		4D0705A722D1558B009D6236 /* MapVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 			children = (
 				4D07059E22D15579009D6236 /* Comment.swift */,
 				4D07059F22D15579009D6236 /* PlaceInfo.swift */,
-				4D0705A022D15579009D6236 /* PlaceStory.swift */,
+				4D0705A022D15579009D6236 /* PlaceMedia.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -845,7 +845,7 @@
 				4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */,
 				04B454F822CD315B001C7AD4 /* UploadStoryVC.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
-				4D0705A322D1557A009D6236 /* PlaceStory.swift in Sources */,
+				4D0705A322D1557A009D6236 /* PlaceMedia.swift in Sources */,
 				4D0705B622D155AB009D6236 /* CommentCell.swift in Sources */,
 				0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */,
 				4DDA117D22B58F9800CA0220 /* SignInDetailsView.swift in Sources */,

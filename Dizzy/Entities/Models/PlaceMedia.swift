@@ -1,5 +1,5 @@
 //
-//  PlaceStory.swift
+//  PlaceMedia.swift
 //  Dizzy
 //
 //  Created by stas berkman on 01/07/2019.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-struct PlaceStory: Codable {
+struct PlaceMedia: Codable {
     var downloadLink: String?
+    var timeStamp: Int?
     
     public func isVideo() -> Bool {
         return downloadLink?.contains(".mp4") ?? false
