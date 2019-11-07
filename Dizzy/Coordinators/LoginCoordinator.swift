@@ -40,6 +40,7 @@ final class LoginCoordinator: LoginCoordinatorType {
         let navigationController = loginVC.embdedInNavigationController().withTransparentStyle()
         navigationController.modalPresentationStyle = .overCurrentContext
         self.navigationController = navigationController
+        navigationController.modalPresentationStyle = .fullScreen
         self.presentingVC.present(navigationController, animated: true)
     }
    

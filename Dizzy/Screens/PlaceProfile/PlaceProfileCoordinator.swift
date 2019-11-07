@@ -40,6 +40,7 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType {
         viewModel.delegate = self
         let nvc = placeProfileVC.embdedInNavigationController().withTransparentStyle()
         navigationController = nvc
+        navigationController.modalPresentationStyle = .fullScreen
         presentingVC?.present(navigationController, animated: true)
     }
     
