@@ -49,9 +49,9 @@ final class MapVM: MapVMType, PlaceReservationRequestor {
     var zoom: Float {
         if currentLocation.value?.latitude == selectedLocation.value?.latitude &&
             currentLocation.value?.longitude == selectedLocation.value?.longitude {
-            return 13
+            return 15
         } else {
-            return 16
+            return 19
         }
     }
     
@@ -67,7 +67,6 @@ final class MapVM: MapVMType, PlaceReservationRequestor {
             guard let self = self else { return }
             if location != nil {
                 self.currentLocation.value = location
-                self.setMyPlaceMark()
             } else {
                 self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
             }
@@ -98,13 +97,6 @@ final class MapVM: MapVMType, PlaceReservationRequestor {
             let mark = Mark(title: place.name, snippet: place.description, location: place.location, displayView: placeImageView)
             return mark
         })
-    }
-    
-    private func setMyPlaceMark() {
-        if let currentLocation = currentLocation.value {
-           let mark = Mark(title: "Me".localized, snippet: "", location: currentLocation, displayView: nil)
-            marks.value = [mark]
-        }
     }
     
     func close() {

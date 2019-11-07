@@ -10,8 +10,12 @@ import Foundation
 import GoogleMaps
 
 protocol MapType: class {
+<<<<<<< HEAD
     var mapView: GMSMapView { get }
+=======
+    var mapView: UIView { get }
     var showUserLocation: Bool { get set }
+>>>>>>> feature(MapChanges):
     func changeMapFocus(_ center: Location, zoom: Float)
     func addMarks(_ marks: [Mark?])
 }
