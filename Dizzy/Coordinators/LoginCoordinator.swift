@@ -47,6 +47,11 @@ final class LoginCoordinator: LoginCoordinatorType {
 }
 
 extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate {
+    func userLoggedOut() {
+        container?.autoregister(DizzyUser.self, initializer: {
+            return DizzyUser.guestUser()
+        })
+    }
     
     func userLoggedIn(user: DizzyUser) {
         container?.autoregister(DizzyUser.self, initializer: {

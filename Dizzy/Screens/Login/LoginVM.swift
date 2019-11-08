@@ -29,6 +29,7 @@ protocol LoginVMType {
 protocol LoginVMNavigationDelegate: class {
     func navigateToSignUpScreen()
     func userLoggedIn(user: DizzyUser)
+    func userLoggedOut()
     func navigateToSignInScreen()
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen()
@@ -68,6 +69,7 @@ class LoginVM: LoginVMType {
     func logoutButtonPressed() {
         self.logoutInteractor.delegate = self
         self.logoutInteractor.logout()
+        navigationDelegate?.userLoggedOut()
     }
     
     func signUpButtonPressed() {

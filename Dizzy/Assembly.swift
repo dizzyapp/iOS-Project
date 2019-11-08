@@ -96,7 +96,7 @@ class Assembly {
         container.autoregister(InputValidator.self, initializer: InputValidator.init)
         container.autoregister(MyUserDefaultsType.self, initializer: MyUserDefaults.init).inObjectScope(.container)
         container.autoregister(DizzyUser.self) {
-            return DizzyUser(id: "", fullName: "", email: "", role: .guest, photoURL: nil)
+            return DizzyUser.guestUser()
         }
         
         container.autoregister(ActivePlace.self) {
