@@ -125,7 +125,7 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.mediaToShow.bind { [weak self] mediaToShow in
+        viewModel.mediaToShow.bind(shouldObserveIntial: true) { [weak self] mediaToShow in
             guard let mediaToShow = mediaToShow,
             let downloadLink = mediaToShow.downloadLink else {
                 return
