@@ -99,6 +99,7 @@ final class PlaceProfileVM: PlaceProfileVMType {
     func onSwipeLeft() {
         guard let displayingMediaIndex = getDisplayingMediaIndex(),
         displayingMediaIndex < profileMedia.count - 1 else {
+            mediaToShow.value = profileMedia.first
             return
         }
         
@@ -109,6 +110,7 @@ final class PlaceProfileVM: PlaceProfileVMType {
     func onSwipeRight() {
         guard let displayingMediaIndex = getDisplayingMediaIndex(),
             displayingMediaIndex > 0 else {
+                mediaToShow.value = profileMedia.last
                 return
         }
         

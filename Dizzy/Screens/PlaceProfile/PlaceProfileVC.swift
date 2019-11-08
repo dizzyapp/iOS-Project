@@ -23,6 +23,8 @@ final class PlaceProfileVC: UIViewController {
     let placeProfileViewCornerRadius = CGFloat(8)
     let placeProfileViewPadding = CGFloat(8)
     let placeProfileTopOffset = CGFloat(5)
+    
+    private var isFirstLoad = true
 
     init(viewModel: PlaceProfileVMType) {
         self.viewModel = viewModel
@@ -30,7 +32,6 @@ final class PlaceProfileVC: UIViewController {
         placeProfileView.configure(with: viewModel.placeInfo)
         placeProfileView.delegate = self
         addSubviews()
-        bindViewModel()
         layoutViews()
         setupView()
     }
@@ -47,6 +48,15 @@ final class PlaceProfileVC: UIViewController {
         setupImageView()
         setupVideoView()
         setupLoadingView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard isFirstLoad else {
+            return
+        }
+        bindViewModel()
+        isFirstLoad = false
     }
     
     private func addSwipeListeners() {
@@ -68,6 +78,7 @@ final class PlaceProfileVC: UIViewController {
     
     private func setupImageView() {
         imageView.isHidden = true
+        imageView.contentMode = .scaleAspectFill
     }
     
     private func setupVideoView() {
