@@ -21,6 +21,7 @@ protocol LoginVMType {
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
     var delegate: LoginVMDelegate? { get set }
+    var user: DizzyUser { get }
 
     func isUserLoggedIn() -> Bool
 }

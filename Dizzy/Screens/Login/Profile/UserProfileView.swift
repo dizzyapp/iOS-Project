@@ -15,8 +15,10 @@ class UserProfileView: UIView {
     let profileNameLabel = UILabel()
     
     let nameColor = UIColor.black.withAlphaComponent(0.53)
+    let user: DizzyUser
     
-    init() {
+    init(user: DizzyUser) {
+        self.user = user
         super.init(frame: CGRect.zero)
         addSubviews()
         layoutViews()
@@ -58,11 +60,12 @@ class UserProfileView: UIView {
     
     private func setupProfileImageView() {
         self.profileImageView.contentMode = .center
-        self.profileImageView.kf.setImage(with: URL(fileURLWithPath: ""), placeholder: Images.profilePlaceholderIcon())
+        
+        self.profileImageView.kf.setImage(with: user.photoURL  ?? URL(fileURLWithPath: ""), placeholder: Images.profilePlaceholderIcon())
     }
     
     private func setupProfileNameLabel() {
-        self.profileNameLabel.text = "Test User".localized
+        self.profileNameLabel.text = user.fullName
         self.profileNameLabel.textColor = nameColor
         self.profileNameLabel.font = Fonts.h6()
     }
