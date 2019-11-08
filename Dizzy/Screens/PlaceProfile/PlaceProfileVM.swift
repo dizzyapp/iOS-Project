@@ -11,6 +11,7 @@ import UIKit
 protocol PlaceProfileVMType {
     var placeInfo: PlaceInfo { get }
     var delegate: PlaceProfileVMDelegate? { get set }
+    var mediaToShow: Observable<PlaceMedia?> { get }
     
     func closePressed()
     func addressButtonPressed(view: PlaceProfileView)
@@ -18,6 +19,8 @@ protocol PlaceProfileVMType {
     func requestTableButtonPressed()
     func storyButtonPressed()
     func sholdShowStoryButton() -> Bool
+    func onSwipeLeft()
+    func onSwipeRight()
 }
 
 protocol PlaceProfileVMDelegate: class {
@@ -26,16 +29,38 @@ protocol PlaceProfileVMDelegate: class {
 }
 
 final class PlaceProfileVM: PlaceProfileVMType {
-   
+    var mediaToShow = Observable<PlaceMedia?>(nil)
     var placeInfo: PlaceInfo
     let activePlace: PlaceInfo?
+    let placesInteractor: PlacesInteractorType
+    var profileMedia = [PlaceMedia]()
     weak var delegate: PlaceProfileVMDelegate?
     
     var externalNavigationProvider = ExternalNavigationProvider()
 
-    init(placeInfo: PlaceInfo, activePlace: ActivePlace) {
+    init(placeInfo: PlaceInfo, activePlace: ActivePlace, placesInteractor: PlacesInteractorType) {
         self.placeInfo = placeInfo
         self.activePlace = activePlace.activePlaceInfo
+        self.placesInteractor = placesInteractor
+        
+        getProfileMedia()
+    }
+    
+    func getProfileMedia() {
+        placesInteractor.getProfileMedia(forPlaceId: placeInfo.id) { [weak self] profileMedia in
+            self?.sortProfileMedia(profileMedia: profileMedia)
+            self?.mediaToShow.value = self?.profileMedia[0]
+        }
+    }
+    
+    func sortProfileMedia(profileMedia: [PlaceMedia]) {
+        self.profileMedia = profileMedia.sorted(by: { (placeA, placeB) -> Bool in
+            guard let timeStampA = placeA.timeStamp,
+                let timeStampB = placeB.timeStamp else {
+                    return true
+            }
+            return timeStampA < timeStampB
+        })
     }
     
     func addressButtonPressed(view: PlaceProfileView) {
@@ -69,5 +94,36 @@ final class PlaceProfileVM: PlaceProfileVMType {
     
     func sholdShowStoryButton() -> Bool {
         return placeInfo.id == activePlace?.id
+    }
+    
+    func onSwipeLeft() {
+        guard let displayingMediaIndex = getDisplayingMediaIndex(),
+        displayingMediaIndex < profileMedia.count - 1 else {
+            mediaToShow.value = profileMedia.first
+            return
+        }
+        
+        mediaToShow.value = profileMedia[displayingMediaIndex + 1]
+        
+    }
+    
+    func onSwipeRight() {
+        guard let displayingMediaIndex = getDisplayingMediaIndex(),
+            displayingMediaIndex > 0 else {
+                mediaToShow.value = profileMedia.last
+                return
+        }
+        
+        mediaToShow.value = profileMedia[displayingMediaIndex - 1]
+    }
+    
+    func getDisplayingMediaIndex() -> Int? {
+        guard let index = profileMedia.firstIndex(where: { placeMedia -> Bool in
+            return placeMedia.downloadLink == self.mediaToShow.value?.downloadLink
+        }) else {
+            return nil
+        }
+        
+        return index
     }
 }

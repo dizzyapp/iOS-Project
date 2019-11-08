@@ -15,7 +15,7 @@ protocol StoriesInteractorType {
 }
 
 protocol StoriesInteractorDelegate: class {
-    func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceStory]?)
+    func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceMedia]?)
 }
 
 final class StoriesInteractor: StoriesInteractorType {
@@ -28,7 +28,7 @@ final class StoriesInteractor: StoriesInteractorType {
     }
     
     func getAllPlaceStories(with placeId: String) {
-        let resource = Resource<[PlaceStory], Bool>(path: "placeStoriesPerPlaceId/\(placeId)").withGet()
+        let resource = Resource<[PlaceMedia], Bool>(path: "placeStoriesPerPlaceId/\(placeId)").withGet()
         dispacher.load(resource) { [weak self] result in
             guard let self = self else { return }// todo:- add error handler
             switch result {

@@ -22,7 +22,7 @@ protocol PlaceStoryVMType {
     var currentImageURLString: Observable<String?> { get set }
     var delay: Double { get }
     var comments: Observable<[CommentWithWriter]> { get }
-    var stories: Observable<[PlaceStory]> { get }
+    var stories: Observable<[PlaceMedia]> { get }
     var delegate: PlaceStoryVMDelegate? { get set }
     var navigationDelegate: PlaceStoryVMNavigationDelegate? {get set}
     var place: PlaceInfo { get }
@@ -49,7 +49,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     var commentsInteractor: CommentsInteractorType
     var storiesInteractor: StoriesInteractorType
     var comments = Observable<[CommentWithWriter]>([CommentWithWriter]())
-    var stories = Observable<[PlaceStory]>([PlaceStory]())
+    var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
     let user: DizzyUser
     
@@ -137,7 +137,7 @@ extension PlaceStoryVM: CommentsInteractorDelegate {
 }
 
 extension PlaceStoryVM: StoriesInteractorDelegate {
-    func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceStory]?) {
+    func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceMedia]?) {
         if let stories = stories, !stories.isEmpty {
             self.stories.value = stories
             self.imagesURL = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }

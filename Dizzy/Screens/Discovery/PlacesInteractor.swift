@@ -15,6 +15,7 @@ protocol PlacesInteractorDelegate: class {
 protocol PlacesInteractorType {
     var delegate: PlacesInteractorDelegate? { get set }
     func getAllPlaces()
+    func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
 }
 
 class PlacesInteractor: PlacesInteractorType {
@@ -35,6 +36,18 @@ class PlacesInteractor: PlacesInteractorType {
                 print(error.localizedDescription)
             }
             
+        }
+    }
+    
+    public func getProfileMedia(forPlaceId placeId: String, completion: @escaping ([PlaceMedia]) -> Void) {
+         let placeMediaResource = Resource<[PlaceMedia], Bool>(path: "profileMediaPerPlaceId/\(placeId)").withGet()
+        webResourcesDispatcher.load(placeMediaResource) { result in
+            switch result {
+            case .success( let profileAllMedia):
+                completion(profileAllMedia)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 }
