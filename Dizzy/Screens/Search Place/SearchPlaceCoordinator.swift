@@ -40,6 +40,7 @@ final class SearchPlaceCoordinator: SearchPlaceCoordinatorType {
                 return
         }
         viewModel.delegate = self
+        searchVC.modalPresentationStyle = .fullScreen
         presentingViewController.present(searchVC, animated: false)
     }
 }

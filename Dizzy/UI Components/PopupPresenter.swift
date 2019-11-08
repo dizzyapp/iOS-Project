@@ -44,7 +44,7 @@ extension PopupPresenter where Self: UIViewController {
         for alertAction in alertActions {
             alertController.addAction(alertAction)
         }
-        
+        alertController.modalPresentationStyle = .fullScreen
         present(alertController, animated: true)
     }
     
