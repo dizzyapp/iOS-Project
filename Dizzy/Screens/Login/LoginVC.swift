@@ -18,7 +18,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     let subtitleLabel = UILabel()
     let loginSelectionView = LoginSelectionView()
     let appInfosView = AppInfosView()
-    let userProfileView = UserProfileView()
+    let userProfileView: UserProfileView
     
     let logoutButton: UIButton = UIButton(type: .system)
     
@@ -33,7 +33,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     
     init(loginVM: LoginVMType) {
         self.loginVM = loginVM
-        
+        self.userProfileView = UserProfileView(user: loginVM.user)
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .clear
         self.loginVM.delegate = self

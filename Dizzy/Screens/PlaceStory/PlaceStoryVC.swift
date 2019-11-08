@@ -33,6 +33,7 @@ final class PlaceStoryVC: ViewController {
     var areCommentsVisible = false
     var isKeyboardOpen = false
     var bottomBarHeight: CGFloat = 0
+    var isFirstLoad = true
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
@@ -49,6 +50,10 @@ final class PlaceStoryVC: ViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard isFirstLoad else {
+            return
+        }
         commentsViewTopConstraint?.update(offset: commentsView.frame.height - commentsViewTopOffset )
         view.layoutIfNeeded()
         UIView.animate(withDuration: 0.15) {
@@ -61,9 +66,8 @@ final class PlaceStoryVC: ViewController {
         if #available(iOS 11.0, *) {
             bottomBarHeight = view.safeAreaInsets.bottom
         }
-    }
-    
-    override func viewSafeAreaInsetsDidChange() {
+        
+        isFirstLoad = false
     }
     
     private func addSubviews() {
@@ -177,6 +181,10 @@ final class PlaceStoryVC: ViewController {
         }
     }
     
+    private func closeKeyboard() {
+        view.endEditing(true)
+    }
+    
     private func shoewImageView() {
         self.imageView.isHidden = false
         self.videoView.isHidden = true
@@ -184,10 +192,12 @@ final class PlaceStoryVC: ViewController {
     }
     
     @objc func didTapRight() {
+        closeKeyboard()
         viewModel.showNextImage()
     }
     
     @objc func didTapLeft() {
+        closeKeyboard()
         viewModel.showPrevImage()
     }
     
@@ -210,7 +220,8 @@ final class PlaceStoryVC: ViewController {
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard isKeyboardOpen,
+        let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
         let keyboardSize = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardSize.height
@@ -271,6 +282,7 @@ extension PlaceStoryVC: CommentTextFieldViewDelegate {
 
 extension PlaceStoryVC: PlaceStoryVMDelegate, PopupPresenter {
     func showPopupWithText(_ text: String, title: String) {
+        closeKeyboard()
         let action = Action(title: "Ok".localized)
         showPopup(with: title, message: text, actions: [action])
     }
