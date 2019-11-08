@@ -41,7 +41,7 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         addSwipeListeners()
         setupPlaceProfileView()
         setupNavigation()

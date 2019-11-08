@@ -30,7 +30,7 @@ final class PlaceProfileView: UIView {
 
     var placeInfo: PlaceInfo?
     var stackView = UIStackView()
-    let placeImageViewSize = CGFloat(65)
+    let placeImageViewSize = CGFloat(115)
     let backgroundViewCornerRadius = CGFloat(25)
     let backgroundImageOffset = CGFloat(40)
 
@@ -97,7 +97,7 @@ final class PlaceProfileView: UIView {
 
     private func layoutStackView() {
         stackView.snp.makeConstraints { stackView in
-            stackView.top.equalToSuperview().offset(Metrics.padding)
+            stackView.top.equalToSuperview().offset(Metrics.tinyPadding)
             stackView.leading.trailing.equalToSuperview()
             stackView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
         }
@@ -125,7 +125,7 @@ final class PlaceProfileView: UIView {
     }
 
     private func setupBackgroundView() {
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        backgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         backgroundView.layer.cornerRadius = backgroundViewCornerRadius
     }
 
@@ -141,34 +141,32 @@ final class PlaceProfileView: UIView {
 
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .white
+        titleLabel.textColor = .black
         titleLabel.font = Fonts.h1(weight: .bold)
     }
 
     private func setupDescriptionLabel() {
         descriptionLabel.textAlignment = .center
-        descriptionLabel.textColor = .white
-        descriptionLabel.font = Fonts.h10()
+        descriptionLabel.textColor = .black
+        descriptionLabel.font = Fonts.h8()
     }
 
     private func setupAddressButton() {
-        addressButton.setBackgroundImage(Images.addressBackgroundIcon(), for: .normal)
-        addressButton.setTitleColor(UIColor(hexString: "A7B0FF"), for: .normal)
-        addressButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: Metrics.doublePadding, bottom: 0.0, right: Metrics.doublePadding)
-        addressButton.titleLabel?.font = Fonts.h10()
+        addressButton.setTitleColor(UIColor.blue, for: .normal)
+        addressButton.titleLabel?.font = Fonts.h8(weight: .bold)
         addressButton.addTarget(self, action: #selector(addressButtonPressed), for: .touchUpInside)
     }
 
     private func setupOpenHoursLabel() {
         openHoursLabel.textAlignment = .center
-        openHoursLabel.textColor = .white
-        openHoursLabel.font = Fonts.h10()
+        openHoursLabel.textColor = .black
+        openHoursLabel.font = Fonts.h8()
     }
 
     private func setupAgeLabel() {
         ageLabel.textAlignment = .center
-        ageLabel.textColor = .white
-        ageLabel.font = Fonts.h5()
+        ageLabel.textColor = .black
+        ageLabel.font = Fonts.h4()
     }
 
     private func setupCallButton() {
@@ -178,9 +176,9 @@ final class PlaceProfileView: UIView {
 
     private func setupRequestTableButton() {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
-        requestTableButton.setTitle("Request a table".localized, for: .normal)
-        requestTableButton.setTitleColor(UIColor(hexString: "C2A7FF"), for: .normal)
-        requestTableButton.titleLabel?.font = Fonts.h10()
+        requestTableButton.setTitle("RESERVE".localized, for: .normal)
+        requestTableButton.setTitleColor(UIColor.white, for: .normal)
+        requestTableButton.titleLabel?.font = Fonts.h5(weight: .bold)
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
     

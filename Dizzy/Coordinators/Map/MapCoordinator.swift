@@ -44,6 +44,7 @@ final class MapCoordinator: MapCoordinatorType {
         viewModel.delegate = self
         let navigationController = mapVC.embdedInNavigationController().withTransparentStyle()
         self.navigationController = navigationController
+        navigationController.modalPresentationStyle = .fullScreen
         presentingViewController.present(navigationController, animated: true)
     }
 }

@@ -38,6 +38,7 @@ final class PlaceStoryCoordinator: PlaceStoryCoordinatorType {
         let nvc = placeStoryVC.embdedInNavigationController().withTransparentStyle()
         nvc.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController = nvc
+        nvc.modalPresentationStyle = .fullScreen
         presentingViewController.present(nvc, animated: true)
     }
 }

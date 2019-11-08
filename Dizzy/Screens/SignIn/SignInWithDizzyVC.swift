@@ -48,7 +48,7 @@ final class SignInWithDizzyVC: UIViewController, KeyboardDismissing, LoadingCont
     }
     
     private func setupNavigationView() {
-        self.navigationItem.title = "Sign In".localized
+        self.navigationItem.title = "".localized
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon(), style: .done, target: self, action: #selector(backButtonPressed))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))

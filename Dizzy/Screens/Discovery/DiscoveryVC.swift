@@ -19,7 +19,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     var viewModel: DiscoveryVMType
     let appStartVM: AppStartVMType
     
-    let nearByPlacesViewPadding = CGFloat(5)
+    let nearByPlacesViewPadding = CGFloat(0)
     let nearByPlacesViewHeightRatio = CGFloat(0.50)
     
     private var themeImageHeightConstraint: Constraint?
