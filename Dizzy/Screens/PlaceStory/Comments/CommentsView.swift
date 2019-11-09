@@ -44,7 +44,7 @@ final class CommentsView: UIView {
     private func setupViews() {
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         layer.cornerRadius = 20
-        backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        backgroundColor = UIColor.black.withAlphaComponent(0.25)
         setupTableView()
         setupVisabillityButton()
     }
@@ -59,7 +59,7 @@ final class CommentsView: UIView {
     }
     
     private func setupVisabillityButton() {
-        commentsVisabilityButton.setImage(Images.downArrowIcon(), for: .normal)
+        commentsVisabilityButton.setImage(Images.slideTab(), for: .normal)
         commentsVisabilityButton.addTarget(self, action: #selector(visabillityButtonPressed), for: .touchUpInside)
     }
     

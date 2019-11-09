@@ -40,17 +40,15 @@ class CommentsTextField: UIView {
     }
     
     private func setupSendButton() {
-        sendButton.titleLabel?.font = Fonts.h10()
-        sendButton.setTitleColor(.white, for: .normal)
-        sendButton.setTitle("Send".localized, for: .normal)
+        sendButton.titleLabel?.font = Fonts.h8(weight: .bold)
+        sendButton.setTitleColor(.systemBlue, for: .normal)
+        sendButton.setTitle("Post".localized, for: .normal)
         sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     
     private func setupTextField() {
         textField.textColor = UIColor.white
-        textField.font = Fonts.h8()
-        textField.attributedPlaceholder = NSAttributedString(string: "Comment...".localized,
-                                                             attributes: [.foregroundColor: UIColor.white])
+        textField.font = Fonts.h8(weight: .bold)
         textField.delegate = self
     }
     

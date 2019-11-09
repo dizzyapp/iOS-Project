@@ -10,13 +10,13 @@ import UIKit
 
 final class CommentCell: UITableViewCell {
     
-    let placeImageViewSize = CGFloat(50)
+    let userImageViewSize = CGFloat(37.5)
     
     let senderNameLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 1
         label.textColor = .white
-        label.font = Fonts.h5(weight: .bold)
+        label.font = Fonts.h8(weight: .bold)
         return label
     }()
     
@@ -24,7 +24,7 @@ final class CommentCell: UITableViewCell {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 4
         label.textColor = .white
-        label.font = Fonts.h6()
+        label.font = Fonts.h8()
         return label
     }()
     
@@ -44,7 +44,7 @@ final class CommentCell: UITableViewCell {
     
     func configure(with comment: CommentWithWriter) {
         messageLabel.text = comment.comment.value
-        senderPictureImageView.kf.setImage(with: comment.writer.photoURL, placeholder: Images.defaultPlaceAvatar())
+        senderPictureImageView.kf.setImage(with: comment.writer.photoURL, placeholder: Images.profilePlaceholderIcon())
         senderNameLabel.text = comment.writer.fullName
     }
     
@@ -54,7 +54,7 @@ final class CommentCell: UITableViewCell {
     
     private func setupImageView() {
         senderPictureImageView.clipsToBounds = true
-        senderPictureImageView.layer.cornerRadius = placeImageViewSize / 2
+        senderPictureImageView.layer.cornerRadius = userImageViewSize / 2
     }
     
     private func addSubViews() {
@@ -64,8 +64,8 @@ final class CommentCell: UITableViewCell {
     private func layoutSubViews() {
         
         senderPictureImageView.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview().offset(Metrics.mediumPadding)
-            make.width.height.equalTo(placeImageViewSize)
+            make.leading.top.equalToSuperview().offset(Metrics.doublePadding)
+            make.width.height.equalTo(userImageViewSize)
         }
         
         senderNameLabel.snp.makeConstraints { make in
@@ -75,7 +75,7 @@ final class CommentCell: UITableViewCell {
         }
         
         messageLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(40)
+            make.bottom.equalToSuperview()
             make.top.equalTo(senderNameLabel.snp.bottom).offset(Metrics.tinyPadding)
             make.trailing.leading.equalTo(senderNameLabel)
         }
