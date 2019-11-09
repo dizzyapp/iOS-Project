@@ -9,7 +9,7 @@
 import UIKit
 
 class DizzyPopup: UIView {
-    
+    private let popupContainer = UIView()
     private let imageView = PlaceImageView()
     private let messageLabel = UILabel()
     private let approveButton = UIButton(type: .system)
@@ -33,22 +33,43 @@ class DizzyPopup: UIView {
         addSubviews()
         layoutViews()
         setupViews()
+        observeWhenAppGoesToBackground()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func observeWhenAppGoesToBackground() {
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc func willResignActive(_ notification: Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.removeFromSuperview()
+        }
+    }
+    
     private func addSubviews() {
-        self.addSubviews([backgroundView, messageLabel, approveButton, cancelButton, imageView])
+        self.addSubview(popupContainer)
+        self.popupContainer.addSubviews([backgroundView, messageLabel, approveButton, cancelButton, imageView])
     }
     
     private func layoutViews() {
+        layoutPopupContainer()
         layoutImageView()
         layoutMessageLabel()
         layoutApproveButton()
         layoutCancelButton()
         layoutBackgroundView()
+    }
+    
+    private func layoutPopupContainer() {
+        popupContainer.snp.makeConstraints { popupContainer in
+            popupContainer.centerY .equalToSuperview()
+            popupContainer.leading.equalToSuperview().offset(Metrics.doublePadding)
+            popupContainer.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+        }
     }
     
     private func layoutImageView() {
@@ -94,7 +115,7 @@ class DizzyPopup: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .clear
+        backgroundColor = UIColor.clear.withAlphaComponent(0.5)
         setupImageView()
         setupMessageLabel()
         setupApproveButton()
@@ -140,11 +161,21 @@ class DizzyPopup: UIView {
         backgroundView.layer.cornerRadius = buttonsCornerRadius
     }
     
+    private func hidePopup() {
+        DispatchQueue.main.async {
+            self.isHidden = true
+        }
+    }
+    
     @objc private func onApprove() {
+        hidePopup()
         onOk?()
+        self.removeFromSuperview()
     }
     
     @objc private func onDecline() {
+        hidePopup()
         onCancel?()
+        self.removeFromSuperview()
     }
 }
