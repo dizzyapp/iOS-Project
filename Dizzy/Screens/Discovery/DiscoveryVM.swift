@@ -18,6 +18,7 @@ protocol DiscoveryVMType {
     
     func userApprovedHeIsIn(place activePlace: PlaceInfo)
     func userDeclinedHeIsInPlace()
+    func checkClosestPlace()
     
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryVMDelegate? { get set }
@@ -132,7 +133,7 @@ class DiscoveryVM: DiscoveryVMType {
         locationProvider.requestUserLocation()
     }
     
-    private func checkClosestPlace() {
+    func checkClosestPlace() {
         guard let currentLocation = currentLocation.value,
             !allPlaces.isEmpty else {
             return
@@ -162,7 +163,6 @@ extension DiscoveryVM: PlacesInteractorDelegate {
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
         sortAllPlacesByDistance()
-        checkClosestPlace()
         delegate?.allPlacesArrived()
     }
 }

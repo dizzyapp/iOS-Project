@@ -185,6 +185,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
                 return
             }
             self.showNewrByPlacesWithAnimation()
+            self.viewModel.checkClosestPlace()
         })
     }
 }
