@@ -32,7 +32,7 @@ protocol LoginVMNavigationDelegate: class {
     func userLoggedOut()
     func navigateToSignInScreen()
     func navigateToAppInfoScreen(type: AppInfoType)
-    func navigateToAdminScreen()
+    func navigateToAdminScreen(with user: DizzyUser)
     func closePressed()
 }
 
@@ -79,7 +79,7 @@ class LoginVM: LoginVMType {
     func loginWithDizzyButtonPressed() {
         self.navigationDelegate?.navigateToSignInScreen()
     }
-    
+
     func loginWithFacebookButtonPressed(presentedVC: UIViewController) {
         self.signInInteractor.delegate = self
         self.signInInteractor.signInWithFacebook(presentedVC: presentedVC)
@@ -90,7 +90,7 @@ class LoginVM: LoginVMType {
     }
     
     func enterAsAdminButtonPressed() {
-        self.navigationDelegate?.navigateToAdminScreen()
+        self.navigationDelegate?.navigateToAdminScreen(with: user)
     }
     
     private func isLoggedInViaFacebook() -> Bool {

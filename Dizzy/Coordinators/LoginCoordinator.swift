@@ -20,13 +20,15 @@ final class LoginCoordinator: LoginCoordinatorType {
     var childCoordinators = [CoordinatorKey : Coordinator]()
     var navigationController = UINavigationController()
     var presentingVC: UIViewController
+    let allPlaces: [PlaceInfo]
     
     var onCoordinatorFinished: () -> Void = { }
 
-    init(container: Container, presentingVC: UIViewController) {
+    init(container: Container, presentingVC: UIViewController, allPlaces: [PlaceInfo]) {
         self.container = container
         self.presentingVC = presentingVC
         navigationController = UINavigationController()
+        self.allPlaces = allPlaces
     }
     
     func start() {
@@ -93,7 +95,22 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
         
     }
     
-    func navigateToAdminScreen() {
+    func navigateToAdminScreen(with user: DizzyUser) {
+        guard let adminSettingsCoordinator = container?.resolve(AdminSettingsCoordinatorType.self, argument: navigationController),
+            let placesIdsPerUserIdIndicator = container?.resolve(PlacesIdPerUserIdInteractorType.self) else {
+            print("could not create adminSettingsCoordinator page")
+            return
+        }
         
+        container?.register(AdminPlacesVMType.self) { _ in
+            AdminPlacesVM(placesIdsPerUserIdInteractor: placesIdsPerUserIdIndicator, user: user, allPlaces: self.allPlaces)
+        }
+        
+        adminSettingsCoordinator.onAdminSettingsCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .adminSettings)
+        }
+        
+        adminSettingsCoordinator.start()
+        add(coordinator: adminSettingsCoordinator, for: .adminSettings)
     }
 }

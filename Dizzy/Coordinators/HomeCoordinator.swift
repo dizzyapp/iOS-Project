@@ -82,7 +82,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         container?.register(MapVMType.self) { _ in
             MapVM(places: places, locationProvider: location)
         }
-
+                
         container?.register(PlaceSearchVMType.self, factory: { _ in
             PlaceSearchVM(places: places, locationProvider: location)
         })
@@ -95,9 +95,9 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         add(coordinator: coordinator, for: .map)
     }
     
-    func menuButtonPressed() {
+    func menuButtonPressed(with places: [PlaceInfo]) {
         guard let presentingVC = self.discoveryVC,
-            let coordinator = container?.resolve(LoginCoordinatorType.self, argument: presentingVC as UIViewController) else {
+            let coordinator = container?.resolve(LoginCoordinatorType.self, arguments: presentingVC as UIViewController, places) else {
             print("could not create LoginCoordinator")
             return
         }

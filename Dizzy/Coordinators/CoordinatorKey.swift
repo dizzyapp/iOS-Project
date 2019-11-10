@@ -18,4 +18,5 @@ enum CoordinatorKey {
     case placeStory
     case placeSearch
     case uploadStory
+    case adminSettings
 }

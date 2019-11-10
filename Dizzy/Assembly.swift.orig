@@ -99,7 +99,11 @@ class Assembly {
         container.autoregister(InputValidator.self, initializer: InputValidator.init)
         container.autoregister(MyUserDefaultsType.self, initializer: MyUserDefaults.init).inObjectScope(.container)
         container.autoregister(DizzyUser.self) {
+<<<<<<< HEAD
             return DizzyUser.guestUser()
+=======
+            return DizzyUser(id: "", fullName: "", email: "", role: .guest, photoURL: nil, ownPlacesIds: [String: String]())
+>>>>>>> Feature(Admin-Settings): added admin places view controller.
         }
         
         container.autoregister(ActivePlace.self) {

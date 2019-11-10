@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */; };
 		0415EC39225E6086009BCBC7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC38225E6086009BCBC7 /* Observable.swift */; };
+		041724B42378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B32378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift */; };
+		041724B62378545C00E0A5D9 /* AdminPlacesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */; };
+		041724B82378546800E0A5D9 /* AdminPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B72378546800E0A5D9 /* AdminPlacesVC.swift */; };
+		041724BB237856BA00E0A5D9 /* AdminSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724BA237856BA00E0A5D9 /* AdminSettingsCoordinator.swift */; };
+		041724BD23787A8A00E0A5D9 /* CardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724BC23787A8A00E0A5D9 /* CardVC.swift */; };
+		041724BF2378850800E0A5D9 /* PlaceId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724BE2378850800E0A5D9 /* PlaceId.swift */; };
+		041724C123788F4500E0A5D9 /* UserPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724C023788F4500E0A5D9 /* UserPlaceCell.swift */; };
 		041D95C32253D733009ED7AB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C22253D733009ED7AB /* WebService.swift */; };
 		041D95C52253D84F009ED7AB /* WebResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C42253D84F009ED7AB /* WebResource.swift */; };
 		044B406A22CD37080061388C /* PopupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044B406922CD37080061388C /* PopupPresenter.swift */; };
@@ -129,6 +136,13 @@
 /* Begin PBXFileReference section */
 		0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		0415EC38225E6086009BCBC7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		041724B32378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesIdPerUserIdInteractor.swift; sourceTree = "<group>"; };
+		041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPlacesVM.swift; sourceTree = "<group>"; };
+		041724B72378546800E0A5D9 /* AdminPlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPlacesVC.swift; sourceTree = "<group>"; };
+		041724BA237856BA00E0A5D9 /* AdminSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsCoordinator.swift; sourceTree = "<group>"; };
+		041724BC23787A8A00E0A5D9 /* CardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardVC.swift; sourceTree = "<group>"; };
+		041724BE2378850800E0A5D9 /* PlaceId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceId.swift; sourceTree = "<group>"; };
+		041724C023788F4500E0A5D9 /* UserPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlaceCell.swift; sourceTree = "<group>"; };
 		041D95C22253D733009ED7AB /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		041D95C42253D84F009ED7AB /* WebResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResource.swift; sourceTree = "<group>"; };
 		044B406922CD37080061388C /* PopupPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPresenter.swift; sourceTree = "<group>"; };
@@ -262,13 +276,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0415EC31225E57D5009BCBC7 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
 		041D95C12253D702009ED7AB /* Web Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +288,17 @@
 				4DA64E9722C4067B001D5A1A /* LogoutWebService.swift */,
 			);
 			path = "Web Service";
+			sourceTree = "<group>";
+		};
+		044AFCD42374AEFE0078DF2C /* AdminSettings */ = {
+			isa = PBXGroup;
+			children = (
+				041724BA237856BA00E0A5D9 /* AdminSettingsCoordinator.swift */,
+				041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */,
+				041724B72378546800E0A5D9 /* AdminPlacesVC.swift */,
+				041724C023788F4500E0A5D9 /* UserPlaceCell.swift */,
+			);
+			path = AdminSettings;
 			sourceTree = "<group>";
 		};
 		0470E6AB2270B2DF00267278 /* GoogleMap */ = {
@@ -334,6 +352,7 @@
 				77611A3C23644B8A00DB04F9 /* DizzyPopup.swift */,
 				776210D523785B4600D85F9D /* PlaceInfoView.swift */,
 				776210D72379F1EE00D85F9D /* PlaceReservationRequestor.swift */,
+				041724BC23787A8A00E0A5D9 /* CardVC.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -366,6 +385,7 @@
 			children = (
 				04B4550322CD3423001C7AD4 /* GooglePlaceInteractor.swift */,
 				04B4550422CD3423001C7AD4 /* UploadFileInteractor.swift */,
+				041724B32378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -386,7 +406,9 @@
 			children = (
 				4D07059E22D15579009D6236 /* Comment.swift */,
 				4D07059F22D15579009D6236 /* PlaceInfo.swift */,
+				4D0705A022D15579009D6236 /* PlaceStory.swift */,
 				4D0705A022D15579009D6236 /* PlaceMedia.swift */,
+				041724BE2378850800E0A5D9 /* PlaceId.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -552,11 +574,11 @@
 		76B41ECE225229DB00C1A290 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				044AFCD42374AEFE0078DF2C /* AdminSettings */,
 				04B454F122CD315B001C7AD4 /* UploadStory */,
 				4D645E9C22B0423A00016EF7 /* Login */,
 				04E7808422B0274900A9E3F4 /* PlaceProfile */,
 				76B41ED4225230B400C1A290 /* Conversations */,
-				0415EC31225E57D5009BCBC7 /* Map */,
 				04A6308022D10E9300CA5331 /* Search Place */,
 				76B41ECF225229EA00C1A290 /* Discovery */,
 				0487FF8F228EB40200A8683C /* PlaceStory */,
@@ -796,6 +818,7 @@
 			files = (
 				77AD08AE22B16DD8004F8588 /* SignUpInteractor.swift in Sources */,
 				04D0CD70225A96E00020DF8F /* ViewController.swift in Sources */,
+				041724C123788F4500E0A5D9 /* UserPlaceCell.swift in Sources */,
 				4DA64E9622C4041F001D5A1A /* LogoutInteractor.swift in Sources */,
 				76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */,
 				04D0CCF8225732220020DF8F /* WebServiceDispatcher.swift in Sources */,
@@ -822,12 +845,14 @@
 				0487FF9C228EB40200A8683C /* PlaceStoryVC.swift in Sources */,
 				04B4550622CD3423001C7AD4 /* UploadFileInteractor.swift in Sources */,
 				4D645EA322B0423B00016EF7 /* LoginVC.swift in Sources */,
+				041724BB237856BA00E0A5D9 /* AdminSettingsCoordinator.swift in Sources */,
 				4DDA117E22B58F9800CA0220 /* SignInInteractor.swift in Sources */,
 				0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
 				4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */,
 				4D0705AB22D1558B009D6236 /* MapSearchVC.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
+				041724BD23787A8A00E0A5D9 /* CardVC.swift in Sources */,
 				04E7808A22B0274900A9E3F4 /* PlaceProfileVM.swift in Sources */,
 				76B41ED122522A1700C1A290 /* DiscoveryVC.swift in Sources */,
 				770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */,
@@ -844,6 +869,7 @@
 				04B454F922CD315B001C7AD4 /* UploadStoryCoordinator.swift in Sources */,
 				04B454FD22CD337F001C7AD4 /* CameraSessionController.swift in Sources */,
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
+				041724BF2378850800E0A5D9 /* PlaceId.swift in Sources */,
 				4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */,
 				04B454FB22CD315B001C7AD4 /* MediaPresenterVM.swift in Sources */,
 				04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */,
@@ -881,6 +907,7 @@
 				4D0705A122D15579009D6236 /* Comment.swift in Sources */,
 				04E7808922B0274900A9E3F4 /* PlaceProfileVC.swift in Sources */,
 				77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */,
+				041724B82378546800E0A5D9 /* AdminPlacesVC.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
 				4DA64E9A22C7F99B001D5A1A /* PlaceImageView.swift in Sources */,
 				4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */,
@@ -905,6 +932,8 @@
 				77611A3D23644B8A00DB04F9 /* DizzyPopup.swift in Sources */,
 				04E7808C22B0274900A9E3F4 /* PlaceProfileView.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
+				041724B42378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift in Sources */,
+				041724B62378545C00E0A5D9 /* AdminPlacesVM.swift in Sources */,
 				0470E6B72270B32600267278 /* PlaceSearchVM.swift in Sources */,
 				77DAA9A423033CA6003EDC3E /* CommentsTextField.swift in Sources */,
 			);
