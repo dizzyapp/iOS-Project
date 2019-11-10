@@ -115,12 +115,22 @@ class DizzyPopup: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = UIColor.clear.withAlphaComponent(0.5)
+        setupBlurEffect()
         setupImageView()
         setupMessageLabel()
         setupApproveButton()
         setupCancelButton()
         setupBackgroundView()
+    }
+    
+    private func setupBlurEffect() {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.backgroundColor = .clear
+        blurEffectView.alpha = 0.7
+        self.insertSubview(blurEffectView, at: 0)
     }
     
     private func setupImageView() {
