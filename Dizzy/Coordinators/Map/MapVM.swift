@@ -17,6 +17,7 @@ protocol MapVMType {
 
     var delegate: MapVMDelegate? { get set }
     
+    func getPlaceInfo(byLocation location: Location) -> PlaceInfo?
     func searchButtonPressed()
     func didSelect(place: PlaceInfo)
     func resetMapToInitialState()
@@ -117,5 +118,13 @@ final class MapVM: MapVMType {
     func resetMapToInitialState() {
         selectedLocation.value = currentLocation.value
         getCurrentAddress()
+    }
+    
+    func getPlaceInfo(byLocation location: Location) -> PlaceInfo? {
+        let placesForLocation = places.filter { placeInfo -> Bool in
+            return placeInfo.location.latitude == location.latitude && placeInfo.location.longitude == location.longitude
+        }
+        
+        return placesForLocation.first
     }
 }

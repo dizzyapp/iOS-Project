@@ -108,6 +108,7 @@
 		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
 		7752953522CD3F0E009A85C1 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752953422CD3F0E009A85C1 /* VideoView.swift */; };
 		77611A3D23644B8A00DB04F9 /* DizzyPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77611A3C23644B8A00DB04F9 /* DizzyPopup.swift */; };
+		776210D623785B4600D85F9D /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776210D523785B4600D85F9D /* PlaceInfoView.swift */; };
 		7762328D22D14EE900156DC7 /* dizzySplash.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7762328C22D14EE900156DC7 /* dizzySplash.mp4 */; };
 		7762328F22D15C1300156DC7 /* DizzyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7762328E22D15C1300156DC7 /* DizzyLoadingView.swift */; };
 		77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */; };
@@ -227,6 +228,7 @@
 		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
 		7752953422CD3F0E009A85C1 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		77611A3C23644B8A00DB04F9 /* DizzyPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DizzyPopup.swift; sourceTree = "<group>"; };
+		776210D523785B4600D85F9D /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
 		7762328C22D14EE900156DC7 /* dizzySplash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dizzySplash.mp4; sourceTree = "<group>"; };
 		7762328E22D15C1300156DC7 /* DizzyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DizzyLoadingView.swift; sourceTree = "<group>"; };
 		77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVC.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				7762328E22D15C1300156DC7 /* DizzyLoadingView.swift */,
 				77DAA9A323033CA6003EDC3E /* CommentsTextField.swift */,
 				77611A3C23644B8A00DB04F9 /* DizzyPopup.swift */,
+				776210D523785B4600D85F9D /* PlaceInfoView.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
 				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,
+				776210D623785B4600D85F9D /* PlaceInfoView.swift in Sources */,
 				77611A3D23644B8A00DB04F9 /* DizzyPopup.swift in Sources */,
 				04E7808C22B0274900A9E3F4 /* PlaceProfileView.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
