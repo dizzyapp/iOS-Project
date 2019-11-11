@@ -78,8 +78,8 @@ final class CommentTextFieldView: UIView {
     }
     
     private func setupTextField() {
-        textField.setBorder(borderColor: UIColor.white, cornerRadius: 18)
-        textField.layer.borderWidth = 1.5
+        textField.setBorder(borderColor: UIColor.white.withAlphaComponent(0.5), cornerRadius: 18)
+        textField.layer.borderWidth = 1
         textField.delegate = self
     }
 }

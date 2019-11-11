@@ -43,7 +43,6 @@ final class PlaceStoryVC: ViewController {
         layoutViews()
         setupViews()
         bindViewModel()
-        view.backgroundColor = .black
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -139,6 +138,7 @@ final class PlaceStoryVC: ViewController {
         setupGestureView()
         setupCommentsView()
         setupCommentsTextField()
+        view.backgroundColor = .black
     }
     
     private func setupLoadingView() {

@@ -34,14 +34,14 @@ class CommentsTextField: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .clear
+        backgroundColor = UIColor.black.withAlphaComponent(0.382)
         setupSendButton()
         setupTextField()
     }
     
     private func setupSendButton() {
-        sendButton.titleLabel?.font = Fonts.h8(weight: .bold)
-        sendButton.setTitleColor(.systemBlue, for: .normal)
+        sendButton.titleLabel?.font = Fonts.h6(weight: .bold)
+        sendButton.setTitleColor(.blue, for: .normal)
         sendButton.setTitle("Post".localized, for: .normal)
         sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
@@ -74,7 +74,7 @@ class CommentsTextField: UIView {
     private func layoutSendButton() {
         sendButton.snp.makeConstraints { sendButton in
             sendButton.top.bottom.equalToSuperview()
-            sendButton.trailing.equalToSuperview().offset(-Metrics.padding)
+            sendButton.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
         }
         
         sendButton.setContentCompressionResistancePriority(UILayoutPriority(900), for: .horizontal)
