@@ -29,7 +29,7 @@ final class PlaceStoryVC: ViewController {
     
     var commentsViewTopConstraint: Constraint?
     var commentsTextInputViewBottomConstraint: Constraint?
-    let commentsViewTopOffset: CGFloat = 13
+    let commentsViewTopOffset: CGFloat = 10
     var areCommentsVisible = false
     var isKeyboardOpen = false
     var bottomBarHeight: CGFloat = 0
@@ -119,9 +119,9 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func setupNavigation() {
-        let closeButton = UIButton().smallRoundedBlackButton
+        let closeButton = UIButton()
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
-        closeButton.setImage(Images.downArrowIcon(), for: .normal)
+        closeButton.setImage(Images.exitStoryButton(), for: .normal)
         let closeBarButton = UIBarButtonItem(customView: closeButton)
         navigationItem.rightBarButtonItem = closeBarButton
         
@@ -138,6 +138,7 @@ final class PlaceStoryVC: ViewController {
         setupGestureView()
         setupCommentsView()
         setupCommentsTextField()
+        view.backgroundColor = .black
     }
     
     private func setupLoadingView() {
@@ -161,7 +162,7 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func setupBottomBackgroundView() {
-        bottomBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        bottomBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
         bottomBackgroundView.alpha = 0
     }
     

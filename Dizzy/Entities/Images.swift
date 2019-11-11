@@ -54,6 +54,14 @@ struct Images {
         return UIImage(named: "downArrowIcon")!
     }
     
+    static func exitStoryButton() -> UIImage {
+           return UIImage(named: "exitStoryButton")!
+    }
+    
+    static func slideTab() -> UIImage {
+            return UIImage(named: "slideTab")!
+    }
+    
     static func loginIcon() -> UIImage {
         return UIImage(named: "loginIcon")!
     }

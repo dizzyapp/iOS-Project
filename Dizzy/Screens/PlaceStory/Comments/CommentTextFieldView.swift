@@ -29,7 +29,7 @@ final class CommentTextFieldView: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        backgroundColor = UIColor.black.withAlphaComponent(0.25)
         addSubviews()
         layoutViews()
         setupViews()
@@ -51,7 +51,8 @@ final class CommentTextFieldView: UIView {
     private func layoutProfileImageView() {
         profileImageView.snp.makeConstraints { (profileImageView) in
             profileImageView.leading.equalToSuperview().offset(Metrics.doublePadding)
-            profileImageView.bottom.top.equalToSuperview()
+            profileImageView.top.equalToSuperview()
+            profileImageView.bottom.equalToSuperview().offset(-Metrics.padding)
         }
         
         profileImageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -77,7 +78,8 @@ final class CommentTextFieldView: UIView {
     }
     
     private func setupTextField() {
-        textField.setBorder(borderColor: UIColor(hexString: "A7B0FF"), cornerRadius: 20)
+        textField.setBorder(borderColor: UIColor.white.withAlphaComponent(0.5), cornerRadius: 18)
+        textField.layer.borderWidth = 1
         textField.delegate = self
     }
 }
