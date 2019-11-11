@@ -40,20 +40,18 @@ class DizzyLoadingView: UIView {
     }
     
     func startLoadingAnimation() {
-        makeLogoSpin()
-        Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(makeLogoSpin), userInfo: nil, repeats: true)
+        changeLogoVisibility()
+        Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(changeLogoVisibility), userInfo: nil, repeats: true)
     }
     
     func stopLoadingAnimation() {
         Timer.cancelPreviousPerformRequests(withTarget: stopLoadingAnimation)
     }
     
-    @objc func makeLogoSpin() {
-       UIView.animate(withDuration: 1) { () -> Void in
-                   self.loadingIcon.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-               }
-               UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: { () -> Void in
-                 self.loadingIcon.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2.0)
-               }, completion: nil)
+    @objc func changeLogoVisibility() {
+          UIView.animate(withDuration: 2.0) {
+                self.loadingIcon.alpha = 1 - self.loadingIcon.alpha
+                self.layoutIfNeeded()
+        }
     }
 }
