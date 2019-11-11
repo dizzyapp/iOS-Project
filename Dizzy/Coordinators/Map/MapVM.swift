@@ -21,12 +21,16 @@ protocol MapVMType {
     func searchButtonPressed()
     func didSelect(place: PlaceInfo)
     func resetMapToInitialState()
+    func placeIconPressed(_ placeInfo: PlaceInfo)
+    func placeDetailsPressed(_ placeInfo: PlaceInfo)
     func close()
 }
 
 protocol MapVMDelegate: class {
     func searchButtonPressed()
     func closeButtonPressed()
+    func placeIconPressed(_ placeInfo: PlaceInfo)
+    func placeDetailsPressed(_ placeInfo: PlaceInfo)
 }
 
 final class MapVM: MapVMType {
@@ -126,5 +130,13 @@ final class MapVM: MapVMType {
         }
         
         return placesForLocation.first
+    }
+    
+    func placeIconPressed(_ placeInfo: PlaceInfo) {
+        delegate?.placeIconPressed(placeInfo)
+    }
+    
+    func placeDetailsPressed(_ placeInfo: PlaceInfo) {
+        delegate?.placeDetailsPressed(placeInfo)
     }
 }

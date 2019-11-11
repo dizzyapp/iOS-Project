@@ -59,6 +59,7 @@ class MapVC: ViewController {
     private func setupPlaceInfoView() {
         placeInfoView.alpha = 0
         placeInfoView.layer.cornerRadius = 15
+        placeInfoView.delegate = self
     }
     
     private func layoutSubviews() {
@@ -162,5 +163,16 @@ extension MapVC: GMSMapViewDelegate {
     
     private func isPlaceInfoViewHidden() -> Bool {
         return placeInfoView.alpha == 0
+    }
+}
+
+extension MapVC: PlaceInfoViewDelegate {
+    
+    func placeInfoViewDidPressDetails(_ placeInfo: PlaceInfo) {
+        viewModel.placeDetailsPressed(placeInfo)
+    }
+    
+    func placeInfoViewDidPressIcon(_ placeInfo: PlaceInfo) {
+        viewModel.placeIconPressed(placeInfo)
     }
 }

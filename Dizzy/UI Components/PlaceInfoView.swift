@@ -11,8 +11,8 @@ import SnapKit
 import Kingfisher
 
 protocol PlaceInfoViewDelegate: class {
-    func placeInfoViewDidPressDetails()
-    func placeInfoViewDidPressIcon()
+    func placeInfoViewDidPressDetails(_ placeInfo: PlaceInfo)
+    func placeInfoViewDidPressIcon(_ placeInfo: PlaceInfo)
 }
 
 class PlaceInfoView: UIView {
@@ -27,6 +27,8 @@ class PlaceInfoView: UIView {
     let smallLabelsFontSize = CGFloat(9)
     let placeImageViewSize = CGFloat(45)
     let reservationButtonHeight = CGFloat(25)
+    
+    var placeInfo: PlaceInfo?
     
     weak var delegate: PlaceInfoViewDelegate?
     
@@ -70,6 +72,7 @@ class PlaceInfoView: UIView {
             placeDetailsStackView.top.bottom.equalTo(placeImageView)
             placeDetailsStackView.leading.equalTo(placeImageView.snp.trailing).offset(stackViewTrailingPadding)
             placeDetailsStackView.trailing.equalTo(reservationButton.snp.leading)
+            placeDetailsStackView.height.equalTo(120)
         }
     }
     
@@ -101,6 +104,13 @@ class PlaceInfoView: UIView {
         placeDetailsStackView.distribution = .equalSpacing
         placeDetailsStackView.contentMode = .center
         placeDetailsStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressDetails)))
+        
+        let button = UIButton(type: .system)
+        addSubview(button)
+        button.snp.makeConstraints { button in
+            button.edges.equalTo(placeDetailsStackView.snp.edges)
+        }
+        button.addTarget(self, action: #selector(didPressDetails), for: .touchUpInside)
     }
     
     private func setupLabels() {
@@ -132,6 +142,7 @@ class PlaceInfoView: UIView {
     }
     
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
+        self.placeInfo = placeInfo
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description
         if let imageURL = URL(string: placeInfo.imageURLString ?? "") {
@@ -146,14 +157,16 @@ class PlaceInfoView: UIView {
     }
     
     @objc func didPressDetails() {
-        delegate?.placeInfoViewDidPressDetails()
+        guard let placeInfo = self.placeInfo else { return }
+        delegate?.placeInfoViewDidPressDetails(placeInfo)
     }
     
     @objc func didPressIcon() {
-        delegate?.placeInfoViewDidPressIcon()
+        guard let placeInfo = self.placeInfo else { return }
+        delegate?.placeInfoViewDidPressIcon(placeInfo)
     }
     
     @objc func didPressReservationButton() {
-        delegate?.placeInfoViewDidPressIcon()
+        
     }
 }
