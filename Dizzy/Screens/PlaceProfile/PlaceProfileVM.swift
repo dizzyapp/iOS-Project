@@ -28,7 +28,7 @@ protocol PlaceProfileVMDelegate: class {
     func placeProfileVMStoryButtonPressed(_ viewModel: PlaceProfileVMType)
 }
 
-final class PlaceProfileVM: PlaceProfileVMType {
+final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     var mediaToShow = Observable<PlaceMedia?>(nil)
     var placeInfo: PlaceInfo
     let activePlace: PlaceInfo?
@@ -78,10 +78,7 @@ final class PlaceProfileVM: PlaceProfileVMType {
     }
     
     func requestTableButtonPressed() {
-        let whatsappText = "Hi I want to order a table".localized.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        guard let phoneNumber = placeInfo.publicistPhoneNumber, !phoneNumber.isEmpty,
-            let url = URL(string: "https://wa.me/\(placeInfo.publicistPhoneNumber ?? "")/?text=\(whatsappText ??    "")") else { return }
-        UIApplication.shared.open(url, options: [:])
+        requestATable(placeInfo)
     }
     
     func closePressed() {

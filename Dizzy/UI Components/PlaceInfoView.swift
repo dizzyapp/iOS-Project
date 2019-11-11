@@ -13,6 +13,7 @@ import Kingfisher
 protocol PlaceInfoViewDelegate: class {
     func placeInfoViewDidPressDetails(_ placeInfo: PlaceInfo)
     func placeInfoViewDidPressIcon(_ placeInfo: PlaceInfo)
+    func placeInfoDidPressReservationButton(_ placeInfo: PlaceInfo)
 }
 
 class PlaceInfoView: UIView {
@@ -167,6 +168,7 @@ class PlaceInfoView: UIView {
     }
     
     @objc func didPressReservationButton() {
-        
+        guard let placeInfo = self.placeInfo else { return }
+        delegate?.placeInfoDidPressReservationButton(placeInfo)
     }
 }

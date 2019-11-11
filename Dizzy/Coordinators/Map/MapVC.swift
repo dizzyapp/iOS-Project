@@ -175,4 +175,8 @@ extension MapVC: PlaceInfoViewDelegate {
     func placeInfoViewDidPressIcon(_ placeInfo: PlaceInfo) {
         viewModel.placeIconPressed(placeInfo)
     }
+    
+    func placeInfoDidPressReservationButton(_ placeInfo: PlaceInfo) {
+        viewModel.requestATablePressed(placeInfo)
+    }
 }
