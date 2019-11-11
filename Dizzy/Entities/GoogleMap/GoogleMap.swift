@@ -43,11 +43,12 @@ final class GoogleMap: MapType {
         let googleMapAPIKey = "AIzaSyCBhvRQXfqyNUQ_y9vm9Ikxi_t_U51ZaYI"
         GMSServices.provideAPIKey(googleMapAPIKey)
         googleMapView = GMSMapView()
-        do {
-            if let styleURL = Bundle.main.url(forResource: "DarkMapStyle", withExtension: "json") {
+ 
+        if let styleURL = Bundle.main.url(forResource: "DarkMapStyle", withExtension: "json") {
+            do {
                 googleMapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            }
-        } catch { }
+            } catch { }
+        }
     }
 
     func changeMapFocus(_ center: Location, zoom: Float) {
