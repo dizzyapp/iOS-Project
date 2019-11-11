@@ -10,7 +10,7 @@ import Foundation
 import GoogleMaps
 
 protocol MapType: class {
-    var mapView: UIView { get }
+    var mapView: GMSMapView { get }
     func changeMapFocus(_ center: Location, zoom: Float)
     func addMarks(_ marks: [Mark?])
 }
@@ -26,7 +26,7 @@ final class GoogleMap: MapType {
     
     let iconViewRect = CGRect(x: 0, y: 0, width: 50, height: 50)
     
-    var mapView: UIView {
+    var mapView: GMSMapView {
         return googleMapView
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import GoogleMaps
 
 class MapVC: ViewController {
     
@@ -15,6 +16,9 @@ class MapVC: ViewController {
     private var googleMap: MapType
     private var locationLabel = LocationLabel()
     private let currentLocationButton = UIButton()
+    private let placeInfoView = PlaceInfoView()
+    var placeInfoViewVisibleStateConstraint: Constraint?
+    var placeInfoViewHiddenStateConstraint: Constraint?
     
     init(viewModel: MapVMType, googleMap: MapType) {
         self.viewModel = viewModel
@@ -37,12 +41,14 @@ class MapVC: ViewController {
     }
     
     private func addSubviews() {
+        googleMap.mapView.delegate = self
         view = googleMap.mapView
-        view.addSubview(currentLocationButton)
+        view.addSubviews([currentLocationButton, placeInfoView])
     }
     
     private func setupViews() {
         setupCurrentLocationButton()
+        setupPlaceInfoView()
     }
     
     private func setupCurrentLocationButton() {
@@ -50,10 +56,23 @@ class MapVC: ViewController {
         currentLocationButton.addTarget(self, action: #selector(currentLocationButtonPressed), for: .touchUpInside)
     }
     
+    private func setupPlaceInfoView() {
+        placeInfoView.alpha = 0
+        placeInfoView.layer.cornerRadius = 15
+        placeInfoView.delegate = self
+    }
+    
     private func layoutSubviews() {
         currentLocationButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(Metrics.doublePadding)
+            make.bottom.equalTo(placeInfoView.snp.top).offset(-Metrics.doublePadding)
             make.right.equalToSuperview().inset(Metrics.doublePadding)
+        }
+        
+        placeInfoView.snp.makeConstraints { placeInfoView in
+            placeInfoView.leading.equalToSuperview().offset(Metrics.padding)
+            placeInfoView.trailing.equalToSuperview().offset(-Metrics.padding)
+            placeInfoViewVisibleStateConstraint = placeInfoView.bottom.equalTo(view.snp.bottomMargin).offset(-Metrics.padding).priority(1).constraint
+            placeInfoViewHiddenStateConstraint = placeInfoView.top.equalTo(view.snp.bottom).priority(999).constraint
         }
     }
 
@@ -98,5 +117,66 @@ class MapVC: ViewController {
     
     @objc private func currentLocationButtonPressed() {
         viewModel.resetMapToInitialState()
+    }
+}
+
+extension MapVC: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        let markerLocation =  Location(latitude: marker.position.latitude, longitude: marker.position.longitude)
+        guard let placeInfo = viewModel.getPlaceInfo(byLocation: markerLocation) else {
+            return false
+        }
+        placeInfoView.setPlaceInfo(placeInfo, currentAppLocation: viewModel.currentLocation.value)
+        showPlaceInfoViewWithAnimation()
+        return false
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        hidePlaceInfoViewWithAnimation()
+    }
+    
+    private func hidePlaceInfoViewWithAnimation() {
+        guard !isPlaceInfoViewHidden() else {
+            return
+        }
+        
+        UIView.animate(withDuration: 1) {
+            self.placeInfoViewVisibleStateConstraint?.update(priority: 1)
+            self.placeInfoViewHiddenStateConstraint?.update(priority: 999)
+            self.placeInfoView.alpha = 0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func showPlaceInfoViewWithAnimation() {
+        guard isPlaceInfoViewHidden() else {
+            return
+        }
+        
+        UIView.animate(withDuration: 1) {
+            self.placeInfoViewVisibleStateConstraint?.update(priority: 999)
+            self.placeInfoViewHiddenStateConstraint?.update(priority: 1)
+            self.placeInfoView.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func isPlaceInfoViewHidden() -> Bool {
+        return placeInfoView.alpha == 0
+    }
+}
+
+extension MapVC: PlaceInfoViewDelegate {
+    
+    func placeInfoViewDidPressDetails(_ placeInfo: PlaceInfo) {
+        viewModel.placeDetailsPressed(placeInfo)
+    }
+    
+    func placeInfoViewDidPressIcon(_ placeInfo: PlaceInfo) {
+        viewModel.placeIconPressed(placeInfo)
+    }
+    
+    func placeInfoDidPressReservationButton(_ placeInfo: PlaceInfo) {
+        viewModel.requestATablePressed(placeInfo)
     }
 }

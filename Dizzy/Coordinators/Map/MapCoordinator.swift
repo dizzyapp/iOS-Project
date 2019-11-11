@@ -50,6 +50,7 @@ final class MapCoordinator: MapCoordinatorType {
 }
 
 extension MapCoordinator: MapVMDelegate {
+    
     func closeButtonPressed() {
         navigationController.dismiss(animated: true) { [weak self] in
             self?.onCoordinatorFinished()
@@ -67,6 +68,51 @@ extension MapCoordinator: MapVMDelegate {
         searchCoordinator.delegate = self
         add(coordinator: searchCoordinator, for: .placeSearch)
         searchCoordinator.start()
+    }
+    
+    func placeDetailsPressed(_ placeInfo: PlaceInfo) {
+        
+        guard let presntingVC = self.navigationController.viewControllers.last,
+            let activePlace = container?.resolve(ActivePlace.self),
+            let placesInteractor  = container?.resolve(PlacesInteractorType.self),
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController)  else {
+                print("could not create placeProfileCoordinator")
+                return
+        }
+        
+        placeProfileCoordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .placeProfile)
+        }
+        
+        container?.register(PlaceProfileVMType.self) { _ in
+            PlaceProfileVM(placeInfo: placeInfo, activePlace: activePlace, placesInteractor: placesInteractor)
+        }
+        
+        placeProfileCoordinator.start()
+        add(coordinator: placeProfileCoordinator, for: .placeProfile)
+    }
+    
+    func placeIconPressed(_ placeInfo: PlaceInfo) {
+        guard let presntingVC = self.navigationController.viewControllers.last,
+            let placeStoryCoordinator = container?.resolve(PlaceStoryCoordinatorType.self, argument: presntingVC),
+            let commentsInteractor = container?.resolve(CommentsInteractorType.self),
+            let storiesInteractor = container?.resolve(StoriesInteractorType.self),
+            let usersInteractor = container?.resolve(UsersInteracteorType.self),
+            let user = container?.resolve(DizzyUser.self) else {
+                print("could not create placeProfileCoordinator")
+                return
+        }
+        
+        container?.register(PlaceStoryVMType.self) { _ in
+            PlaceStoryVM(place: placeInfo, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor)
+        }
+        
+        placeStoryCoordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .placeStory)
+        }
+        
+        placeStoryCoordinator.start()
+        add(coordinator: placeStoryCoordinator, for: .placeStory)
     }
 }
 

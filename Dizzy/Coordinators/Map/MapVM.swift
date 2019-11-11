@@ -17,18 +17,24 @@ protocol MapVMType {
 
     var delegate: MapVMDelegate? { get set }
     
+    func getPlaceInfo(byLocation location: Location) -> PlaceInfo?
     func searchButtonPressed()
     func didSelect(place: PlaceInfo)
     func resetMapToInitialState()
+    func placeIconPressed(_ placeInfo: PlaceInfo)
+    func placeDetailsPressed(_ placeInfo: PlaceInfo)
+    func requestATablePressed(_ placeInfo: PlaceInfo)
     func close()
 }
 
 protocol MapVMDelegate: class {
     func searchButtonPressed()
     func closeButtonPressed()
+    func placeIconPressed(_ placeInfo: PlaceInfo)
+    func placeDetailsPressed(_ placeInfo: PlaceInfo)
 }
 
-final class MapVM: MapVMType {
+final class MapVM: MapVMType, PlaceReservationRequestor {
 
     private var locationProvider: LocationProviderType
     private var places: [PlaceInfo]
@@ -117,5 +123,25 @@ final class MapVM: MapVMType {
     func resetMapToInitialState() {
         selectedLocation.value = currentLocation.value
         getCurrentAddress()
+    }
+    
+    func getPlaceInfo(byLocation location: Location) -> PlaceInfo? {
+        let placesForLocation = places.filter { placeInfo -> Bool in
+            return placeInfo.location.latitude == location.latitude && placeInfo.location.longitude == location.longitude
+        }
+        
+        return placesForLocation.first
+    }
+    
+    func placeIconPressed(_ placeInfo: PlaceInfo) {
+        delegate?.placeIconPressed(placeInfo)
+    }
+    
+    func placeDetailsPressed(_ placeInfo: PlaceInfo) {
+        delegate?.placeDetailsPressed(placeInfo)
+    }
+    
+    func requestATablePressed(_ placeInfo: PlaceInfo) {
+        requestATable(placeInfo)
     }
 }
