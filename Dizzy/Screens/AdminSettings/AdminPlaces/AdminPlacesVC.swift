@@ -15,6 +15,7 @@ final class AdminPlacesVC: ViewController, CardVC, LoadingContainer {
     
     private let viewModel: AdminPlacesVMType
     private let tableView = UITableView()
+    private let titleLabel = UILabel()
     
     init(viewModel: AdminPlacesVMType) {
         self.viewModel = viewModel
@@ -30,24 +31,50 @@ final class AdminPlacesVC: ViewController, CardVC, LoadingContainer {
     }
     
     private func layoutSubviews() {
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(Metrics.oneAndHalfPadding)
+            make.leading.equalToSuperview().offset(Metrics.mediumPadding)
+            make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().offset(Metrics.doublePadding)
+            make.top.equalTo(titleLabel.snp.bottom).offset(Metrics.oneAndHalfPadding)
+            make.leading.trailing.equalTo(titleLabel)
+            make.bottomMargin.equalToSuperview()
         }
     }
     
     private func addSubviews() {
         makeCard()
-        cardContainerView.addSubview(tableView)
+        cardContainerView.addSubviews([tableView,titleLabel])
     }
     
     private func setupViews() {
         setupTableView()
+        setupTitleLabel()
+        setupNavigationView()
     }
     
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UserPlaceCell.self)
+        tableView.register(AdminPlaceCell.self)
+        tableView.separatorStyle = .none
+    }
+    
+    private func setupTitleLabel() {
+        titleLabel.font = Fonts.h3(weight: .bold)
+        titleLabel.textColor = .primeryPurple
+        titleLabel.textAlignment = .center
+        titleLabel.text = "SELECT YOUR BUSINESS".localized
+    }
+    
+    private func setupNavigationView() {
+        let backButton = UIButton(type: .system)
+        backButton.setImage(Images.backArrowIcon(), for: .normal)
+        backButton.addTarget(self, action: #selector(backPressed), for: .touchUpInside)
+        let backButtonItem = UIBarButtonItem(customView: backButton)
+        navigationItem.leftBarButtonItem = backButtonItem
     }
     
     private func bindViewModel() {
@@ -59,6 +86,10 @@ final class AdminPlacesVC: ViewController, CardVC, LoadingContainer {
             self?.tableView.reloadData()
         }
     }
+    
+    @objc private func backPressed() {
+        viewModel.delegate?.adminPlaceVMBackPressed(viewModel)
+    }
 }
 
 extension AdminPlacesVC: UITableViewDelegate, UITableViewDataSource {
@@ -68,9 +99,13 @@ extension AdminPlacesVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UserPlaceCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        let cell: AdminPlaceCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         let data = viewModel.data(at: indexPath)
         cell.configure(with: data)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectItem(at: indexPath)
     }
 }

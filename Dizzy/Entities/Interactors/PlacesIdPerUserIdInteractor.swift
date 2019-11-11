@@ -32,7 +32,6 @@ final class PlacesIdPerUserIdInteractor: PlacesIdPerUserIdInteractorType {
             guard let self = self else { return }
             switch result {
             case .success(let placesIds):
-                print(placesIds)
                 self.delegate?.placesIdPerUserIdFinished(self, with: placesIds)
                 
             case .failure(let error):

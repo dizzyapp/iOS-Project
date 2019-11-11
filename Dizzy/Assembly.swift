@@ -62,6 +62,7 @@ class Assembly {
         container.autoregister(SignUpWithDizzyVMType.self, initializer: SignUpWithDizzyVM.init)
         container.autoregister(SignInWithDizzyVMType.self, initializer: SignInWithDizzyVM.init)
         container.autoregister(AppStartVMType.self, initializer: AppStartVM.init).inObjectScope(.container)
+        container.autoregister(AdminPlaceAnalyticsVMType.self, argument: PlaceInfo.self, initializer: AdminPlaceAnalyticsVM.init)
     }
     
     private func registerViewControllers() {
@@ -78,6 +79,7 @@ class Assembly {
         container.autoregister(MediaPresenterVC.self, argument: MediaPresenterVMType.self, initializer: MediaPresenterVC.init)
         container.autoregister(SignInWithDizzyVC.self, argument: SignInWithDizzyVMType.self, initializer: SignInWithDizzyVC.init)
         container.autoregister(AdminPlacesVC.self, argument: AdminPlacesVMType.self, initializer: AdminPlacesVC.init)
+        container.autoregister(AdminPlaceAnalyticsVC.self, argument: AdminPlaceAnalyticsVMType.self, initializer: AdminPlaceAnalyticsVC.init)
     }
     
     private func registerCoordinators() {

@@ -11,13 +11,22 @@ import Foundation
 protocol AdminPlacesVMType {
     var userPlaces: Observable<[PlaceInfo]> { get }
     var loading: Observable<Bool> { get }
+    var delegate: AdminPlacesVMDelegate? { get set }
     
     func numberOfRows() -> Int
     func data(at indexPath: IndexPath) -> PlaceInfo
+    func didSelectItem(at indexPath: IndexPath)
+}
+
+protocol AdminPlacesVMDelegate: class {
+    func adminPlaceVMBackPressed(_ viewModel: AdminPlacesVMType)
+    func adminPlaceVM(_ viewModel: AdminPlacesVMType, didSelectPlace place: PlaceInfo)
 }
 
 final class AdminPlacesVM: AdminPlacesVMType {
-   
+    
+    weak var delegate: AdminPlacesVMDelegate?
+    
     var placesIdsPerUserIdInteractor: PlacesIdPerUserIdInteractorType
     let user: DizzyUser
     let allPlaces: [PlaceInfo]
@@ -45,6 +54,13 @@ final class AdminPlacesVM: AdminPlacesVMType {
     
     func data(at indexPath: IndexPath) -> PlaceInfo {
         return userPlaces.value[indexPath.row]
+    }
+    
+    func didSelectItem(at indexPath: IndexPath) {
+        let place = userPlaces.value[indexPath.row]
+        if place.adminAnalytics != nil {
+            delegate?.adminPlaceVM(self, didSelectPlace: place)
+        }
     }
 }
 

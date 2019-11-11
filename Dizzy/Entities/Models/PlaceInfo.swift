@@ -28,6 +28,7 @@ struct PlaceInfo: Codable, FilterEntry {
     let authorizedAge: String?
     let publicistPhoneNumber: String?
     let placeSchedule: PlaceSchedule?
+    let adminAnalytics: AdminAnalytics?
 }
 
 struct ActivePlace {
@@ -74,4 +75,10 @@ struct Address {
     var country: String?
     var city: String?
     var street: String?
+}
+
+struct AdminAnalytics: Codable {
+    let profileViews: Int?
+    let reserveClicks: Int?
+    let attendenceCount: Int?
 }

@@ -20,7 +20,6 @@ extension CardVC where Self: UIViewController {
         view.backgroundColor = .clear
         
         cardContainerView.snp.makeConstraints { loginContainerView in
-            
             loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.doublePadding)
