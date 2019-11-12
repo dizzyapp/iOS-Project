@@ -10,6 +10,7 @@ import Foundation
 
 protocol PlaceStoryVMDelegate: class {
     func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String)
+    func placeStoryShowImage(_ viewModel: PlaceStoryVMType, stringURL: String)
     func placeStoryClearTextFieldText(_ viewModel: PlaceStoryVMType)
     func showPopupWithText(_ text: String, title: String)
 }
@@ -19,7 +20,6 @@ protocol PlaceStoryVMNavigationDelegate: class {
 }
 
 protocol PlaceStoryVMType {
-    var currentImageURLString: Observable<String?> { get set }
     var delay: Double { get }
     var comments: Observable<[CommentWithWriter]> { get }
     var stories: Observable<[PlaceMedia]> { get }
@@ -42,8 +42,6 @@ final class PlaceStoryVM: PlaceStoryVMType {
     weak var delegate: PlaceStoryVMDelegate?
     weak var navigationDelegate: PlaceStoryVMNavigationDelegate?
     
-    var mediaUrls = [String]()
-    
     var displayedImageIndex = -1
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
@@ -52,8 +50,6 @@ final class PlaceStoryVM: PlaceStoryVMType {
     var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
     let user: DizzyUser
-    
-    var currentImageURLString = Observable<String?>(nil)
     
     init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType) {
         self.place = place
@@ -67,12 +63,14 @@ final class PlaceStoryVM: PlaceStoryVMType {
     }
     
     func showNextImage() {
-        if displayedImageIndex + 1 <= mediaUrls.count - 1 {
+        if displayedImageIndex + 1 <= stories.value.count - 1 {
             displayedImageIndex += 1
-            if isVideo(string: mediaUrls[displayedImageIndex]) {
-                delegate?.placeStoryShowVideo(self, stringURL: mediaUrls[displayedImageIndex])
+            let mediaToShow = stories.value[displayedImageIndex]
+            guard let mediaUrl = mediaToShow.downloadLink else { return }
+            if mediaToShow.isVideo() {
+                delegate?.placeStoryShowVideo(self, stringURL: mediaUrl)
             } else {
-                currentImageURLString.value = mediaUrls[displayedImageIndex]
+                delegate?.placeStoryShowImage(self, stringURL: mediaUrl)
             }
         } else {
             navigationDelegate?.placeStoryVMDidFinised(self)
@@ -82,10 +80,12 @@ final class PlaceStoryVM: PlaceStoryVMType {
     func showPrevImage() {
         if displayedImageIndex - 1 >= 0 {
             displayedImageIndex -= 1
-            if isVideo(string: mediaUrls[displayedImageIndex]) {
-                delegate?.placeStoryShowVideo(self, stringURL: mediaUrls[displayedImageIndex])
+            let mediaToShow = stories.value[displayedImageIndex]
+            guard let mediaUrl = mediaToShow.downloadLink else { return }
+            if mediaToShow.isVideo() {
+                delegate?.placeStoryShowVideo(self, stringURL: mediaUrl)
             } else {
-                currentImageURLString.value = mediaUrls[displayedImageIndex]
+                delegate?.placeStoryShowImage(self, stringURL: mediaUrl)
             }
         }
     }
@@ -110,10 +110,6 @@ final class PlaceStoryVM: PlaceStoryVMType {
     
     func close() {
         navigationDelegate?.placeStoryVMDidFinised(self)
-    }
-    
-    private func isVideo(string: String) -> Bool {
-        return string.contains(".mp4") || string.contains(".mov")
     }
 }
 
@@ -140,7 +136,6 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
     func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceMedia]?) {
         if let stories = stories, !stories.isEmpty {
             self.stories.value = sortStoriesByTimeStamp(unsorterdStories: stories)
-            self.mediaUrls = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
             
             self.showNextImage()
             self.commentsInteractor.getAllComments(forPlaceId: place.id)

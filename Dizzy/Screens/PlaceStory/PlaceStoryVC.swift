@@ -167,15 +167,6 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func bindViewModel() {
-        viewModel.currentImageURLString.bind { [weak self] urlString in
-            guard let urlString = urlString else { return }
-            if let url = URL(string: urlString) {
-                guard let self = self else { return }
-                self.shoewImageView()
-                self.imageView.kf.cancelDownloadTask()
-                self.imageView.kf.setImage(with: url)
-            }
-        }
         
         viewModel.comments.bind { [weak self] _ in
             self?.commentsView.reloadTableView()
@@ -295,6 +286,16 @@ extension PlaceStoryVC: PlaceStoryVMDelegate, PopupPresenter {
         videoView.play { [weak self] in
             self?.didTapRight()
         }
+    }
+    
+    func placeStoryShowImage(_ viewModel: PlaceStoryVMType, stringURL: String) {
+        guard let url = URL(string: stringURL) else {
+            return
+        }
+        
+        shoewImageView()
+        imageView.kf.cancelDownloadTask()
+        imageView.kf.setImage(with: url)
     }
     
     private func showVideoView() {
