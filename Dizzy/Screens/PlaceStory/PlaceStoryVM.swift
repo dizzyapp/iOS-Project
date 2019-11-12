@@ -146,4 +146,14 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
             self.commentsInteractor.getAllComments(forPlaceId: place.id)
         }
     }
+    
+    private func sortStoriesByTimeStamp(unsorterdStories: [PlaceMedia]) -> [PlaceMedia] {
+        return unsorterdStories.sorted(by: { (mediaA, mediaB) -> Bool in
+            guard let timeStampA = mediaA.timeStamp,
+                let timeStampB = mediaB.timeStamp else {
+                    return mediaA.timeStamp != nil
+            }
+            return timeStampA < timeStampB
+        })
+    }
 }
