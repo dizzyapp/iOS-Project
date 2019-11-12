@@ -90,8 +90,15 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     private func setupViews() {
         view.backgroundColor = .clear
+        addSwipeDelegate()
         setupNearByPlacesView()
         setupTopBarView()
+    }
+    
+    private func addSwipeDelegate() {
+        let downSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeDown))
+        downSwipe.direction = .down
+        self.view.addGestureRecognizer(downSwipe)
     }
     
     private func setupTopBarView() {
@@ -129,6 +136,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     public func hideTopBar() {
         self.topBar.isHidden = true
+    }
+    
+    @objc func onSwipeDown() {
+        print("swipe down")
     }
 }
 
