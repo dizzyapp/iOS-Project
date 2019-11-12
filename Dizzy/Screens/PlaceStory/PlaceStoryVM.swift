@@ -42,7 +42,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     weak var delegate: PlaceStoryVMDelegate?
     weak var navigationDelegate: PlaceStoryVMNavigationDelegate?
     
-    var imagesURL = [String]()
+    var mediaUrls = [String]()
     
     var displayedImageIndex = -1
     let delay = 1000.0
@@ -67,12 +67,12 @@ final class PlaceStoryVM: PlaceStoryVMType {
     }
     
     func showNextImage() {
-        if displayedImageIndex + 1 <= imagesURL.count - 1 {
+        if displayedImageIndex + 1 <= mediaUrls.count - 1 {
             displayedImageIndex += 1
-            if isVideo(string: imagesURL[displayedImageIndex]) {
-                delegate?.placeStoryShowVideo(self, stringURL: imagesURL[displayedImageIndex])
+            if isVideo(string: mediaUrls[displayedImageIndex]) {
+                delegate?.placeStoryShowVideo(self, stringURL: mediaUrls[displayedImageIndex])
             } else {
-                currentImageURLString.value = imagesURL[displayedImageIndex]
+                currentImageURLString.value = mediaUrls[displayedImageIndex]
             }
         } else {
             navigationDelegate?.placeStoryVMDidFinised(self)
@@ -82,10 +82,10 @@ final class PlaceStoryVM: PlaceStoryVMType {
     func showPrevImage() {
         if displayedImageIndex - 1 >= 0 {
             displayedImageIndex -= 1
-            if isVideo(string: imagesURL[displayedImageIndex]) {
-                delegate?.placeStoryShowVideo(self, stringURL: imagesURL[displayedImageIndex])
+            if isVideo(string: mediaUrls[displayedImageIndex]) {
+                delegate?.placeStoryShowVideo(self, stringURL: mediaUrls[displayedImageIndex])
             } else {
-                currentImageURLString.value = imagesURL[displayedImageIndex]
+                currentImageURLString.value = mediaUrls[displayedImageIndex]
             }
         }
     }
@@ -139,8 +139,8 @@ extension PlaceStoryVM: CommentsInteractorDelegate {
 extension PlaceStoryVM: StoriesInteractorDelegate {
     func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceMedia]?) {
         if let stories = stories, !stories.isEmpty {
-            self.stories.value = stories
-            self.imagesURL = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
+            self.stories.value = sortStoriesByTimeStamp(unsorterdStories: stories)
+            self.mediaUrls = stories.filter { $0.downloadLink != nil }.map { $0.downloadLink! }
             
             self.showNextImage()
             self.commentsInteractor.getAllComments(forPlaceId: place.id)
