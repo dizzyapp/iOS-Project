@@ -22,7 +22,6 @@ class DiscoveryVC: ViewController, PopupPresenter {
     let nearByPlacesViewPadding = CGFloat(0)
     let nearByPlacesViewHeightRatio = CGFloat(0.50)
     
-    private var themeImageHeightConstraint: Constraint?
     private var nearByPlacesTopConstraint: Constraint?
     
     var isItFirstPageLoad = true
@@ -49,7 +48,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
             themeVideoView.play()
             isItFirstPageLoad = false
         }
-        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        showNearByPlacesWithAnimation()
     }
     
     private func addSubviews() {
@@ -65,8 +67,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
         
         themeVideoView.snp.makeConstraints { themeImageView in
             
-            themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageHeightConstraint = themeImageView.height.equalTo(view.snp.height).constraint
+            themeImageView.top.leading.bottom.trailing.equalToSuperview()
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
@@ -90,8 +91,15 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     private func setupViews() {
         view.backgroundColor = .clear
+        addSwipeDelegate()
         setupNearByPlacesView()
         setupTopBarView()
+    }
+    
+    private func addSwipeDelegate() {
+        let downSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeDown))
+        downSwipe.direction = .down
+        self.view.addGestureRecognizer(downSwipe)
     }
     
     private func setupTopBarView() {
@@ -115,12 +123,20 @@ class DiscoveryVC: ViewController, PopupPresenter {
         nearByPlacesView.reloadData()
     }
     
-    private func showNewrByPlacesWithAnimation() {
+    private func showNearByPlacesWithAnimation() {
         UIView.animate(withDuration: 1) {
-            self.nearByPlacesTopConstraint?.update(offset: -25)
-            self.themeImageHeightConstraint?.update(offset: -self.view.frame.height / 2)
+            self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 25)
             self.view.layoutIfNeeded()
         }
+    }
+    
+    private func hideNearByPlacesWithAnimation(_ completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.nearByPlacesTopConstraint?.update(offset: 0)
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            completion?()
+        })
     }
     
     public func showTopBar() {
@@ -129,6 +145,12 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     public func hideTopBar() {
         self.topBar.isHidden = true
+    }
+    
+    @objc func onSwipeDown() {
+        hideNearByPlacesWithAnimation {
+            self.mapButtonPressed()
+        }
     }
 }
 
@@ -184,7 +206,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
                 self.allPlacesArrived()
                 return
             }
-            self.showNewrByPlacesWithAnimation()
+            self.showNearByPlacesWithAnimation()
             self.viewModel.checkClosestPlace()
         })
     }
