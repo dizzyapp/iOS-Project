@@ -54,10 +54,10 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     }
     
     func sortProfileMedia(profileMedia: [PlaceMedia]) {
-        self.profileMedia = profileMedia.sorted(by: { (placeA, placeB) -> Bool in
-            guard let timeStampA = placeA.timeStamp,
-                let timeStampB = placeB.timeStamp else {
-                    return true
+        self.profileMedia = profileMedia.sorted(by: { (mediaA, mediaB) -> Bool in
+            guard let timeStampA = mediaA.timeStamp,
+                let timeStampB = mediaB.timeStamp else {
+                    return mediaA.timeStamp != nil
             }
             return timeStampA < timeStampB
         })

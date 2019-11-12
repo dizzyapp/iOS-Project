@@ -10,7 +10,7 @@ import UIKit
 
 struct PlaceMedia: Codable {
     var downloadLink: String?
-    var timeStamp: Int?
+    var timeStamp: TimeInterval?
     
     public func isVideo() -> Bool {
         return downloadLink?.contains(".mp4") ?? false

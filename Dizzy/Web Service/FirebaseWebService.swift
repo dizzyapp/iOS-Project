@@ -76,7 +76,7 @@ final class FirebaseWebService: WebServiceType {
         }
     }
     
-    func uplaodFile(with path: String, data: UploadFileData,  completion: @escaping (Result<UploadFileResponse>) -> Void) {
+    func uplaodFile(with path: String, data: UploadFileData,  completion: @escaping (Result<PlaceMedia>) -> Void) {
         let ref = storageReference.child(path)
         
         if let data = data.data {
@@ -87,7 +87,7 @@ final class FirebaseWebService: WebServiceType {
         
     }
     
-    private func uploadImage(ref: StorageReference, data: Data, completion: @escaping (Result<UploadFileResponse>) -> Void ) {
+    private func uploadImage(ref: StorageReference, data: Data, completion: @escaping (Result<PlaceMedia>) -> Void ) {
         let uploadTask = ref.putData(data, metadata: nil) { (_, error) in
             if let error = error {
                 completion(Result.failure(error))
@@ -104,7 +104,7 @@ final class FirebaseWebService: WebServiceType {
         uploadTask.resume()
     }
     
-    private func uploadVideo(ref: StorageReference, videoUrl: URL, completion: @escaping (Result<UploadFileResponse>) -> Void ) {
+    private func uploadVideo(ref: StorageReference, videoUrl: URL, completion: @escaping (Result<PlaceMedia>) -> Void ) {
         let uploadTask = ref.putFile(from: videoUrl, metadata: nil) { _, error in
             if let error = error {
                 print("could not upload video: \(error)")
@@ -120,12 +120,12 @@ final class FirebaseWebService: WebServiceType {
         uploadTask.resume()
     }
     
-    private func getDownloadURL(from ref: StorageReference, completion: @escaping (Result<UploadFileResponse>) -> Void) {
+    private func getDownloadURL(from ref: StorageReference, completion: @escaping (Result<PlaceMedia>) -> Void) {
         ref.downloadURL { (url, error) in
             if let error = error {
                 completion(Result.failure(error))
             } else {
-                let response = UploadFileResponse(downloadLink: url?.absoluteString ?? "")
+                let response = PlaceMedia(downloadLink: url?.absoluteString, timeStamp: Date().timeIntervalSince1970)
                 completion(Result.success(response))
             }
         }

@@ -17,7 +17,3 @@ struct UploadFileData: Codable {
         self.fileURL = fileURL
     }
 }
-
-struct UploadFileResponse: Codable {
-    var downloadLink: String
-}

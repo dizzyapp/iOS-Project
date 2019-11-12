@@ -25,7 +25,7 @@ final class UploadFileInteractor: UploadFileInteractorType {
             
             switch result {
             case .success(let uploadFileResponse):
-                self?.save(uploadedFileLink: uploadFileResponse.downloadLink, to: placeInfo)
+                self?.save(placeMedia: uploadFileResponse, to: placeInfo)
                 completion(Result.success(true))
                 
             case .failure(let error):
@@ -39,7 +39,7 @@ final class UploadFileInteractor: UploadFileInteractorType {
             
             switch result {
             case .success(let uploadFileResponse):
-                self?.save(uploadedFileLink: uploadFileResponse.downloadLink, to: placeInfo)
+                self?.save(placeMedia: uploadFileResponse, to: placeInfo)
                 completion(Result.success(true))
                 
             case .failure(let error):
@@ -48,8 +48,8 @@ final class UploadFileInteractor: UploadFileInteractorType {
         }
     }
     
-    private func save(uploadedFileLink: String,to placeInfo: PlaceInfo) {
-        let resource = Resource<Bool, UploadFileResponse>(path: "placeStoriesPerPlaceId/\(placeInfo.id)/\(UUID().uuidString)").withPost(UploadFileResponse(downloadLink: uploadedFileLink))
+    private func save(placeMedia: PlaceMedia,to placeInfo: PlaceInfo) {
+        let resource = Resource<Bool, PlaceMedia>(path: "placeStoriesPerPlaceId/\(placeInfo.id)/\(UUID().uuidString)").withPost(placeMedia)
         dispacher.load(resource) { _ in }
     }
 }

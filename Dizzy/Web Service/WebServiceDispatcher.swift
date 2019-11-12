@@ -11,7 +11,7 @@ import Foundation
 protocol WebServiceDispatcherType {
     func load<Response, Body>(_ resource: Resource<Response, Body>, completion: @escaping (Result<Response>) -> Void)
     
-    func uploadFile(path: String, data: UploadFileData, completion: @escaping (Result<UploadFileResponse>) -> Void)
+    func uploadFile(path: String, data: UploadFileData, completion: @escaping (Result<PlaceMedia>) -> Void)
 }
 
 final class WebServiceDispatcher: WebServiceDispatcherType {
@@ -30,7 +30,7 @@ final class WebServiceDispatcher: WebServiceDispatcherType {
         }
     }
     
-    func uploadFile(path: String, data: UploadFileData, completion: @escaping (Result<UploadFileResponse>) -> Void) {
+    func uploadFile(path: String, data: UploadFileData, completion: @escaping (Result<PlaceMedia>) -> Void) {
         firebaseService.uplaodFile(with: path, data: data, completion: completion)
     }
 }
