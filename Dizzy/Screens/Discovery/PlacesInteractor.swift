@@ -10,12 +10,14 @@ import UIKit
 
 protocol PlacesInteractorDelegate: class {
     func allPlacesArrived(places: [PlaceInfo])
+    func placesIdsPerUserArrived(placesIds: [PlaceId])
 }
 
 protocol PlacesInteractorType {
     var delegate: PlacesInteractorDelegate? { get set }
     func getAllPlaces()
     func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
+    func getPlaces(ownedBy userId: String)
 }
 
 class PlacesInteractor: PlacesInteractorType {
@@ -47,6 +49,20 @@ class PlacesInteractor: PlacesInteractorType {
                 completion(profileAllMedia)
             case .failure(let error):
                 print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getPlaces(ownedBy userId: String) {
+        let resource = Resource<[PlaceId], String>(path: "PlaceIdPerUserId/\(userId)").withGet()
+        webResourcesDispatcher.load(resource) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let placesIds):
+                self.delegate?.placesIdsPerUserArrived(placesIds: placesIds)
+                
+            case .failure(let error):
+                print(error)
             }
         }
     }

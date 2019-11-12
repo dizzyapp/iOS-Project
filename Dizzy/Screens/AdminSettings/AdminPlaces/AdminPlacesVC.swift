@@ -100,7 +100,7 @@ extension AdminPlacesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: AdminPlaceCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        let data = viewModel.data(at: indexPath)
+        let data = viewModel.place(at: indexPath)
         cell.configure(with: data)
         return cell
     }

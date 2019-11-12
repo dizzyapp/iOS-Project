@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */; };
 		0415EC39225E6086009BCBC7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC38225E6086009BCBC7 /* Observable.swift */; };
-		041724B42378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B32378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift */; };
 		041724B62378545C00E0A5D9 /* AdminPlacesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */; };
 		041724B82378546800E0A5D9 /* AdminPlacesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B72378546800E0A5D9 /* AdminPlacesVC.swift */; };
 		041724BB237856BA00E0A5D9 /* AdminSettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724BA237856BA00E0A5D9 /* AdminSettingsCoordinator.swift */; };
@@ -139,7 +138,6 @@
 /* Begin PBXFileReference section */
 		0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		0415EC38225E6086009BCBC7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		041724B32378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesIdPerUserIdInteractor.swift; sourceTree = "<group>"; };
 		041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPlacesVM.swift; sourceTree = "<group>"; };
 		041724B72378546800E0A5D9 /* AdminPlacesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPlacesVC.swift; sourceTree = "<group>"; };
 		041724BA237856BA00E0A5D9 /* AdminSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -410,7 +408,6 @@
 			children = (
 				04B4550322CD3423001C7AD4 /* GooglePlaceInteractor.swift */,
 				04B4550422CD3423001C7AD4 /* UploadFileInteractor.swift */,
-				041724B32378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -431,7 +428,6 @@
 			children = (
 				4D07059E22D15579009D6236 /* Comment.swift */,
 				4D07059F22D15579009D6236 /* PlaceInfo.swift */,
-				4D0705A022D15579009D6236 /* PlaceStory.swift */,
 				4D0705A022D15579009D6236 /* PlaceMedia.swift */,
 				041724BE2378850800E0A5D9 /* PlaceId.swift */,
 			);
@@ -958,7 +954,6 @@
 				77611A3D23644B8A00DB04F9 /* DizzyPopup.swift in Sources */,
 				04E7808C22B0274900A9E3F4 /* PlaceProfileView.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
-				041724B42378527F00E0A5D9 /* PlacesIdPerUserIdInteractor.swift in Sources */,
 				041724C52379481300E0A5D9 /* AdminPlaceAnalyticsVM.swift in Sources */,
 				041724B62378545C00E0A5D9 /* AdminPlacesVM.swift in Sources */,
 				041724C72379482200E0A5D9 /* AdminPlaceAnalyticsVC.swift in Sources */,

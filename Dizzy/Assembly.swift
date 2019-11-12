@@ -52,7 +52,6 @@ class Assembly {
         container.autoregister(SignInInteractorType.self, initializer: SignInInteractor.init)
         container.autoregister(LogoutInteractorType.self, initializer: LogoutInteractor.init)
         container.autoregister(UsersInteracteorType.self, initializer: UsersInteracteor.init)
-        container.autoregister(PlacesIdPerUserIdInteractorType.self, initializer: PlacesIdPerUserIdInteractor.init)
     }
     
     private func registerViewModels() {

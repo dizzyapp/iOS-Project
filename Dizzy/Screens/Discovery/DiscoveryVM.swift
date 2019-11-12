@@ -160,9 +160,12 @@ class DiscoveryVM: DiscoveryVMType {
 }
 
 extension DiscoveryVM: PlacesInteractorDelegate {
+    
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
         sortAllPlacesByDistance()
         delegate?.allPlacesArrived()
     }
+    
+    func placesIdsPerUserArrived(placesIds: [PlaceId]) { }
 }

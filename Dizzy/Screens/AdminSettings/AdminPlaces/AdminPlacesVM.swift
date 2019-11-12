@@ -14,7 +14,7 @@ protocol AdminPlacesVMType {
     var delegate: AdminPlacesVMDelegate? { get set }
     
     func numberOfRows() -> Int
-    func data(at indexPath: IndexPath) -> PlaceInfo
+    func place(at indexPath: IndexPath) -> PlaceInfo
     func didSelectItem(at indexPath: IndexPath)
 }
 
@@ -27,16 +27,16 @@ final class AdminPlacesVM: AdminPlacesVMType {
     
     weak var delegate: AdminPlacesVMDelegate?
     
-    var placesIdsPerUserIdInteractor: PlacesIdPerUserIdInteractorType
+    var placesInteractor: PlacesInteractorType
     let user: DizzyUser
     let allPlaces: [PlaceInfo]
     var userPlaces = Observable<[PlaceInfo]>([PlaceInfo]())
     var loading = Observable<Bool>(false)
     
-    init(placesIdsPerUserIdInteractor: PlacesIdPerUserIdInteractorType,
+    init(placesInteractor: PlacesInteractorType,
          user: DizzyUser,
          allPlaces: [PlaceInfo]) {
-        self.placesIdsPerUserIdInteractor = placesIdsPerUserIdInteractor
+        self.placesInteractor = placesInteractor
         self.user = user
         self.allPlaces = allPlaces
         getPlaces()
@@ -44,15 +44,15 @@ final class AdminPlacesVM: AdminPlacesVMType {
     
     private func getPlaces() {
         loading.value = true
-        placesIdsPerUserIdInteractor.fetchPlaceIds(per: user.id)
-        placesIdsPerUserIdInteractor.delegate = self
+        placesInteractor.getPlaces(ownedBy: user.id)
+        placesInteractor.delegate = self
     }
     
     func numberOfRows() -> Int {
         return userPlaces.value.count
     }
     
-    func data(at indexPath: IndexPath) -> PlaceInfo {
+    func place(at indexPath: IndexPath) -> PlaceInfo {
         return userPlaces.value[indexPath.row]
     }
     
@@ -64,15 +64,18 @@ final class AdminPlacesVM: AdminPlacesVMType {
     }
 }
 
-extension AdminPlacesVM: PlacesIdPerUserIdInteractorDelegate {
-    func placesIdPerUserIdFinished(_ interactor: PlacesIdPerUserIdInteractorType, with placesIds: [PlaceId]) {
+extension AdminPlacesVM: PlacesInteractorDelegate {
+    
+    func allPlacesArrived(places: [PlaceInfo]) { }
+    
+    func placesIdsPerUserArrived(placesIds: [PlaceId]) {
         var userPlaces = [PlaceInfo]()
-        for id in placesIds {
-            for place in allPlaces where place.id == id.id {
-                userPlaces.append(place)
-            }
-        }
-        loading.value = false
-        self.userPlaces.value = userPlaces
+          for id in placesIds {
+              for place in allPlaces where place.id == id.id {
+                  userPlaces.append(place)
+              }
+          }
+          loading.value = false
+          self.userPlaces.value = userPlaces
     }
 }

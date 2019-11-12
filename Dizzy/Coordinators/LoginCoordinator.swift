@@ -97,13 +97,13 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
     
     func navigateToAdminScreen(with user: DizzyUser) {
         guard let adminSettingsCoordinator = container?.resolve(AdminSettingsCoordinatorType.self, argument: navigationController),
-            let placesIdsPerUserIdIndicator = container?.resolve(PlacesIdPerUserIdInteractorType.self) else {
+            let placesInteractor = container?.resolve(PlacesInteractorType.self) else {
             print("could not create adminSettingsCoordinator page")
             return
         }
         
         container?.register(AdminPlacesVMType.self) { _ in
-            AdminPlacesVM(placesIdsPerUserIdInteractor: placesIdsPerUserIdIndicator, user: user, allPlaces: self.allPlaces)
+            AdminPlacesVM(placesInteractor: placesInteractor, user: user, allPlaces: self.allPlaces)
         }
         
         adminSettingsCoordinator.onAdminSettingsCoordinatorFinished = { [weak self] in
