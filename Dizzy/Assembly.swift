@@ -62,6 +62,7 @@ class Assembly {
         container.autoregister(SignInWithDizzyVMType.self, initializer: SignInWithDizzyVM.init)
         container.autoregister(AppStartVMType.self, initializer: AppStartVM.init).inObjectScope(.container)
         container.autoregister(AdminPlaceAnalyticsVMType.self, argument: PlaceInfo.self, initializer: AdminPlaceAnalyticsVM.init)
+        container.autoregister(AdminPlacesVMType.self, initializer: AdminPlacesVM.init)
     }
     
     private func registerViewControllers() {

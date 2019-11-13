@@ -43,6 +43,7 @@ protocol DiscoveryViewModelNavigationDelegate: class {
     func placeCellDetailsPressed(_ place: PlaceInfo)
     func placeCellIconPressed(_ place: PlaceInfo)
     func activePlaceWasSet(_ activePlace: PlaceInfo?)
+    func register(_ allPlaces: [PlaceInfo])
 }
 
 class DiscoveryVM: DiscoveryVMType {
@@ -165,6 +166,7 @@ extension DiscoveryVM: PlacesInteractorDelegate {
         allPlaces = places
         sortAllPlacesByDistance()
         delegate?.allPlacesArrived()
+        navigationDelegate?.register(allPlaces)
     }
     
     func placesIdsPerUserArrived(placesIds: [PlaceId]) { }

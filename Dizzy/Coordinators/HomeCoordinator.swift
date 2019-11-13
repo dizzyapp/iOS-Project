@@ -60,7 +60,7 @@ final class HomeCoordinator: HomeCoordinatorType {
 }
 
 extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
-    
+
     func activePlaceWasSet(_ activePlace: PlaceInfo?) {
         container?.autoregister(ActivePlace.self, initializer: {
             return ActivePlace(activePlaceInfo: activePlace)
@@ -154,6 +154,13 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         placeStoryCoordinator.start()
         add(coordinator: placeStoryCoordinator, for: .placeStory)
     }
+    
+    func register(_ allPlaces: [PlaceInfo]) {
+        container?.autoregister([PlaceInfo].self, initializer: {
+            return allPlaces
+        })
+    }
+    
 }
 
 extension HomeCoordinator {
