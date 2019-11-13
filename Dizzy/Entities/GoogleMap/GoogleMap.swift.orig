@@ -10,8 +10,12 @@ import Foundation
 import GoogleMaps
 
 protocol MapType: class {
+<<<<<<< HEAD
     var mapView: GMSMapView { get }
+=======
+    var mapView: UIView { get }
     var showUserLocation: Bool { get set }
+>>>>>>> feature(MapChanges):
     func changeMapFocus(_ center: Location, zoom: Float)
     func addMarks(_ marks: [Mark?])
 }
@@ -43,12 +47,11 @@ final class GoogleMap: MapType {
         let googleMapAPIKey = "AIzaSyCBhvRQXfqyNUQ_y9vm9Ikxi_t_U51ZaYI"
         GMSServices.provideAPIKey(googleMapAPIKey)
         googleMapView = GMSMapView()
- 
-        if let styleURL = Bundle.main.url(forResource: "DarkMapStyle", withExtension: "json") {
-            do {
+        do {
+            if let styleURL = Bundle.main.url(forResource: "DarkMapStyle", withExtension: "json") {
                 googleMapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } catch { }
-        }
+            }
+        } catch { }
     }
 
     func changeMapFocus(_ center: Location, zoom: Float) {

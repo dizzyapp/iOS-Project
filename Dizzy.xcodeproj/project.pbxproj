@@ -12,6 +12,7 @@
 		041D95C32253D733009ED7AB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C22253D733009ED7AB /* WebService.swift */; };
 		041D95C52253D84F009ED7AB /* WebResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C42253D84F009ED7AB /* WebResource.swift */; };
 		044B406A22CD37080061388C /* PopupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044B406922CD37080061388C /* PopupPresenter.swift */; };
+		0454B7BE23745CC30043DEC3 /* DarkMapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 0454B7BD23745CC30043DEC3 /* DarkMapStyle.json */; };
 		0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6AC2270B2DF00267278 /* GoogleMap.swift */; };
 		0470E6B42270B32600267278 /* PlaceSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B02270B32600267278 /* PlaceSearchTableViewCell.swift */; };
 		0470E6B52270B32600267278 /* PlaceSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B12270B32600267278 /* PlaceSearchVC.swift */; };
@@ -131,6 +132,7 @@
 		041D95C22253D733009ED7AB /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		041D95C42253D84F009ED7AB /* WebResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResource.swift; sourceTree = "<group>"; };
 		044B406922CD37080061388C /* PopupPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPresenter.swift; sourceTree = "<group>"; };
+		0454B7BD23745CC30043DEC3 /* DarkMapStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DarkMapStyle.json; sourceTree = "<group>"; };
 		0470E6AC2270B2DF00267278 /* GoogleMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMap.swift; sourceTree = "<group>"; };
 		0470E6B02270B32600267278 /* PlaceSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchTableViewCell.swift; sourceTree = "<group>"; };
 		0470E6B12270B32600267278 /* PlaceSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchVC.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 		0470E6AB2270B2DF00267278 /* GoogleMap */ = {
 			isa = PBXGroup;
 			children = (
+				0454B7BD23745CC30043DEC3 /* DarkMapStyle.json */,
 				0470E6AC2270B2DF00267278 /* GoogleMap.swift */,
 				04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */,
 			);
@@ -706,6 +709,7 @@
 			files = (
 				7762328D22D14EE900156DC7 /* dizzySplash.mp4 in Resources */,
 				76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */,
+				0454B7BE23745CC30043DEC3 /* DarkMapStyle.json in Resources */,
 				76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
