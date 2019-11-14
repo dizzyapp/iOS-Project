@@ -50,7 +50,7 @@ final class MapSearchVC: ViewController {
     }
     
     private func setupeSearchBar() {
-        searchBar.delegate = self
+        searchBar.delegate = self 
         searchBar.becomeFirstResponder()
     }
     

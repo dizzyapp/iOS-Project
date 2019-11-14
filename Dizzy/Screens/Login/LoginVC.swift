@@ -9,10 +9,10 @@
 import UIKit
 import SnapKit
 
-final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
-    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
+final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC {
     
-    let loginContainerView = UIView()
+    var cardContainerView: UIView = UIView()
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
     
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
@@ -26,7 +26,6 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     
     let enterAsAdminButton: UIButton = UIButton(type: .system)
     
-    let cornerRadius: CGFloat = 30.0
     let enterAsAdminButtonHeight: CGFloat = 40
     
     var loginVM: LoginVMType
@@ -48,15 +47,12 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     }
     
     private func addSubviews() {
-        
-        self.view.addSubview(loginContainerView)
-        loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
+        makeCard()
+        cardContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
                                         userProfileView, logoutButton, appInfosView, dizzyLogoImageView, enterAsAdminButton])
         
     }
     private func layoutViews() {
-        layoutLoginContainerView()
-        
         layoutTitleLabel()
         layoutSubtitleLabel()
         layoutLoginSelectionView()
@@ -66,17 +62,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
         
         layoutDizzyLogo()
         layoutEnterAsAdminButton()
-    }
-    
-    private func layoutLoginContainerView() {
-        loginContainerView.snp.makeConstraints { loginContainerView in
-            
-            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
-            loginContainerView.leading.trailing.equalToSuperview()
-            loginContainerView.bottom.equalToSuperview().offset(Metrics.doublePadding)
-        }
-    }
-    
+    }    
     private func layoutTitleLabel() {
         titleLabel.snp.makeConstraints { titleLabel in
             titleLabel.top.equalToSuperview().offset(Metrics.padding)
@@ -91,7 +77,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
             subtitleLabel.leading.trailing.equalToSuperview()
         }
     }
-
+    
     private func layoutLoginSelectionView() {
         loginSelectionView.snp.makeConstraints { loginSelectionView in
             loginSelectionView.top.equalTo(subtitleLabel.snp.bottom)
@@ -139,8 +125,6 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     
     private func setupViews() {
         setupNavigationView()
-        setupLoginContainerView()
-        
         setupTitleLabel()
         setupSubtitleLabel()
         setupLoginSelectionView()
@@ -154,12 +138,6 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter {
     
     private func setupNavigationView() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
-    }
-    
-    private func setupLoginContainerView() {
-        loginContainerView.backgroundColor = .white
-        loginContainerView.layer.cornerRadius = cornerRadius
-        loginContainerView.clipsToBounds = true
     }
     
     private func setupTitleLabel() {

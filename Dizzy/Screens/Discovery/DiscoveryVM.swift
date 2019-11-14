@@ -39,10 +39,11 @@ protocol DiscoveryVMDelegate: class {
 
 protocol DiscoveryViewModelNavigationDelegate: class {
     func mapButtonPressed(places: [PlaceInfo])
-    func menuButtonPressed()
+    func menuButtonPressed(with places: [PlaceInfo])
     func placeCellDetailsPressed(_ place: PlaceInfo)
     func placeCellIconPressed(_ place: PlaceInfo)
     func activePlaceWasSet(_ activePlace: PlaceInfo?)
+    func register(_ allPlaces: [PlaceInfo])
 }
 
 class DiscoveryVM: DiscoveryVMType {
@@ -118,7 +119,7 @@ class DiscoveryVM: DiscoveryVMType {
     }
     
     func menuButtonPressed() {
-        self.navigationDelegate?.menuButtonPressed()
+        self.navigationDelegate?.menuButtonPressed(with: allPlaces)
     }
     
     func placeCellDetailsPressed(atIndexPath indexPath: IndexPath) {
@@ -160,9 +161,13 @@ class DiscoveryVM: DiscoveryVMType {
 }
 
 extension DiscoveryVM: PlacesInteractorDelegate {
+    
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
         sortAllPlacesByDistance()
         delegate?.allPlacesArrived()
+        navigationDelegate?.register(allPlaces)
     }
+    
+    func placesIdsPerUserArrived(placesIds: [PlaceId]) { }
 }

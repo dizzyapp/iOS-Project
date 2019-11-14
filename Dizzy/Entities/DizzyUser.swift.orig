@@ -33,8 +33,12 @@ struct DizzyUser: Codable {
     let email: String
     let role: UserRole
     let photoURL: URL?
+<<<<<<< HEAD
     
     static func guestUser() -> DizzyUser {
         return DizzyUser(id: "", fullName: "", email: "", role: .guest, photoURL: nil)
     }
+=======
+    let ownPlacesIds: [String: String]?
+>>>>>>> Feature(Admin-Settings): added admin places view controller.
 }
