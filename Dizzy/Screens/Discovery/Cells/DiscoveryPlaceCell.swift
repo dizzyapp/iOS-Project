@@ -23,8 +23,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     let placeDetailsStackView = UIStackView()
     
     let stackViewTrailingPadding = CGFloat(15)
-    let smallLabelsFontSize = CGFloat(9)
-    let placeImageViewSize = CGFloat(45)
+    let smallLabelsFontSize = CGFloat(10)
+    let smallLabelsAlpha = CGFloat(0.618)
+    let placeImageViewSize = CGFloat(50)
 
     weak var delegate: DiscoveryPlaceCellDelegate?
     
@@ -102,10 +103,12 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         placeAddressLabel.font = Fonts.medium(size: smallLabelsFontSize)
         placeAddressLabel.numberOfLines = 1
         placeAddressLabel.textAlignment = .left
+        placeAddressLabel.alpha = smallLabelsAlpha
         
         distanceLabel.font = Fonts.medium(size: smallLabelsFontSize)
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
+        distanceLabel.alpha = smallLabelsAlpha
     }
     
     func setupPlaceImageView() {

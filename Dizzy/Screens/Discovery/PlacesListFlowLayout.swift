@@ -11,7 +11,7 @@ import UIKit
 class PlacesListFlowLayout: UICollectionViewLayout {
     
     private var numberOfColumns = 2
-    private var cellPadding: CGFloat = 4
+    private var cellPadding: CGFloat = 10
     
     private var cache = [UICollectionViewLayoutAttributes]()
     

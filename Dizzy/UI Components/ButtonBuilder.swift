@@ -19,14 +19,14 @@ extension UIButton {
     
     var navigaionCloseButton: UIButton {
         let button = UIButton()
-        let image = UIImage(named: "close_button")
+        let image = UIImage(named: "exitStoryButton")
         button.setImage(image, for: .normal)
         return button
     }
     
     var roundedSearchButton: UIButton {
         let button = UIButton()
-        let image = UIImage(named: "navigation_search_button")
+        let image = UIImage(named: "searchIcon")
         button.setImage(image, for: .normal)
         return button
     }

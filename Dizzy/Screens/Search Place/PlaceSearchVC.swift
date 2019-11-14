@@ -46,13 +46,13 @@ final class PlaceSearchVC: ViewController {
         
         closeButton.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(Metrics.doublePadding)
-            make.leading.equalToSuperview().offset(Metrics.doublePadding)
+            make.trailing.equalToSuperview().inset(Metrics.doublePadding)
         }
         
         searchTextField.snp.makeConstraints { make in
             make.top.equalTo(closeButton)
-            make.leading.equalTo(closeButton.snp.trailing).offset(Metrics.doublePadding)
-            make.trailing.equalToSuperview().inset(Metrics.doublePadding)
+            make.leading.equalToSuperview().offset(Metrics.doublePadding)
+            make.trailing.equalTo(closeButton.snp.leading).offset(-Metrics.padding)
             make.height.equalTo(searchBarHeight)
         }
     }
@@ -83,7 +83,7 @@ final class PlaceSearchVC: ViewController {
     
     private func setupSearchTextField() {
         searchTextField.addTarget(self, action: #selector(searchTextFieldDidChange), for: .editingChanged)
-        searchTextField.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        searchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.25)
         searchTextField.layer.cornerRadius = 10
         searchTextField.addPaddingToMarker()
         searchTextField.textColor = .white

@@ -25,9 +25,9 @@ class PlaceInfoView: UIView {
     let placeDetailsStackView = UIStackView()
     
     let stackViewTrailingPadding = CGFloat(15)
-    let smallLabelsFontSize = CGFloat(9)
-    let placeImageViewSize = CGFloat(45)
-    let reservationButtonHeight = CGFloat(25)
+    let smallLabelsFontSize = CGFloat(10)
+    let placeImageViewSize = CGFloat(50)
+    let reservationButtonHeight = CGFloat(35)
     
     var placeInfo: PlaceInfo?
     
@@ -87,7 +87,7 @@ class PlaceInfoView: UIView {
         reservationButton.snp.makeConstraints { reservationButton in
             reservationButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
             reservationButton.centerY.equalToSuperview()
-            reservationButton.width.equalTo(90)
+            reservationButton.width.equalTo(120)
             reservationButton.height.equalTo(reservationButtonHeight)
         }
     }
@@ -138,7 +138,8 @@ class PlaceInfoView: UIView {
         reservationButton.setTitle("RESERVE".localized, for: .normal)
         reservationButton.layer.cornerRadius = reservationButtonHeight/3
         reservationButton.setTitleColor(.white, for: .normal)
-        reservationButton.backgroundColor = UIColor.primeryPurple
+        reservationButton.titleLabel?.font =  UIFont(name: "Avenir-Heavy" , size: 12)
+        reservationButton.backgroundColor = UIColor.blue
         reservationButton.addTarget(self, action: #selector(didPressReservationButton), for: .touchUpInside)
     }
     
