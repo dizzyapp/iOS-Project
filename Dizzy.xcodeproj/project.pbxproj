@@ -117,6 +117,7 @@
 		76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */; };
 		770972432264FCF50042D6EE /* PlacesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770972422264FCF50042D6EE /* PlacesInteractor.swift */; };
 		7752953522CD3F0E009A85C1 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7752953422CD3F0E009A85C1 /* VideoView.swift */; };
+		775DB06623800A3000DE67C2 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775DB06523800A3000DE67C2 /* SearchBar.swift */; };
 		77611A3D23644B8A00DB04F9 /* DizzyPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77611A3C23644B8A00DB04F9 /* DizzyPopup.swift */; };
 		776210D623785B4600D85F9D /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776210D523785B4600D85F9D /* PlaceInfoView.swift */; };
 		776210D82379F1EE00D85F9D /* PlaceReservationRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776210D72379F1EE00D85F9D /* PlaceReservationRequestor.swift */; };
@@ -248,6 +249,7 @@
 		76B41EE82253871200C1A290 /* DiscoveryPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPlaceCell.swift; sourceTree = "<group>"; };
 		770972422264FCF50042D6EE /* PlacesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesInteractor.swift; sourceTree = "<group>"; };
 		7752953422CD3F0E009A85C1 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		775DB06523800A3000DE67C2 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		77611A3C23644B8A00DB04F9 /* DizzyPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DizzyPopup.swift; sourceTree = "<group>"; };
 		776210D523785B4600D85F9D /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
 		776210D72379F1EE00D85F9D /* PlaceReservationRequestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReservationRequestor.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				776210D523785B4600D85F9D /* PlaceInfoView.swift */,
 				776210D72379F1EE00D85F9D /* PlaceReservationRequestor.swift */,
 				041724BC23787A8A00E0A5D9 /* CardVC.swift */,
+				775DB06523800A3000DE67C2 /* SearchBar.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -953,6 +956,7 @@
 				776210D623785B4600D85F9D /* PlaceInfoView.swift in Sources */,
 				77611A3D23644B8A00DB04F9 /* DizzyPopup.swift in Sources */,
 				04E7808C22B0274900A9E3F4 /* PlaceProfileView.swift in Sources */,
+				775DB06623800A3000DE67C2 /* SearchBar.swift in Sources */,
 				76B41ECB2252149000C1A290 /* TabItem.swift in Sources */,
 				041724C52379481300E0A5D9 /* AdminPlaceAnalyticsVM.swift in Sources */,
 				041724B62378545C00E0A5D9 /* AdminPlacesVM.swift in Sources */,

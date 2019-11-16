@@ -73,7 +73,6 @@ final class PlaceSearchVC: ViewController {
     }
     
     private func setupPlacesView() {
-        placesViews.hideSearchButton()
         placesViews.set(title: "Search".localized)
         placesViews.set(keyboardDismissMode: .onDrag)
         placesViews.dataSource = self
@@ -126,6 +125,7 @@ extension PlaceSearchVC: NearByPlacesViewDataSource {
 }
 
 extension PlaceSearchVC: NearByPlacesViewDelegate {
+    
     func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
        viewModel.didSelectRowAt(indexPath)
     }

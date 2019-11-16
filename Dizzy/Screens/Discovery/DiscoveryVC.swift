@@ -51,7 +51,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        showNearByPlacesWithAnimation()
+        endSearch()
     }
     
     private func addSubviews() {
@@ -100,6 +100,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
         let downSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeDown))
         downSwipe.direction = .down
         self.view.addGestureRecognizer(downSwipe)
+        
+        let upSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeUp))
+        upSwipe.direction = .up
+        self.view.addGestureRecognizer(upSwipe)
     }
     
     private func setupTopBarView() {
@@ -119,18 +123,27 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
+        nearByPlacesView.searchDelegate = self
         nearByPlacesView.alpha = 0.9
         nearByPlacesView.reloadData()
     }
     
-    private func showNearByPlacesWithAnimation() {
+    private func showPlacesOnHalfScreenWithAnimation() {
         UIView.animate(withDuration: 1) {
-            self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 25)
+            self.showPlacesOnHalfScreen()
             self.view.layoutIfNeeded()
         }
     }
+
+    private func showPlacesOnHalfScreen() {
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 25)
+    }
     
-    private func hideNearByPlacesWithAnimation(_ completion: (() -> Void)? = nil) {
+    private func showPlacesOnFullScreen() {
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height)
+    }
+    
+    private func hidelacesWithAnimation(_ completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.2, animations: {
             self.nearByPlacesTopConstraint?.update(offset: 0)
             self.view.layoutIfNeeded()
@@ -148,9 +161,18 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     @objc func onSwipeDown() {
-        hideNearByPlacesWithAnimation {
-            self.mapButtonPressed()
+        if viewModel.isSearching {
+            self.endSearch()
+        } else {
+            hidelacesWithAnimation {
+                self.mapButtonPressed()
+            }
         }
+    }
+    
+    @objc func onSwipeUp() {
+        guard !viewModel.isSearching else { return }
+        didPressSearch()
     }
 }
 
@@ -206,7 +228,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
                 self.allPlacesArrived()
                 return
             }
-            self.showNearByPlacesWithAnimation()
+            self.showPlacesOnHalfScreenWithAnimation()
             self.viewModel.checkClosestPlace()
         })
     }
@@ -219,5 +241,32 @@ extension DiscoveryVC: NearByPlacesViewDelegate {
     
     func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
         viewModel.placeCellDetailsPressed(atIndexPath: indexPath)
+    }
+}
+
+extension DiscoveryVC: NearByPlacesViewSearchDelegate {
+    func searchTextChanged(newText: String) {
+        viewModel.searchPlacesByName(newText)
+    }
+    
+    func didPressSearch() {
+        viewModel.searchPlacePressed()
+        UIView.animate(withDuration: 1) {
+            self.topBar.alpha = 0
+            self.nearByPlacesView.showSearchMode()
+            self.showPlacesOnFullScreen()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func endSearch() {
+        viewModel.searchEnded()
+        UIView.animate(withDuration: 1) {
+            self.topBar.alpha = 1
+            self.nearByPlacesView.hideSearchMode()
+            self.showPlacesOnHalfScreen()
+            self.viewModel.searchPlacesByName("")
+            self.view.layoutIfNeeded()
+        }
     }
 }
