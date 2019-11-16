@@ -101,6 +101,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupViews() {
+        addKeyboardListeners()
         setupSearchBar()
         setupPlacesViewContainer()
         setupSearchButton()
@@ -175,6 +176,20 @@ class NearByPlacesView: UIView, LoadingContainer {
         searchBar.alpha = 0
         searchBarToPlacesViewConstraint?.deactivate()
         placesViewToSuperviewConstraint?.activate()
+    }
+    
+    private func addKeyboardListeners() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.cgSizeValue.height, right: 0)
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
