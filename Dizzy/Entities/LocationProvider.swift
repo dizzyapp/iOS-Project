@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import UIKit
 
 protocol LocationProviderType {
     var locationServicesEnabled: Bool { get }
@@ -22,6 +23,10 @@ final class LocationProvider: NSObject, LocationProviderType {
     
     lazy var didBecomeActive: (Notification) -> Void = { [weak self] _ in
         self?.requestUserLocation()
+    }
+    
+    lazy var didEnterBackground: (Notification) -> Void = { [weak self] _ in
+        self?.dizzyLocation.value = nil
     }
     
     private var currentLocation: CLLocation?
@@ -58,6 +63,11 @@ final class LocationProvider: NSObject, LocationProviderType {
                                                object: nil,
                                                queue:.main,
                                                using: didBecomeActive)
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification,
+                                               object: nil,
+                                               queue:.main,
+                                               using: didEnterBackground)
     }
     
     func requestUserLocation() {

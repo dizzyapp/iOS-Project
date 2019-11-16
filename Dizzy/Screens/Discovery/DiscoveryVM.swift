@@ -70,8 +70,9 @@ class DiscoveryVM: DiscoveryVMType {
     
     private func bindLocationProvider() {
         locationProvider.dizzyLocation.bind { [weak self] location in
-            self?.askForCurrentAddress()
             self?.currentLocation.value = location
+            guard location != nil else { return }
+            self?.askForCurrentAddress()
             self?.sortAllPlacesByDistance()
             self?.checkClosestPlace()
             self?.delegate?.reloadData()
