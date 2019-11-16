@@ -171,7 +171,7 @@ class DiscoveryVM: DiscoveryVMType {
         }
         
         self.placesToDisplay.value = allPlaces.filter({ place in
-            return place.name.contains(name)
+            return place.name.uppercased().contains(name.uppercased())
         })
         self.delegate?.reloadData()
     }
