@@ -18,6 +18,7 @@ protocol NearByPlacesViewDataSource: class {
 
 protocol NearByPlacesViewSearchDelegate: class {
     func searchTextChanged(newText: String)
+    func didPressSearch()
     func endSearch()
 }
 
@@ -38,6 +39,9 @@ class NearByPlacesView: UIView, LoadingContainer {
     private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
     private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
+    
+    private var searchBarToPlacesViewConstraint: Constraint?
+    private var placesViewToSuperviewConstraint: Constraint?
     
     private let cellIDentifier = "DiscoveryPlaceCell"
     
@@ -64,14 +68,16 @@ class NearByPlacesView: UIView, LoadingContainer {
     private func layoutViews() {
         
         searchBar.snp.makeConstraints { searchBar in
-            searchBar.top.equalToSuperview()
+            searchBar.top.equalToSuperview().offset(Metrics.doublePadding)
             searchBar.leading.equalToSuperview().offset(Metrics.doublePadding)
             searchBar.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-            searchBar.bottom.equalTo(placesViewContainer.snp.top).offset(-Metrics.padding)
+            searchBarToPlacesViewConstraint =  searchBar.bottom.equalTo(placesViewContainer.snp.top).offset(-Metrics.padding).constraint
         }
+        searchBarToPlacesViewConstraint?.deactivate()
         
         placesViewContainer.snp.makeConstraints { placesViewContainer in
-            placesViewContainer.leading.trailing.bottom.equalToSuperview()
+            placesViewContainer.leading.bottom.trailing.equalToSuperview()
+            placesViewToSuperviewConstraint = placesViewContainer.top.equalToSuperview().constraint
         }
         
         searchButton.snp.makeConstraints { searchButton in
@@ -103,6 +109,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupSearchBar() {
+        searchBar.alpha = 0
         searchBar.delegate = self
     }
     
@@ -117,7 +124,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     @objc private func didPressSearch() {
-        
+        searchDelegate?.didPressSearch()
     }
     
     private func setupTitleLabel() {
@@ -153,8 +160,21 @@ class NearByPlacesView: UIView, LoadingContainer {
         placesCollectionView.keyboardDismissMode = keyboardDismissMode
     }
     
-    func hideSearchButton() {
+    func showSearchMode() {
         searchButton.isHidden = true
+        titleLabel.text = "SEARCH".localized
+        searchBar.alpha = 1
+        searchBarToPlacesViewConstraint?.activate()
+        placesViewToSuperviewConstraint?.deactivate()
+    }
+    
+    func hideSearchMode() {
+        searchButton.isHidden = false
+        searchBar.stopEditing()
+        titleLabel.text = "DISCOVER".localized
+        searchBar.alpha = 0
+        searchBarToPlacesViewConstraint?.deactivate()
+        placesViewToSuperviewConstraint?.activate()
     }
 }
 

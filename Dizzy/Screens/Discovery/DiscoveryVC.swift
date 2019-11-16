@@ -51,7 +51,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        showNearByPlacesWithAnimation()
+        endSearch()
     }
     
     private func addSubviews() {
@@ -124,14 +124,22 @@ class DiscoveryVC: ViewController, PopupPresenter {
         nearByPlacesView.reloadData()
     }
     
-    private func showNearByPlacesWithAnimation() {
+    private func showPlacesOnHalfScreenWithAnimation() {
         UIView.animate(withDuration: 1) {
-            self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 25)
+            self.showPlacesOnHalfScreen()
             self.view.layoutIfNeeded()
         }
     }
+
+    private func showPlacesOnHalfScreen() {
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 25)
+    }
     
-    private func hideNearByPlacesWithAnimation(_ completion: (() -> Void)? = nil) {
+    private func showPlacesOnFullScreen() {
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height)
+    }
+    
+    private func hidelacesWithAnimation(_ completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.2, animations: {
             self.nearByPlacesTopConstraint?.update(offset: 0)
             self.view.layoutIfNeeded()
@@ -149,8 +157,12 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     @objc func onSwipeDown() {
-        hideNearByPlacesWithAnimation {
-            self.mapButtonPressed()
+        if viewModel.isSearching {
+            self.endSearch()
+        } else {
+            hidelacesWithAnimation {
+                self.mapButtonPressed()
+            }
         }
     }
 }
@@ -207,7 +219,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
                 self.allPlacesArrived()
                 return
             }
-            self.showNearByPlacesWithAnimation()
+            self.showPlacesOnHalfScreenWithAnimation()
             self.viewModel.checkClosestPlace()
         })
     }
@@ -228,7 +240,22 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
         viewModel.searchPlacesByName(newText)
     }
     
+    func didPressSearch() {
+        viewModel.searchPlacePressed()
+        UIView.animate(withDuration: 1) {
+            self.nearByPlacesView.showSearchMode()
+            self.showPlacesOnFullScreen()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     func endSearch() {
-        
+        viewModel.searchEnded()
+        UIView.animate(withDuration: 1) {
+            self.nearByPlacesView.hideSearchMode()
+            self.showPlacesOnHalfScreen()
+            self.viewModel.searchPlacesByName("")
+            self.view.layoutIfNeeded()
+        }
     }
 }

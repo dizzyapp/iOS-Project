@@ -42,7 +42,7 @@ class SearchBar: UIView {
         }
         
         closeButton.snp.makeConstraints { closeButton in
-            closeButton.top.equalToSuperview().offset(Metrics.padding)
+            closeButton.top.equalToSuperview()
             closeButton.bottom.equalToSuperview().offset(-Metrics.padding)
             closeButton.trailing.equalToSuperview()
         }
@@ -65,6 +65,11 @@ class SearchBar: UIView {
         searchTextField.layer.cornerRadius = 10
         searchTextField.addPaddingToMarker()
         searchTextField.addTarget(self, action: #selector(searchTextFieldDidChange), for: .editingChanged)
+    }
+    
+    func stopEditing() {
+        self.endEditing(true)
+        self.searchTextField.text = ""
     }
     
     @objc func closeButtonPressed() {
