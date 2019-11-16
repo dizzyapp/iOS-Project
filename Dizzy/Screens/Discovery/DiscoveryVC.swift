@@ -100,6 +100,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
         let downSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeDown))
         downSwipe.direction = .down
         self.view.addGestureRecognizer(downSwipe)
+        
+        let upSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeUp))
+        upSwipe.direction = .up
+        self.view.addGestureRecognizer(upSwipe)
     }
     
     private func setupTopBarView() {
@@ -164,6 +168,11 @@ class DiscoveryVC: ViewController, PopupPresenter {
                 self.mapButtonPressed()
             }
         }
+    }
+    
+    @objc func onSwipeUp() {
+        guard !viewModel.isSearching else { return }
+        didPressSearch()
     }
 }
 
