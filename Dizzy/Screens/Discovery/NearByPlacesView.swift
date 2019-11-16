@@ -27,6 +27,8 @@ class NearByPlacesView: UIView, LoadingContainer {
     weak var delegate: NearByPlacesViewDelegate?
     weak var dataSource: NearByPlacesViewDataSource?
     
+    private let searchBar = SearchBar()
+    private let placesViewContainer = UIView()
     private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
     private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
@@ -38,7 +40,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     init() {
         super.init(frame: CGRect.zero)
-        backgroundColor = .white
+        backgroundColor = .clear
         addSubviews()
         layoutViews()
         setupViews()
@@ -49,10 +51,23 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func addSubviews() {
-        self.addSubviews([searchButton, titleLabel, placesCollectionView])
+        self.addSubviews([searchBar, placesViewContainer])
+        self.placesViewContainer.addSubviews([searchButton, titleLabel, placesCollectionView])
     }
     
     private func layoutViews() {
+        
+        searchBar.snp.makeConstraints { searchBar in
+            searchBar.top.equalToSuperview()
+            searchBar.leading.equalToSuperview().offset(Metrics.doublePadding)
+            searchBar.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+            searchBar.bottom.equalTo(placesViewContainer.snp.top).offset(-Metrics.padding)
+        }
+        
+        placesViewContainer.snp.makeConstraints { placesViewContainer in
+            placesViewContainer.leading.trailing.bottom.equalToSuperview()
+        }
+        
         searchButton.snp.makeConstraints { searchButton in
             searchButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
             searchButton.centerY.equalTo(titleLabel.snp.centerY)
@@ -74,10 +89,15 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupViews() {
-        self.layer.cornerRadius = cornerRadius
+        setupPlacesViewContainer()
         setupSearchButton()
         setupTitleLabel()
         setupPlacesCollectionView()
+    }
+    
+    private func setupPlacesViewContainer() {
+        placesViewContainer.layer.cornerRadius = cornerRadius
+        placesViewContainer.backgroundColor = .white
     }
     
     private func setupSearchButton() {
