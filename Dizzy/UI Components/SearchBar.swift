@@ -60,6 +60,7 @@ class SearchBar: UIView {
     }
     
     private func setupSearchTextField() {
+        searchTextField.delegate = self
         searchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         searchTextField.layer.cornerRadius = 10
         searchTextField.addPaddingToMarker()
@@ -72,5 +73,12 @@ class SearchBar: UIView {
     
     @objc func searchTextFieldDidChange() {
         delegate?.searchTextChanged(newText: searchTextField.text ?? "")
+    }
+}
+
+extension SearchBar: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.endEditing(true)
+        return false
     }
 }

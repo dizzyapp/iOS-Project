@@ -119,6 +119,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
+        nearByPlacesView.searchDelegate = self
         nearByPlacesView.alpha = 0.9
         nearByPlacesView.reloadData()
     }
@@ -219,5 +220,15 @@ extension DiscoveryVC: NearByPlacesViewDelegate {
     
     func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
         viewModel.placeCellDetailsPressed(atIndexPath: indexPath)
+    }
+}
+
+extension DiscoveryVC: NearByPlacesViewSearchDelegate {
+    func searchTextChanged(newText: String) {
+        viewModel.searchPlacesByName(newText)
+    }
+    
+    func endSearch() {
+        
     }
 }

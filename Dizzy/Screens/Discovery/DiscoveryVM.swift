@@ -20,6 +20,8 @@ protocol DiscoveryVMType {
     func userDeclinedHeIsInPlace()
     func checkClosestPlace()
     
+    func searchPlacesByName(_ name: String)
+    
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryVMDelegate? { get set }
     var currentLocation: Observable<Location?> { get }
@@ -100,6 +102,8 @@ class DiscoveryVM: DiscoveryVMType {
             let distanceToPlace2 = currentLocation.getDistanceTo(place2.location)
             return distanceToPlace1 < distanceToPlace2
         })
+        
+        placesToDisplay.value = allPlaces
     }
     
     func numberOfSections() -> Int {
@@ -107,11 +111,11 @@ class DiscoveryVM: DiscoveryVMType {
     }
     
     func numberOfItemsForSection(_ section: Int) -> Int {
-        return allPlaces.count
+        return placesToDisplay.value.count
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return allPlaces[indexPath.row]
+        return placesToDisplay.value[indexPath.row]
     }
     
     func mapButtonPressed() {
@@ -123,11 +127,11 @@ class DiscoveryVM: DiscoveryVMType {
     }
     
     func placeCellDetailsPressed(atIndexPath indexPath: IndexPath) {
-        navigationDelegate?.placeCellDetailsPressed(allPlaces[indexPath.row])
+        navigationDelegate?.placeCellDetailsPressed(placesToDisplay.value[indexPath.row])
     }
     
     func placeCellIconPressed(atIndexPath indexPath: IndexPath) {
-        navigationDelegate?.placeCellIconPressed(allPlaces[indexPath.row])
+        navigationDelegate?.placeCellIconPressed(placesToDisplay.value[indexPath.row])
     }
 
     func locationLablePressed() {
@@ -136,11 +140,11 @@ class DiscoveryVM: DiscoveryVMType {
     
     func checkClosestPlace() {
         guard let currentLocation = currentLocation.value,
-            !allPlaces.isEmpty else {
+            !placesToDisplay.value.isEmpty else {
             return
         }
         
-        let closestPlace = allPlaces[0]
+        let closestPlace = placesToDisplay.value[0]
         let distanceToPlaceInMeters = currentLocation.getDistanceTo(closestPlace.location, inScaleOf: .meters)
         
         if distanceToPlaceInMeters < maxMetersFromPlaceToVisit {
@@ -158,6 +162,19 @@ class DiscoveryVM: DiscoveryVMType {
     func userDeclinedHeIsInPlace() {
         navigationDelegate?.activePlaceWasSet(nil)
     }
+    
+    func searchPlacesByName(_ name: String) {
+        if name.isEmpty {
+            placesToDisplay.value = allPlaces
+            self.delegate?.reloadData()
+            return
+        }
+        
+        self.placesToDisplay.value = allPlaces.filter({ place in
+            return place.name.contains(name)
+        })
+        self.delegate?.reloadData()
+    }
 }
 
 extension DiscoveryVM: PlacesInteractorDelegate {
@@ -165,6 +182,7 @@ extension DiscoveryVM: PlacesInteractorDelegate {
     func allPlacesArrived(places: [PlaceInfo]) {
         allPlaces = places
         sortAllPlacesByDistance()
+        placesToDisplay.value = allPlaces
         delegate?.allPlacesArrived()
         navigationDelegate?.register(allPlaces)
     }

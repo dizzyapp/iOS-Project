@@ -16,6 +16,11 @@ protocol NearByPlacesViewDataSource: class {
     func getCurrentLocation() -> Location?
 }
 
+protocol NearByPlacesViewSearchDelegate: class {
+    func searchTextChanged(newText: String)
+    func endSearch()
+}
+
 protocol NearByPlacesViewDelegate: class {
     func didPressPlaceIcon(atIndexPath indexPath: IndexPath)
     func didPressPlaceDetails(atIndexPath indexPath: IndexPath)
@@ -26,6 +31,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     weak var delegate: NearByPlacesViewDelegate?
     weak var dataSource: NearByPlacesViewDataSource?
+    weak var searchDelegate: NearByPlacesViewSearchDelegate?
     
     private let searchBar = SearchBar()
     private let placesViewContainer = UIView()
@@ -89,10 +95,15 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupViews() {
+        setupSearchBar()
         setupPlacesViewContainer()
         setupSearchButton()
         setupTitleLabel()
         setupPlacesCollectionView()
+    }
+    
+    private func setupSearchBar() {
+        searchBar.delegate = self
     }
     
     private func setupPlacesViewContainer() {
@@ -187,5 +198,15 @@ extension NearByPlacesView: DiscoveryPlaceCellDelegate {
     func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell) {
         guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
         delegate?.didPressPlaceDetails(atIndexPath: indexPath)
+    }
+}
+
+extension NearByPlacesView: SearchBarDelegate {
+    func searchTextChanged(newText: String) {
+        searchDelegate?.searchTextChanged(newText: newText)
+    }
+    
+    func closePressed() {
+        searchDelegate?.endSearch()
     }
 }
