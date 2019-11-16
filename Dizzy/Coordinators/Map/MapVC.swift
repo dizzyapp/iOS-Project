@@ -42,8 +42,7 @@ class MapVC: ViewController {
     
     private func addSubviews() {
         googleMap.mapView.delegate = self
-        view = googleMap.mapView
-        view.addSubviews([currentLocationButton, placeInfoView])
+        view.addSubviews([googleMap.mapView, currentLocationButton, placeInfoView])
     }
     
     private func setupViews() {
@@ -63,6 +62,10 @@ class MapVC: ViewController {
     }
     
     private func layoutSubviews() {
+        googleMap.mapView.snp.makeConstraints { mapView in
+            mapView.edges.equalToSuperview()
+        }
+        
         currentLocationButton.snp.makeConstraints { make in
             make.bottom.equalTo(placeInfoView.snp.top).offset(-Metrics.doublePadding)
             make.right.equalToSuperview().inset(Metrics.doublePadding)

@@ -70,7 +70,6 @@ class Assembly {
         container.autoregister(ConversationsVC.self, argument: ConversationsViewModelType.self, initializer: ConversationsVC.init)
         container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(PlaceStoryVC.self, argument: PlaceStoryVMType.self ,initializer: PlaceStoryVC.init)
-        container.autoregister(MapVC.self, arguments: MapVMType.self, MapType.self, initializer: MapVC.init)
         container.autoregister(PlaceSearchVC.self, argument: PlaceSearchVMType.self ,initializer: PlaceSearchVC.init)
         container.autoregister(LoginVC.self, argument:LoginVMType.self,  initializer: LoginVC.init)
         container.autoregister(PlaceProfileVC.self, argument: PlaceProfileVMType.self, initializer: PlaceProfileVC.init)
