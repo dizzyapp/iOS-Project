@@ -243,6 +243,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     func didPressSearch() {
         viewModel.searchPlacePressed()
         UIView.animate(withDuration: 1) {
+            self.topBar.alpha = 0
             self.nearByPlacesView.showSearchMode()
             self.showPlacesOnFullScreen()
             self.view.layoutIfNeeded()
@@ -252,6 +253,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     func endSearch() {
         viewModel.searchEnded()
         UIView.animate(withDuration: 1) {
+            self.topBar.alpha = 1
             self.nearByPlacesView.hideSearchMode()
             self.showPlacesOnHalfScreen()
             self.viewModel.searchPlacesByName("")
