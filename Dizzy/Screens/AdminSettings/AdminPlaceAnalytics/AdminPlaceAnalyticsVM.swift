@@ -25,18 +25,32 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
     
     weak var delegate: AdminPlaceAnalyticsVMDelegate?
     var tableViewData = Observable<[AdminPlaceAnalyticCell.CellData]>([AdminPlaceAnalyticCell.CellData]())
-    let place: PlaceInfo
+    var place: PlaceInfo
+    
+    private let placesInteractor: PlacesInteractorType
     
     var placeName: String {
         return place.name
     }
     
-    init(place: PlaceInfo) {
+    init(place: PlaceInfo, placesInteractor: PlacesInteractorType) {
         self.place = place
-        createTableViewData()
+        self.placesInteractor = placesInteractor
+        bindPlaces()
+        updateTableViewData()
     }
     
-    private func createTableViewData() {
+    private func bindPlaces() {
+        placesInteractor.allPlaces.bind { [weak self] places in
+            let updatedPlace = places.first { $0.id == self?.place.id }
+            if let placeInfo = updatedPlace {
+                self?.place = placeInfo
+                self?.updateTableViewData()
+            }
+        }
+    }
+    
+    private func updateTableViewData() {
         var tableViewData = [AdminPlaceAnalyticCell.CellData]()
         
         if let profileViews = place.adminAnalytics?.profileViews {

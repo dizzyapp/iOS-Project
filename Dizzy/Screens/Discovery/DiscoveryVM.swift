@@ -173,6 +173,7 @@ class DiscoveryVM: DiscoveryVMType {
     
     func userApprovedHeIsIn(place activePlace: PlaceInfo) {
         self.activePlace = activePlace
+        placesInteractor.increment(analyticsType: .attendence, by: 1, to: activePlace)
         self.navigationDelegate?.activePlaceWasSet(activePlace)
     }
     

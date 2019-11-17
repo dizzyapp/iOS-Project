@@ -98,8 +98,12 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     }
     
     func requestTableButtonPressed() {
+<<<<<<< HEAD
+        delegate?.placeProfileVMRequestATableTapped(self, with: placeInfo)
+=======
         sendReserveClickAdminAnalytics()
         requestATable(placeInfo)
+>>>>>>> feature(admin-settings): observe to places.
     }
     
     func closePressed() {

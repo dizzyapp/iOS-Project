@@ -173,6 +173,7 @@ class DiscoveryVM: DiscoveryVMType {
     
     func userApprovedHeIsIn(place activePlace: PlaceInfo) {
         self.activePlace = activePlace
+        placesInteractor.increment(analyticsType: .attendence, by: 1, to: activePlace)
         self.navigationDelegate?.activePlaceWasSet(activePlace)
     }
     
@@ -193,6 +194,7 @@ class DiscoveryVM: DiscoveryVMType {
         self.delegate?.reloadData()
     }
     
+<<<<<<< HEAD
     func searchPlacePressed() {
         isSearching = true
     }
@@ -204,20 +206,9 @@ class DiscoveryVM: DiscoveryVMType {
     func splashEnded() {
         isSpalshEnded = true
     }
-}
-<<<<<<< HEAD
-
-extension DiscoveryVM: PlacesInteractorDelegate {
-    
-    func allPlacesArrived(places: [PlaceInfo]) {
-        allPlaces = places
-        sortAllPlacesByDistance()
-        placesToDisplay.value = allPlaces
-        delegate?.allPlacesArrived()
-        navigationDelegate?.register(allPlaces)
-    }
-    
-    func placesIdsPerUserArrived(placesIds: [PlaceId]) { }
-}
 =======
->>>>>>> feature(admin-settings): code review changes.
+    func placesIdsPerUserArrived(placesIds: [PlaceId]) { }
+    
+    func getPlace(_ place: PlaceInfo) { }
+>>>>>>> feature(admin-settings): observe to places.
+}

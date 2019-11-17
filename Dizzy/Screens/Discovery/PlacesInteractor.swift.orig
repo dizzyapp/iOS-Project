@@ -10,19 +10,17 @@ import UIKit
 
 protocol PlacesInteractorType {
 <<<<<<< HEAD
-    var delegate: PlacesInteractorDelegate? { get set }
-    func getAllPlaces()
-    func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
-    func getPlaces(ownedBy userId: String)
-}
-
-class PlacesInteractor: PlacesInteractorType {
-    weak var delegate: PlacesInteractorDelegate?
-=======
     var allPlaces: Observable<[PlaceInfo]> { get set }
     func getAllPlaces()
     func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
     func getPlaces(ownedBy userId: String, completion: @escaping ([PlaceId]) -> Void)
+=======
+    var delegate: PlacesInteractorDelegate? { get set }
+    var allPlaces: Observable<[PlaceInfo]> { get set }
+    func getAllPlaces()
+    func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
+    func getPlaces(ownedBy userId: String)
+>>>>>>> feature(admin-settings): observe to places.
     func increment(analyticsType: PlacesInteractor.AdminAnalyticsType, by count: Int, to place: PlaceInfo)
 }
 
@@ -34,6 +32,7 @@ class PlacesInteractor: PlacesInteractorType {
         case attendence = "attendenceCount"
         case profileViews = "profileViews"
         case reserveClicks = "reserveClicks"
+<<<<<<< HEAD
         
         func getCount(from place: PlaceInfo) -> Int {
             switch self {
@@ -44,7 +43,11 @@ class PlacesInteractor: PlacesInteractorType {
         }
     }
     
->>>>>>> feature(admin-settings): code review changes.
+=======
+    }
+    
+    weak var delegate: PlacesInteractorDelegate?
+>>>>>>> feature(admin-settings): observe to places.
     private let webResourcesDispatcher: WebServiceDispatcherType
     
     init(webResourcesDispatcher: WebServiceDispatcherType) {
@@ -56,11 +59,11 @@ class PlacesInteractor: PlacesInteractorType {
         webResourcesDispatcher.load(placesResource) {[weak self] result in
             switch result {
             case .success( let places):
-<<<<<<< HEAD
-                self?.delegate?.allPlacesArrived(places: places)
-=======
                 self?.allPlaces.value = places
->>>>>>> feature(admin-settings): code review changes.
+<<<<<<< HEAD
+=======
+                self?.delegate?.allPlacesArrived(places: places)
+>>>>>>> feature(admin-settings): observe to places.
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -92,14 +95,27 @@ class PlacesInteractor: PlacesInteractorType {
             }
         }
     }
-<<<<<<< HEAD
-=======
 
     func increment(analyticsType: AdminAnalyticsType, by count: Int = 1, to place: PlaceInfo) {
+<<<<<<< HEAD
         let currentCount: Int = analyticsType.getCount(from: place)
+=======
+        let currentCount: Int
+        
+        switch analyticsType {
+        case .attendence:
+            currentCount = place.adminAnalytics?.attendenceCount ?? 0
+            
+        case .profileViews:
+            currentCount = place.adminAnalytics?.profileViews ?? 0
+            
+        case .reserveClicks:
+            currentCount = place.adminAnalytics?.reserveClicks ?? 0
+        }
+        
+>>>>>>> feature(admin-settings): observe to places.
         let newCount = currentCount + count
         let resource = Resource<Bool, Int>(path: "places/\(place.id)/adminAnalytics/\(analyticsType.rawValue)").withPost(newCount)
         self.webResourcesDispatcher.load(resource) { _ in }
     }
->>>>>>> feature(admin-settings): code review changes.
 }

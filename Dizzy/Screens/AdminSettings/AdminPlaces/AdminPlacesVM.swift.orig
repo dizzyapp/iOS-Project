@@ -73,9 +73,11 @@ final class AdminPlacesVM: AdminPlacesVMType {
     }
 }
 <<<<<<< HEAD
+=======
 
 extension AdminPlacesVM: PlacesInteractorDelegate {
-    
+    func getPlace(_ place: PlaceInfo) { }
+
     func allPlacesArrived(places: [PlaceInfo]) { }
     
     func placesIdsPerUserArrived(placesIds: [PlaceId]) {
@@ -89,5 +91,4 @@ extension AdminPlacesVM: PlacesInteractorDelegate {
           self.userPlaces.value = userPlaces
     }
 }
-=======
->>>>>>> feature(admin-settings): code review changes.
+>>>>>>> feature(admin-settings): observe to places.
