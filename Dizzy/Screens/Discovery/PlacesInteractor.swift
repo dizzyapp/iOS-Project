@@ -15,12 +15,23 @@ protocol PlacesInteractorDelegate: class {
 
 protocol PlacesInteractorType {
     var delegate: PlacesInteractorDelegate? { get set }
+    var allPlaces: Observable<[PlaceInfo]> { get set }
     func getAllPlaces()
     func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
     func getPlaces(ownedBy userId: String)
+    func increment(analyticsType: PlacesInteractor.AdminAnalyticsType, by count: Int, to place: PlaceInfo)
 }
 
 class PlacesInteractor: PlacesInteractorType {
+    
+    var allPlaces = Observable<[PlaceInfo]>([PlaceInfo]())
+    
+    enum AdminAnalyticsType: String {
+        case attendence = "attendenceCount"
+        case profileViews = "profileViews"
+        case reserveClicks = "reserveClicks"
+    }
+    
     weak var delegate: PlacesInteractorDelegate?
     private let webResourcesDispatcher: WebServiceDispatcherType
     
@@ -33,6 +44,7 @@ class PlacesInteractor: PlacesInteractorType {
         webResourcesDispatcher.load(placesResource) {[weak self] result in
             switch result {
             case .success( let places):
+                self?.allPlaces.value = places
                 self?.delegate?.allPlacesArrived(places: places)
             case .failure(let error):
                 print(error.localizedDescription)
@@ -65,5 +77,24 @@ class PlacesInteractor: PlacesInteractorType {
                 print(error)
             }
         }
+    }
+
+    func increment(analyticsType: AdminAnalyticsType, by count: Int = 1, to place: PlaceInfo) {
+        let currentCount: Int
+        
+        switch analyticsType {
+        case .attendence:
+            currentCount = place.adminAnalytics?.attendenceCount ?? 0
+            
+        case .profileViews:
+            currentCount = place.adminAnalytics?.profileViews ?? 0
+            
+        case .reserveClicks:
+            currentCount = place.adminAnalytics?.reserveClicks ?? 0
+        }
+        
+        let newCount = currentCount + count
+        let resource = Resource<Bool, Int>(path: "places/\(place.id)/adminAnalytics/\(analyticsType.rawValue)").withPost(newCount)
+        self.webResourcesDispatcher.load(resource) { _ in }
     }
 }

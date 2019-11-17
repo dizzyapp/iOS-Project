@@ -65,7 +65,8 @@ final class AdminPlacesVM: AdminPlacesVMType {
 }
 
 extension AdminPlacesVM: PlacesInteractorDelegate {
-    
+    func getPlace(_ place: PlaceInfo) { }
+
     func allPlacesArrived(places: [PlaceInfo]) { }
     
     func placesIdsPerUserArrived(placesIds: [PlaceId]) {

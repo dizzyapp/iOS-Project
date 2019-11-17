@@ -38,7 +38,7 @@ protocol PlaceStoryVMType {
 
 final class PlaceStoryVM: PlaceStoryVMType {
     
-    let place: PlaceInfo
+    var place: PlaceInfo
     weak var delegate: PlaceStoryVMDelegate?
     weak var navigationDelegate: PlaceStoryVMNavigationDelegate?
     
@@ -46,18 +46,21 @@ final class PlaceStoryVM: PlaceStoryVMType {
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
     var storiesInteractor: StoriesInteractorType
+    var placesIteractor: PlacesInteractorType
     var comments = Observable<[CommentWithWriter]>([CommentWithWriter]())
     var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
     let user: DizzyUser
     
-    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType) {
+    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType, placesIteractor: PlacesInteractorType) {
         self.place = place
         self.commentsInteractor = commentsInteractor
         self.storiesInteractor = storiesInteractor
         self.user = user
         self.usersInteractor = usersInteractor
         self.storiesInteractor.getAllPlaceStories(with: place.id)
+        self.placesIteractor = placesIteractor
+        self.placesIteractor.delegate = self
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
     }
@@ -150,5 +153,15 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
             }
             return timeStampA < timeStampB
         })
+    }
+}
+
+extension PlaceStoryVM: PlacesInteractorDelegate {
+    func allPlacesArrived(places: [PlaceInfo]) {}
+    
+    func placesIdsPerUserArrived(placesIds: [PlaceId]) {}
+    
+    func getPlace(_ place: PlaceInfo) {
+        self.place = place
     }
 }
