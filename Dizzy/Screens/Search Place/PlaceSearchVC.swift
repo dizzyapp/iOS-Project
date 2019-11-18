@@ -46,7 +46,7 @@ final class PlaceSearchVC: ViewController {
         
         closeButton.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(Metrics.doublePadding)
-            make.trailing.equalToSuperview().inset(Metrics.doublePadding)
+            make.trailing.equalToSuperview().offset(-Metrics.doublePadding)
         }
         
         searchTextField.snp.makeConstraints { make in

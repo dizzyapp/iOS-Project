@@ -138,7 +138,7 @@ class PlaceInfoView: UIView {
         reservationButton.setTitle("RESERVE".localized, for: .normal)
         reservationButton.layer.cornerRadius = reservationButtonHeight/3
         reservationButton.setTitleColor(.white, for: .normal)
-        reservationButton.titleLabel?.font =  UIFont(name: "Avenir-Heavy" , size: 12)
+        reservationButton.titleLabel?.font = Fonts.h10(weight: .bold)
         reservationButton.backgroundColor = UIColor.blue
         reservationButton.addTarget(self, action: #selector(didPressReservationButton), for: .touchUpInside)
     }
