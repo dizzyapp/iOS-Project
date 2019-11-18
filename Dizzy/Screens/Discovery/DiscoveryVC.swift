@@ -140,7 +140,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     private func showPlacesOnFullScreen() {
-        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height + Metrics.doublePadding)
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height + view.safeAreaInsets.top + Metrics.padding)
     }
     
     private func hidePlacesWithAnimation(_ completion: (() -> Void)? = nil) {
