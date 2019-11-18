@@ -71,7 +71,7 @@ class NearByPlacesView: UIView, LoadingContainer {
             searchBar.top.equalToSuperview().offset(Metrics.doublePadding)
             searchBar.leading.equalToSuperview().offset(Metrics.doublePadding)
             searchBar.trailing.equalToSuperview().offset(-Metrics.doublePadding)
-            searchBarToPlacesViewConstraint =  searchBar.bottom.equalTo(placesViewContainer.snp.top).offset(-Metrics.padding).constraint
+            searchBarToPlacesViewConstraint =  searchBar.bottom.equalTo(placesViewContainer.snp.top).offset(-Metrics.padding).priority(.high).constraint
         }
         searchBarToPlacesViewConstraint?.deactivate()
         
@@ -165,6 +165,7 @@ class NearByPlacesView: UIView, LoadingContainer {
         searchButton.isHidden = true
         titleLabel.text = "SEARCH".localized
         searchBar.alpha = 1
+        searchBar.startEditing()
         searchBarToPlacesViewConstraint?.activate()
         placesViewToSuperviewConstraint?.deactivate()
     }
