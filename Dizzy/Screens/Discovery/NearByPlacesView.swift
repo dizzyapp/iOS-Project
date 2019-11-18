@@ -165,6 +165,7 @@ class NearByPlacesView: UIView, LoadingContainer {
         searchButton.isHidden = true
         titleLabel.text = "SEARCH".localized
         searchBar.alpha = 1
+        searchBar.startEditing()
         searchBarToPlacesViewConstraint?.activate()
         placesViewToSuperviewConstraint?.deactivate()
     }

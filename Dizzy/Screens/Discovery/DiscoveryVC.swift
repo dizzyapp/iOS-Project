@@ -140,10 +140,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     private func showPlacesOnFullScreen() {
-        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height)
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height + Metrics.doublePadding)
     }
     
-    private func hidelacesWithAnimation(_ completion: (() -> Void)? = nil) {
+    private func hidePlacesWithAnimation(_ completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.2, animations: {
             self.nearByPlacesTopConstraint?.update(offset: 0)
             self.view.layoutIfNeeded()
@@ -161,17 +161,19 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     @objc func onSwipeDown() {
+        guard viewModel.isSpalshEnded else { return }
         if viewModel.isSearching {
             self.endSearch()
         } else {
-            hidelacesWithAnimation {
+            hidePlacesWithAnimation {
                 self.mapButtonPressed()
             }
         }
     }
     
     @objc func onSwipeUp() {
-        guard !viewModel.isSearching else { return }
+        guard viewModel.isSpalshEnded,
+            !viewModel.isSearching else { return }
         didPressSearch()
     }
 }
@@ -229,6 +231,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
                 return
             }
             self.showPlacesOnHalfScreenWithAnimation()
+            self.viewModel.splashEnded()
             self.viewModel.checkClosestPlace()
         })
     }
@@ -251,7 +254,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     
     func didPressSearch() {
         viewModel.searchPlacePressed()
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.3) {
             self.topBar.alpha = 0
             self.nearByPlacesView.showSearchMode()
             self.showPlacesOnFullScreen()
@@ -261,7 +264,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     
     func endSearch() {
         viewModel.searchEnded()
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.3) {
             self.topBar.alpha = 1
             self.nearByPlacesView.hideSearchMode()
             self.showPlacesOnHalfScreen()

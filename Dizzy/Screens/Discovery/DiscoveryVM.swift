@@ -28,12 +28,14 @@ protocol DiscoveryVMType {
     var currentCity: Observable<String> { get }
     var activePlace: PlaceInfo? { get }
     var isSearching: Bool { get }
+    var isSpalshEnded: Bool { get }
     
     func mapButtonPressed()
     func menuButtonPressed()
     func locationLablePressed()
     func searchPlacePressed()
     func searchEnded()
+    func splashEnded()
 }
 
 protocol DiscoveryVMDelegate: class {
@@ -64,6 +66,7 @@ class DiscoveryVM: DiscoveryVMType {
     private let maxMetersFromPlaceToVisit: Double = 50
     var activePlace: PlaceInfo?
     var isSearching = false
+    var isSpalshEnded = false
     
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
@@ -187,6 +190,10 @@ class DiscoveryVM: DiscoveryVMType {
     
     func searchEnded() {
         isSearching = false
+    }
+    
+    func splashEnded() {
+        isSpalshEnded = true
     }
 }
 
