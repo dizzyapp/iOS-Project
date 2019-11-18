@@ -18,6 +18,7 @@ protocol LoginVMType {
     func loginWithFacebookButtonPressed(presentedVC: UIViewController)
     func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
+    func userProfileImagePressed()
     
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
     var delegate: LoginVMDelegate? { get set }
@@ -103,6 +104,10 @@ class LoginVM: LoginVMType {
     
     func isUserLoggedIn() -> Bool {
         return self.user.role != .guest
+    }
+    
+    func userProfileImagePressed() {
+        print("imagePressed")
     }
 }
 

@@ -165,6 +165,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
         userProfileView.isHidden = !self.loginVM.isUserLoggedIn()
+        userProfileView.delegate = self
     }
     
     private func setupLogoutButton() {
@@ -259,5 +260,11 @@ extension LoginVC: LoginVMDelegate {
         hideSpinner()
         let action = Action(title: "Ok".localized)
         showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
+    }
+}
+
+extension LoginVC: UserProfileViewDelegate {
+    func profileImagePressed() {
+        loginVM.userProfileImagePressed()
     }
 }

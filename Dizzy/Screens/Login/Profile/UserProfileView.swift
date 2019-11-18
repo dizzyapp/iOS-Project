@@ -9,7 +9,13 @@
 import UIKit
 import Kingfisher
 
+protocol UserProfileViewDelegate: class {
+    func profileImagePressed()
+}
+
 class UserProfileView: UIView {
+    
+    weak var delegate: UserProfileViewDelegate?
 
     let profileImageView = UIImageView()
     let profileNameLabel = UILabel()
@@ -62,11 +68,23 @@ class UserProfileView: UIView {
         self.profileImageView.contentMode = .center
         
         self.profileImageView.kf.setImage(with: user.photoURL  ?? URL(fileURLWithPath: ""), placeholder: Images.profilePlaceholderIcon())
+        
+        self.addTapToImage()
+    }
+    
+    private func addTapToImage() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onProfileImagePressed))
+        profileImageView.addGestureRecognizer(tapGesture)
+        profileImageView.isUserInteractionEnabled  = true
     }
     
     private func setupProfileNameLabel() {
         self.profileNameLabel.text = user.fullName
         self.profileNameLabel.textColor = nameColor
         self.profileNameLabel.font = Fonts.h6()
+    }
+    
+    @objc func onProfileImagePressed() {
+        delegate?.profileImagePressed()
     }
 }
