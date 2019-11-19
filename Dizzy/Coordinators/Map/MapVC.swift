@@ -88,7 +88,7 @@ class MapVC: ViewController {
         }
 
         viewModel.currentAddress.bind { [weak self] address in
-            let placeText = address?.city ?? address?.country ?? "TextForNoPlace".localized
+            let placeText = address?.city ?? address?.country ?? "Unknown Place".localized
             self?.locationLabel.setText(placeText)
         }
         
@@ -144,7 +144,7 @@ extension MapVC: GMSMapViewDelegate {
             return
         }
         
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.5) {
             self.placeInfoViewVisibleStateConstraint?.update(priority: 1)
             self.placeInfoViewHiddenStateConstraint?.update(priority: 999)
             self.placeInfoView.alpha = 0
@@ -157,7 +157,7 @@ extension MapVC: GMSMapViewDelegate {
             return
         }
         
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.5) {
             self.placeInfoViewVisibleStateConstraint?.update(priority: 999)
             self.placeInfoViewHiddenStateConstraint?.update(priority: 1)
             self.placeInfoView.alpha = 1

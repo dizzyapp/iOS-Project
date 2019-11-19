@@ -16,8 +16,9 @@ class DizzyPopup: UIView {
     private let cancelButton = UIButton(type: .system)
     private let backgroundView = UIView()
     
-    private let buttonsHeight: CGFloat = 34
-    private let buttonsCornerRadius: CGFloat = 10
+    private let buttonsHeight: CGFloat = 40
+    private let buttonsCornerRadius: CGFloat = 15
+    private let popUpCornerRadius: CGFloat = 25
     private let imageViewSize: CGFloat = 101
     
     private let imageUrl: String?
@@ -128,7 +129,7 @@ class DizzyPopup: UIView {
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurEffectView.backgroundColor = .clear
+        blurEffectView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         blurEffectView.alpha = 0.7
         self.insertSubview(blurEffectView, at: 0)
     }
@@ -154,13 +155,13 @@ class DizzyPopup: UIView {
         approveButton.setTitleColor(.white, for: .normal)
         approveButton.titleLabel?.font = Fonts.h7(weight: .bold)
         approveButton.layer.cornerRadius = buttonsCornerRadius
-        approveButton.backgroundColor = .primeryPurple
+        approveButton.backgroundColor = .blue
         approveButton.addTarget(self, action: #selector(onApprove), for: .touchUpInside)
     }
     
     private func setupCancelButton() {
         cancelButton.setTitle("NO".localized, for: .normal)
-        cancelButton.setTitleColor(.primeryPurple, for: .normal)
+        cancelButton.setTitleColor(.blue, for: .normal)
         cancelButton.titleLabel?.font = Fonts.h7(weight: .bold)
         cancelButton.backgroundColor = .white
         cancelButton.addTarget(self, action: #selector(onDecline), for: .touchUpInside)
@@ -168,7 +169,7 @@ class DizzyPopup: UIView {
     
     private func setupBackgroundView() {
         backgroundView.backgroundColor = .white
-        backgroundView.layer.cornerRadius = buttonsCornerRadius
+        backgroundView.layer.cornerRadius = popUpCornerRadius
     }
     
     private func hidePopup() {

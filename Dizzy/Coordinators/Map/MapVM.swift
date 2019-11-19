@@ -39,7 +39,7 @@ final class MapVM: MapVMType, PlaceReservationRequestor {
     private var locationProvider: LocationProviderType
     private var places: [PlaceInfo]
     
-    var currentLocation = Observable<Location?>(Location(latitude: -33.86, longitude: 151.20))
+    var currentLocation = Observable<Location?>(Location(latitude: 32.0868529, longitude: 34.7898485))
     var currentAddress = Observable<Address?>(nil)
     var selectedLocation = Observable<Location?>(nil)
     var marks = Observable<[Mark?]>([])
@@ -68,7 +68,7 @@ final class MapVM: MapVMType, PlaceReservationRequestor {
             if location != nil {
                 self.currentLocation.value = location
             } else {
-                self.currentLocation.value = Location(latitude: -33.86, longitude: 151.20)
+                self.currentLocation.value = Location(latitude: 32.0868529, longitude: 34.7898485)
             }
 
             self.selectedLocation.value = self.currentLocation.value

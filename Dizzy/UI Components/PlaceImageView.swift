@@ -14,13 +14,13 @@ class PlaceImageView: UIControl {
     private var backgroundImageView = UIImageView()
     private var imageURL: URL?
     
-    var imageSize: CGFloat = 45 {
+    var imageSize: CGFloat = 50 {
         didSet {
             layoutViews()
         }
     }
 
-    let backgroundImageInset: CGFloat = 4
+    let backgroundImageInset: CGFloat = 6
    
     init() {
         super.init(frame: .zero)

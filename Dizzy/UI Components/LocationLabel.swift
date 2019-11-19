@@ -18,7 +18,7 @@ class LocationLabel: UIView {
     private let textLabel = UILabel()
     private let textLabelHorizontalPadding = CGFloat(4)
     private let cornersRadius = CGFloat(16)
-    private let backgroundAlpha = CGFloat(0.9)
+    private let backgroundAlpha = CGFloat(0.15)
 
     init() {
         super.init(frame: CGRect.zero)
@@ -52,8 +52,8 @@ class LocationLabel: UIView {
     
     private func setupTextLabel() {
         textLabel.numberOfLines = 1
-        textLabel.font = Fonts.h5()
-        textLabel.textColor = .blue
+        textLabel.font = Fonts.h5(weight: .medium)
+        textLabel.textColor = .white
         textLabel.contentMode = .center
     }
 
