@@ -20,7 +20,7 @@ final class SignInDetailsView: UIView {
     let passwordTextField = UITextField().loginTextfield(withPlaceholder: "Password".localized)
     let signInButton = UIButton(type: .system)
     
-    let screenCornerRadius = CGFloat(30)
+    let screenCornerRadius = CGFloat(0)
     let buttonsWidthPrecentage = CGFloat(0.75)
     let signInButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
     let signInCornerRadius = CGFloat(17)

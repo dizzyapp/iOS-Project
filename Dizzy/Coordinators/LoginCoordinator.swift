@@ -92,7 +92,6 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
     }
     
     func navigateToAppInfoScreen(type: AppInfoType) {
-        
     }
     
     func navigateToAdminScreen(with user: DizzyUser) {

@@ -50,7 +50,7 @@ class LoginSelectionView: UIView {
         loginWithDizzyButton.snp.makeConstraints { loginWithDizzyButton in
             loginWithDizzyButton.top.equalToSuperview().offset(Metrics.doublePadding)
             loginWithDizzyButton.centerX.equalToSuperview()
-            loginWithDizzyButton.width.equalToSuperview().multipliedBy(0.75)
+            loginWithDizzyButton.width.equalToSuperview().multipliedBy(0.88)
         }
     }
     
