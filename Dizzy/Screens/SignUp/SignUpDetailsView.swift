@@ -24,8 +24,8 @@ final class SignUpDetailsView: UIView {
     
     let screenCornerRadius = CGFloat(30)
     let buttonsWidthPrecentage = CGFloat(0.75)
-    let signupButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
-    let signupCornerRadius = CGFloat(17)
+    let signupButtonBackgroundColor = UIColor.dizzyBlue
+    let signupCornerRadius = CGFloat(14)
     
     weak var delegate: SignUpDetailsViewDelegate?
     
@@ -64,7 +64,7 @@ final class SignUpDetailsView: UIView {
     private func layoutStackView() {
         self.addSubviews([self.stackView])
         self.stackView.snp.makeConstraints { stackView in
-            stackView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
+            stackView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding * 2)
             stackView.leading.trailing.equalToSuperview()
         }
     }
@@ -100,7 +100,7 @@ final class SignUpDetailsView: UIView {
     private func layoutSignupButton() {
         stackView.addArrangedSubview(signUpButton)
         signUpButton.snp.makeConstraints { (signUpButton ) in
-            signUpButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
+            signUpButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage * 0.6)
         }
     }
     
@@ -119,7 +119,7 @@ final class SignUpDetailsView: UIView {
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.font = Fonts.h10(weight: .bold)
+        titleLabel.font = Fonts.h8(weight: .bold)
         titleLabel.textColor = .blue
         titleLabel.text = "SIGN UP".localized
     }
@@ -150,8 +150,8 @@ final class SignUpDetailsView: UIView {
     }
     
     private func setupSignUpButton() {
-        signUpButton.setTitle("Done!".localized, for: .normal)
-        signUpButton.titleLabel?.font = Fonts.h10(weight: .bold)
+        signUpButton.setTitle("DONE".localized, for: .normal)
+        signUpButton.titleLabel?.font = Fonts.h8(weight: .bold)
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.layer.cornerRadius = signupCornerRadius
         signUpButton.backgroundColor = signupButtonBackgroundColor

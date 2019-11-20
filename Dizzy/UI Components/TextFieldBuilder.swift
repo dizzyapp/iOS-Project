@@ -56,12 +56,21 @@ extension UITextField {
     }
     
     func loginTextfield(withPlaceholder placeholder: String) -> UITextField {
-        background = Images.signUpTextfield()
-        borderStyle = .none
-        font = Fonts.h10()
-        textAlignment = .left
-        textColor = .black
-        attributedPlaceholder = NSAttributedString(string: placeholder ,attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-        return self
+          backgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
+          borderStyle = .none
+          layer.cornerRadius = 12
+          font = Fonts.h10()
+          textAlignment = .left
+          textColor = .black
+          attributedPlaceholder = NSAttributedString(string: placeholder ,attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+              
+          let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: Metrics.oneAndHalfPadding, height: 0))
+                   leftView = leftPaddingView
+                   leftViewMode = .always
+              
+          snp.makeConstraints { selfTextField in
+              selfTextField.height.equalTo(36)
+          }
+          return self
     }
 }
