@@ -23,7 +23,9 @@ final class SignInDetailsView: UIView {
     let screenCornerRadius = CGFloat(30)
     let buttonsWidthPrecentage = CGFloat(0.75)
     let signInButtonBackgroundColor = UIColor.dizzyBlue
+    let signInButtonWidthPrecentage = CGFloat(0.45)
     let signInCornerRadius = CGFloat(14)
+    let stackViewTopPadding = Metrics.doublePadding * 2
     
     weak var delegate: SignInDetailsViewDelegate?
     
@@ -59,7 +61,7 @@ final class SignInDetailsView: UIView {
     private func layoutStackView() {
         self.addSubviews([self.stackView])
         self.stackView.snp.makeConstraints { stackView in
-            stackView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding * 2)
+            stackView.top.equalTo(titleLabel.snp.bottom).offset(stackViewTopPadding)
             stackView.leading.trailing.equalToSuperview()
         }
     }
@@ -81,7 +83,7 @@ final class SignInDetailsView: UIView {
     private func layoutSignInButton() {
         stackView.addArrangedSubview(signInButton)
         signInButton.snp.makeConstraints { (signInButton ) in
-            signInButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage * 0.6)
+            signInButton.width.equalToSuperview().multipliedBy(signInButtonWidthPrecentage)
         }
     }
     
