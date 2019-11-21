@@ -110,7 +110,6 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
     
     private func layoutAppInfosView() {
         appInfosView.snp.makeConstraints { appInfosView in
-            appInfosView.top.equalTo(dizzyLogoImageView.snp.bottom).offset(Metrics.doublePadding)
             appInfosView.leading.trailing.equalToSuperview()
         }
     }
