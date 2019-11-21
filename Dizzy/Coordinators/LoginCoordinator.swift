@@ -92,6 +92,22 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
     }
     
     func navigateToAppInfoScreen(type: AppInfoType) {
+        var baseUrl = "https://dizzy.co.il/"
+        switch type {
+            case .about:
+                baseUrl += ""
+            case .contactUs:
+                baseUrl += ""
+            case .privacyPolicy:
+                baseUrl += ""
+            case .termsOfUse:
+                baseUrl += ""
+        }
+        if let url = URL(string: baseUrl) {
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+                print("Open \(baseUrl): \(success)")
+                })
+        }
     }
     
     func navigateToAdminScreen(with user: DizzyUser) {
