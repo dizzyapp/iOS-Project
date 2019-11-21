@@ -72,3 +72,22 @@ final class AdminPlacesVM: AdminPlacesVMType {
         }
     }
 }
+<<<<<<< HEAD
+
+extension AdminPlacesVM: PlacesInteractorDelegate {
+    
+    func allPlacesArrived(places: [PlaceInfo]) { }
+    
+    func placesIdsPerUserArrived(placesIds: [PlaceId]) {
+        var userPlaces = [PlaceInfo]()
+          for id in placesIds {
+              for place in allPlaces where place.id == id.id {
+                  userPlaces.append(place)
+              }
+          }
+          loading.value = false
+          self.userPlaces.value = userPlaces
+    }
+}
+=======
+>>>>>>> feature(admin-settings): code review changes.

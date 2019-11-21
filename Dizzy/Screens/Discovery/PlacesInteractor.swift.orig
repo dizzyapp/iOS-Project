@@ -9,6 +9,16 @@
 import UIKit
 
 protocol PlacesInteractorType {
+<<<<<<< HEAD
+    var delegate: PlacesInteractorDelegate? { get set }
+    func getAllPlaces()
+    func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
+    func getPlaces(ownedBy userId: String)
+}
+
+class PlacesInteractor: PlacesInteractorType {
+    weak var delegate: PlacesInteractorDelegate?
+=======
     var allPlaces: Observable<[PlaceInfo]> { get set }
     func getAllPlaces()
     func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
@@ -34,6 +44,7 @@ class PlacesInteractor: PlacesInteractorType {
         }
     }
     
+>>>>>>> feature(admin-settings): code review changes.
     private let webResourcesDispatcher: WebServiceDispatcherType
     
     init(webResourcesDispatcher: WebServiceDispatcherType) {
@@ -45,7 +56,11 @@ class PlacesInteractor: PlacesInteractorType {
         webResourcesDispatcher.load(placesResource) {[weak self] result in
             switch result {
             case .success( let places):
+<<<<<<< HEAD
+                self?.delegate?.allPlacesArrived(places: places)
+=======
                 self?.allPlaces.value = places
+>>>>>>> feature(admin-settings): code review changes.
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -77,6 +92,8 @@ class PlacesInteractor: PlacesInteractorType {
             }
         }
     }
+<<<<<<< HEAD
+=======
 
     func increment(analyticsType: AdminAnalyticsType, by count: Int = 1, to place: PlaceInfo) {
         let currentCount: Int = analyticsType.getCount(from: place)
@@ -84,4 +101,5 @@ class PlacesInteractor: PlacesInteractorType {
         let resource = Resource<Bool, Int>(path: "places/\(place.id)/adminAnalytics/\(analyticsType.rawValue)").withPost(newCount)
         self.webResourcesDispatcher.load(resource) { _ in }
     }
+>>>>>>> feature(admin-settings): code review changes.
 }

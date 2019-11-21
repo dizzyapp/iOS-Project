@@ -205,3 +205,19 @@ class DiscoveryVM: DiscoveryVMType {
         isSpalshEnded = true
     }
 }
+<<<<<<< HEAD
+
+extension DiscoveryVM: PlacesInteractorDelegate {
+    
+    func allPlacesArrived(places: [PlaceInfo]) {
+        allPlaces = places
+        sortAllPlacesByDistance()
+        placesToDisplay.value = allPlaces
+        delegate?.allPlacesArrived()
+        navigationDelegate?.register(allPlaces)
+    }
+    
+    func placesIdsPerUserArrived(placesIds: [PlaceId]) { }
+}
+=======
+>>>>>>> feature(admin-settings): code review changes.
