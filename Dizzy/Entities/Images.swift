@@ -122,4 +122,7 @@ struct Images {
     static func profileBackgroundIcon() -> UIImage {
         return UIImage(named: "profilePlaceBackgroundIcon")!
     }
+    static func whiteBackButton() -> UIImage {
+        return UIImage(named: "white_back_button")!
+    }
 }

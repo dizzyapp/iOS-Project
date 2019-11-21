@@ -26,6 +26,7 @@ protocol PlaceProfileVMType {
 protocol PlaceProfileVMDelegate: class {
     func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType)
     func placeProfileVMStoryButtonPressed(_ viewModel: PlaceProfileVMType)
+    func placeProfileVMRequestATableTapped(_ viewModel: PlaceProfileVMType, with place: PlaceInfo)
 }
 
 final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
@@ -78,7 +79,7 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     }
     
     func requestTableButtonPressed() {
-        requestATable(placeInfo)
+        delegate?.placeProfileVMRequestATableTapped(self, with: placeInfo)
     }
     
     func closePressed() {

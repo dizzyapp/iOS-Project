@@ -21,6 +21,8 @@
 		041D95C52253D84F009ED7AB /* WebResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041D95C42253D84F009ED7AB /* WebResource.swift */; };
 		044B406A22CD37080061388C /* PopupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044B406922CD37080061388C /* PopupPresenter.swift */; };
 		0454B7BE23745CC30043DEC3 /* DarkMapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 0454B7BD23745CC30043DEC3 /* DarkMapStyle.json */; };
+		046613D123846B8C00692413 /* ReserveTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046613D023846B8C00692413 /* ReserveTableVC.swift */; };
+		046613D323846B9F00692413 /* ReserveTableVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046613D223846B9F00692413 /* ReserveTableVM.swift */; };
 		0470E6AE2270B2E000267278 /* GoogleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6AC2270B2DF00267278 /* GoogleMap.swift */; };
 		0470E6B42270B32600267278 /* PlaceSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B02270B32600267278 /* PlaceSearchTableViewCell.swift */; };
 		0470E6B52270B32600267278 /* PlaceSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0470E6B12270B32600267278 /* PlaceSearchVC.swift */; };
@@ -151,6 +153,8 @@
 		041D95C42253D84F009ED7AB /* WebResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResource.swift; sourceTree = "<group>"; };
 		044B406922CD37080061388C /* PopupPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupPresenter.swift; sourceTree = "<group>"; };
 		0454B7BD23745CC30043DEC3 /* DarkMapStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DarkMapStyle.json; sourceTree = "<group>"; };
+		046613D023846B8C00692413 /* ReserveTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveTableVC.swift; sourceTree = "<group>"; };
+		046613D223846B9F00692413 /* ReserveTableVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReserveTableVM.swift; sourceTree = "<group>"; };
 		0470E6AC2270B2DF00267278 /* GoogleMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMap.swift; sourceTree = "<group>"; };
 		0470E6B02270B32600267278 /* PlaceSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchTableViewCell.swift; sourceTree = "<group>"; };
 		0470E6B12270B32600267278 /* PlaceSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchVC.swift; sourceTree = "<group>"; };
@@ -324,6 +328,15 @@
 				041724C3237947D200E0A5D9 /* AdminPlaceAnalytics */,
 			);
 			path = AdminSettings;
+			sourceTree = "<group>";
+		};
+		046613CF23846B6B00692413 /* ReserveTable */ = {
+			isa = PBXGroup;
+			children = (
+				046613D023846B8C00692413 /* ReserveTableVC.swift */,
+				046613D223846B9F00692413 /* ReserveTableVM.swift */,
+			);
+			path = ReserveTable;
 			sourceTree = "<group>";
 		};
 		0470E6AB2270B2DF00267278 /* GoogleMap */ = {
@@ -598,6 +611,7 @@
 		76B41ECE225229DB00C1A290 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				046613CF23846B6B00692413 /* ReserveTable */,
 				044AFCD42374AEFE0078DF2C /* AdminSettings */,
 				04B454F122CD315B001C7AD4 /* UploadStory */,
 				4D645E9C22B0423A00016EF7 /* Login */,
@@ -896,6 +910,7 @@
 				0487FFA9228EB4AF00A8683C /* ButtonBuilder.swift in Sources */,
 				041724BF2378850800E0A5D9 /* PlaceId.swift in Sources */,
 				4D645EA522B0423B00016EF7 /* AppInfoView.swift in Sources */,
+				046613D323846B9F00692413 /* ReserveTableVM.swift in Sources */,
 				04B454FB22CD315B001C7AD4 /* MediaPresenterVM.swift in Sources */,
 				04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */,
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
@@ -952,6 +967,7 @@
 				0470E6B42270B32600267278 /* PlaceSearchTableViewCell.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
+				046613D123846B8C00692413 /* ReserveTableVC.swift in Sources */,
 				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,
 				776210D623785B4600D85F9D /* PlaceInfoView.swift in Sources */,
 				77611A3D23644B8A00DB04F9 /* DizzyPopup.swift in Sources */,

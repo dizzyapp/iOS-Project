@@ -13,7 +13,7 @@ protocol PlaceProfileCoordinatorType: NavigationCoordinator {
     var onCoordinatorFinished: () -> Void { get set }
 }
 
-final class PlaceProfileCoodinator: PlaceProfileCoordinatorType {
+final class PlaceProfileCoodinator: PlaceProfileCoordinatorType, ReserveTableDisplayer {
     
     var navigationController = UINavigationController()
     
@@ -67,6 +67,10 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType {
 }
 
 extension PlaceProfileCoodinator: PlaceProfileVMDelegate {
+    func placeProfileVMRequestATableTapped(_ viewModel: PlaceProfileVMType, with place: PlaceInfo) {
+        showReservation(with: place)
+    }
+    
     func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType) {
         presentingVC?.dismiss(animated: true)
         onCoordinatorFinished()

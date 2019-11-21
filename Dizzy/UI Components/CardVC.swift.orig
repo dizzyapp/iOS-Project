@@ -33,9 +33,12 @@ extension CardVC where Self: UIViewController {
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.doublePadding)
         }
+<<<<<<< HEAD
         
         cardContainerView.backgroundColor = .white
-        cardContainerView.layer.cornerRadius = 30.0
+        cardContainerView.layer.cornerRadius = 18.0
         cardContainerView.clipsToBounds = true
+=======
+>>>>>>> feature(reserve-table): added reserve a table view controller
     }
 }

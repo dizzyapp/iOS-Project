@@ -14,7 +14,7 @@ protocol MapCoordinatorType: NavigationCoordinator {
     var onCoordinatorFinished: () -> Void { get set }
 }
 
-final class MapCoordinator: MapCoordinatorType {
+final class MapCoordinator: MapCoordinatorType, ReserveTableDisplayer {
     
     var navigationController: UINavigationController
     var container: Container?
@@ -50,7 +50,7 @@ final class MapCoordinator: MapCoordinatorType {
 }
 
 extension MapCoordinator: MapVMDelegate {
-    
+ 
     func closeButtonPressed() {
         navigationController.dismiss(animated: true) { [weak self] in
             self?.onCoordinatorFinished()
@@ -114,6 +114,10 @@ extension MapCoordinator: MapVMDelegate {
         placeStoryCoordinator.start()
         add(coordinator: placeStoryCoordinator, for: .placeStory)
     }
+    
+    func placeReservePressed(_ placeInfo: PlaceInfo) {
+         showReservation(with: placeInfo)
+     }
 }
 
 extension MapCoordinator: SearchPlaceCoordinatorDelegate {
