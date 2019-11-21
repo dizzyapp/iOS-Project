@@ -44,8 +44,17 @@ final class AdminPlacesVM: AdminPlacesVMType {
     
     private func getPlaces() {
         loading.value = true
-        placesInteractor.getPlaces(ownedBy: user.id)
-        placesInteractor.delegate = self
+        placesInteractor.getPlaces(ownedBy: user.id) { [weak self] placesIds in
+            guard let self = self else { return }
+            var userPlaces = [PlaceInfo]()
+            for id in placesIds {
+                for place in self.allPlaces where place.id == id.id {
+                    userPlaces.append(place)
+                }
+            }
+            self.loading.value = false
+            self.userPlaces.value = userPlaces
+        }
     }
     
     func numberOfRows() -> Int {
@@ -61,22 +70,5 @@ final class AdminPlacesVM: AdminPlacesVMType {
         if place.adminAnalytics != nil {
             delegate?.adminPlaceVM(self, didSelectPlace: place)
         }
-    }
-}
-
-extension AdminPlacesVM: PlacesInteractorDelegate {
-    func getPlace(_ place: PlaceInfo) { }
-
-    func allPlacesArrived(places: [PlaceInfo]) { }
-    
-    func placesIdsPerUserArrived(placesIds: [PlaceId]) {
-        var userPlaces = [PlaceInfo]()
-          for id in placesIds {
-              for place in allPlaces where place.id == id.id {
-                  userPlaces.append(place)
-              }
-          }
-          loading.value = false
-          self.userPlaces.value = userPlaces
     }
 }

@@ -62,10 +62,19 @@ class DiscoveryVM: DiscoveryVMType {
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
         self.placesInteractor = placesInteractor
-        self.placesInteractor.delegate = self
         self.placesInteractor.getAllPlaces()
-
+        bindPlaces()
         bindLocationProvider()
+    }
+    
+    private func bindPlaces() {
+        placesInteractor.allPlaces.bind {[weak self] places in
+            guard let self = self else { return }
+            self.allPlaces = places
+            self.sortAllPlacesByDistance()
+            self.delegate?.allPlacesArrived()
+            self.navigationDelegate?.register(places)
+        }
     }
     
     private func bindLocationProvider() {
@@ -159,18 +168,4 @@ class DiscoveryVM: DiscoveryVMType {
     func userDeclinedHeIsInPlace() {
         navigationDelegate?.activePlaceWasSet(nil)
     }
-}
-
-extension DiscoveryVM: PlacesInteractorDelegate {
-    
-    func allPlacesArrived(places: [PlaceInfo]) {
-        allPlaces = places
-        sortAllPlacesByDistance()
-        delegate?.allPlacesArrived()
-        navigationDelegate?.register(allPlaces)
-    }
-    
-    func placesIdsPerUserArrived(placesIds: [PlaceId]) { }
-    
-    func getPlace(_ place: PlaceInfo) { }
 }
