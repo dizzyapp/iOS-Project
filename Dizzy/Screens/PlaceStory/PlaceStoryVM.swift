@@ -47,7 +47,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
     var storiesInteractor: StoriesInteractorType
-    var placesIteractor: PlacesInteractorType
+    let placesIteractor: PlacesInteractorType
     var comments = Observable<[CommentWithWriter]>([CommentWithWriter]())
     var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
@@ -61,7 +61,6 @@ final class PlaceStoryVM: PlaceStoryVMType {
         self.usersInteractor = usersInteractor
         self.storiesInteractor.getAllPlaceStories(with: place.id)
         self.placesIteractor = placesIteractor
-        self.placesIteractor.delegate = self
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
     }
@@ -159,15 +158,5 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
             }
             return timeStampA < timeStampB
         })
-    }
-}
-
-extension PlaceStoryVM: PlacesInteractorDelegate {
-    func allPlacesArrived(places: [PlaceInfo]) {}
-    
-    func placesIdsPerUserArrived(placesIds: [PlaceId]) {}
-    
-    func getPlace(_ place: PlaceInfo) {
-        self.place = place
     }
 }

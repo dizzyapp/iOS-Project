@@ -180,6 +180,7 @@ class DiscoveryVM: DiscoveryVMType {
     func userDeclinedHeIsInPlace() {
         navigationDelegate?.activePlaceWasSet(nil)
     }
+<<<<<<< HEAD
     
     func searchPlacesByName(_ name: String) {
         if name.isEmpty {
@@ -194,7 +195,6 @@ class DiscoveryVM: DiscoveryVMType {
         self.delegate?.reloadData()
     }
     
-<<<<<<< HEAD
     func searchPlacePressed() {
         isSearching = true
     }
@@ -207,8 +207,5 @@ class DiscoveryVM: DiscoveryVMType {
         isSpalshEnded = true
     }
 =======
-    func placesIdsPerUserArrived(placesIds: [PlaceId]) { }
-    
-    func getPlace(_ place: PlaceInfo) { }
->>>>>>> feature(admin-settings): observe to places.
+>>>>>>> feature(admin-settings): code review changes.
 }

@@ -99,7 +99,7 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     
     func requestTableButtonPressed() {
         sendReserveClickAdminAnalytics()
-        requestATable(placeInfo)
+        delegate?.placeProfileVMRequestATableTapped(self, with: placeInfo)
     }
     
     func closePressed() {
