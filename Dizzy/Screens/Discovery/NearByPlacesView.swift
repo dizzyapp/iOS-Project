@@ -185,8 +185,8 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.cgSizeValue.height, right: 0)
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
