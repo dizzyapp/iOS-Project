@@ -26,7 +26,7 @@ extension CardVC where Self: UIViewController {
         }
         
         cardContainerView.backgroundColor = .white
-        cardContainerView.layer.cornerRadius = 30.0
+        cardContainerView.layer.cornerRadius = 18.0
         cardContainerView.clipsToBounds = true
     }
 }

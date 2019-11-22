@@ -100,23 +100,23 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
         }
     }
     
-    private func layoutAppInfosView() {
-        appInfosView.snp.makeConstraints { appInfosView in
-            appInfosView.top.equalTo(loginSelectionView.snp.bottom)
-            appInfosView.leading.trailing.equalToSuperview()
+    private func layoutDizzyLogo() {
+        dizzyLogoImageView.snp.makeConstraints { dizzyLogoImageView in
+            dizzyLogoImageView.top.equalTo(loginSelectionView.snp.bottom).offset(Metrics.doublePadding)
+            dizzyLogoImageView.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.doublePadding)
+            dizzyLogoImageView.leading.trailing.equalToSuperview()
         }
     }
     
-    private func layoutDizzyLogo() {
-        dizzyLogoImageView.snp.makeConstraints { dizzyLogoImageView in
-            dizzyLogoImageView.top.equalTo(appInfosView.snp.bottom).offset(2 * Metrics.doublePadding)
-            dizzyLogoImageView.leading.trailing.equalToSuperview()
+    private func layoutAppInfosView() {
+        appInfosView.snp.makeConstraints { appInfosView in
+            appInfosView.leading.trailing.equalToSuperview()
         }
     }
     
     private func layoutEnterAsAdminButton() {
         enterAsAdminButton.snp.makeConstraints { enterAsAdminButton in
-            enterAsAdminButton.top.equalTo(dizzyLogoImageView.snp.bottom).offset(Metrics.doublePadding)
+            enterAsAdminButton.top.equalTo(appInfosView.snp.bottom)
             enterAsAdminButton.leading.trailing.equalToSuperview()
             enterAsAdminButton.height.equalTo(enterAsAdminButtonHeight)
             enterAsAdminButton.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -179,11 +179,10 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
     }
     
     private func setupEnterAsAdminButton() {
-        let text: NSMutableAttributedString = NSMutableAttributedString(string: "enter as admin".localized)
+        let text: NSMutableAttributedString = NSMutableAttributedString(string: "Enter as Admin".localized)
         let range: NSRange = NSRange(location: 0, length: text.length)
         
-        text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
-        text.addAttribute(.font, value: Fonts.h8(), range: range)
+        text.addAttribute(.font, value: Fonts.h7(weight: .medium), range: range)
         
         enterAsAdminButton.setAttributedTitle(text, for: .normal)
         enterAsAdminButton.addTarget(self, action: #selector(enterAsAdminButtonPressed), for: .touchUpInside)

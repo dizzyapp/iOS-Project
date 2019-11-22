@@ -22,7 +22,7 @@ final class SignUpDetailsView: UIView {
     let confirmPasswordTextField = UITextField().loginTextfield(withPlaceholder: "Confirm Password".localized)
     let signUpButton = UIButton(type: .system)
     
-    let screenCornerRadius = CGFloat(30)
+    let screenCornerRadius = CGFloat(0)
     let buttonsWidthPrecentage = CGFloat(0.75)
     let signUpbuttonWidthPercentage = CGFloat(0.45)
     let signupButtonBackgroundColor = UIColor.dizzyBlue
