@@ -52,7 +52,7 @@ final class CommentTextFieldView: UIView {
         profileImageView.snp.makeConstraints { (profileImageView) in
             profileImageView.leading.equalToSuperview().offset(Metrics.doublePadding)
             profileImageView.top.equalToSuperview()
-            profileImageView.bottom.equalToSuperview().offset(-Metrics.padding)
+            profileImageView.bottom.equalToSuperview()
         }
         
         profileImageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
