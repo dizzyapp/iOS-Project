@@ -27,13 +27,8 @@ final class PlaceStoryVC: ViewController {
     let commentsView = CommentsView()
     let bottomBackgroundView = UIView()
     
-    var commentsViewTopConstraint: Constraint?
     var commentsTextInputViewBottomConstraint: Constraint?
-    let commentsViewTopOffset: CGFloat = 10
-    var areCommentsVisible = false
-    var isKeyboardOpen = false
-    var bottomBarHeight: CGFloat = 0
-    var isFirstLoad = true
+    private let commentsViewHeightRatio = CGFloat(0.3)
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
@@ -49,27 +44,6 @@ final class PlaceStoryVC: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        guard isFirstLoad else {
-            return
-        }
-        commentsViewTopConstraint?.update(offset: commentsView.frame.height - commentsViewTopOffset )
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.15) {
-            self.commentsView.alpha = 1
-            self.commentTextFieldView.alpha = 1
-            self.bottomBackgroundView.alpha = 1
-            self.view.layoutIfNeeded()
-        }
-        
-        if #available(iOS 11.0, *) {
-            bottomBarHeight = view.safeAreaInsets.bottom
-        }
-        
-        isFirstLoad = false
-    }
-    
     private func addSubviews() {
         view.addSubviews([loadingView, imageView, videoView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
     }
@@ -77,7 +51,7 @@ final class PlaceStoryVC: ViewController {
     private func layoutViews() {
         commentsView.snp.makeConstraints { commentsView in
             commentsView.leading.trailing.equalToSuperview()
-            self.commentsViewTopConstraint = commentsView.top.equalTo(view.snp.topMargin).offset(Metrics.doublePadding).constraint
+            commentsView.height.equalToSuperview().multipliedBy(commentsViewHeightRatio)
             commentsView.bottom.equalTo(commentTextFieldView.snp.top)
         }
         
@@ -148,7 +122,6 @@ final class PlaceStoryVC: ViewController {
     private func setupCommentsView() {
         commentsView.dataSource = self
         commentsView.delegate = self
-        commentsView.alpha = 0
     }
     
     private func setupGestureView() {
@@ -158,12 +131,10 @@ final class PlaceStoryVC: ViewController {
     
     private func setupCommentsTextField() {
         commentTextFieldView.delegate = self
-        commentTextFieldView.alpha = 0
     }
     
     private func setupBottomBackgroundView() {
         bottomBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.25)
-        bottomBackgroundView.alpha = 0
     }
     
     private func bindViewModel() {
@@ -184,12 +155,10 @@ final class PlaceStoryVC: ViewController {
     }
     
     @objc func didTapRight() {
-        closeKeyboard()
         viewModel.showNextImage()
     }
     
     @objc func didTapLeft() {
-        closeKeyboard()
         viewModel.showPrevImage()
     }
     
@@ -198,37 +167,19 @@ final class PlaceStoryVC: ViewController {
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard !isKeyboardOpen,
-            let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
         let keyboardSize = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardSize.height
-        isKeyboardOpen = true
-        let bottomViewHeight = self.bottomBackgroundView.bounds.height
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
-            self?.updateCommentsViewTopConstraint(ByKeyboardHeight: keyboardHeight - bottomViewHeight)
-            self?.commentsTextInputViewBottomConstraint?.update(offset: -Metrics.doublePadding - keyboardHeight + bottomViewHeight )
+            self?.commentsTextInputViewBottomConstraint?.update(offset: -keyboardHeight )
         }
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        guard isKeyboardOpen,
-        let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         
-        let keyboardSize = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardSize.height
-        let bottomSpace = bottomBarHeight + Metrics.doublePadding
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
-            self?.updateCommentsViewTopConstraint(ByKeyboardHeight: -keyboardHeight + bottomSpace)
             self?.commentsTextInputViewBottomConstraint?.update(offset: -Metrics.doublePadding)
-        }
-        isKeyboardOpen = false
-    }
-    
-    private func updateCommentsViewTopConstraint(ByKeyboardHeight keyboardHeight: CGFloat) {
-        if !areCommentsVisible {
-            let currentOffset = commentsViewTopConstraint?.layoutConstraints[0].constant ?? 0
-            commentsViewTopConstraint?.update(offset: currentOffset - keyboardHeight)
         }
     }
 }
@@ -249,20 +200,11 @@ extension PlaceStoryVC: CommentsViewDelegate {
     }
     
     func hideCommentsPressed() {
-        areCommentsVisible = false
-        UIView.animate(withDuration: 1.0) {
-            self.commentsViewTopConstraint?.update(offset: self.commentsView.frame.height - self.commentsViewTopOffset)
-            self.view.layoutIfNeeded()
-        }
         
     }
     
     func showCommentsPressed() {
-        areCommentsVisible = true
-        UIView.animate(withDuration: 1.0) {
-            self.commentsViewTopConstraint?.update(offset: Metrics.doublePadding)
-            self.view.layoutIfNeeded()
-        }
+
     }
 }
 
