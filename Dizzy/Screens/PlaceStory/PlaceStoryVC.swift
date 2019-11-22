@@ -167,9 +167,9 @@ final class PlaceStoryVC: ViewController {
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
         
-        let keyboardSize = keyboardFrame.cgRectValue
+        let keyboardSize = keyboardFrame.size
         let keyboardHeight = keyboardSize.height
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
             self?.commentsTextInputViewBottomConstraint?.update(offset: -keyboardHeight )

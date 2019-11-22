@@ -94,8 +94,8 @@ final class PlaceSearchVC: ViewController {
     }
 
     @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let keyboardSize = keyboardFrame.cgSizeValue
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardSize = keyboardFrame.size
         let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
         placesViews.set(collectionViewContentInsets: contentInsets)
     }
