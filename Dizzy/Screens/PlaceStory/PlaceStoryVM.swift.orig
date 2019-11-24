@@ -38,7 +38,7 @@ protocol PlaceStoryVMType {
 
 final class PlaceStoryVM: PlaceStoryVMType {
     
-    var place: PlaceInfo
+    let place: PlaceInfo
     weak var delegate: PlaceStoryVMDelegate?
     weak var navigationDelegate: PlaceStoryVMNavigationDelegate?
     
@@ -46,6 +46,10 @@ final class PlaceStoryVM: PlaceStoryVMType {
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
     var storiesInteractor: StoriesInteractorType
+<<<<<<< HEAD
+=======
+    let placesIteractor: PlacesInteractorType
+>>>>>>> feature(admin-settings): code review changes.
     var comments = Observable<[CommentWithWriter]>([CommentWithWriter]())
     var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
@@ -58,6 +62,10 @@ final class PlaceStoryVM: PlaceStoryVMType {
         self.user = user
         self.usersInteractor = usersInteractor
         self.storiesInteractor.getAllPlaceStories(with: place.id)
+<<<<<<< HEAD
+=======
+        self.placesIteractor = placesIteractor
+>>>>>>> feature(admin-settings): code review changes.
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
     }
