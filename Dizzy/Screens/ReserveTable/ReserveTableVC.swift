@@ -173,11 +173,11 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         }
         
         commentsTextView.snp.makeConstraints { make in
-            make.height.equalTo(Metrics.doublePadding * 3)
+            make.height.equalTo(Metrics.sixTimesPadding)
         }
         
         closeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Metrics.doublePadding * 2)
+            make.top.equalToSuperview().inset(Metrics.fourTimesPadding)
             make.trailing.equalToSuperview().inset(Metrics.doublePadding)
         }
         
@@ -189,7 +189,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     func makeCardConstraints() {
         cardContainerView.snp.makeConstraints { loginContainerView in
-            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.doublePadding * 4)
+            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.eightTimesPadding)
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.oneAndHalfPadding)
         }
