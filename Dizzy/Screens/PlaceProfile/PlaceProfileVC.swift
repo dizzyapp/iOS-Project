@@ -67,6 +67,11 @@ final class PlaceProfileVC: UIViewController {
         let right = UISwipeGestureRecognizer(target : self, action : #selector(onRightSwipe))
         right.direction = .right
         swipesContainerView.addGestureRecognizer(right)
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(onUpSwipe))
+        swipeUp.direction = .up
+        swipesContainerView.addGestureRecognizer(swipeUp)
+        placeProfileView.addGestureRecognizer(swipeUp)
     }
     
     private func setupNavigation() {
@@ -170,6 +175,10 @@ final class PlaceProfileVC: UIViewController {
     
     @objc func onRightSwipe() {
         viewModel.onSwipeRight()
+    }
+    
+    @objc func onUpSwipe() {
+        viewModel.requestTableButtonPressed()
     }
 }
 

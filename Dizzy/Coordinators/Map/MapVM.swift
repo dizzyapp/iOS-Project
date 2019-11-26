@@ -32,9 +32,10 @@ protocol MapVMDelegate: class {
     func closeButtonPressed()
     func placeIconPressed(_ placeInfo: PlaceInfo)
     func placeDetailsPressed(_ placeInfo: PlaceInfo)
+    func placeReservePressed(_ placeInfo: PlaceInfo)
 }
 
-final class MapVM: MapVMType, PlaceReservationRequestor {
+final class MapVM: MapVMType {
 
     private var locationProvider: LocationProviderType
     private var places: [PlaceInfo]
@@ -134,6 +135,6 @@ final class MapVM: MapVMType, PlaceReservationRequestor {
     }
     
     func requestATablePressed(_ placeInfo: PlaceInfo) {
-        requestATable(placeInfo)
+        delegate?.placeReservePressed(placeInfo)
     }
 }
