@@ -15,7 +15,6 @@ enum PresentedMediaType {
 
 protocol MediaPresenterVMType {
     var presentedMediaType: PresentedMediaType { get }
-    var loading: Observable<Bool> { get }
     var delegate: MediaPresenterVMDelegate? { get set }
     var placeIconURL: URL? { get }
     
@@ -33,7 +32,6 @@ final class MediaPresenterVM: MediaPresenterVMType {
     var presentedMediaType: PresentedMediaType
     let uploadFileInteractor: UploadFileInteractorType
     let placeInfo: PlaceInfo
-    var loading = Observable<Bool>(false)
     
     weak var delegate: MediaPresenterVMDelegate?
     
@@ -64,29 +62,13 @@ final class MediaPresenterVM: MediaPresenterVMType {
     
     private func uploadImage(image: UIImage) {
         guard let data = image.jpegData(compressionQuality: 0.1) else { return }
-        loading.value = true
         let uploadData = UploadFileData(data: data, fileURL: nil)
-        uploadFileInteractor.uplaodImage(path: "\(placeInfo.name)/\(UUID().uuidString)", data: uploadData, placeInfo: placeInfo) { result in
-            self.loading.value = false
-            switch result {
-            case .success:
-                self.delegate?.photoPresenterVMUploadPressed(self)
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        uploadFileInteractor.uplaodImage(path: "\(placeInfo.name)/\(UUID().uuidString)", data: uploadData, placeInfo: placeInfo) { _ in }
+        delegate?.photoPresenterVMUploadPressed(self)
     }
     
     private func uploadVideo(videoLocalUrl: URL) {
-        uploadFileInteractor.uplaodVideo(path: "\(placeInfo.name)/\(UUID().uuidString).mp4", data: UploadFileData(data: nil, fileURL: videoLocalUrl), placeInfo: placeInfo) { result in
-            switch result {
-            case .success:
-                self.delegate?.photoPresenterVMUploadPressed(self)
-                return
-            case .failure(let error):
-                print(error)
-            }
-        }
+        uploadFileInteractor.uplaodVideo(path: "\(placeInfo.name)/\(UUID().uuidString).mp4", data: UploadFileData(data: nil, fileURL: videoLocalUrl), placeInfo: placeInfo) { _ in }
+        delegate?.photoPresenterVMUploadPressed(self)
     }
 }

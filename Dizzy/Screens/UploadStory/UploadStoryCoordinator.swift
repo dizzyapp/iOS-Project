@@ -74,7 +74,7 @@ extension UploadStoryCoordinator: MediaPresenterVMDelegate {
     }
     
     func photoPresenterVMUploadPressed(_ videwModel: MediaPresenterVMType) {
-        navigationController.dismiss(animated: true)
-        onCoordinatorFinished(true)
+        navigationController.popToRootViewController(animated: true)
+        onCoordinatorFinished(false)
     }
 }
