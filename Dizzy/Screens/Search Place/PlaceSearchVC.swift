@@ -82,6 +82,7 @@ final class PlaceSearchVC: ViewController {
     
     private func setupSearchTextField() {
         searchTextField.addTarget(self, action: #selector(searchTextFieldDidChange), for: .editingChanged)
+        searchTextField.autocorrectionType = .no
         searchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.25)
         searchTextField.layer.cornerRadius = 10
         searchTextField.addPaddingToMarker()
