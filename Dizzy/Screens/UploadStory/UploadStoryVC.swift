@@ -15,10 +15,13 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     private var recordingTimer: Timer?
     private let cameraButton =  UIButton(frame: .zero)
     private let switchCameraButton = UIButton(frame: .zero)
+    private let cameraButtonBackground = UIView()
     
     private let cameraButtonHeight: CGFloat = 80
     private let buttonBottomPadding: CGFloat = 40
     private let switchCameraPadding: CGFloat = 30
+    private let cameraButtonBackgroundStartHeight: CGFloat = 0
+    private let cameraButtonBackgroundOnLongPressHeight: CGFloat = 120
     
     private let borderRodius: CGFloat = 5.0
     
@@ -44,6 +47,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         setupRecordingIndicator()
         setupCameraButton()
         setupSwitchCameraButton()
+        setupCameraButtonBackgroundAnimation()
     }
     
     private func setupRecordingIndicator() {
@@ -56,6 +60,12 @@ final class UploadStoryVC: ViewController, PopupPresenter {
          switchCameraButton.setImage(UIImage(named: "switch_camera_icon"), for: .normal)
         switchCameraButton.addTarget(self, action: #selector(switchCameraButtonPressed), for: .touchUpInside)
     }
+    
+    private func setupCameraButtonBackgroundAnimation() {
+        cameraButtonBackground.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
+        cameraButtonBackground.layer.cornerRadius = cameraButton.frame.height / 2
+        cameraButtonBackground.isHidden = true
+    }
 
     private func setupCameraButton() {
         cameraButton.backgroundColor = .clear
@@ -67,6 +77,29 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         setupLongPressForCameraButton()
     }
     
+    private func cameraButtonAnimationOnLongPress() {
+        cameraButton.backgroundColor = .white
+        cameraButtonBackground.isHidden = false
+
+        UIView.animate(withDuration: 0.2) {
+            self.cameraButtonBackground.snp.updateConstraints { make in
+                make.height.width.equalTo(self.cameraButtonBackgroundOnLongPressHeight)
+            }
+            self.view.layoutIfNeeded()
+            self.cameraButtonBackground.layer.cornerRadius = self.cameraButtonBackground.frame.height / 2
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func returnCameraButtonToNormalStyle() {
+        cameraButton.backgroundColor = .clear
+        
+        cameraButtonBackground.snp.updateConstraints { make in
+            make.height.width.equalTo(cameraButtonBackgroundStartHeight)
+        }
+        cameraButtonBackground.isHidden = true
+    }
+    
     private func setupLongPressForCameraButton() {
         let longPressGesture = UILongPressGestureRecognizer.init(target: self, action: #selector(onLongPress))
         cameraButton.addGestureRecognizer(longPressGesture)
@@ -74,9 +107,11 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     
     @objc private func onLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            cameraButtonAnimationOnLongPress()
             showRecordingIndicator()
             viewModel.startCapturingVideo()
         } else if gestureRecognizer.state == UIGestureRecognizer.State.ended {
+            returnCameraButtonToNormalStyle()
             viewModel.stopCapturingVideo()
             hideRecordingIndicator()
         }
@@ -107,6 +142,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
             layer.frame = self.view.bounds
             self.view.layer.addSublayer(layer)
             self.view.bringSubviewToFront(self.recordingIndicator)
+            self.view.bringSubviewToFront(self.cameraButtonBackground)
             self.view.bringSubviewToFront(self.cameraButton)
             self.view.bringSubviewToFront(self.switchCameraButton)
         }
@@ -121,7 +157,7 @@ final class UploadStoryVC: ViewController, PopupPresenter {
     }
     
     private func buildView() {
-        view.addSubviews([recordingIndicator ,cameraButton, switchCameraButton])
+        view.addSubviews([recordingIndicator, cameraButtonBackground, cameraButton, switchCameraButton])
     }
     
     private func buildConstraints() {
@@ -140,6 +176,11 @@ final class UploadStoryVC: ViewController, PopupPresenter {
             make.centerY.equalTo(cameraButton.snp.centerY)
             make.trailing.equalToSuperview().inset(switchCameraPadding)
         }
+        
+        cameraButtonBackground.snp.makeConstraints { make in
+             make.height.width.equalTo(cameraButtonBackgroundStartHeight)
+             make.center.equalTo(cameraButton)
+         }
     }
     
     private func setupNavigation() {
