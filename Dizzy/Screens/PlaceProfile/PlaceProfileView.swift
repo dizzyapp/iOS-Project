@@ -125,7 +125,7 @@ final class PlaceProfileView: UIView {
     }
 
     private func setupBackgroundView() {
-        backgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        backgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.95)
         backgroundView.layer.cornerRadius = backgroundViewCornerRadius
     }
 

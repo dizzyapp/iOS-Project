@@ -18,6 +18,7 @@ struct Metrics {
     static let doublePadding = CGFloat(20)
     static let triplePadding = CGFloat(30)
     static let fourTimesPadding = CGFloat(40)
+    static let fiveTimesPadding = CGFloat(50)
     static let sixTimesPadding = CGFloat(60)
     static let eightTimesPadding = CGFloat(80)
 }

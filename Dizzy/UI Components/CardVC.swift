@@ -18,12 +18,11 @@ extension CardVC where Self: UIViewController {
     func makeCard() {
         modalPresentationStyle = .overCurrentContext
         view.addSubview(cardContainerView)
-        view.backgroundColor = .clear
-        
+        view.backgroundColor = .white
         makeCardConstraints()
         
         cardContainerView.backgroundColor = .white
-        cardContainerView.layer.cornerRadius = 30.0
+        cardContainerView.layer.cornerRadius = 18.0
         cardContainerView.clipsToBounds = true
     }
     
@@ -35,7 +34,7 @@ extension CardVC where Self: UIViewController {
         }
         
         cardContainerView.backgroundColor = .white
-        cardContainerView.layer.cornerRadius = 30.0
+        cardContainerView.layer.cornerRadius = 18.0
         cardContainerView.clipsToBounds = true
     }
 }

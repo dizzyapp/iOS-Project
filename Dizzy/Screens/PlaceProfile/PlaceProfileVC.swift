@@ -20,8 +20,8 @@ final class PlaceProfileVC: UIViewController {
     
     private let viewModel: PlaceProfileVMType
     
-    let placeProfileViewCornerRadius = CGFloat(8)
-    let placeProfileViewPadding = CGFloat(8)
+    let placeProfileViewCornerRadius = CGFloat(10)
+    let placeProfileViewPadding = CGFloat(15)
     let placeProfileTopOffset = CGFloat(5)
     
     private var isFirstLoad = true

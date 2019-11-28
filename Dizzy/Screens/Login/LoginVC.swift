@@ -96,14 +96,14 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
     private func layoutLogoutButton() {
         logoutButton.snp.makeConstraints { logoutButton in
             logoutButton.leading.trailing.equalToSuperview()
-            logoutButton.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.doublePadding)
+            logoutButton.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.padding)
         }
     }
     
     private func layoutDizzyLogo() {
         dizzyLogoImageView.snp.makeConstraints { dizzyLogoImageView in
             dizzyLogoImageView.top.equalTo(loginSelectionView.snp.bottom).offset(Metrics.doublePadding)
-            dizzyLogoImageView.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.doublePadding)
+            dizzyLogoImageView.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.fourTimesPadding)
             dizzyLogoImageView.leading.trailing.equalToSuperview()
         }
     }
@@ -137,7 +137,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
     }
     
     private func setupNavigationView() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.exitStoryButton(), style: .done, target: self, action: #selector(closeButtonClicked))
     }
     
     private func setupTitleLabel() {
