@@ -30,7 +30,6 @@ final class MediaPresenterVC: ViewController, LoadingContainer {
         super.init()
         buildView()
         buildConstraints()
-        bindViewModel()
         setupViews()
     }
     
@@ -117,12 +116,6 @@ final class MediaPresenterVC: ViewController, LoadingContainer {
         imageView.isHidden = false
         videoView.stop()
         videoView.isHidden = true
-    }
-    
-    private func bindViewModel() {
-        viewModel.loading.bind { [weak self] loading in
-            loading ? self?.showSpinner() : self?.hideSpinner()
-        }
     }
     
     private func buildView() {
