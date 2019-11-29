@@ -96,6 +96,7 @@
 		4DFBA48422BEB8B600BB0F4F /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFBA48322BEB8B600BB0F4F /* KeyboardHandler.swift */; };
 		4DFBA48622BEC5D800BB0F4F /* InputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
+		6355854523854EC300E595D1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6355854423854EC300E595D1 /* Launch Screen.storyboard */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
 		76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */; };
@@ -228,6 +229,7 @@
 		4DFBA48022BEB3C100BB0F4F /* SignInDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDetails.swift; sourceTree = "<group>"; };
 		4DFBA48322BEB8B600BB0F4F /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidator.swift; sourceTree = "<group>"; };
+		6355854423854EC300E595D1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
 		76B41EA0224EE9FA00C1A290 /* Dizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -566,6 +568,7 @@
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
 				76B41EB5224EF16200C1A290 /* Assembly.swift */,
 				76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */,
+				6355854423854EC300E595D1 /* Launch Screen.storyboard */,
 			);
 			path = Dizzy;
 			sourceTree = "<group>";
@@ -770,6 +773,7 @@
 				7762328D22D14EE900156DC7 /* dizzySplash.mp4 in Resources */,
 				76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */,
 				0454B7BE23745CC30043DEC3 /* DarkMapStyle.json in Resources */,
+				6355854523854EC300E595D1 /* Launch Screen.storyboard in Resources */,
 				76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
