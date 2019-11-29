@@ -59,7 +59,8 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
         container?.autoregister(DizzyUser.self, initializer: {
             return user
         })
-        closePressed()
+        
+        navigationController.popToRootViewController(animated: true)
     }
     
     func closePressed() {
