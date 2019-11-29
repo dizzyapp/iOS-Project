@@ -135,6 +135,7 @@ final class SignUpDetailsView: UIView {
     
     private func setupFullNameTextField() {
         fullNameTextField.keyboardType = .namePhonePad
+        fullNameTextField.autocorrectionType = .no
     }
     
     private func setupEmailTextField() {

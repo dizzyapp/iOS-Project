@@ -15,6 +15,7 @@ final class MapSearchVC: ViewController {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.placeholder = "enter your place".localized
         searchBar.barStyle = .default
+        searchBar.autocorrectionType = .no
         searchBar.showsCancelButton = true
         return searchBar
     }()
