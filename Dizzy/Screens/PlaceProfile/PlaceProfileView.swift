@@ -13,6 +13,7 @@ protocol PlaceProfileViewDelegate: class {
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView)
 }
 
 final class PlaceProfileView: UIView {
@@ -26,16 +27,23 @@ final class PlaceProfileView: UIView {
     var ageLabel = UILabel()
     var callButton = UIButton(type: .system)
     var requestTableButton = UIButton(type: .system)
-    
+
     var placeInfo: PlaceInfo?
     var stackView = UIStackView()
-    let placeImageViewSize = CGFloat(65)
+    let placeImageViewSize = CGFloat(115)
     let backgroundViewCornerRadius = CGFloat(25)
     let backgroundImageOffset = CGFloat(40)
-    
+
+    private let storyButton: UIButton = {
+        let button = UIButton(frame: .zero)
+        button.setImage(UIImage(named: "camera_icon"), for: .normal)
+        button.showsTouchWhenHighlighted = true
+        return button
+    }()
+
     init() {
         super.init(frame: .zero)
-        
+
         addSubviews()
         layoutViews()
         setupViews()
@@ -54,16 +62,17 @@ final class PlaceProfileView: UIView {
         stackView.addArrangedSubview(openHoursLabel)
         stackView.addArrangedSubview(requestTableButton)
 
-        self.addSubviews([backgroundView, stackView, callButton])
+        self.addSubviews([backgroundView, stackView, callButton, storyButton])
     }
-    
+
     private func layoutViews() {
         layoutBackgroundView()
         layoutPlaceImageView()
         layoutCallButton()
         layoutStackView()
+        layoutStoryButton()
     }
-    
+
     private func layoutBackgroundView() {
         backgroundView.snp.makeConstraints { backgroundView in
             backgroundView.top.equalToSuperview().offset(backgroundImageOffset)
@@ -72,28 +81,35 @@ final class PlaceProfileView: UIView {
             backgroundView.bottom.equalToSuperview()
         }
     }
-    
+
     private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
             placeImageView.width.height.equalTo(placeImageViewSize)
         }
     }
-    
+
     private func layoutCallButton() {
         callButton.snp.makeConstraints { callButton in
             callButton.top.equalTo(backgroundView.snp.top).offset(Metrics.padding)
             callButton.leading.equalTo(backgroundView.snp.leading).offset(Metrics.padding)
         }
     }
-    
+
     private func layoutStackView() {
         stackView.snp.makeConstraints { stackView in
-            stackView.top.equalToSuperview().offset(Metrics.padding)
+            stackView.top.equalToSuperview().offset(Metrics.tinyPadding)
             stackView.leading.trailing.equalToSuperview()
             stackView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
         }
     }
     
+    private func layoutStoryButton() {
+        storyButton.snp.makeConstraints { storyButton in
+            storyButton.top.equalTo(backgroundView.snp.top).offset(Metrics.padding)
+            storyButton.trailing.equalTo(backgroundView.snp.trailing).offset(-Metrics.padding)
+        }
+    }
+
     private func setupViews() {
         setupBackgroundView()
         setupPlaceImageView()
@@ -105,70 +121,73 @@ final class PlaceProfileView: UIView {
         setupOpenHoursLabel()
         setupAgeLabel()
         setupRequestTableButton()
+        setupStoryButton()
     }
-    
+
     private func setupBackgroundView() {
-        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        backgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         backgroundView.layer.cornerRadius = backgroundViewCornerRadius
     }
-    
+
     private func setupPlaceImageView() {
         placeImageView.imageSize = placeImageViewSize
     }
-    
+
     private func setupStackView() {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
     }
-    
+
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .white
+        titleLabel.textColor = .black
         titleLabel.font = Fonts.h1(weight: .bold)
     }
-    
+
     private func setupDescriptionLabel() {
         descriptionLabel.textAlignment = .center
-        descriptionLabel.textColor = .white
-        descriptionLabel.font = Fonts.h10()
+        descriptionLabel.textColor = .black
+        descriptionLabel.font = Fonts.h8()
     }
-    
+
     private func setupAddressButton() {
-        addressButton.setBackgroundImage(Images.addressBackgroundIcon(), for: .normal)
-        addressButton.setTitleColor(UIColor(hexString: "A7B0FF"), for: .normal)
-        addressButton.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: Metrics.doublePadding, bottom: 0.0, right: Metrics.doublePadding)
-        addressButton.titleLabel?.font = Fonts.h10()
+        addressButton.setTitleColor(UIColor.blue, for: .normal)
+        addressButton.titleLabel?.font = Fonts.h8(weight: .bold)
         addressButton.addTarget(self, action: #selector(addressButtonPressed), for: .touchUpInside)
     }
-    
+
     private func setupOpenHoursLabel() {
         openHoursLabel.textAlignment = .center
-        openHoursLabel.textColor = .white
-        openHoursLabel.font = Fonts.h10()
+        openHoursLabel.textColor = .black
+        openHoursLabel.font = Fonts.h8()
     }
-    
+
     private func setupAgeLabel() {
         ageLabel.textAlignment = .center
-        ageLabel.textColor = .white
-        ageLabel.font = Fonts.h5()
+        ageLabel.textColor = .black
+        ageLabel.font = Fonts.h4()
     }
-    
+
     private func setupCallButton() {
         callButton.setImage(Images.callIcon().withRenderingMode(.alwaysOriginal), for: .normal)
         callButton.addTarget(self, action: #selector(callButtonPressed), for: .touchUpInside)
     }
-    
+
     private func setupRequestTableButton() {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
-        requestTableButton.setTitle("Request a table".localized, for: .normal)
-        requestTableButton.setTitleColor(UIColor(hexString: "C2A7FF"), for: .normal)
-        requestTableButton.titleLabel?.font = Fonts.h10()
+        requestTableButton.setTitle("RESERVE".localized, for: .normal)
+        requestTableButton.setTitleColor(UIColor.white, for: .normal)
+        requestTableButton.titleLabel?.font = Fonts.h5(weight: .bold)
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
     
+    private func setupStoryButton() {
+        storyButton.addTarget(self, action: #selector(storyButtonPressed), for: .touchUpInside)
+    }
+
     weak var delegate: PlaceProfileViewDelegate?
-    
+
     func configure(with place: PlaceInfo) {
         
         self.placeInfo = place
@@ -176,11 +195,11 @@ final class PlaceProfileView: UIView {
             let title: String = "\(address?.street ?? ""), \(address?.city ?? ""), \(address?.country ?? "")"
             self?.addressButton.setTitle(title, for: .normal)
         }
-    
+
         if let imageURLString = place.imageURLString, let imageURL = URL(string: imageURLString) {
             self.placeImageView.setImage(from: imageURL)
         }
-        
+
         titleLabel.text = place.name
         descriptionLabel.text = place.description
         ageLabel.text = place.authorizedAge
@@ -192,18 +211,26 @@ final class PlaceProfileView: UIView {
             openHoursLabel.text = openHourText
         }
     }
+    
+    func hideStoryButton() {
+        storyButton.isHidden = true
+    }
 }
 
 extension PlaceProfileView {
     @objc func addressButtonPressed() {
         delegate?.placeProfileViewAddressButtonPressed(self)
     }
-    
+
     @objc func callButtonPressed() {
         delegate?.placeProfileViewCallButtonPressed(self)
     }
     
     @objc func requestTableButtonPressed() {
         delegate?.placeProfileViewRequestTableButtonPressed(self)
+    }
+
+    @objc private func storyButtonPressed() {
+        delegate?.placeProfileViewStoryButtonPressed(self)
     }
 }

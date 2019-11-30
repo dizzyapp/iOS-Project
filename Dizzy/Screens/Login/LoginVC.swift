@@ -9,35 +9,34 @@
 import UIKit
 import SnapKit
 
-final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
-    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
+final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC {
     
-    let loginContainerView = UIView()
+    var cardContainerView: UIView = UIView()
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
     
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
     let loginSelectionView = LoginSelectionView()
     let appInfosView = AppInfosView()
-    let userProfileView = UserProfileView()
+    let userProfileView: UserProfileView
     
     let logoutButton: UIButton = UIButton(type: .system)
-
+    
     let dizzyLogoImageView = UIImageView()
     
     let enterAsAdminButton: UIButton = UIButton(type: .system)
     
-    let cornerRadius: CGFloat = 30.0
     let enterAsAdminButtonHeight: CGFloat = 40
     
     var loginVM: LoginVMType
     
     init(loginVM: LoginVMType) {
         self.loginVM = loginVM
-        
+        self.userProfileView = UserProfileView(user: loginVM.user)
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .clear
         self.loginVM.delegate = self
-
+        
         addSubviews()
         layoutViews()
         setupViews()
@@ -48,15 +47,12 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     }
     
     private func addSubviews() {
-
-        self.view.addSubview(loginContainerView)
-        loginContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
+        makeCard()
+        cardContainerView.addSubviews([titleLabel, subtitleLabel, loginSelectionView,
                                         userProfileView, logoutButton, appInfosView, dizzyLogoImageView, enterAsAdminButton])
         
     }
     private func layoutViews() {
-        layoutLoginContainerView()
-        
         layoutTitleLabel()
         layoutSubtitleLabel()
         layoutLoginSelectionView()
@@ -66,17 +62,7 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         
         layoutDizzyLogo()
         layoutEnterAsAdminButton()
-    }
-    
-    private func layoutLoginContainerView() {
-        loginContainerView.snp.makeConstraints { loginContainerView in
-            
-            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.padding)
-            loginContainerView.leading.trailing.equalToSuperview()
-            loginContainerView.bottom.equalToSuperview().offset(Metrics.doublePadding)
-        }
-    }
-    
+    }    
     private func layoutTitleLabel() {
         titleLabel.snp.makeConstraints { titleLabel in
             titleLabel.top.equalToSuperview().offset(Metrics.padding)
@@ -114,23 +100,23 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
         }
     }
     
-    private func layoutAppInfosView() {
-        appInfosView.snp.makeConstraints { appInfosView in
-            appInfosView.top.equalTo(loginSelectionView.snp.bottom)
-            appInfosView.leading.trailing.equalToSuperview()
+    private func layoutDizzyLogo() {
+        dizzyLogoImageView.snp.makeConstraints { dizzyLogoImageView in
+            dizzyLogoImageView.top.equalTo(loginSelectionView.snp.bottom).offset(Metrics.doublePadding)
+            dizzyLogoImageView.bottom.equalTo(appInfosView.snp.top).offset(-Metrics.doublePadding)
+            dizzyLogoImageView.leading.trailing.equalToSuperview()
         }
     }
     
-    private func layoutDizzyLogo() {
-        dizzyLogoImageView.snp.makeConstraints { dizzyLogoImageView in
-            dizzyLogoImageView.top.equalTo(appInfosView.snp.bottom).offset(2 * Metrics.doublePadding)
-            dizzyLogoImageView.leading.trailing.equalToSuperview()
+    private func layoutAppInfosView() {
+        appInfosView.snp.makeConstraints { appInfosView in
+            appInfosView.leading.trailing.equalToSuperview()
         }
     }
     
     private func layoutEnterAsAdminButton() {
         enterAsAdminButton.snp.makeConstraints { enterAsAdminButton in
-            enterAsAdminButton.top.equalTo(dizzyLogoImageView.snp.bottom).offset(Metrics.doublePadding)
+            enterAsAdminButton.top.equalTo(appInfosView.snp.bottom)
             enterAsAdminButton.leading.trailing.equalToSuperview()
             enterAsAdminButton.height.equalTo(enterAsAdminButtonHeight)
             enterAsAdminButton.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -139,8 +125,6 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     
     private func setupViews() {
         setupNavigationView()
-        setupLoginContainerView()
-        
         setupTitleLabel()
         setupSubtitleLabel()
         setupLoginSelectionView()
@@ -153,20 +137,14 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     }
     
     private func setupNavigationView() {
-        self.navigationItem.title = "Login".localized
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
-    }
-    
-    private func setupLoginContainerView() {
-        loginContainerView.backgroundColor = .white
-        loginContainerView.layer.cornerRadius = cornerRadius
-        loginContainerView.clipsToBounds = true
     }
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.font = Fonts.h5()
-        titleLabel.text = "Menu".localized
+        titleLabel.font = Fonts.h7(weight: .bold)
+        titleLabel.textColor = .blue
+        titleLabel.text = "CONNECT".localized
     }
     
     private func setupSubtitleLabel() {
@@ -202,12 +180,11 @@ final class LoginVC: UIViewController, LoadingContainer, AlertPresentation {
     }
     
     private func setupEnterAsAdminButton() {
-        let text: NSMutableAttributedString = NSMutableAttributedString(string: "enter as admin".localized)
+        let text: NSMutableAttributedString = NSMutableAttributedString(string: "Enter as Admin".localized)
         let range: NSRange = NSRange(location: 0, length: text.length)
         
-        text.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
-        text.addAttribute(.font, value: Fonts.h8(), range: range)
-
+        text.addAttribute(.font, value: Fonts.h7(weight: .medium), range: range)
+        
         enterAsAdminButton.setAttributedTitle(text, for: .normal)
         enterAsAdminButton.addTarget(self, action: #selector(enterAsAdminButtonPressed), for: .touchUpInside)
     }
@@ -269,7 +246,8 @@ extension LoginVC: LoginVMDelegate {
     
     func userSignedInFailed(error: SignInWebserviceError) {
         hideSpinner()
-        showAlert(title: "Error".localized, message: error.localizedDescription)
+        let action = Action(title: "Ok".localized)
+        showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
     }
     
     func userLoggedoutSuccessfully() {
@@ -279,7 +257,8 @@ extension LoginVC: LoginVMDelegate {
     
     func userLoggedoutFailed(error: Error) {
         hideSpinner()
-        showAlert(title: "Error".localized, message: error.localizedDescription)
+        let action = Action(title: "Ok".localized)
+        showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
     }
 }
 

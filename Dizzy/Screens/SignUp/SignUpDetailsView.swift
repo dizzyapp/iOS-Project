@@ -16,16 +16,18 @@ final class SignUpDetailsView: UIView {
 
     let titleLabel = UILabel()
     let stackView = UIStackView()
-    let fullNameTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "What's your name?".localized)
-    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Whats your email?".localized)
-    let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Password".localized)
-    let confirmPasswordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Confirm your password".localized)
+    let fullNameTextField = UITextField().loginTextfield(withPlaceholder: "Name".localized)
+    let emailTextField = UITextField().loginTextfield(withPlaceholder: "Email".localized)
+    let passwordTextField = UITextField().loginTextfield(withPlaceholder: "Password".localized)
+    let confirmPasswordTextField = UITextField().loginTextfield(withPlaceholder: "Confirm Password".localized)
     let signUpButton = UIButton(type: .system)
     
-    let screenCornerRadius = CGFloat(30)
-    let buttonsWidthPrecentage = CGFloat(0.5)
-    let signupButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
-    let signupCornerRadius = CGFloat(17)
+    let screenCornerRadius = CGFloat(0)
+    let buttonsWidthPrecentage = CGFloat(0.75)
+    let signUpbuttonWidthPercentage = CGFloat(0.45)
+    let signupButtonBackgroundColor = UIColor.dizzyBlue
+    let signupCornerRadius = CGFloat(14)
+    let stackViewTopPadding = Metrics.doublePadding * 2
     
     weak var delegate: SignUpDetailsViewDelegate?
     
@@ -64,7 +66,7 @@ final class SignUpDetailsView: UIView {
     private func layoutStackView() {
         self.addSubviews([self.stackView])
         self.stackView.snp.makeConstraints { stackView in
-            stackView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
+            stackView.top.equalTo(titleLabel.snp.bottom).offset(stackViewTopPadding)
             stackView.leading.trailing.equalToSuperview()
         }
     }
@@ -100,7 +102,7 @@ final class SignUpDetailsView: UIView {
     private func layoutSignupButton() {
         stackView.addArrangedSubview(signUpButton)
         signUpButton.snp.makeConstraints { (signUpButton ) in
-            signUpButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
+            signUpButton.width.equalToSuperview().multipliedBy(signUpbuttonWidthPercentage)
         }
     }
     
@@ -119,12 +121,13 @@ final class SignUpDetailsView: UIView {
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.font = Fonts.h10(weight: .medium)
-        titleLabel.text = "Create new account".localized
+        titleLabel.font = Fonts.h8(weight: .bold)
+        titleLabel.textColor = .blue
+        titleLabel.text = "SIGN UP".localized
     }
     
     private func setupStackView() {
-        stackView.spacing = Metrics.padding
+        stackView.spacing = Metrics.doublePadding
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.backgroundColor = .white
@@ -132,6 +135,7 @@ final class SignUpDetailsView: UIView {
     
     private func setupFullNameTextField() {
         fullNameTextField.keyboardType = .namePhonePad
+        fullNameTextField.autocorrectionType = .no
     }
     
     private func setupEmailTextField() {
@@ -149,8 +153,8 @@ final class SignUpDetailsView: UIView {
     }
     
     private func setupSignUpButton() {
-        signUpButton.setTitle("Done!".localized, for: .normal)
-        signUpButton.titleLabel?.font = Fonts.h10(weight: .bold)
+        signUpButton.setTitle("DONE".localized, for: .normal)
+        signUpButton.titleLabel?.font = Fonts.h8(weight: .bold)
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.layer.cornerRadius = signupCornerRadius
         signUpButton.backgroundColor = signupButtonBackgroundColor

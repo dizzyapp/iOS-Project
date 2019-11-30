@@ -16,14 +16,16 @@ final class SignInDetailsView: UIView {
 
     let titleLabel = UILabel()
     let stackView = UIStackView()
-    let emailTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Email".localized)
-    let passwordTextField = UITextField().withDarkPurpleRoundedCorners(withPlaceHolder: "Password".localized)
+    let emailTextField = UITextField().loginTextfield(withPlaceholder: "Email".localized)
+    let passwordTextField = UITextField().loginTextfield(withPlaceholder: "Password".localized)
     let signInButton = UIButton(type: .system)
     
-    let screenCornerRadius = CGFloat(30)
-    let buttonsWidthPrecentage = CGFloat(0.5)
-    let signInButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
-    let signInCornerRadius = CGFloat(17)
+    let screenCornerRadius = CGFloat(0)
+    let buttonsWidthPrecentage = CGFloat(0.75)
+    let signInButtonBackgroundColor = UIColor.dizzyBlue
+    let signInButtonWidthPrecentage = CGFloat(0.45)
+    let signInCornerRadius = CGFloat(14)
+    let stackViewTopPadding = Metrics.doublePadding * 2
     
     weak var delegate: SignInDetailsViewDelegate?
     
@@ -59,7 +61,7 @@ final class SignInDetailsView: UIView {
     private func layoutStackView() {
         self.addSubviews([self.stackView])
         self.stackView.snp.makeConstraints { stackView in
-            stackView.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
+            stackView.top.equalTo(titleLabel.snp.bottom).offset(stackViewTopPadding)
             stackView.leading.trailing.equalToSuperview()
         }
     }
@@ -81,7 +83,7 @@ final class SignInDetailsView: UIView {
     private func layoutSignInButton() {
         stackView.addArrangedSubview(signInButton)
         signInButton.snp.makeConstraints { (signInButton ) in
-            signInButton.width.equalToSuperview().multipliedBy(buttonsWidthPrecentage)
+            signInButton.width.equalToSuperview().multipliedBy(signInButtonWidthPrecentage)
         }
     }
     
@@ -102,8 +104,9 @@ final class SignInDetailsView: UIView {
     
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.font = Fonts.h10(weight: .medium)
-        titleLabel.text = "Log in".localized
+        titleLabel.font = Fonts.h9(weight: .bold)
+        titleLabel.textColor = .blue
+        titleLabel.text = "LOG IN".localized
     }
     
     private func setupEmailTextField() {
@@ -119,15 +122,15 @@ final class SignInDetailsView: UIView {
     }
     
     private func setupStackView() {
-        stackView.spacing = Metrics.padding
+        stackView.spacing = Metrics.doublePadding
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.backgroundColor = .white
     }
     
     private func setupSignInButton() {
-        signInButton.setTitle("Go!".localized, for: .normal)
-        signInButton.titleLabel?.font = Fonts.h10(weight: .bold)
+        signInButton.setTitle("ENTER".localized, for: .normal)
+        signInButton.titleLabel?.font = Fonts.h8(weight: .bold)
         signInButton.setTitleColor(.white, for: .normal)
         signInButton.layer.cornerRadius = signInCornerRadius
         signInButton.backgroundColor = signInButtonBackgroundColor

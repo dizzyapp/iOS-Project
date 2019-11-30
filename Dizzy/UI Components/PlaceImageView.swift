@@ -8,20 +8,20 @@
 
 import UIKit
 
-class PlaceImageView: UIView {
+class PlaceImageView: UIControl {
     
     private var placeImageView = UIImageView()
     private var backgroundImageView = UIImageView()
     private var imageURL: URL?
     
-    var imageSize: CGFloat = 45 {
+    var imageSize: CGFloat = 50 {
         didSet {
             layoutViews()
         }
     }
 
-    let backgroundImageInset: CGFloat = 4
-    
+    let backgroundImageInset: CGFloat = 6
+   
     init() {
         super.init(frame: .zero)
         
@@ -62,8 +62,10 @@ class PlaceImageView: UIView {
     
     private func layoutImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.leading.equalToSuperview().offset(backgroundImageInset)
-            placeImageView.trailing.bottom.equalToSuperview().offset(-backgroundImageInset)
+            placeImageView.top.equalTo(backgroundImageView.snp.top).offset(backgroundImageInset)
+            placeImageView.leading.equalTo(backgroundImageView.snp.leading).offset(backgroundImageInset)
+            placeImageView.trailing.equalTo(backgroundImageView.snp.trailing).offset(-backgroundImageInset)
+            placeImageView.bottom.equalTo(backgroundImageView.snp.bottom).offset(-backgroundImageInset)
         }
     }
     
@@ -73,8 +75,9 @@ class PlaceImageView: UIView {
     }
     
     private func setupPlaceImageView() {
-        let imageViewWidth: CGFloat = (imageSize - (2 * backgroundImageInset))/2
-        self.placeImageView.layer.cornerRadius = imageViewWidth
+        let internalImageWidth = imageSize - (2 * backgroundImageInset)
+        let imageViewCornerRadius: CGFloat = internalImageWidth/2
+        self.placeImageView.layer.cornerRadius = imageViewCornerRadius
         self.placeImageView.layer.masksToBounds = true
         self.placeImageView.kf.setImage(with: imageURL, placeholder: Images.defaultPlaceAvatar())
     }

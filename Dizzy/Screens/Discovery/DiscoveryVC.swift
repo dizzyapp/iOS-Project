@@ -8,21 +8,29 @@
 
 import UIKit
 import SnapKit
+import AVKit
+import AVFoundation
 
-class DiscoveryVC: ViewController {
+class DiscoveryVC: ViewController, PopupPresenter {
     
     let topBar = DiscoveryTopBar()
-    let themeImageView = UIImageView()
+    let themeVideoView = VideoView()
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryVMType
+    let appStartVM: AppStartVMType
     
-    let nearByPlacesViewCornerRadius = CGFloat(5)
-    let nearByPlacesViewPadding = CGFloat(5)
-    let nearByPlacesViewHeightRatio = CGFloat(0.55)
+    let nearByPlacesViewPadding = CGFloat(0)
+    let nearByPlacesViewHeightRatio = CGFloat(0.50)
     
-    init(viewModel: DiscoveryVMType) {
+    private var nearByPlacesTopConstraint: Constraint?
+    
+    var isItFirstPageLoad = true
+    
+    init(viewModel: DiscoveryVMType, appStartVM: AppStartVMType) {
         self.viewModel = viewModel
+        self.appStartVM = appStartVM
         super.init()
+        appStartVM.getLoggedInUser()
         addSubviews()
         layoutViews()
         setupViews()
@@ -34,8 +42,20 @@ class DiscoveryVC: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if isItFirstPageLoad {
+            setupThemeVideoView()
+            themeVideoView.play()
+            isItFirstPageLoad = false
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        endSearch()
+    }
+    
     private func addSubviews() {
-        self.view.addSubviews([themeImageView, topBar, nearByPlacesView])
+        self.view.addSubviews([themeVideoView, topBar, nearByPlacesView])
     }
     
     private func layoutViews() {
@@ -45,57 +65,91 @@ class DiscoveryVC: ViewController {
             topBar.trailing.leading.equalToSuperview()
         }
         
-        themeImageView.snp.makeConstraints { themeImageView in
+        themeVideoView.snp.makeConstraints { themeImageView in
             
-            themeImageView.top.leading.trailing.equalToSuperview()
-            themeImageView.height.equalTo(view.snp.height).multipliedBy(0.5)
+            themeImageView.top.leading.bottom.trailing.equalToSuperview()
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
             
-            nearByPlacesView.height.equalTo(view.snp.height).multipliedBy(nearByPlacesViewHeightRatio)
+            nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeVideoView.snp.bottom).constraint
             nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
             nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
-            nearByPlacesView.bottom.equalTo(view.snp.bottom).offset(-nearByPlacesViewPadding)
+            nearByPlacesView.bottom.equalToSuperview()
         }
     }
     
     private func bindViewModel() {
         viewModel.currentCity.bind(shouldObserveIntial: true, observer: { [weak self] currentCity in
             guard !currentCity.isEmpty else {
-                self?.topBar.setLocationName("getting location")
+                self?.topBar.setLocationName("Getting location".localized)
                 return
             }
             self?.topBar.setLocationName(currentCity)
         })
-        
-        viewModel.currentLocation.bind { _ in
-            self.reloadData()
-        }
     }
     
     private func setupViews() {
         view.backgroundColor = .clear
-        setupThemeImageView()
+        addSwipeDelegate()
         setupNearByPlacesView()
         setupTopBarView()
+    }
+    
+    private func addSwipeDelegate() {
+        let downSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeDown))
+        downSwipe.direction = .down
+        self.view.addGestureRecognizer(downSwipe)
+        
+        let upSwipe = UISwipeGestureRecognizer(target : self, action : #selector(onSwipeUp))
+        upSwipe.direction = .up
+        self.view.addGestureRecognizer(upSwipe)
     }
     
     private func setupTopBarView() {
         topBar.delegate = self
     }
     
-    private func setupThemeImageView() {
-        themeImageView.contentMode = .scaleAspectFill
-        themeImageView.image = Images.discoveryThemeImage()
+    private func setupThemeVideoView() {
+        guard let path = Bundle.main.path(forResource: "dizzySplash", ofType:"mp4") else {
+                print("coult not find vieo url of discovery vc")
+            return
+        }
+        let videoUrl = URL(fileURLWithPath: path)
+        themeVideoView.configure(url: videoUrl)
+        themeVideoView.play()
     }
     
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
-        
-        nearByPlacesView.showSpinner()
+        nearByPlacesView.searchDelegate = self
+        nearByPlacesView.alpha = 0.9
         nearByPlacesView.reloadData()
+    }
+    
+    private func showPlacesOnHalfScreenWithAnimation() {
+        UIView.animate(withDuration: 1) {
+            self.showPlacesOnHalfScreen()
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func showPlacesOnHalfScreen() {
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 25)
+    }
+    
+    private func showPlacesOnFullScreen() {
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height + view.safeAreaInsets.top + Metrics.padding)
+    }
+    
+    private func hidePlacesWithAnimation(_ completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.nearByPlacesTopConstraint?.update(offset: 0)
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            completion?()
+        })
     }
     
     public func showTopBar() {
@@ -104,6 +158,23 @@ class DiscoveryVC: ViewController {
     
     public func hideTopBar() {
         self.topBar.isHidden = true
+    }
+    
+    @objc func onSwipeDown() {
+        guard viewModel.isSpalshEnded else { return }
+        if viewModel.isSearching {
+            self.endSearch()
+        } else {
+            hidePlacesWithAnimation {
+                self.mapButtonPressed()
+            }
+        }
+    }
+    
+    @objc func onSwipeUp() {
+        guard viewModel.isSpalshEnded,
+            !viewModel.isSearching else { return }
+        didPressSearch()
     }
 }
 
@@ -126,6 +197,10 @@ extension DiscoveryVC: NearByPlacesViewDataSource {
 }
 
 extension DiscoveryVC: DiscoveryTopBarDelegate {
+    func locationLablePressed() {
+        viewModel.locationLablePressed()
+    }
+    
     func mapButtonPressed() {
         viewModel.mapButtonPressed()
     }
@@ -136,22 +211,65 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 }
 
 extension DiscoveryVC: DiscoveryVMDelegate {
+    func askIfUserIsInThisPlace(_ place: PlaceInfo) {
+        showDizzyPopup(withMessage: "Are you in \(place.name)?", imageUrl: place.imageURLString, onOk: { [weak self] in
+            self?.viewModel.userApprovedHeIsIn(place: place)
+            }, onCancel: { [weak self] in
+               self?.viewModel.userDeclinedHeIsInPlace()
+        })
+    }
+    
     func reloadData() {
-        
+        nearByPlacesView.reloadData()
     }
     
     func allPlacesArrived() {
-        nearByPlacesView.hideSpinner()
         nearByPlacesView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+            guard self.appStartVM.appUserReturned else {
+                self.allPlacesArrived()
+                return
+            }
+            self.showPlacesOnHalfScreenWithAnimation()
+            self.viewModel.splashEnded()
+            self.viewModel.checkClosestPlace()
+        })
     }
 }
 
 extension DiscoveryVC: NearByPlacesViewDelegate {
     func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
-        
+        viewModel.placeCellIconPressed(atIndexPath: indexPath)
     }
     
     func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
         viewModel.placeCellDetailsPressed(atIndexPath: indexPath)
+    }
+}
+
+extension DiscoveryVC: NearByPlacesViewSearchDelegate {
+    func searchTextChanged(newText: String) {
+        viewModel.searchPlacesByName(newText)
+    }
+    
+    func didPressSearch() {
+        viewModel.searchPlacePressed()
+        UIView.animate(withDuration: 0.3) {
+            self.topBar.alpha = 0
+            self.nearByPlacesView.showSearchMode()
+            self.showPlacesOnFullScreen()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func endSearch() {
+        viewModel.searchEnded()
+        UIView.animate(withDuration: 0.3) {
+            self.topBar.alpha = 1
+            self.nearByPlacesView.hideSearchMode()
+            self.showPlacesOnHalfScreen()
+            self.viewModel.searchPlacesByName("")
+            self.view.layoutIfNeeded()
+        }
     }
 }

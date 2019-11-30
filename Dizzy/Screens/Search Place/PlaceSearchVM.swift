@@ -37,7 +37,7 @@ final class PlaceSearchVM: PlaceSearchVMType {
         locationProvider.requestUserLocation()
         bindLocationProvider()
     }
-    
+
     private func bindLocationProvider() {
         locationProvider.dizzyLocation.bind { [weak self] location in
             self?.currentLocation.value = location

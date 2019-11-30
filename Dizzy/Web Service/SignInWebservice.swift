@@ -60,13 +60,7 @@ class SignInWebservice: WebServiceType {
             } else {
                 guard let result = result else { return }
                 
-                let user = DizzyUser(id: result.user.uid,
-                                     fullName: result.user.displayName ?? "",
-                                     email: result.user.email!,
-                                     role: .customer,
-                                     photoURL: nil)
-                
-                let response = Result.success(user)
+                let response = Result.success(result.user.uid)
                 completion(response as! Result<Response>)
             }
         }
@@ -95,13 +89,7 @@ class SignInWebservice: WebServiceType {
                     } else {
                         guard let result = result else { return }
                         
-                        let user = DizzyUser(id: result.user.uid,
-                                             fullName: result.user.displayName ?? "",
-                                             email: result.user.email!,
-                                             role: .customer,
-                                             photoURL: result.user.photoURL)
-                        
-                        let response = Result.success(user)
+                        let response = Result.success(result.user.uid)
                         completion(response as! Result<Response>)
                     }
                 })

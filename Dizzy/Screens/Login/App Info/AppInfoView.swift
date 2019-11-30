@@ -20,9 +20,9 @@ class AppInfoView: UIView {
     let infoButton = UIButton(type: .system)
     let separatorView = UIView()
     
-    let separatorMultipliedWidth: CGFloat = 0.6
+    let separatorMultipliedWidth: CGFloat = 0.9
     let separatorHeight: CGFloat = 0.5
-    let separatorBackgroundColor: UIColor = UIColor(hexString: "979797")
+    let separatorBackgroundColor: UIColor = UIColor(hexString: "979797").withAlphaComponent(0.5)
     
     var infoType: AppInfoType
     var shouldIncludeSeparator: Bool = true {
@@ -79,7 +79,7 @@ class AppInfoView: UIView {
     private func setupInfoButton() {
         infoButton.setTitle(infoType.rawValue, for: .normal)
         infoButton.setTitleColor(UIColor(hexString: "7b7b7b"), for: .normal)
-        infoButton.titleLabel?.font = Fonts.h5(weight: .bold)
+        infoButton.titleLabel?.font = Fonts.h7()
     }
     
     private func setupSeparatorView() {

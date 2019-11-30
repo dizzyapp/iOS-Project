@@ -12,6 +12,7 @@ import Kingfisher
 
 protocol DiscoveryPlaceCellDelegate: class {
     func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell)
+    func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell)
 }
 
 class DiscoveryPlaceCell: UICollectionViewCell {
@@ -22,8 +23,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     let placeDetailsStackView = UIStackView()
     
     let stackViewTrailingPadding = CGFloat(15)
-    let smallLabelsFontSize = CGFloat(8)
-    let placeImageViewSize = CGFloat(45)
+    let smallLabelsFontSize = CGFloat(10)
+    let smallLabelsAlpha = CGFloat(0.618)
+    let placeImageViewSize = CGFloat(50)
 
     weak var delegate: DiscoveryPlaceCellDelegate?
     
@@ -83,6 +85,7 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         backgroundColor = .clear
         setupStackView()
         setupLabels()
+        setupPlaceImageView()
     }
     
     private func setupStackView() {
@@ -100,10 +103,18 @@ class DiscoveryPlaceCell: UICollectionViewCell {
         placeAddressLabel.font = Fonts.medium(size: smallLabelsFontSize)
         placeAddressLabel.numberOfLines = 1
         placeAddressLabel.textAlignment = .left
+        placeAddressLabel.alpha = smallLabelsAlpha
         
         distanceLabel.font = Fonts.medium(size: smallLabelsFontSize)
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
+        distanceLabel.alpha = smallLabelsAlpha
+    }
+    
+    func setupPlaceImageView() {
+        placeImageView.layer.cornerRadius = placeImageViewSize/2
+        placeImageView.clipsToBounds = true
+        placeImageView.addTarget(self, action: #selector(didPressIcon), for: .touchUpInside)
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
@@ -122,5 +133,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     @objc func didPressDetails() {
         delegate?.discoveryPlaceCellDidPressDetails(self)
+    }
+    
+    @objc func didPressIcon() {
+        delegate?.discoveryPlaceCellDidPressIcon(self)
     }
 }

@@ -45,9 +45,14 @@ final class HomeCoordinator: HomeCoordinatorType {
 
     private func createDiscoveryVC() {
         guard var viewModel = container?.resolve(DiscoveryVMType.self),
+            let appStartViewModel = container?.resolve(AppStartVMType.self),
             let discoveryVC = container?.resolve(DiscoveryVC.self, argument: viewModel) else {
                 print("could not create discovery page")
                 return
+        }
+        appStartViewModel.appUser.bind { [weak self] user in
+            guard let user = user else {return}
+            self?.container?.autoregister(DizzyUser.self, initializer: {return user})
         }
         viewModel.navigationDelegate = self
         self.discoveryVC = discoveryVC
@@ -55,7 +60,17 @@ final class HomeCoordinator: HomeCoordinatorType {
 }
 
 extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
- 
+
+    func activePlaceWasSet(_ activePlace: PlaceInfo?) {
+        container?.autoregister(ActivePlace.self, initializer: {
+            return ActivePlace(activePlaceInfo: activePlace)
+        })
+        
+        if let activePlace = activePlace {
+            placeCellDetailsPressed(activePlace)
+        }
+    }
+  
     func mapButtonPressed(places: [PlaceInfo]) {
         guard let presntingVC = self.discoveryVC,
             let coordinator = container?.resolve(MapCoordinatorType.self, argument: presntingVC as UIViewController),
@@ -67,7 +82,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         container?.register(MapVMType.self) { _ in
             MapVM(places: places, locationProvider: location)
         }
-
+                
         container?.register(PlaceSearchVMType.self, factory: { _ in
             PlaceSearchVM(places: places, locationProvider: location)
         })
@@ -75,14 +90,14 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         coordinator.onCoordinatorFinished = { [weak self] in
             self?.removeCoordinator(for: .map)
         }
-        
+
         coordinator.start()
         add(coordinator: coordinator, for: .map)
     }
     
-    func menuButtonPressed() {
+    func menuButtonPressed(with places: [PlaceInfo]) {
         guard let presentingVC = self.discoveryVC,
-            let coordinator = container?.resolve(LoginCoordinatorType.self, argument: presentingVC as UIViewController) else {
+            let coordinator = container?.resolve(LoginCoordinatorType.self, arguments: presentingVC as UIViewController, places) else {
             print("could not create LoginCoordinator")
             return
         }
@@ -96,10 +111,11 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     }
     
     func placeCellDetailsPressed(_ place: PlaceInfo) {
-        
+
         guard let presntingVC = self.discoveryVC,
-            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
-            place.profileVideoURL != nil  else {
+            let activePlace = container?.resolve(ActivePlace.self),
+            let placesInteractor  = container?.resolve(PlacesInteractorType.self),
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController)  else {
                 print("could not create placeProfileCoordinator")
                 return
         }
@@ -109,12 +125,42 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         }
         
         container?.register(PlaceProfileVMType.self) { _ in
-            PlaceProfileVM(placeInfo: place)
+            PlaceProfileVM(placeInfo: place, activePlace: activePlace, placesInteractor: placesInteractor)
         }
         
         placeProfileCoordinator.start()
         add(coordinator: placeProfileCoordinator, for: .placeProfile)
     }
+    
+    func placeCellIconPressed(_ place: PlaceInfo) {
+        guard let presntingVC = presentedViewControllers.first,
+            let placeStoryCoordinator = container?.resolve(PlaceStoryCoordinatorType.self, argument: presntingVC),
+            let commentsInteractor = container?.resolve(CommentsInteractorType.self),
+            let storiesInteractor = container?.resolve(StoriesInteractorType.self),
+            let usersInteractor = container?.resolve(UsersInteracteorType.self),
+            let user = container?.resolve(DizzyUser.self) else {
+                print("could not create placeProfileCoordinator")
+                return
+        }
+        
+        container?.register(PlaceStoryVMType.self) { _ in
+            PlaceStoryVM(place: place, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor)
+        }
+        
+        placeStoryCoordinator.onCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .placeStory)
+        }
+        
+        placeStoryCoordinator.start()
+        add(coordinator: placeStoryCoordinator, for: .placeStory)
+    }
+    
+    func register(_ allPlaces: [PlaceInfo]) {
+        container?.autoregister([PlaceInfo].self, initializer: {
+            return allPlaces
+        })
+    }
+    
 }
 
 extension HomeCoordinator {

@@ -23,19 +23,20 @@ class UserProfileView: UIView {
     
     private let databaseReference: DatabaseReference = Database.database().reference()
     let storageReference: StorageReference = Storage.storage().reference()
-    
+
     weak var delegate: UserProfileViewDelegate?
 
     let nameColor = UIColor.black.withAlphaComponent(0.53)
+    let user: DizzyUser
     let profileButtonWidth: CGFloat = 80
-    
-    init() {
+
+    init(user: DizzyUser) {
+        self.user = user
         super.init(frame: CGRect.zero)
-        
         addSubviews()
         layoutViews()
         setupViews()
-        
+
         updateUserDetails()
     }
     
@@ -77,20 +78,20 @@ class UserProfileView: UIView {
         self.profileButton.layer.cornerRadius = profileButtonWidth / 2
         self.profileButton.layer.masksToBounds = true
         self.profileButton.contentMode = .center
-        
+
         self.profileButton.addTarget(self, action: #selector(profileButtonPressed), for: .touchUpInside)
     }
     
     private func setupProfileNameLabel() {
-        self.profileNameLabel.text = Auth.auth().currentUser?.displayName ?? "Test User".localized
+        self.profileNameLabel.text = user.fullName
         self.profileNameLabel.textColor = nameColor
         self.profileNameLabel.font = Fonts.h6()
     }
-    
+
     public func updateProfileImage(_ image: UIImage) {
         self.profileButton.setImage(image, for: .normal)
     }
-    
+
     private func updateUserDetails() {
         if let uid = Auth.auth().currentUser?.uid {
             databaseReference.child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
@@ -108,24 +109,24 @@ class UserProfileView: UIView {
             }
         }
     }
-    
+
     public func saveChanges() {
         let imageName = NSUUID().uuidString
         let storedImage = storageReference.child("profile_images").child(imageName)
-        
+
         if let image = self.profileButton.image(for: .normal), let imageData = image.jpegData(compressionQuality: 0.8) {
             storedImage.putData(imageData, metadata: nil) { (_, error) in
                 if error != nil {
                     print(error)
                     return
                 }
-                
+
                 storedImage.downloadURL(completion: { (url, error) in
                     if error != nil {
                         print(error)
                         return
                     }
-                    
+
                     if let urlText = url?.absoluteString, let uid = Auth.auth().currentUser?.uid {
                         self.databaseReference.child("users").child(uid).updateChildValues(["photoURL" : urlText], withCompletionBlock: { (error, _) in
                             if error != nil {

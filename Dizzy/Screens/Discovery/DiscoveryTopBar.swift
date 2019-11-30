@@ -12,6 +12,7 @@ import SnapKit
 protocol DiscoveryTopBarDelegate: class {
     func mapButtonPressed()
     func menuButtonPressed()
+    func locationLablePressed()
 }
 
 class DiscoveryTopBar: UIView {
@@ -65,11 +66,16 @@ class DiscoveryTopBar: UIView {
     }
     
     private func setupLocationLabel() {
+        locationNameLabel.delegate = self
     }
     
     private func setupMenuButton() {
         menuButton.setImage(Images.menuIcon(), for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc private func locationNamePressed() {
+        delegate?.locationLablePressed()
     }
     
     @objc private func mapButtonPressed() {
@@ -82,5 +88,12 @@ class DiscoveryTopBar: UIView {
     
     public func setLocationName(_ name: String) {
         locationNameLabel.setText(name)
+    }
+}
+
+extension DiscoveryTopBar: LocationLabelDelegate {
+    func locationLabelPressed() {
+        locationNameLabel.setText("Getting location".localized)
+        delegate?.locationLablePressed()
     }
 }

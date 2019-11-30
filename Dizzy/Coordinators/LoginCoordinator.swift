@@ -14,19 +14,21 @@ protocol LoginCoordinatorType: NavigationCoordinator {
 
 }
 
-final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate, SignInWithDizzyVMNavigationDelegate {
-        
+final class LoginCoordinator: LoginCoordinatorType {
+    
     var container: Container?
     var childCoordinators = [CoordinatorKey : Coordinator]()
     var navigationController = UINavigationController()
     var presentingVC: UIViewController
+    let allPlaces: [PlaceInfo]
     
     var onCoordinatorFinished: () -> Void = { }
 
-    init(container: Container, presentingVC: UIViewController) {
+    init(container: Container, presentingVC: UIViewController, allPlaces: [PlaceInfo]) {
         self.container = container
         self.presentingVC = presentingVC
         navigationController = UINavigationController()
+        self.allPlaces = allPlaces
     }
     
     func start() {
@@ -40,10 +42,28 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, S
         let navigationController = loginVC.embdedInNavigationController().withTransparentStyle()
         navigationController.modalPresentationStyle = .overCurrentContext
         self.navigationController = navigationController
+        navigationController.modalPresentationStyle = .fullScreen
         self.presentingVC.present(navigationController, animated: true)
     }
+   
+}
+
+extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigationDelegate, SignUpWithDizzyVMNavigationDelegate {
+    func userLoggedOut() {
+        container?.autoregister(DizzyUser.self, initializer: {
+            return DizzyUser.guestUser()
+        })
+    }
     
-    func navigateToHomeScreen() {
+    func userLoggedIn(user: DizzyUser) {
+        container?.autoregister(DizzyUser.self, initializer: {
+            return user
+        })
+        
+        navigationController.popToRootViewController(animated: true)
+    }
+    
+    func closePressed() {
         if let discoveryVC = self.presentingVC as? DiscoveryVC {
             discoveryVC.showTopBar()
         }
@@ -73,11 +93,37 @@ final class LoginCoordinator: LoginCoordinatorType, LoginVMNavigationDelegate, S
     }
     
     func navigateToAppInfoScreen(type: AppInfoType) {
-        
+        var baseUrl = "https://dizzy.co.il/"
+    
+        switch type {
+        case .about:
+            baseUrl += ""
+        case .contactUs:
+            baseUrl += ""
+        case .privacyPolicy:
+            baseUrl += ""
+        case .termsOfUse:
+            baseUrl += ""
+        }
+        if let url = URL(string: baseUrl) {
+            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+                print("Open \(baseUrl): \(success)")
+                })
+        }
     }
     
-    func navigateToAdminScreen() {
+    func navigateToAdminScreen(with user: DizzyUser) {
+        guard let adminSettingsCoordinator = container?.resolve(AdminSettingsCoordinatorType.self, argument: navigationController) else {
+            print("could not create adminSettingsCoordinator page")
+            return
+        }
         
+        adminSettingsCoordinator.onAdminSettingsCoordinatorFinished = { [weak self] in
+            self?.removeCoordinator(for: .adminSettings)
+        }
+        
+        adminSettingsCoordinator.start()
+        add(coordinator: adminSettingsCoordinator, for: .adminSettings)
     }
     
     func navigateToPhotoSelectionScreen() {

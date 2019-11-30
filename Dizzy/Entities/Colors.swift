@@ -30,4 +30,7 @@ extension UIColor {
     static var primeryPurple: UIColor {
         return UIColor(red: 122, green: 105, blue: 177)
     }
+    static var dizzyBlue: UIColor {
+        return UIColor(hexString: "#4140E9")
+    }
 }

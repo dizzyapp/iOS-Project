@@ -1,0 +1,44 @@
+//
+//  DizzyUser.swift
+//  Dizzy
+//
+//  Created by Menashe, Or on 12/06/2019.
+//  Copyright © 2019 Dizzy. All rights reserved.
+//
+
+import UIKit
+
+enum UserRole: String, Codable {
+    
+    init(from decoder: Decoder) throws {
+        let roleText = try decoder.singleValueContainer().decode(String.self)
+        switch roleText {
+        case "customer":
+            self = .customer
+        case "admin":
+            self = .admin
+        default:
+            self = .guest
+        }
+    }
+    
+    case customer
+    case guest
+    case admin
+}
+
+struct DizzyUser: Codable {
+    let id: String
+    let fullName: String
+    let email: String
+    let role: UserRole
+    let photoURL: URL?
+<<<<<<< HEAD
+    
+    static func guestUser() -> DizzyUser {
+        return DizzyUser(id: "", fullName: "", email: "", role: .guest, photoURL: nil)
+    }
+=======
+    let ownPlacesIds: [String: String]?
+>>>>>>> Feature(Admin-Settings): added admin places view controller.
+}

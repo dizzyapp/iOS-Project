@@ -15,13 +15,16 @@ enum UserRole: String, Codable {
         switch roleText {
         case "customer":
             self = .customer
+        case "admin":
+            self = .admin
         default:
-            self = .unknown
+            self = .guest
         }
     }
     
     case customer
-    case unknown
+    case guest
+    case admin
 }
 
 struct DizzyUser: Codable {
@@ -30,4 +33,8 @@ struct DizzyUser: Codable {
     let email: String
     let role: UserRole
     let photoURL: URL?
+    
+    static func guestUser() -> DizzyUser {
+        return DizzyUser(id: "", fullName: "", email: "", role: .guest, photoURL: nil)
+    }
 }

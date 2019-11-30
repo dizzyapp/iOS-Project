@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-final class SignUpWithDizzyVC: UIViewController, KeyboardDismissing, LoadingContainer, AlertPresentation {
+final class SignUpWithDizzyVC: UIViewController, KeyboardDismissing, LoadingContainer, PopupPresenter {
     var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
     
     var signUpDetailsView = SignUpDetailsView()
@@ -50,7 +50,6 @@ final class SignUpWithDizzyVC: UIViewController, KeyboardDismissing, LoadingCont
     }
     
     private func setupNavigationView() {
-        self.navigationItem.title = "Sign Up".localized
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: Images.backArrowIcon(), style: .done, target: self, action: #selector(backButtonPressed))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: Images.downArrowIcon(), style: .done, target: self, action: #selector(closeButtonClicked))
@@ -80,7 +79,8 @@ extension SignUpWithDizzyVC: SignUpDetailsViewDelegate {
 extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate {
     func validationFailed(inputValidation: InputValidationResult) {
         self.hideSpinner()
-        showAlert(title: "Validation Error".localized, message: inputValidation.rawValue)
+        let action = Action(title: "Ok".localized)
+        showPopup(with: "Validation Error".localized, message: inputValidation.rawValue, actions: [action])
     }
     
     func userSignedUpSuccesfully(user: DizzyUser) {
@@ -89,6 +89,7 @@ extension SignUpWithDizzyVC: SignUpWithDizzyVMDelegate {
     
     func userSignedUpFailed(error: Error) {
         self.hideSpinner()
-        showAlert(title: "Error".localized, message: error.localizedDescription)
+        let action = Action(title: "Ok".localized)
+       showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
     }
 }

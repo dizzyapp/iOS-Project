@@ -54,6 +54,14 @@ struct Images {
         return UIImage(named: "downArrowIcon")!
     }
     
+    static func exitStoryButton() -> UIImage {
+           return UIImage(named: "exitStoryButton")!
+    }
+    
+    static func slideTab() -> UIImage {
+            return UIImage(named: "slideTab")!
+    }
+    
     static func loginIcon() -> UIImage {
         return UIImage(named: "loginIcon")!
     }
@@ -85,9 +93,13 @@ struct Images {
     static func placeBackgroundIcon() -> UIImage {
         return UIImage(named: "placeBackgroundIcon")!
     }
-
-    static func addressBackgroundIcon() -> UIImage {
-        return UIImage(named: "addressBackgroundIcon")!
+    
+    static func showIcon() -> UIImage {
+        return UIImage(named: "showIcon")!
+    }
+    
+    static func hideIcon() -> UIImage {
+        return UIImage(named: "hideIcon")!
     }
     
     static func requestTableIcon() -> UIImage {
@@ -96,5 +108,21 @@ struct Images {
     
     static func callIcon() -> UIImage {
         return UIImage(named: "callIcon")!
+    }
+    
+    static func loadingLogo() -> UIImage {
+        return UIImage(named: "loadingLogo")!
+    }
+    static func signUpTextfield() -> UIImage {
+           return UIImage(named: "signupTextField")!
+       }
+    static func loginWithFacebookButton() -> UIImage {
+        return UIImage(named: "facebookButtonBackground")!
+    }
+    static func profileBackgroundIcon() -> UIImage {
+        return UIImage(named: "profilePlaceBackgroundIcon")!
+    }
+    static func whiteBackButton() -> UIImage {
+        return UIImage(named: "white_back_button")!
     }
 }

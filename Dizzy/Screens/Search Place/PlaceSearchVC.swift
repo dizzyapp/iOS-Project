@@ -46,13 +46,13 @@ final class PlaceSearchVC: ViewController {
         
         closeButton.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(Metrics.doublePadding)
-            make.leading.equalToSuperview().offset(Metrics.doublePadding)
+            make.trailing.equalToSuperview().offset(-Metrics.doublePadding)
         }
         
         searchTextField.snp.makeConstraints { make in
             make.top.equalTo(closeButton)
-            make.leading.equalTo(closeButton.snp.trailing).offset(Metrics.doublePadding)
-            make.trailing.equalToSuperview().inset(Metrics.doublePadding)
+            make.leading.equalToSuperview().offset(Metrics.doublePadding)
+            make.trailing.equalTo(closeButton.snp.leading).offset(-Metrics.padding)
             make.height.equalTo(searchBarHeight)
         }
     }
@@ -73,7 +73,6 @@ final class PlaceSearchVC: ViewController {
     }
     
     private func setupPlacesView() {
-        placesViews.hideSearchButton()
         placesViews.set(title: "Search".localized)
         placesViews.set(keyboardDismissMode: .onDrag)
         placesViews.dataSource = self
@@ -83,7 +82,8 @@ final class PlaceSearchVC: ViewController {
     
     private func setupSearchTextField() {
         searchTextField.addTarget(self, action: #selector(searchTextFieldDidChange), for: .editingChanged)
-        searchTextField.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        searchTextField.autocorrectionType = .no
+        searchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.25)
         searchTextField.layer.cornerRadius = 10
         searchTextField.addPaddingToMarker()
         searchTextField.textColor = .white
@@ -95,8 +95,8 @@ final class PlaceSearchVC: ViewController {
     }
 
     @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let keyboardSize = keyboardFrame.cgSizeValue
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardSize = keyboardFrame.size
         let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
         placesViews.set(collectionViewContentInsets: contentInsets)
     }
@@ -126,6 +126,7 @@ extension PlaceSearchVC: NearByPlacesViewDataSource {
 }
 
 extension PlaceSearchVC: NearByPlacesViewDelegate {
+    
     func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
        viewModel.didSelectRowAt(indexPath)
     }

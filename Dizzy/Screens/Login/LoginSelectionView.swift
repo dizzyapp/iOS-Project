@@ -14,8 +14,6 @@ protocol LoginSelectionViewDelegate: class {
     func signUpButtonPressed()
 }
 
-let signUpButtonColor = UIColor(hexString: "4C69EF")
-
 class LoginSelectionView: UIView {
 
     weak var delegate: LoginSelectionViewDelegate?
@@ -52,7 +50,7 @@ class LoginSelectionView: UIView {
         loginWithDizzyButton.snp.makeConstraints { loginWithDizzyButton in
             loginWithDizzyButton.top.equalToSuperview().offset(Metrics.doublePadding)
             loginWithDizzyButton.centerX.equalToSuperview()
-            loginWithDizzyButton.width.equalToSuperview().multipliedBy(0.6)
+            loginWithDizzyButton.width.equalToSuperview().multipliedBy(0.88)
         }
     }
     
@@ -86,20 +84,16 @@ class LoginSelectionView: UIView {
     }
     
     private func setupLoginWithDizzyButton() {
-        loginWithDizzyButton.setTitle("Log in with dizzy".localized, for: .normal)
+        loginWithDizzyButton.setTitle("LOG IN".localized, for: .normal)
         loginWithDizzyButton.titleLabel?.font = Fonts.h7()
-        loginWithDizzyButton.setImage(Images.dizzyIcon(), for: .normal)
         loginWithDizzyButton.setBackgroundImage(Images.loginIcon(), for: .normal)
-        loginWithDizzyButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 60)
         loginWithDizzyButton.addTarget(self, action: #selector(loginWithDizzyButtonPressed), for: .touchUpInside)
     }
     
     private func setupLoginWithFacebookButton() {
         loginFacebookButton.setTitle("Log in with facebook".localized, for: .normal)
         loginFacebookButton.titleLabel?.font = Fonts.h7()
-        loginFacebookButton.setImage(Images.facebookIcon(), for: .normal)
-        loginFacebookButton.setBackgroundImage(Images.loginIcon(), for: .normal)
-        loginFacebookButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 30)
+        loginFacebookButton.setBackgroundImage(Images.loginWithFacebookButton(), for: .normal)
         loginFacebookButton.addTarget(self, action: #selector(loginWithFacebookButtonPressed), for: .touchUpInside)
         
     }
@@ -107,13 +101,15 @@ class LoginSelectionView: UIView {
     private func setupOrLabel() {
         orLabel.textAlignment = .center
         orLabel.font = Fonts.h8()
-        orLabel.text = "or".localized
+        orLabel.textColor = .gray
+        orLabel.text = "First time?".localized
     }
     private func setupSignUpButton() {
         
         signUpButton.setBackgroundImage(Images.signUpIcon(), for: .normal)
-        signUpButton.setTitle("Sign up".localized, for: .normal)
-        signUpButton.setTitleColor(signUpButtonColor, for: .normal)
+        signUpButton.setTitle("SIGN UP".localized, for: .normal)
+        signUpButton.titleLabel?.font = Fonts.h7(weight: .bold)
+        signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
 
     }

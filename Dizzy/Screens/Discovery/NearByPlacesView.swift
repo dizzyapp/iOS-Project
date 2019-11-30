@@ -16,6 +16,12 @@ protocol NearByPlacesViewDataSource: class {
     func getCurrentLocation() -> Location?
 }
 
+protocol NearByPlacesViewSearchDelegate: class {
+    func searchTextChanged(newText: String)
+    func didPressSearch()
+    func endSearch()
+}
+
 protocol NearByPlacesViewDelegate: class {
     func didPressPlaceIcon(atIndexPath indexPath: IndexPath)
     func didPressPlaceDetails(atIndexPath indexPath: IndexPath)
@@ -26,10 +32,16 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     weak var delegate: NearByPlacesViewDelegate?
     weak var dataSource: NearByPlacesViewDataSource?
+    weak var searchDelegate: NearByPlacesViewSearchDelegate?
     
+    private let searchBar = SearchBar()
+    private let placesViewContainer = UIView()
     private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
     private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
+    
+    private var searchBarToPlacesViewConstraint: Constraint?
+    private var placesViewToSuperviewConstraint: Constraint?
     
     private let cellIDentifier = "DiscoveryPlaceCell"
     
@@ -38,7 +50,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     init() {
         super.init(frame: CGRect.zero)
-        backgroundColor = .white
+        backgroundColor = .clear
         addSubviews()
         layoutViews()
         setupViews()
@@ -49,10 +61,25 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func addSubviews() {
-        self.addSubviews([searchButton, titleLabel, placesCollectionView])
+        self.addSubviews([searchBar, placesViewContainer])
+        self.placesViewContainer.addSubviews([searchButton, titleLabel, placesCollectionView])
     }
     
     private func layoutViews() {
+        
+        searchBar.snp.makeConstraints { searchBar in
+            searchBar.top.equalToSuperview().offset(Metrics.doublePadding)
+            searchBar.leading.equalToSuperview().offset(Metrics.doublePadding)
+            searchBar.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+            searchBarToPlacesViewConstraint =  searchBar.bottom.equalTo(placesViewContainer.snp.top).offset(-Metrics.padding).priority(.high).constraint
+        }
+        searchBarToPlacesViewConstraint?.deactivate()
+        
+        placesViewContainer.snp.makeConstraints { placesViewContainer in
+            placesViewContainer.leading.bottom.trailing.equalToSuperview()
+            placesViewToSuperviewConstraint = placesViewContainer.top.equalToSuperview().constraint
+        }
+        
         searchButton.snp.makeConstraints { searchButton in
             searchButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
             searchButton.centerY.equalTo(titleLabel.snp.centerY)
@@ -74,10 +101,22 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupViews() {
-        self.layer.cornerRadius = cornerRadius
+        addKeyboardListeners()
+        setupSearchBar()
+        setupPlacesViewContainer()
         setupSearchButton()
         setupTitleLabel()
         setupPlacesCollectionView()
+    }
+    
+    private func setupSearchBar() {
+        searchBar.alpha = 0
+        searchBar.delegate = self
+    }
+    
+    private func setupPlacesViewContainer() {
+        placesViewContainer.layer.cornerRadius = cornerRadius
+        placesViewContainer.backgroundColor = .white
     }
     
     private func setupSearchButton() {
@@ -86,14 +125,14 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     @objc private func didPressSearch() {
-        
+        searchDelegate?.didPressSearch()
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.h6()
+        titleLabel.font = Fonts.h6(weight: .bold)
         titleLabel.numberOfLines = 1
-        titleLabel.textColor = UIColor(hexString: "4C69EF")
-        titleLabel.text = "Discover".localized
+        titleLabel.textColor = UIColor(hexString: "1900AF")
+        titleLabel.text = "DISCOVER".localized
     }
     
     private func setupPlacesCollectionView() {
@@ -122,8 +161,36 @@ class NearByPlacesView: UIView, LoadingContainer {
         placesCollectionView.keyboardDismissMode = keyboardDismissMode
     }
     
-    func hideSearchButton() {
+    func showSearchMode() {
         searchButton.isHidden = true
+        titleLabel.text = "SEARCH".localized
+        searchBar.alpha = 1
+        searchBar.startEditing()
+        searchBarToPlacesViewConstraint?.activate()
+        placesViewToSuperviewConstraint?.deactivate()
+    }
+    
+    func hideSearchMode() {
+        searchButton.isHidden = false
+        searchBar.stopEditing()
+        titleLabel.text = "DISCOVER".localized
+        searchBar.alpha = 0
+        searchBarToPlacesViewConstraint?.deactivate()
+        placesViewToSuperviewConstraint?.activate()
+    }
+    
+    private func addKeyboardListeners() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
@@ -159,8 +226,23 @@ extension NearByPlacesView: UICollectionViewDelegateFlowLayout {
 }
 
 extension NearByPlacesView: DiscoveryPlaceCellDelegate {
+    func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell) {
+        guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
+        delegate?.didPressPlaceIcon(atIndexPath: indexPath)
+    }
+    
     func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell) {
         guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
         delegate?.didPressPlaceDetails(atIndexPath: indexPath)
+    }
+}
+
+extension NearByPlacesView: SearchBarDelegate {
+    func searchTextChanged(newText: String) {
+        searchDelegate?.searchTextChanged(newText: newText)
+    }
+    
+    func closePressed() {
+        searchDelegate?.endSearch()
     }
 }
