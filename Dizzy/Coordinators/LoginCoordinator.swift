@@ -127,17 +127,20 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
     }
     
     func navigateToPhotoSelectionScreen() {
-        
+        showImageSelectionMenu()
+    }
+    
+    private func showImageSelectionMenu() {
         let alert: UIAlertController = UIAlertController(title: "Profile Image".localized, message: "Please select".localized, preferredStyle: .actionSheet)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
-
+            
             alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
                 self.openCamera()
             }))
         }
         
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-
+            
             alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
                 self.openPhotoAlbum()
             }))
