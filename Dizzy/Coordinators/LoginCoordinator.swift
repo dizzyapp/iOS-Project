@@ -152,6 +152,7 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self.navigationController.viewControllers.first as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
         imagePicker.sourceType = UIImagePickerController.SourceType.camera
+        imagePicker.cameraDevice = .front
         imagePicker.allowsEditing = false
         self.navigationController.present(imagePicker, animated: true, completion: nil)
     }
