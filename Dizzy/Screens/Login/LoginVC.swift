@@ -165,6 +165,7 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
     private func setupUserProfileView() {
         userProfileView.backgroundColor = .white
         userProfileView.isHidden = !self.loginVM.isUserLoggedIn()
+        userProfileView.delegate = self
     }
     
     private func setupLogoutButton() {
@@ -258,5 +259,34 @@ extension LoginVC: LoginVMDelegate {
         hideSpinner()
         let action = Action(title: "Ok".localized)
         showPopup(with: "Error".localized, message: error.localizedDescription, actions: [action])
+    }
+}
+
+extension LoginVC: UserProfileViewDelegate {
+    func profileButtonPressed() {
+        self.loginVM.profileButtonPressed()
+    }
+}
+
+extension LoginVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImage: UIImage?
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            selectedImage = editedImage
+        } else {
+            selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        }
+        
+        if let selectedImage = selectedImage {
+            userProfileView.updateProfileImage(selectedImage)
+            loginVM.userSelectedNewProfileImage(image: selectedImage)
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

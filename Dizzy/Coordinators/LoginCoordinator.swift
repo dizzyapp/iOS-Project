@@ -125,4 +125,46 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
         adminSettingsCoordinator.start()
         add(coordinator: adminSettingsCoordinator, for: .adminSettings)
     }
+    
+    func navigateToPhotoSelectionScreen() {
+        showImageSelectionMenu()
+    }
+    
+    private func showImageSelectionMenu() {
+        let alert: UIAlertController = UIAlertController(title: "Profile Image".localized, message: "Please select".localized, preferredStyle: .actionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            
+            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+                self.openCamera()
+            }))
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            
+            alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+                self.openPhotoAlbum()
+            }))
+        }
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.navigationController.present(alert, animated: true, completion: nil)
+    }
+    
+    private func openCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self.navigationController.viewControllers.first as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        imagePicker.sourceType = UIImagePickerController.SourceType.camera
+        imagePicker.cameraDevice = .front
+        imagePicker.allowsEditing = false
+        self.navigationController.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func openPhotoAlbum() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self.navigationController.viewControllers.first as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        self.navigationController.present(imagePicker, animated: true, completion: nil)
+    }
 }

@@ -32,7 +32,7 @@ struct DizzyUser: Codable {
     let fullName: String
     let email: String
     let role: UserRole
-    let photoURL: URL?
+    var photoURL: URL?
     
     static func guestUser() -> DizzyUser {
         return DizzyUser(id: "", fullName: "", email: "", role: .guest, photoURL: nil)

@@ -1,7 +1,289 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="84aa8f7e-2722-446b-a8e9-c019e8843cc9" name="Default" comment="" />
+    <list default="true" id="84aa8f7e-2722-446b-a8e9-c019e8843cc9" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Dizzy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy.xcodeproj/xcshareddata/xcschemes/Dizzy.xcscheme" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assembly.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/AppIcon.appiconset/DizzyIconAPPSTORE.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/AppIcon.appiconset/DizzyIconMedium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/AppIcon.appiconset/DizzyIconSMALL-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/AppIcon.appiconset/DizzyIconSMALL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/DefaultAvatarWHITE 2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/DefaultAvatarWHITE 3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/DefaultAvatarWHITE.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/MapButton4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/MapButton4@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/MapButton4@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/MenuButton4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/MenuButton4@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/MenuButton4@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/PlaceImageBackground 2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/PlaceImageBackground 3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/PlaceImageBackground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/SearchButton4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/SearchButton4@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/SearchButton4@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/General/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/BackButton1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/BackButton1@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/BackButton1@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/downArrowIcon.imageset/BackButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/facebookButtonBackground.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/facebookButtonBackground.imageset/facebookLOGINbutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/facebookButtonBackground.imageset/facebookLOGINbutton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/facebookButtonBackground.imageset/facebookLOGINbutton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/loginIcon.imageset/LOGINbutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/loginIcon.imageset/LOGINbutton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/loginIcon.imageset/LOGINbutton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/profilePlaceholderIcon.imageset/UserImageDefault.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/profilePlaceholderIcon.imageset/UserImageDefault@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/profilePlaceholderIcon.imageset/UserImageDefault@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupIcon.imageset/signUPbutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupIcon.imageset/signUPbutton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupIcon.imageset/signUPbutton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupTextField.imageset/signupTextField.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/CALLbutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/CALLbutton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/CALLbutton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/profilePlaceBackgroundIcon.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/profilePlaceBackgroundIcon.imageset/placeProfileBORDER.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/profilePlaceBackgroundIcon.imageset/placeProfileBORDER@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/profilePlaceBackgroundIcon.imageset/placeProfileBORDER@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/reserveBUTTON1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/reserveBUTTON1@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/reserveBUTTON1@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/exitStoryButton.imageset/CloseStoryButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/exitStoryButton.imageset/CloseStoryButton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/exitStoryButton.imageset/CloseStoryButton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/exitStoryButton.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/slideTab.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/slideTab.imageset/SlideTab.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/slideTab.imageset/SlideTab@2x-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Story/slideTab.imageset/SlideTab@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/CAMERAbutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/CAMERAbutton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/CAMERAbutton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/camera_icon.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/switch_camera_icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/switch_camera_icon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Upload Story/switch_camera_icon.imageset/switch_camera_icon@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/admin settings/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/admin settings/rightArrowIcon.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/admin settings/rightArrowIcon.imageset/rightArrowIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/admin settings/rightArrowIcon.imageset/rightArrowIcon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/admin settings/rightArrowIcon.imageset/rightArrowIcon@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/BackButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/BackButton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/BackButton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/launchScreen.imageset/DizzyIconMedium.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/loading Screen/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/loading Screen/loadingLogo.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/loading Screen/loadingLogo.imageset/loadingIndication@3x-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/loading Screen/loadingLogo.imageset/loadingIndication@3x-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/loading Screen/loadingLogo.imageset/loadingIndication@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/CurrentLocationbutton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/CurrentLocationbutton@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/CurrentLocationbutton@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/SearchButton4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/SearchButton4@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/SearchButton4@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/rightArrowIcon.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/rightArrowIcon.imageset/rightArrowIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/rightArrowIcon.imageset/rightArrowIcon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/rightArrowIcon.imageset/rightArrowIcon@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/white_back_button.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/white_back_button.imageset/white_back_button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/white_back_button.imageset/white_back_button@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/white_back_button.imageset/white_back_button@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Coordinators/Map/MapSearchTableViewCell.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Coordinators/Map/MapSearchVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Coordinators/Map/MapSearchVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Coordinators/Map/MapVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/CameraSessionController.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/DizzyUser.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/GoogleMap/DarkMapStyle.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/GoogleMap/GoogleMap.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/Interactors/UploadFileInteractor.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/Models/Comment.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/Models/PlaceId.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/Models/PlaceMedia.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/MyUserDefaults.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Entities/UploadFileData.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/LaunchScreen.storyboard" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminPlaceAnalytics/AdminPlaceAnalyticCell.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminPlaceAnalytics/AdminPlaceAnalyticsVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminPlaceAnalytics/AdminPlaceAnalyticsVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminPlaces/AdminPlaceCell.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminPlaces/AdminPlacesVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminPlaces/AdminPlacesVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminPlaces/AdminPlacesVM.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/AdminSettings/AdminSettingsCoordinator.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/AppStart/AppStartVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/AppStart/UsersInteracteor.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/DiscoveryVM.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/PlacesInteractor.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Comments/CommentCell.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Comments/CommentsInteractor.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/PlaceStoryCoordinator.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/PlaceStoryVM.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Stories/StoriesInteractor.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/ReserveTable/ReserveTableVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/ReserveTable/ReserveTableVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/MediaPresenterVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/MediaPresenterVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/UploadStoryCoordinator.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/UploadStoryVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/Screens/UploadStory/UploadStoryVM.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/CardVC.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/CardVC.swift.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/CommentsTextField.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/DizzyLoadingView.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/DizzyPopup.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/PlaceInfoView.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/PlaceReservationRequestor.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/PopupPresenter.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/SearchBar.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/UI Components/VideoView.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dizzy/dizzySplash.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/AppDelegate.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assembly.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assembly.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/DefaultAvatar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/DefaultAvatar@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/defaultPlaceAvatar.imageset/DefaultAvatar@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/MapButton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/MapButton@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/mapIcon.imageset/MapButton@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/MenuButton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/MenuButton@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/menuIcon.imageset/MenuButton@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/placeBackgroundImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/placeBackgroundImage@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/placeBackgroundIcon.imageset/placeBackgroundImage@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/Search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/Search@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Discovery Page/searchIcon.imageset/Search@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/BackButton.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/BackButton@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/BackButton@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/backArrowIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/dizzyIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupTextField.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/dizzyIcon.imageset/DizzyIcon@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/dizzyIcon.imageset/DizzyIcon@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/downArrowIcon.imageset/BackButton@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/downArrowIcon.imageset/BackButton@2x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/downArrowIcon.imageset/BackButton@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/downArrowIcon.imageset/BackButton@3x.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/downArrowIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/downArrowIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/loginIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/loginIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/loginIcon.imageset/Rectangle@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/loginIcon.imageset/Rectangle@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/profilePlaceholderIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/profilePlaceholderIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/profilePlaceholderIcon.imageset/UserImagePlaceholder@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupIcon.imageset/Avatar@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupIcon.imageset/Avatar@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Login Page/signupIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/addressBackgroundIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/launchScreen.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/addressBackgroundIcon.imageset/addressBackgroundIcon@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/addressBackgroundIcon.imageset/addressBackgroundIcon@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/Group.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/Group@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/callIcon.imageset/Group@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/Rectangle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/Rectangle@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/Place Profile/requestTableIcon.imageset/Rectangle@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/close_button.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/close_button@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/close_button.imageset/close_button@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/current_location_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/current_location_icon@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/current_location_icon.imageset/current_location_icon@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/search_button.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/search_button@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Assets.xcassets/map/navigation_search_button.imageset/search_button@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Coordinators/CoordinatorKey.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Coordinators/CoordinatorKey.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Coordinators/HomeCoordinator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Coordinators/HomeCoordinator.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Coordinators/LoginCoordinator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Coordinators/LoginCoordinator.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/Colors.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/Colors.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/DizzyUser.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/DizzyUser.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/GoogleMap/GoogleMap.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/GoogleMap/GoogleMap.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/Images.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/Images.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/LocationProvider.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/LocationProvider.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/Metrics.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/Metrics.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Entities/PlaceInfo.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Entities/Models/PlaceInfo.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Extensions/UIViewExtension.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Extensions/UIViewExtension.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Discovery/Cells/DiscoveryPlaceCell.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/Cells/DiscoveryPlaceCell.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Discovery/DiscoveryTopBar.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/DiscoveryTopBar.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Discovery/DiscoveryVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/DiscoveryVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Discovery/DiscoveryVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/DiscoveryVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Discovery/NearByPlacesView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/NearByPlacesView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Discovery/PlacesInteractor.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/PlacesInteractor.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Discovery/PlacesListFlowLayout.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Discovery/PlacesListFlowLayout.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Login/App Info/AppInfoView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Login/App Info/AppInfoView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginSelectionView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginSelectionView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Login/LoginVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Login/Profile/UserProfileView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Login/Profile/UserProfileView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Map/MapCoordinator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Coordinators/Map/MapCoordinator.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Map/MapVC.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Map/MapVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Coordinators/Map/MapVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileCoordinator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileCoordinator.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Comments/CommentTextFieldView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Comments/CommentTextFieldView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Comments/CommentsManger.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Comments/CommentsView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/Comments/CommentsView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/PlaceStoryVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/PlaceStoryVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/PlaceStoryVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/PlaceStoryVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/PlaceStory/PlayerVC.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Search Place/PlaceSearchVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Search Place/PlaceSearchVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Search Place/PlaceSearchVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Search Place/PlaceSearchVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/Search Place/SearchPlaceCoordinator.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/Search Place/SearchPlaceCoordinator.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInDetailsView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInDetailsView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInInteractor.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInInteractor.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInWithDizzyVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInWithDizzyVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInWithDizzyVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignIn/SignInWithDizzyVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpDetailsView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpDetailsView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpInteractor.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpInteractor.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpWithDizzyVC.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpWithDizzyVC.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpWithDizzyVM.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Screens/SignUp/SignUpWithDizzyVM.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/UI Components/AlertPresentation.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/UI Components/ButtonBuilder.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/UI Components/ButtonBuilder.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/UI Components/LocationLabel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/UI Components/LocationLabel.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/UI Components/PlaceImageView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/UI Components/PlaceImageView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/UI Components/TextFieldBuilder.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/UI Components/TextFieldBuilder.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Web Service/FirebaseWebService.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Web Service/FirebaseWebService.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Web Service/SignInWebservice.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Web Service/SignInWebservice.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Web Service/WebResource.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Web Service/WebResource.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dizzy/Web Service/WebServiceDispatcher.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Dizzy/Web Service/WebServiceDispatcher.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Manifest.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Manifest.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/tal.ben-asuli.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-acknowledgements.markdown" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-acknowledgements.markdown" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-acknowledgements.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-acknowledgements.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy-frameworks.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig" afterDir="false" />
+    </list>
     <ignored path="$USER_HOME$/Library/Caches/AppCode2019.1/DerivedData/Dizzy-frgvxbmkbvbncpfxbipngeswzsmo/Build/Intermediates.noindex/" />
     <ignored path="$USER_HOME$/Library/Caches/AppCode2019.1/DerivedData/Dizzy-amvfaoiwxlsuevbfxjvqskszzzrh/Build/Intermediates.noindex/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,11 +313,12 @@
         <option value="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileView.swift" />
         <option value="$PROJECT_DIR$/Dizzy/Screens/PlaceProfile/PlaceProfileVM.swift" />
         <option value="$PROJECT_DIR$/Dizzy.xcodeproj/project.pbxproj" />
+        <option value="$PROJECT_DIR$/Dizzy/Screens/Login/LoginVM.swift" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="53" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="28" />
     <option name="width" value="1680" />
     <option name="height" value="951" />
   </component>
@@ -44,9 +327,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="Cidr.FilesView" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -83,20 +366,20 @@
       <workItem from="1564150604973" duration="1315000" />
       <workItem from="1564520072493" duration="1068000" />
       <workItem from="1564680511791" duration="1119000" />
+      <workItem from="1575119691839" duration="428000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5862000" />
+    <option name="totallyTimeSpent" value="6290000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="24" width="1680" height="951" extended-state="6" />
+    <frame x="0" y="28" width="1680" height="951" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26495728" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26800978" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -108,6 +391,7 @@
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.32596043" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -139,6 +423,20 @@
                 </list>
               </option>
             </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
           </value>
         </entry>
       </map>

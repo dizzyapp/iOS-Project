@@ -18,7 +18,9 @@ protocol LoginVMType {
     func loginWithFacebookButtonPressed(presentedVC: UIViewController)
     func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
-    
+    func profileButtonPressed()
+    func userSelectedNewProfileImage(image: UIImage)
+
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
     var delegate: LoginVMDelegate? { get set }
     var user: DizzyUser { get }
@@ -34,6 +36,7 @@ protocol LoginVMNavigationDelegate: class {
     func navigateToAppInfoScreen(type: AppInfoType)
     func navigateToAdminScreen(with user: DizzyUser)
     func closePressed()
+    func navigateToPhotoSelectionScreen()
 }
 
 protocol LoginVMDelegate: class {
@@ -53,7 +56,7 @@ class LoginVM: LoginVMType {
     let userDefaults: MyUserDefaultsType
     let usersInteractor: UsersInteracteorType
     var user: DizzyUser
-    
+
     init(signInInteractor: SignInInteractorType, logoutInteractor: LogoutInteractorType, userDefaults: MyUserDefaultsType, usersInteractor: UsersInteracteorType, user: DizzyUser) {
         self.signInInteractor = signInInteractor
         self.logoutInteractor = logoutInteractor
@@ -93,6 +96,10 @@ class LoginVM: LoginVMType {
         self.navigationDelegate?.navigateToAdminScreen(with: user)
     }
     
+    func profileButtonPressed() {
+        self.navigationDelegate?.navigateToPhotoSelectionScreen()
+    }
+
     private func isLoggedInViaFacebook() -> Bool {
         return AccessToken.current?.tokenString != nil
     }
@@ -104,17 +111,21 @@ class LoginVM: LoginVMType {
     func isUserLoggedIn() -> Bool {
         return self.user.role != .guest
     }
+    
+    func userSelectedNewProfileImage(image: UIImage) {
+        usersInteractor.saveProfileImage(image, forUser: user)
+    }
 }
 
 extension LoginVM: SignInInteractorDelegate {
     func userSignedInSuccesfully(_ userId: String) {
-        
+
         usersInteractor.getUserForId(userId: userId) { [weak self] user in
             guard let user = user else {
                 print("error getting user for id: \(userId)")
                 return
             }
-            
+
             self?.userDefaults.saveLoggedInUserId(userId: user.id)
             self?.delegate?.userSignedInSuccesfully()
             self?.navigationDelegate?.userLoggedIn(user: user)
