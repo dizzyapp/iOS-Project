@@ -70,6 +70,7 @@ final class CommentTextFieldView: UIView {
     private func setupViews() {
         setupProfileImageView()
         setupTextField()
+        addGestures()
     }
     
     private func setupProfileImageView() {
@@ -81,6 +82,16 @@ final class CommentTextFieldView: UIView {
         textField.setBorder(borderColor: UIColor.white.withAlphaComponent(0.5), cornerRadius: 18)
         textField.layer.borderWidth = 1
         textField.delegate = self
+    }
+    
+    private func addGestures() {
+        let downSwipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(onDownSwipe))
+        downSwipeGesture.direction = .down
+        self.addGestureRecognizer(downSwipeGesture)
+    }
+    
+    @objc private func onDownSwipe() {
+        endEditing(true)
     }
 }
 
