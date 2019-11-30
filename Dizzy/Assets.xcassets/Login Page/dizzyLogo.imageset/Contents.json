@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "dizzylogotexttransparent.png",
+      "filename" : "dizzyLOGO10.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "dizzylogotexttransparent@2x.png",
+      "filename" : "dizzyLOGO10-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "dizzylogotexttransparent@3x.png",
+      "filename" : "dizzyLOGO10-2.png",
       "scale" : "3x"
     }
   ],

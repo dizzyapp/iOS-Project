@@ -17,9 +17,9 @@ extension ReserveTableVC {
         
         var title: String {
             switch self {
-            case .tonight: return "tonight".localized
-            case .tomorrow: return "tomorrow".localized
-            case .other: return "other".localized
+            case .tonight: return "Tonight".localized
+            case .tomorrow: return "Tomorrow".localized
+            case .other: return "Other".localized
             }
         }
     }
@@ -28,15 +28,15 @@ extension ReserveTableVC {
 final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     let stackWidthPrecentage = CGFloat(0.75)
-    let signInButtonBackgroundColor = UIColor(red:0.43, green:0.38, blue:0.98, alpha:1)
-    let signInCornerRadius = CGFloat(17)
+    let signInButtonBackgroundColor = UIColor.dizzyBlue
+    let signInCornerRadius = CGFloat(10)
     
     var cardContainerView = UIView()
     let titleLabel = UILabel()
     let placeNameLabel = UILabel()
     let mainStackView = UIStackView()
-    let nameTextField = UITextField().loginTextfield(withPlaceholder: "Name".localized)
-    let numberOfPeopleTextField = UITextField().loginTextfield(withPlaceholder: "Number Of People".localized)
+    let nameTextField = UITextField().loginTextfield(withPlaceholder: "Your Name".localized)
+    let numberOfPeopleTextField = UITextField().loginTextfield(withPlaceholder: "How Many People?".localized)
     let sendButton = UIButton(type: .system)
 
     let buttonsStackView = UIStackView()
@@ -108,9 +108,10 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupTitleLabel() {
-        titleLabel.text = "Reserve a table".localized
+        titleLabel.text = "Reservations".localized
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .primeryPurple
+        titleLabel.textColor = UIColor.dizzyBlue
+        titleLabel.font = Fonts.h1(weight: .bold)
     }
     
     private func setupMainmainStackView() {
@@ -135,7 +136,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupCloseButton() {
-        closeButton.setImage(Images.whiteBackButton(), for: .normal)
+        closeButton.setImage(Images.exitStoryButton(), for: .normal)
         closeButton.addTarget(self, action: #selector(onCloasePressed), for: .touchUpInside )
     }
     
@@ -149,7 +150,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     private func setupPlaceNameLabel() {
         placeNameLabel.text = viewModel.placeName
         placeNameLabel.textAlignment = .center
-        placeNameLabel.textColor = .white
+        placeNameLabel.textColor = .darkDizzyBlue
         placeNameLabel.font = Fonts.h1(weight: .bold)
     }
     
@@ -157,7 +158,8 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         commentsTextView.font = Fonts.h10()
         commentsTextView.textContainer.maximumNumberOfLines = 2
         commentsTextView.textContainer.lineBreakMode = .byWordWrapping
-        commentsTextView.setBorder(borderColor: .lightGray)
+        commentsTextView.backgroundColor = nameTextField.backgroundColor
+        commentsTextView.layer.cornerRadius = nameTextField.layer.cornerRadius
     }
     
     private func layoutViews() {
@@ -177,13 +179,13 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         }
         
         closeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Metrics.fourTimesPadding)
+            make.top.equalToSuperview().inset(Metrics.fiveTimesPadding)
             make.trailing.equalToSuperview().inset(Metrics.doublePadding)
         }
         
         placeNameLabel.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
-            make.top.equalTo(closeButton.snp.bottom).offset(Metrics.doublePadding)
+            make.bottom.equalTo(closeButton.snp.bottom)
         }
     }
     
@@ -209,14 +211,14 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func returnButtonToIntialColor() {
-        tonightButton.setTitleColor(.blue, for: .normal)
-        tomorrowButton.setTitleColor(.blue, for: .normal)
-        otherButton.setTitleColor(.blue, for: .normal)
+        tonightButton.setTitleColor(.lightGray, for: .normal)
+        tomorrowButton.setTitleColor(.lightGray, for: .normal)
+        otherButton.setTitleColor(.lightGray, for: .normal)
     }
     
     @objc private func buttonPressed(_ button: UIButton) {
         returnButtonToIntialColor()
-        button.setTitleColor(.primeryPurple, for: .normal)
+        button.setTitleColor(.dizzyBlue, for: .normal)
         viewModel.otherButtonOnFocuse.value = button == otherButton
     }
     
