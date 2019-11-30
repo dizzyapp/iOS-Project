@@ -95,6 +95,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
             self.delegate?.showPopupWithText("You must be logged in, in order to comment to a story".localized, title: "Please login or sign up".localized)
             return
         }
+        guard !message.isEmpty else { return }
         let comment = Comment(id: UUID().uuidString, value: message, timeStamp: Date().timeIntervalSince1970, writerId: user.id)
         commentsInteractor.sendComment(comment, placeId: place.id)
         self.delegate?.placeStoryClearTextFieldText(self)
