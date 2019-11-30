@@ -124,7 +124,7 @@ extension PlaceStoryVM: CommentsInteractorDelegate {
                     user.id == comment.writerId
                 })
                 
-                return CommentWithWriter(comment: comment, writer: user!)
+                return CommentWithWriter(comment: comment, writer: user ?? DizzyUser.guestUser())
             })
             
             self?.comments.value = allCommentsWithUser
