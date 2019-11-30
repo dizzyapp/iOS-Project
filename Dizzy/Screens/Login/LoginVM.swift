@@ -19,6 +19,7 @@ protocol LoginVMType {
     func appInfoButtonPressed(type: AppInfoType)
     func enterAsAdminButtonPressed()
     func profileButtonPressed()
+    func userSelectedNewProfileImage(image: UIImage)
 
     var navigationDelegate: LoginVMNavigationDelegate? { get set }
     var delegate: LoginVMDelegate? { get set }
@@ -109,6 +110,10 @@ class LoginVM: LoginVMType {
     
     func isUserLoggedIn() -> Bool {
         return self.user.role != .guest
+    }
+    
+    func userSelectedNewProfileImage(image: UIImage) {
+        usersInteractor.saveProfileImage(image, forUser: user)
     }
 }
 

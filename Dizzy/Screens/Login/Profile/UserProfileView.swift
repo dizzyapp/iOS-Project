@@ -8,9 +8,6 @@
 
 import UIKit
 import Kingfisher
-import Firebase
-import FirebaseAuth
-import FirebaseStorage
 
 protocol UserProfileViewDelegate: class {
     func profileButtonPressed()
@@ -20,9 +17,6 @@ class UserProfileView: UIView {
 
     let profileButton = UIButton()
     let profileNameLabel = UILabel()
-    
-    private let databaseReference: DatabaseReference = Database.database().reference()
-    let storageReference: StorageReference = Storage.storage().reference()
 
     weak var delegate: UserProfileViewDelegate?
 
@@ -36,8 +30,6 @@ class UserProfileView: UIView {
         addSubviews()
         layoutViews()
         setupViews()
-
-        updateUserDetails()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,7 +70,7 @@ class UserProfileView: UIView {
         self.profileButton.layer.cornerRadius = profileButtonWidth / 2
         self.profileButton.layer.masksToBounds = true
         self.profileButton.contentMode = .center
-
+        self.profileButton.kf.setImage(with: user.photoURL, for: .normal, placeholder: Images.profilePlaceholderIcon())
         self.profileButton.addTarget(self, action: #selector(profileButtonPressed), for: .touchUpInside)
     }
     
@@ -90,54 +82,6 @@ class UserProfileView: UIView {
 
     public func updateProfileImage(_ image: UIImage) {
         self.profileButton.setImage(image, for: .normal)
-    }
-
-    private func updateUserDetails() {
-        if let uid = Auth.auth().currentUser?.uid {
-            databaseReference.child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                print(snapshot)
-                if let dict = snapshot.value as? [String: AnyObject] {
-                    if let imageURLString = dict["photoURL"] as? String {
-                        self.profileButton.kf.setImage(with: URL(string: imageURLString), for: .normal, placeholder: Images.profilePlaceholderIcon())
-                    } else {
-                        self.profileButton.setImage(Images.profilePlaceholderIcon(), for: .normal)
-                    }
-                    if let displayName = dict["fullName"] as? String {
-                        self.profileNameLabel.text = displayName
-                    }
-                }
-            }
-        }
-    }
-
-    public func saveChanges() {
-        let imageName = NSUUID().uuidString
-        let storedImage = storageReference.child("profile_images").child(imageName)
-
-        if let image = self.profileButton.image(for: .normal), let imageData = image.jpegData(compressionQuality: 0.8) {
-            storedImage.putData(imageData, metadata: nil) { (_, error) in
-                if error != nil {
-                    print(error)
-                    return
-                }
-
-                storedImage.downloadURL(completion: { (url, error) in
-                    if error != nil {
-                        print(error)
-                        return
-                    }
-
-                    if let urlText = url?.absoluteString, let uid = Auth.auth().currentUser?.uid {
-                        self.databaseReference.child("users").child(uid).updateChildValues(["photoURL" : urlText], withCompletionBlock: { (error, _) in
-                            if error != nil {
-                                print(error)
-                                return
-                            }
-                        })
-                    }
-                })
-            }
-        }
     }
 }
 

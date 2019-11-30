@@ -270,6 +270,7 @@ extension LoginVC: UserProfileViewDelegate {
 
 extension LoginVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         var selectedImage: UIImage?
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             selectedImage = editedImage
@@ -279,9 +280,9 @@ extension LoginVC: UIImagePickerControllerDelegate, UINavigationControllerDelega
         
         if let selectedImage = selectedImage {
             userProfileView.updateProfileImage(selectedImage)
+            loginVM.userSelectedNewProfileImage(image: selectedImage)
         }
         
-        userProfileView.saveChanges()
         picker.dismiss(animated: true, completion: nil)
     }
     

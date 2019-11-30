@@ -13,6 +13,7 @@ protocol UsersInteracteorType {
     func getUser(_ completion: @escaping (DizzyUser?) -> Void)
     func getUserForId(userId: String, _ completion: @escaping (DizzyUser?) -> Void)
     func saveUserOnRemote(_ user: DizzyUser)
+    func saveProfileImage(_ image: UIImage, forUser user: DizzyUser)
 }
 
 class UsersInteracteor: UsersInteracteorType {
@@ -83,5 +84,25 @@ class UsersInteracteor: UsersInteracteorType {
                 print("usert saved successfully")
             }
         }
+    }
+    
+    func saveProfileImage(_ image: UIImage, forUser user: DizzyUser) {
+        let uploadImageData = UploadFileData(data: image.pngData(), fileURL: nil)
+        webResourcesDispatcher.uploadFile(path: "users/\(user.id)/profileImage", data: uploadImageData) {[weak self] results in
+            switch results {
+            case .success(let uploadedMedia):
+                guard let profileImageUrl = uploadedMedia.downloadLink else { return }
+                self?.saveProfileImageUrl(profileImageUrl, forUser: user)
+            case .failure(let error):
+                print("could not upload profile image")
+                print(error)
+            }
+        }
+    }
+    
+    private func saveProfileImageUrl(_ imageUrl: String, forUser user: DizzyUser) {
+        var userWithNewImage = user
+        userWithNewImage.photoURL = URL(string: imageUrl)
+        saveUserOnRemote(userWithNewImage)
     }
 }
