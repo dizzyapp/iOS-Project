@@ -240,6 +240,7 @@ extension NearByPlacesView: DiscoveryPlaceCellDelegate {
 extension NearByPlacesView: SearchBarDelegate {
     func searchTextChanged(newText: String) {
         searchDelegate?.searchTextChanged(newText: newText)
+        placesCollectionView.setContentOffset(.zero, animated: true)
     }
     
     func closePressed() {

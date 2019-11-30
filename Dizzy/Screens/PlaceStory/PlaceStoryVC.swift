@@ -131,6 +131,9 @@ final class PlaceStoryVC: ViewController {
     
     private func setupCommentsTextField() {
         commentTextFieldView.delegate = self
+        if let userProfileUrl = viewModel.getUserImageUrl() {
+            commentTextFieldView.setUserImage(fromUrl: userProfileUrl)
+        }
     }
     
     private func setupBottomBackgroundView() {

@@ -32,6 +32,7 @@ protocol PlaceStoryVMType {
     func send(message: String)
     func close()
     
+    func getUserImageUrl() -> URL?
     func numberOfRowsInSection() -> Int
     func comment(at indexPath: IndexPath) -> CommentWithWriter
 }
@@ -111,6 +112,10 @@ final class PlaceStoryVM: PlaceStoryVMType {
     
     func close() {
         navigationDelegate?.placeStoryVMDidFinised(self)
+    }
+    
+    func getUserImageUrl() -> URL? {
+        return user.photoURL
     }
 }
 

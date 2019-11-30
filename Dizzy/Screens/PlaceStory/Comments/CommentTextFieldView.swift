@@ -24,7 +24,7 @@ final class CommentTextFieldView: UIView {
             textField.text = newValue
         }
     }
-    
+    private let profileImageSize = CGSize(width: 37.5, height: 37.5)
     weak var delegate: CommentTextFieldViewDelegate?
     
     init() {
@@ -37,6 +37,10 @@ final class CommentTextFieldView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUserImage(fromUrl imageUrl: URL) {
+        profileImageView.kf.setImage(with: imageUrl, placeholder: Images.profilePlaceholderIcon())
     }
     
     private func addSubviews() {
@@ -53,6 +57,8 @@ final class CommentTextFieldView: UIView {
             profileImageView.leading.equalToSuperview().offset(Metrics.doublePadding)
             profileImageView.top.equalToSuperview()
             profileImageView.bottom.equalToSuperview()
+            profileImageView.height.equalTo(profileImageSize.height)
+            profileImageView.width.equalTo(profileImageSize.width)
         }
         
         profileImageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -74,8 +80,10 @@ final class CommentTextFieldView: UIView {
     }
     
     private func setupProfileImageView() {
-        self.profileImageView.contentMode = .center
-        self.profileImageView.kf.setImage(with: URL(fileURLWithPath: ""), placeholder: Images.profilePlaceholderIcon())
+        self.profileImageView.contentMode = .scaleToFill
+        self.profileImageView.image = Images.profilePlaceholderIcon()
+        self.profileImageView.clipsToBounds = true
+        self.profileImageView.layer.cornerRadius = profileImageSize.height / 2
     }
     
     private func setupTextField() {
