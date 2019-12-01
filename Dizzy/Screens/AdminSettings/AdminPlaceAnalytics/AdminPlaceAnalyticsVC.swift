@@ -14,6 +14,7 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     private let viewModel: AdminPlaceAnalyticsVMType
     private let tableView = UITableView()
     private let titleLabel = UILabel()
+    private let analyticsView = AnalyticsViewContainer()
     
     init(viewModel: AdminPlaceAnalyticsVMType) {
         self.viewModel = viewModel
@@ -31,16 +32,16 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     private func setupViews() {
         makeCard()
         setupTitleLabel()
-        setupTableView()
+//        setupTableView()
         setupNavigationView()
     }
     
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(AdminPlaceAnalyticCell.self)
-        tableView.separatorStyle = .none
-    }
+//    private func setupTableView() {
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.register(AdminPlaceAnalyticCell.self)
+//        tableView.separatorStyle = .none
+//    }
     
     private func setupNavigationView() {
         let backButton = UIButton(type: .system)
@@ -61,21 +62,24 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     }
 
     private func addSubviews() {
-        cardContainerView.addSubview(tableView)
+        cardContainerView.addSubview(analyticsView)
     }
     
     private func layoutViews() {
-        tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(Metrics.oneAndHalfPadding)
-            make.leading.trailing.equalToSuperview()
-            make.bottomMargin.equalToSuperview()
+//        tableView.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(Metrics.oneAndHalfPadding)
+//            make.leading.trailing.equalToSuperview()
+//            make.bottomMargin.equalToSuperview()
+//        }
+        analyticsView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(Metrics.doublePadding)
+            make.height.equalToSuperview().multipliedBy(0.2)
+            make.centerX.equalToSuperview()
         }
     }
     
     private func bindViewModel() {
-        viewModel.tableViewData.bind { [weak self] _ in
-            self?.tableView.reloadData()
-        }
+        analyticsView.configure(with: viewModel.analyticsData)
     }
     
     @objc private func backPressed() {
@@ -83,15 +87,15 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     }
 }
 
-extension AdminPlaceAnalyticsVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: AdminPlaceAnalyticCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        let cellData = viewModel.item(at: indexPath)
-        cell.configure(with: cellData)
-        return cell
-    }
-}
+//extension AdminPlaceAnalyticsVC: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return viewModel.numberOfItems()
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell: AdminPlaceAnalyticCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+//        let cellData = viewModel.item(at: indexPath)
+//        cell.configure(with: cellData)
+//        return cell
+//    }
+//}

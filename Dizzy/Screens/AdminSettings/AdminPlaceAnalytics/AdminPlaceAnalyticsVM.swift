@@ -9,12 +9,12 @@
 import Foundation
 
 protocol AdminPlaceAnalyticsVMType {
-    var tableViewData: Observable<[AdminPlaceAnalyticCell.CellData]> { get }
+    var analyticsData: [AnalyticsViewContainer.AnalyticsViewContainerData] { get }
     var placeName: String { get }
     var delegate: AdminPlaceAnalyticsVMDelegate? { get set }
     
-    func numberOfItems() -> Int
-    func item(at indexPath: IndexPath) -> AdminPlaceAnalyticCell.CellData
+//    func numberOfItems() -> Int
+//    func item(at indexPath: IndexPath) -> AnalyticsViewContainer.AnalyticsViewContainerData
 }
 
 protocol AdminPlaceAnalyticsVMDelegate: class {
@@ -22,10 +22,11 @@ protocol AdminPlaceAnalyticsVMDelegate: class {
 }
 
 final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
-    
+        
     weak var delegate: AdminPlaceAnalyticsVMDelegate?
-    var tableViewData = Observable<[AdminPlaceAnalyticCell.CellData]>([AdminPlaceAnalyticCell.CellData]())
     let place: PlaceInfo
+    
+    var analyticsData = [AnalyticsViewContainer.AnalyticsViewContainerData]()
     
     var placeName: String {
         return place.name
@@ -33,32 +34,32 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
     
     init(place: PlaceInfo) {
         self.place = place
-        createTableViewData()
+        createAnalyticsData()
     }
     
-    private func createTableViewData() {
-        var tableViewData = [AdminPlaceAnalyticCell.CellData]()
+    private func createAnalyticsData() {
+        var analyticsData = [AnalyticsViewContainer.AnalyticsViewContainerData]()
         
         if let profileViews = place.adminAnalytics?.profileViews {
-            tableViewData.append(AdminPlaceAnalyticCell.CellData(title: "Profile views".localized, message: "\(profileViews)"))
+            analyticsData.append(AnalyticsViewContainer.AnalyticsViewContainerData(title: "Profile views".localized, count: "\(profileViews)"))
         }
         
         if let reserveClicks = place.adminAnalytics?.reserveClicks {
-            tableViewData.append(AdminPlaceAnalyticCell.CellData(title: "Reserve clicks".localized, message: "\(reserveClicks)"))
+            analyticsData.append(AnalyticsViewContainer.AnalyticsViewContainerData(title: "Reserve clicks".localized, count: "\(reserveClicks)"))
         }
         
         if let attendenceCount = place.adminAnalytics?.attendenceCount {
-            tableViewData.append(AdminPlaceAnalyticCell.CellData(title: "Attendence".localized, message: "\(attendenceCount)"))
+            analyticsData.append(AnalyticsViewContainer.AnalyticsViewContainerData(title: "Attendence".localized, count: "\(attendenceCount)"))
         }
         
-        self.tableViewData.value = tableViewData
+        self.analyticsData = analyticsData
     }
     
-    func numberOfItems() -> Int {
-        return tableViewData.value.count
-    }
-    
-    func item(at indexPath: IndexPath) -> AdminPlaceAnalyticCell.CellData {
-        return tableViewData.value[indexPath.row]
-    }
+//    func numberOfItems() -> Int {
+//        return analyticsData.count
+//    }
+//    
+//    func item(at indexPath: IndexPath) -> AnalyticsViewContainer.AnalyticsViewContainerData {
+//        return analyticsData[indexPath.row]
+//    }
 }

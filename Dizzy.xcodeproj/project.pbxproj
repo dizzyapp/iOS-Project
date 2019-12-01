@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040F56DA23946600009CB1A9 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F56D923946600009CB1A9 /* AnalyticsView.swift */; };
 		0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */; };
 		0415EC39225E6086009BCBC7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC38225E6086009BCBC7 /* Observable.swift */; };
 		041724B62378545C00E0A5D9 /* AdminPlacesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */; };
@@ -140,6 +141,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040F56D923946600009CB1A9 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		0415EC38225E6086009BCBC7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPlacesVM.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				041724C42379481300E0A5D9 /* AdminPlaceAnalyticsVM.swift */,
 				041724C62379482200E0A5D9 /* AdminPlaceAnalyticsVC.swift */,
 				04A76B6B237956FC00F3ECE9 /* AdminPlaceAnalyticCell.swift */,
+				040F56D923946600009CB1A9 /* AnalyticsView.swift */,
 			);
 			path = AdminPlaceAnalytics;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				0487FF97228EB40200A8683C /* PlaceStoryVM.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
 				4DDA117F22B58F9800CA0220 /* SignInWithDizzyVM.swift in Sources */,
+				040F56DA23946600009CB1A9 /* AnalyticsView.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
 				4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */,
 				7762328F22D15C1300156DC7 /* DizzyLoadingView.swift in Sources */,
