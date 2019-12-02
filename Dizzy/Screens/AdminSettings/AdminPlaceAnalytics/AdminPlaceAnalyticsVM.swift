@@ -9,12 +9,13 @@
 import Foundation
 
 protocol AdminPlaceAnalyticsVMType {
-    var analyticsData: [AnalyticsViewContainer.AnalyticsViewContainerData] { get }
+    var analyticsData: [AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData] { get }
     var placeName: String { get }
     var delegate: AdminPlaceAnalyticsVMDelegate? { get set }
+    var reservationsData: Observable<[ReservationData]> { get }
+    var numberOfItems: Int { get }
     
-//    func numberOfItems() -> Int
-//    func item(at indexPath: IndexPath) -> AnalyticsViewContainer.AnalyticsViewContainerData
+    func getReservation(at indexPath: IndexPath) -> ReservationData
 }
 
 protocol AdminPlaceAnalyticsVMDelegate: class {
@@ -25,41 +26,53 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
         
     weak var delegate: AdminPlaceAnalyticsVMDelegate?
     let place: PlaceInfo
+    let placesInteractor: PlacesInteractorType
     
-    var analyticsData = [AnalyticsViewContainer.AnalyticsViewContainerData]()
+    var reservationsData = Observable<[ReservationData]>([ReservationData]())
+    
+    var analyticsData = [AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]()
     
     var placeName: String {
         return place.name
     }
     
-    init(place: PlaceInfo) {
+    var numberOfItems: Int {
+        return reservationsData.value.count
+    }
+    
+    init(place: PlaceInfo, placesInteractor: PlacesInteractorType) {
         self.place = place
+        self.placesInteractor = placesInteractor
         createAnalyticsData()
+        fetchReservationsData()
     }
     
     private func createAnalyticsData() {
-        var analyticsData = [AnalyticsViewContainer.AnalyticsViewContainerData]()
+        var analyticsData = [AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]()
         
         if let profileViews = place.adminAnalytics?.profileViews {
-            analyticsData.append(AnalyticsViewContainer.AnalyticsViewContainerData(title: "Profile views".localized, count: "\(profileViews)"))
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Profile views".localized, count: "\(profileViews)"))
         }
         
         if let reserveClicks = place.adminAnalytics?.reserveClicks {
-            analyticsData.append(AnalyticsViewContainer.AnalyticsViewContainerData(title: "Reserve clicks".localized, count: "\(reserveClicks)"))
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Reserve clicks".localized, count: "\(reserveClicks)"))
         }
         
         if let attendenceCount = place.adminAnalytics?.attendenceCount {
-            analyticsData.append(AnalyticsViewContainer.AnalyticsViewContainerData(title: "Attendence".localized, count: "\(attendenceCount)"))
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Attendence".localized, count: "\(attendenceCount)"))
         }
         
         self.analyticsData = analyticsData
     }
     
-//    func numberOfItems() -> Int {
-//        return analyticsData.count
-//    }
-//    
-//    func item(at indexPath: IndexPath) -> AnalyticsViewContainer.AnalyticsViewContainerData {
-//        return analyticsData[indexPath.row]
-//    }
+    private func fetchReservationsData() {
+        placesInteractor.getReservations(per: place.id) { [weak self] reservationsData in
+            guard let self = self else { return }
+            self.reservationsData.value = reservationsData
+        }
+    }
+    
+    func getReservation(at indexPath: IndexPath) -> ReservationData {
+        return reservationsData.value[indexPath.row]
+    }
 }

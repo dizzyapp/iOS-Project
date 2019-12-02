@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040F56DA23946600009CB1A9 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F56D923946600009CB1A9 /* AnalyticsView.swift */; };
+		040F56DA23946600009CB1A9 /* AdminAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F56D923946600009CB1A9 /* AdminAnalyticsView.swift */; };
 		0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */; };
 		0415EC39225E6086009BCBC7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415EC38225E6086009BCBC7 /* Observable.swift */; };
 		041724B62378545C00E0A5D9 /* AdminPlacesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */; };
@@ -42,8 +42,12 @@
 		0487FFAB228EB4AF00A8683C /* LoadingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA3228EB4AE00A8683C /* LoadingContainer.swift */; };
 		0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA4228EB4AE00A8683C /* LocationLabel.swift */; };
 		0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */; };
+		0489E8202395B2D0006B5FFC /* ReservationsTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0489E81F2395B2D0006B5FFC /* ReservationsTitleView.swift */; };
+		0489E8222395B5BC006B5FFC /* LabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0489E8212395B5BC006B5FFC /* LabelExtension.swift */; };
+		0489E8242395BBE8006B5FFC /* ReservationsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0489E8232395BBE8006B5FFC /* ReservationsDataSource.swift */; };
+		0489E8282395C006006B5FFC /* ReservationsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0489E8272395C006006B5FFC /* ReservationsData.swift */; };
+		0489E82A2395C69F006B5FFC /* ReservationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0489E8292395C69F006B5FFC /* ReservationCell.swift */; };
 		04A6308222D10EC500CA5331 /* SearchPlaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A6308122D10EC500CA5331 /* SearchPlaceCoordinator.swift */; };
-		04A76B6C237956FC00F3ECE9 /* AdminPlaceAnalyticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A76B6B237956FC00F3ECE9 /* AdminPlaceAnalyticCell.swift */; };
 		04B454F722CD315B001C7AD4 /* MediaPresenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F222CD315B001C7AD4 /* MediaPresenterVC.swift */; };
 		04B454F822CD315B001C7AD4 /* UploadStoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F322CD315B001C7AD4 /* UploadStoryVC.swift */; };
 		04B454F922CD315B001C7AD4 /* UploadStoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B454F422CD315B001C7AD4 /* UploadStoryCoordinator.swift */; };
@@ -141,7 +145,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		040F56D923946600009CB1A9 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		040F56D923946600009CB1A9 /* AdminAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminAnalyticsView.swift; sourceTree = "<group>"; };
 		0415EC36225E5C1C009BCBC7 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		0415EC38225E6086009BCBC7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		041724B52378545C00E0A5D9 /* AdminPlacesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPlacesVM.swift; sourceTree = "<group>"; };
@@ -176,8 +180,12 @@
 		0487FFA3228EB4AE00A8683C /* LoadingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingContainer.swift; sourceTree = "<group>"; };
 		0487FFA4228EB4AE00A8683C /* LocationLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationLabel.swift; sourceTree = "<group>"; };
 		0487FFA5228EB4AE00A8683C /* ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
+		0489E81F2395B2D0006B5FFC /* ReservationsTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsTitleView.swift; sourceTree = "<group>"; };
+		0489E8212395B5BC006B5FFC /* LabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelExtension.swift; sourceTree = "<group>"; };
+		0489E8232395BBE8006B5FFC /* ReservationsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsDataSource.swift; sourceTree = "<group>"; };
+		0489E8272395C006006B5FFC /* ReservationsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsData.swift; sourceTree = "<group>"; };
+		0489E8292395C69F006B5FFC /* ReservationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationCell.swift; sourceTree = "<group>"; };
 		04A6308122D10EC500CA5331 /* SearchPlaceCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceCoordinator.swift; sourceTree = "<group>"; };
-		04A76B6B237956FC00F3ECE9 /* AdminPlaceAnalyticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPlaceAnalyticCell.swift; sourceTree = "<group>"; };
 		04B454F222CD315B001C7AD4 /* MediaPresenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPresenterVC.swift; sourceTree = "<group>"; };
 		04B454F322CD315B001C7AD4 /* UploadStoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadStoryVC.swift; sourceTree = "<group>"; };
 		04B454F422CD315B001C7AD4 /* UploadStoryCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadStoryCoordinator.swift; sourceTree = "<group>"; };
@@ -305,8 +313,10 @@
 			children = (
 				041724C42379481300E0A5D9 /* AdminPlaceAnalyticsVM.swift */,
 				041724C62379482200E0A5D9 /* AdminPlaceAnalyticsVC.swift */,
-				04A76B6B237956FC00F3ECE9 /* AdminPlaceAnalyticCell.swift */,
-				040F56D923946600009CB1A9 /* AnalyticsView.swift */,
+				040F56D923946600009CB1A9 /* AdminAnalyticsView.swift */,
+				0489E81F2395B2D0006B5FFC /* ReservationsTitleView.swift */,
+				0489E8232395BBE8006B5FFC /* ReservationsDataSource.swift */,
+				0489E8292395C69F006B5FFC /* ReservationCell.swift */,
 			);
 			path = AdminPlaceAnalytics;
 			sourceTree = "<group>";
@@ -449,6 +459,7 @@
 			children = (
 				4D07059E22D15579009D6236 /* Comment.swift */,
 				4D07059F22D15579009D6236 /* PlaceInfo.swift */,
+				0489E8272395C006006B5FFC /* ReservationsData.swift */,
 				4D0705A022D15579009D6236 /* PlaceMedia.swift */,
 				041724BE2378850800E0A5D9 /* PlaceId.swift */,
 			);
@@ -673,6 +684,7 @@
 				0470E6BA2270B37100267278 /* ReusableView.swift */,
 				0470E6BB2270B37200267278 /* StringExtension.swift */,
 				04E7808D22B0279000A9E3F4 /* DateUtils.swift */,
+				0489E8212395B5BC006B5FFC /* LabelExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -873,6 +885,7 @@
 				0470E6B62270B32600267278 /* AutoCompleteFilter.swift in Sources */,
 				0487FFAD228EB4AF00A8683C /* ViewBuilder.swift in Sources */,
 				77ACCD0E2351BAA000D79E22 /* AppStartVM.swift in Sources */,
+				0489E8222395B5BC006B5FFC /* LabelExtension.swift in Sources */,
 				776210D82379F1EE00D85F9D /* PlaceReservationRequestor.swift in Sources */,
 				0487FFAC228EB4AF00A8683C /* LocationLabel.swift in Sources */,
 				4D0705B722D155AB009D6236 /* CommentsInteractor.swift in Sources */,
@@ -894,6 +907,7 @@
 				4DDA117E22B58F9800CA0220 /* SignInInteractor.swift in Sources */,
 				0487FF9A228EB40200A8683C /* CommentsView.swift in Sources */,
 				76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */,
+				0489E8202395B2D0006B5FFC /* ReservationsTitleView.swift in Sources */,
 				4D645EA922B0426700016EF7 /* LoginCoordinator.swift in Sources */,
 				4D0705AB22D1558B009D6236 /* MapSearchVC.swift in Sources */,
 				76B41EE622535B3D00C1A290 /* Fonts.swift in Sources */,
@@ -905,7 +919,6 @@
 				76B41EDD225348BE00C1A290 /* NearByPlacesView.swift in Sources */,
 				4D645EA422B0423B00016EF7 /* LoginVM.swift in Sources */,
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
-				04A76B6C237956FC00F3ECE9 /* AdminPlaceAnalyticCell.swift in Sources */,
 				4D0705BD22D15799009D6236 /* StoriesInteractor.swift in Sources */,
 				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
@@ -923,6 +936,7 @@
 				04D0CCF6225731890020DF8F /* FirebaseWebService.swift in Sources */,
 				4DAF17BC22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift in Sources */,
 				76B41ED82252312E00C1A290 /* ConversationsVC.swift in Sources */,
+				0489E8282395C006006B5FFC /* ReservationsData.swift in Sources */,
 				4D0705AD22D1558B009D6236 /* MapVM.swift in Sources */,
 				4D0705AC22D1558B009D6236 /* MapCoordinator.swift in Sources */,
 				4DDA118122B596CE00CA0220 /* SignInWebservice.swift in Sources */,
@@ -942,7 +956,7 @@
 				0487FF97228EB40200A8683C /* PlaceStoryVM.swift in Sources */,
 				76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */,
 				4DDA117F22B58F9800CA0220 /* SignInWithDizzyVM.swift in Sources */,
-				040F56DA23946600009CB1A9 /* AnalyticsView.swift in Sources */,
+				040F56DA23946600009CB1A9 /* AdminAnalyticsView.swift in Sources */,
 				76B41ED322522A4000C1A290 /* DiscoveryVM.swift in Sources */,
 				4D645EA722B0423B00016EF7 /* LoginSelectionView.swift in Sources */,
 				7762328F22D15C1300156DC7 /* DizzyLoadingView.swift in Sources */,
@@ -963,6 +977,7 @@
 				0415EC39225E6086009BCBC7 /* Observable.swift in Sources */,
 				044B406A22CD37080061388C /* PopupPresenter.swift in Sources */,
 				76B41EC622520B0800C1A290 /* HomeCoordinator.swift in Sources */,
+				0489E8242395BBE8006B5FFC /* ReservationsDataSource.swift in Sources */,
 				4DFBA48622BEC5D800BB0F4F /* InputValidator.swift in Sources */,
 				76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */,
 				04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */,
@@ -970,6 +985,7 @@
 				0487FFAA228EB4AF00A8683C /* NavigationBuilder.swift in Sources */,
 				4D0705B022D1558B009D6236 /* MapSearchVM.swift in Sources */,
 				77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */,
+				0489E82A2395C69F006B5FFC /* ReservationCell.swift in Sources */,
 				4DFBA48122BEB3C100BB0F4F /* SignInDetails.swift in Sources */,
 				0470E6B42270B32600267278 /* PlaceSearchTableViewCell.swift in Sources */,
 				0470E6B42270B32600267278 /* PlaceSearchTableViewCell.swift in Sources */,

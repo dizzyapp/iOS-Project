@@ -14,6 +14,7 @@ protocol PlacesInteractorType {
     func getProfileMedia(forPlaceId placeId: String, completion: @escaping  ([PlaceMedia]) -> Void)
     func getPlaces(ownedBy userId: String, completion: @escaping ([PlaceId]) -> Void)
     func increment(analyticsType: PlacesInteractor.AdminAnalyticsType, by count: Int, to place: PlaceInfo)
+    func getReservations(per placeId: String, completion: @escaping ([ReservationData]) -> Void)
 }
 
 class PlacesInteractor: PlacesInteractorType {
@@ -72,6 +73,20 @@ class PlacesInteractor: PlacesInteractorType {
             case .success(let placesIds):
                 completion(placesIds)
         
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func getReservations(per placeId: String, completion: @escaping ([ReservationData]) -> Void) {
+        let resource = Resource<[ReservationData], String>(path: "ReservationPerPlaceId/\(placeId)").withGet()
+        webResourcesDispatcher.load(resource) { result in
+            
+            switch result {
+            case .success(let reservationsData):
+                completion(reservationsData)
+                
             case .failure(let error):
                 print(error)
             }

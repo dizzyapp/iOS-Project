@@ -1,5 +1,5 @@
 //
-//  AnalyticsViewContainer.swift
+//  AdminAnalyticsViewContainer.swift
 //  Dizzy
 //
 //  Created by Tal Ben Asuli on 01/12/2019.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-final class AnalyticsViewContainer: UIView {
+final class AdminAnalyticsViewContainer: UIView {
     
-    struct AnalyticsViewContainerData {
+    struct AdminAnalyticsViewContainerData {
         let title: String
         let count: String
     }
@@ -50,20 +50,20 @@ final class AnalyticsViewContainer: UIView {
         }
     }
     
-    func configure(with analyticsData: [AnalyticsViewContainerData]) {
+    func configure(with analyticsData: [AdminAnalyticsViewContainerData]) {
         for data in analyticsData {
             addAnalyticsToStackView(with: data)
         }
     }
     
-    private func addAnalyticsToStackView(with data: AnalyticsViewContainerData) {
-        let analyticsView = AnalyticsView()
+    private func addAnalyticsToStackView(with data: AdminAnalyticsViewContainerData) {
+        let analyticsView = AdminAnalyticsView()
         analyticsView.configure(with: data)
         mainStackView.addArrangedSubview(analyticsView)
     }
 }
 
-final class AnalyticsView: UIView {
+final class AdminAnalyticsView: UIView {
     
     let titleLabel = UILabel()
     let countLabel = UILabel()
@@ -113,7 +113,7 @@ final class AnalyticsView: UIView {
         }
     }
     
-    func configure(with data: AnalyticsViewContainer.AnalyticsViewContainerData) {
+    func configure(with data: AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData) {
         titleLabel.text = data.title
         countLabel.text = data.count
     }
