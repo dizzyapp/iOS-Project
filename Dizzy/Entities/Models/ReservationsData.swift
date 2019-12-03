@@ -9,7 +9,10 @@
 import Foundation
 
 struct ReservationData: Codable {
+    let id: String
+    let timeStamp: Double
     let clientName: String?
     let numberOfPeople: Int?
     let iconImageURLString: String?
+    let userId: String?
 }

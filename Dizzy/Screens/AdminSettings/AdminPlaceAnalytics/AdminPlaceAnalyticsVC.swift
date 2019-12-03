@@ -34,6 +34,7 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     }
     
     private func setupViews() {
+        reservationsTitleView.isHidden = true
         makeCard()
         setupTitleLabel()
         setupTableView()
@@ -92,8 +93,9 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     private func bindViewModel() {
         analyticsView.configure(with: viewModel.analyticsData)
         
-        viewModel.reservationsData.bind { [weak self] _ in
+        viewModel.reservationsData.bind { [weak self] reservationsData in
             self?.tableView.reloadData()
+            self?.reservationsTitleView.isHidden = reservationsData.isEmpty
         }
     }
     

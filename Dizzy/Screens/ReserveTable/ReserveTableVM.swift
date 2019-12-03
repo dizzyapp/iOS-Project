@@ -22,15 +22,22 @@ final class ReserveTableVM: ReserveTableVMType {
     
     var otherButtonOnFocuse = Observable<Bool>(false)
     var reserveTableFinished: () -> Void = { }
-    var placeName: String
-    var userName: String
-    
+    let user: DizzyUser
     let placeInfo: PlaceInfo
+    private let placesInteractor: PlacesInteractorType
     
-    init(placeInfo: PlaceInfo, user: DizzyUser) {
+    var placeName: String {
+        return placeInfo.name
+    }
+    
+    var userName: String {
+        return user.fullName
+    }
+    
+    init(placeInfo: PlaceInfo, user: DizzyUser, placesInteractor: PlacesInteractorType) {
         self.placeInfo = placeInfo
-        placeName = placeInfo.name
-        userName = user.fullName
+        self.user = user
+        self.placesInteractor = placesInteractor
     }
     
     func requestATable(with name: String?, numberOfPeople: String?, time: String?, comment: String?) {
@@ -53,10 +60,23 @@ final class ReserveTableVM: ReserveTableVMType {
         }
         
         requestATable(placeInfo, text: messageText)
+        
+        let reservationData = ReservationData(id: user.id + UUID().uuidString,
+                                              timeStamp: Date().timeIntervalSince1970 ,
+                                              clientName: name,
+                                              numberOfPeople: Int(numberOfPeople ?? ""),
+                                              iconImageURLString: user.photoURL?.absoluteString ?? "",
+                                              userId: user.id)
+        
+        sendReservationRecord(reservationData: reservationData)
         reserveTableFinished()
     }
     
     func didFinish() {
         reserveTableFinished()
+    }
+    
+    private func sendReservationRecord(reservationData: ReservationData) {
+        placesInteractor.setReservation(to: placeInfo.id, with: reservationData)
     }
 }

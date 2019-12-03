@@ -68,8 +68,16 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
     private func fetchReservationsData() {
         placesInteractor.getReservations(per: place.id) { [weak self] reservationsData in
             guard let self = self else { return }
-            self.reservationsData.value = reservationsData
+            let sortedReservation = self.sortByDate(reservations: reservationsData)
+            self.reservationsData.value = sortedReservation
         }
+    }
+    
+    private func sortByDate(reservations: [ReservationData]) -> [ReservationData] {
+        let sortedReservations = reservations.sorted { (reservation1, reservation2) -> Bool in
+            return reservation1.timeStamp > reservation2.timeStamp
+        }
+        return sortedReservations
     }
     
     func getReservation(at indexPath: IndexPath) -> ReservationData {

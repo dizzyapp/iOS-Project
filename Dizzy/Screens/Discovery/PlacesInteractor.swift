@@ -15,10 +15,11 @@ protocol PlacesInteractorType {
     func getPlaces(ownedBy userId: String, completion: @escaping ([PlaceId]) -> Void)
     func increment(analyticsType: PlacesInteractor.AdminAnalyticsType, by count: Int, to place: PlaceInfo)
     func getReservations(per placeId: String, completion: @escaping ([ReservationData]) -> Void)
+    func setReservation(to placeId: String, with reservationData: ReservationData)
 }
 
 class PlacesInteractor: PlacesInteractorType {
-    
+
     var allPlaces = Observable<[PlaceInfo]>([PlaceInfo]())
     
     enum AdminAnalyticsType: String {
@@ -91,6 +92,11 @@ class PlacesInteractor: PlacesInteractorType {
                 print(error)
             }
         }
+    }
+    
+    func setReservation(to placeId: String, with reservationData: ReservationData) {
+        let resource = Resource<String, ReservationData>(path: "ReservationPerPlaceId/\(placeId)/\(reservationData.id)").withPost(reservationData)
+        webResourcesDispatcher.load(resource) { _ in }
     }
 
     func increment(analyticsType: AdminAnalyticsType, by count: Int = 1, to place: PlaceInfo) {
