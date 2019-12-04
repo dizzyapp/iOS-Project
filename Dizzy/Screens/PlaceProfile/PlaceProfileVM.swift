@@ -44,7 +44,22 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
         self.activePlace = activePlace.activePlaceInfo
         self.placesInteractor = placesInteractor
         
+        bindPlaces()
+        sendProfileViewsAdminAnalytics()
         getProfileMedia()
+    }
+    
+    private func bindPlaces() {
+        placesInteractor.allPlaces.bind { [weak self] places in
+            let updatedPlace = places.first { $0.id == self?.placeInfo.id }
+            if let placeInfo = updatedPlace {
+                self?.placeInfo = placeInfo
+            }
+        }
+    }
+    
+    private func sendProfileViewsAdminAnalytics() {
+        placesInteractor.increment(analyticsType: .profileViews, by: 1, to: placeInfo)
     }
     
     func getProfileMedia() {
@@ -78,7 +93,12 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
         UIApplication.shared.open(url, options: [:])
     }
     
+    private func sendReserveClickAdminAnalytics() {
+        placesInteractor.increment(analyticsType: .reserveClicks, by: 1, to: placeInfo)
+    }
+    
     func requestTableButtonPressed() {
+        sendReserveClickAdminAnalytics()
         delegate?.placeProfileVMRequestATableTapped(self, with: placeInfo)
     }
     

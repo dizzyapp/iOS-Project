@@ -43,7 +43,7 @@ class Assembly {
     }
 
     private func registerInteractors() {
-        container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init)
+        container.autoregister(PlacesInteractorType.self, initializer: PlacesInteractor.init).inObjectScope(.container)
         container.autoregister(GooglePlaceInteractorType.self, initializer: GooglePlaceInteractor.init)
         container.autoregister(CommentsInteractorType.self, initializer: CommentsInteractor.init)
         container.autoregister(StoriesInteractorType.self, initializer: StoriesInteractor.init)
