@@ -9,12 +9,13 @@
 import Foundation
 
 protocol AdminPlaceAnalyticsVMType {
-    var tableViewData: Observable<[AdminPlaceAnalyticCell.CellData]> { get }
+    var analyticsData: Observable<[AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]> { get }
     var placeName: String { get }
     var delegate: AdminPlaceAnalyticsVMDelegate? { get set }
+    var reservationsData: Observable<[ReservationData]> { get }
+    var numberOfItems: Int { get }
     
-    func numberOfItems() -> Int
-    func item(at indexPath: IndexPath) -> AdminPlaceAnalyticCell.CellData
+    func getReservation(at indexPath: IndexPath) -> ReservationData
 }
 
 protocol AdminPlaceAnalyticsVMDelegate: class {
@@ -22,22 +23,29 @@ protocol AdminPlaceAnalyticsVMDelegate: class {
 }
 
 final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
-    
+        
     weak var delegate: AdminPlaceAnalyticsVMDelegate?
-    var tableViewData = Observable<[AdminPlaceAnalyticCell.CellData]>([AdminPlaceAnalyticCell.CellData]())
     var place: PlaceInfo
+    let placesInteractor: PlacesInteractorType
     
-    private let placesInteractor: PlacesInteractorType
+    var reservationsData = Observable<[ReservationData]>([ReservationData]())
+    
+    var analyticsData = Observable<[AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]>([AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]())
     
     var placeName: String {
         return place.name
+    }
+    
+    var numberOfItems: Int {
+        return reservationsData.value.count
     }
     
     init(place: PlaceInfo, placesInteractor: PlacesInteractorType) {
         self.place = place
         self.placesInteractor = placesInteractor
         bindPlaces()
-        updateTableViewData()
+        createAnalyticsData()
+        fetchReservationsData()
     }
     
     private func bindPlaces() {
@@ -45,34 +53,45 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
             let updatedPlace = places.first { $0.id == self?.place.id }
             if let placeInfo = updatedPlace {
                 self?.place = placeInfo
-                self?.updateTableViewData()
+                self?.createAnalyticsData()
             }
         }
     }
     
-    private func updateTableViewData() {
-        var tableViewData = [AdminPlaceAnalyticCell.CellData]()
+    private func createAnalyticsData() {
+        var analyticsData = [AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]()
         
         if let profileViews = place.adminAnalytics?.profileViews {
-            tableViewData.append(AdminPlaceAnalyticCell.CellData(title: "Profile views".localized, message: "\(profileViews)"))
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Profile views".localized, count: "\(profileViews)"))
         }
         
         if let reserveClicks = place.adminAnalytics?.reserveClicks {
-            tableViewData.append(AdminPlaceAnalyticCell.CellData(title: "Reserve clicks".localized, message: "\(reserveClicks)"))
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Reserve clicks".localized, count: "\(reserveClicks)"))
         }
         
         if let attendenceCount = place.adminAnalytics?.attendenceCount {
-            tableViewData.append(AdminPlaceAnalyticCell.CellData(title: "Attendence".localized, message: "\(attendenceCount)"))
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Attendence".localized, count: "\(attendenceCount)"))
         }
         
-        self.tableViewData.value = tableViewData
+        self.analyticsData.value = analyticsData
     }
     
-    func numberOfItems() -> Int {
-        return tableViewData.value.count
+    private func fetchReservationsData() {
+        placesInteractor.getReservations(per: place.id) { [weak self] reservationsData in
+            guard let self = self else { return }
+            let sortedReservation = self.sortByDate(reservations: reservationsData)
+            self.reservationsData.value = sortedReservation
+        }
     }
     
-    func item(at indexPath: IndexPath) -> AdminPlaceAnalyticCell.CellData {
-        return tableViewData.value[indexPath.row]
+    private func sortByDate(reservations: [ReservationData]) -> [ReservationData] {
+        let sortedReservations = reservations.sorted { (reservation1, reservation2) -> Bool in
+            return reservation1.timeStamp > reservation2.timeStamp
+        }
+        return sortedReservations
+    }
+    
+    func getReservation(at indexPath: IndexPath) -> ReservationData {
+        return reservationsData.value[indexPath.row]
     }
 }

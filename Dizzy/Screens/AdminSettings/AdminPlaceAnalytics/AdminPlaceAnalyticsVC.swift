@@ -11,10 +11,15 @@ import UIKit
 final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     
     var cardContainerView = UIView()
+    
     private let viewModel: AdminPlaceAnalyticsVMType
     private let tableView = UITableView()
     private let titleLabel = UILabel()
-    
+    private let analyticsView = AdminAnalyticsViewContainer()
+    private let reservationsTitleView = ReservationsTitleView()
+
+    private lazy var tableViewDataSource = ReservationsDataSource(viewModel: viewModel)
+
     init(viewModel: AdminPlaceAnalyticsVMType) {
         self.viewModel = viewModel
         super.init()
@@ -29,6 +34,7 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     }
     
     private func setupViews() {
+        reservationsTitleView.isHidden = true
         makeCard()
         setupTitleLabel()
         setupTableView()
@@ -36,9 +42,9 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     }
     
     private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(AdminPlaceAnalyticCell.self)
+        tableView.delegate = tableViewDataSource
+        tableView.dataSource = tableViewDataSource
+        tableView.register(ReservationCell.self)
         tableView.separatorStyle = .none
     }
     
@@ -61,37 +67,41 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     }
 
     private func addSubviews() {
-        cardContainerView.addSubview(tableView)
+        cardContainerView.addSubviews([analyticsView, reservationsTitleView, tableView])
     }
     
     private func layoutViews() {
+        analyticsView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(Metrics.doublePadding)
+            make.height.equalToSuperview().multipliedBy(0.1)
+            make.centerX.equalToSuperview()
+        }
+        
+        reservationsTitleView.snp.makeConstraints { make in
+            make.top.equalTo(analyticsView.snp.bottom).offset(Metrics.triplePadding)
+            make.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
+            make.trailing.equalToSuperview().inset(Metrics.oneAndHalfPadding)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(Metrics.oneAndHalfPadding)
-            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(reservationsTitleView.snp.bottom).offset(Metrics.oneAndHalfPadding)
+            make.leading.trailing.equalTo(reservationsTitleView)
             make.bottomMargin.equalToSuperview()
         }
     }
     
     private func bindViewModel() {
-        viewModel.tableViewData.bind { [weak self] _ in
+        viewModel.analyticsData.bind(shouldObserveIntial: true) {[weak self] analyticsData in
+            self?.analyticsView.configure(with: analyticsData)
+        }
+    
+        viewModel.reservationsData.bind { [weak self] reservationsData in
             self?.tableView.reloadData()
+            self?.reservationsTitleView.isHidden = reservationsData.isEmpty
         }
     }
     
     @objc private func backPressed() {
         viewModel.delegate?.adminPlaceAnalyticsBackPressed(viewModel)
-    }
-}
-
-extension AdminPlaceAnalyticsVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: AdminPlaceAnalyticCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        let cellData = viewModel.item(at: indexPath)
-        cell.configure(with: cellData)
-        return cell
     }
 }

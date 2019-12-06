@@ -26,6 +26,7 @@ protocol LoginVMType {
     var user: DizzyUser { get }
 
     func isUserLoggedIn() -> Bool
+    func isUserAdmin() -> Bool
 }
 
 protocol LoginVMNavigationDelegate: class {
@@ -110,6 +111,10 @@ class LoginVM: LoginVMType {
     
     func isUserLoggedIn() -> Bool {
         return self.user.role != .guest
+    }
+    
+    func isUserAdmin() -> Bool {
+        return self.user.role == .admin
     }
     
     func userSelectedNewProfileImage(image: UIImage) {

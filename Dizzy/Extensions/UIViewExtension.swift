@@ -21,4 +21,10 @@ extension UIView {
         layer.borderWidth = 1.0
         layer.borderColor = borderColor.cgColor
     }
+    
+    func removeAllSubviews() {
+        for subview in subviews {
+            subview.removeFromSuperview()
+        }
+    }
 }
