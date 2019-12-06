@@ -47,18 +47,20 @@ final class PlaceStoryVM: PlaceStoryVMType {
     let delay = 1000.0
     var commentsInteractor: CommentsInteractorType
     var storiesInteractor: StoriesInteractorType
+    let placesIteractor: PlacesInteractorType
     var comments = Observable<[CommentWithWriter]>([CommentWithWriter]())
     var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
     let user: DizzyUser
     
-    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType) {
+    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType, placesIteractor: PlacesInteractorType) {
         self.place = place
         self.commentsInteractor = commentsInteractor
         self.storiesInteractor = storiesInteractor
         self.user = user
         self.usersInteractor = usersInteractor
         self.storiesInteractor.getAllPlaceStories(with: place.id)
+        self.placesIteractor = placesIteractor
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
     }

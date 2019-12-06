@@ -91,8 +91,10 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
     }
     
     private func bindViewModel() {
-        analyticsView.configure(with: viewModel.analyticsData)
-        
+        viewModel.analyticsData.bind(shouldObserveIntial: true) {[weak self] analyticsData in
+            self?.analyticsView.configure(with: analyticsData)
+        }
+    
         viewModel.reservationsData.bind { [weak self] reservationsData in
             self?.tableView.reloadData()
             self?.reservationsTitleView.isHidden = reservationsData.isEmpty

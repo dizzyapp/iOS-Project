@@ -187,6 +187,8 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
         
         enterAsAdminButton.setAttributedTitle(text, for: .normal)
         enterAsAdminButton.addTarget(self, action: #selector(enterAsAdminButtonPressed), for: .touchUpInside)
+        enterAsAdminButton.isHidden = !loginVM.isUserAdmin()
+        
     }
     
     private func setupSignInView() {

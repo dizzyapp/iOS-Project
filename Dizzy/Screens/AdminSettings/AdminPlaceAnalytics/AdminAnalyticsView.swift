@@ -51,6 +51,7 @@ final class AdminAnalyticsViewContainer: UIView {
     }
     
     func configure(with analyticsData: [AdminAnalyticsViewContainerData]) {
+        mainStackView.removeAllSubviews()
         for data in analyticsData {
             addAnalyticsToStackView(with: data)
         }

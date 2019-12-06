@@ -56,13 +56,19 @@ final class FirebaseWebService: WebServiceType {
     private func sendPostRequest<Response, Body>(resource: Resource<Response, Body>,
                                                  completion: @escaping (Result<Response>) -> Void) {
         if let json = resource.makeJson() {
-
-            databaseReference.child("\(resource.path)").setValue(json) { (error, _) in
-                if let error = error {
-                    completion(Result<Response>.failure(error))
-                } else if let response = Result.success("") as? Result<Response> {
-                    completion(response)
-                }
+            set(value: json, resource: resource, completion: completion)
+        } else if let premitiveParamter = resource.getPremitiveBody() {
+            set(value: premitiveParamter, resource: resource, completion: completion)
+        }
+    }
+    
+    private func set<Response, Body>(value: Any?, resource: Resource<Response, Body>,
+                     completion: @escaping (Result<Response>) -> Void) {
+        databaseReference.child("\(resource.path)").setValue(value) { (error, _) in
+            if let error = error {
+                completion(Result<Response>.failure(error))
+            } else if let response = Result.success("") as? Result<Response> {
+                completion(response)
             }
         }
     }

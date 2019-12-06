@@ -75,7 +75,7 @@ final class CommentTextFieldView: UIView {
     
     private func setupViews() {
         setupProfileImageView()
-        setupTextField()
+        setupTextField()    
         addGestures()
     }
     

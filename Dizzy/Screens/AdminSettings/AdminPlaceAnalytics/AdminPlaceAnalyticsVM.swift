@@ -9,7 +9,7 @@
 import Foundation
 
 protocol AdminPlaceAnalyticsVMType {
-    var analyticsData: [AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData] { get }
+    var analyticsData: Observable<[AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]> { get }
     var placeName: String { get }
     var delegate: AdminPlaceAnalyticsVMDelegate? { get set }
     var reservationsData: Observable<[ReservationData]> { get }
@@ -25,12 +25,12 @@ protocol AdminPlaceAnalyticsVMDelegate: class {
 final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
         
     weak var delegate: AdminPlaceAnalyticsVMDelegate?
-    let place: PlaceInfo
+    var place: PlaceInfo
     let placesInteractor: PlacesInteractorType
     
     var reservationsData = Observable<[ReservationData]>([ReservationData]())
     
-    var analyticsData = [AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]()
+    var analyticsData = Observable<[AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]>([AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData]())
     
     var placeName: String {
         return place.name
@@ -43,8 +43,19 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
     init(place: PlaceInfo, placesInteractor: PlacesInteractorType) {
         self.place = place
         self.placesInteractor = placesInteractor
+        bindPlaces()
         createAnalyticsData()
         fetchReservationsData()
+    }
+    
+    private func bindPlaces() {
+        placesInteractor.allPlaces.bind { [weak self] places in
+            let updatedPlace = places.first { $0.id == self?.place.id }
+            if let placeInfo = updatedPlace {
+                self?.place = placeInfo
+                self?.createAnalyticsData()
+            }
+        }
     }
     
     private func createAnalyticsData() {
@@ -62,7 +73,7 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
             analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Attendence".localized, count: "\(attendenceCount)"))
         }
         
-        self.analyticsData = analyticsData
+        self.analyticsData.value = analyticsData
     }
     
     private func fetchReservationsData() {

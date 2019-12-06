@@ -138,13 +138,14 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
             let commentsInteractor = container?.resolve(CommentsInteractorType.self),
             let storiesInteractor = container?.resolve(StoriesInteractorType.self),
             let usersInteractor = container?.resolve(UsersInteracteorType.self),
+            let placesInteractor = container?.resolve(PlacesInteractorType.self),
             let user = container?.resolve(DizzyUser.self) else {
                 print("could not create placeProfileCoordinator")
                 return
         }
         
         container?.register(PlaceStoryVMType.self) { _ in
-            PlaceStoryVM(place: place, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor)
+            PlaceStoryVM(place: place, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor, placesIteractor: placesInteractor)
         }
         
         placeStoryCoordinator.onCoordinatorFinished = { [weak self] in
