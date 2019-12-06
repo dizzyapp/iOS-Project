@@ -27,6 +27,7 @@ final class CameraSessionController: NSObject {
     private var backCamera: AVCaptureDevice?
     private var frontCamera: AVCaptureDevice?
     private var currentCamera: AVCaptureDevice?
+    private var audioRecorder  = AVCaptureDevice.default(for: AVMediaType.audio)
     private var currentInput: AVCaptureDeviceInput?
     private var isCameraOpen = false
 
@@ -74,16 +75,31 @@ final class CameraSessionController: NSObject {
     }
     
     private func addInput() {
-        guard let camera = currentCamera else { return }
+        
         do {
-            let input = try AVCaptureDeviceInput(device: camera)
-            self.currentInput = input
-            if session.canAddInput(input) {
-                session.addInput(input)
-            }
+            try addCameraInput()
+            try addAudioInput()
+            
         } catch let error as NSError {
             guard let errorEnum = AVError.Code(rawValue: error.code) else { return }
             delegate?.cameraSessionControllerFailed(self, with: errorEnum)
+        }
+    }
+    
+    private func addCameraInput() throws {
+        guard let camera = currentCamera else { return }
+        let cameraInput = try AVCaptureDeviceInput(device: camera)
+        self.currentInput = cameraInput
+        if session.canAddInput(cameraInput) {
+            session.addInput(cameraInput)
+        }
+    }
+    
+    private func addAudioInput() throws {
+        guard let audioRecorder = audioRecorder else { return }
+        let audioInput = try AVCaptureDeviceInput(device: audioRecorder)
+        if session.canAddInput(audioInput) {
+            session.addInput(audioInput)
         }
     }
     
