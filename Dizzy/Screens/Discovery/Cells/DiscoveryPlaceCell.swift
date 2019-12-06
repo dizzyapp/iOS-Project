@@ -15,7 +15,7 @@ protocol DiscoveryPlaceCellDelegate: class {
     func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell)
 }
 
-class DiscoveryPlaceCell: UICollectionViewCell {
+class DiscoveryPlaceCell: UITableViewCell {
     let placeImageView = PlaceImageView()
     let placeNameLabel = UILabel()
     let placeAddressLabel = UILabel()
@@ -29,12 +29,8 @@ class DiscoveryPlaceCell: UICollectionViewCell {
 
     weak var delegate: DiscoveryPlaceCellDelegate?
     
-    init(placeInfo: PlaceInfo) {
-        super.init(frame: CGRect.zero)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubviews()
         layoutViews()
@@ -59,8 +55,9 @@ class DiscoveryPlaceCell: UICollectionViewCell {
     
     private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.leading.equalToSuperview()
-            placeImageView.centerY.equalTo(self.snp.centerY)
+            placeImageView.top.equalToSuperview().offset(Metrics.padding)
+            placeImageView.bottom.equalToSuperview().inset(Metrics.padding)
+            placeImageView.leading.equalToSuperview().offset(Metrics.padding)
             placeImageView.width.height.equalTo(placeImageViewSize)
         }
         

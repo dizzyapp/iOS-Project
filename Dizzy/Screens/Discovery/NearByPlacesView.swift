@@ -38,7 +38,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     private let placesViewContainer = UIView()
     private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
-    private let placesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: PlacesListFlowLayout())
+    private let placesTableView = UITableView(frame: CGRect.zero)
     
     private var searchBarToPlacesViewConstraint: Constraint?
     private var placesViewToSuperviewConstraint: Constraint?
@@ -62,7 +62,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     private func addSubviews() {
         self.addSubviews([searchBar, placesViewContainer])
-        self.placesViewContainer.addSubviews([searchButton, titleLabel, placesCollectionView])
+        self.placesViewContainer.addSubviews([searchButton, titleLabel, placesTableView])
     }
     
     private func layoutViews() {
@@ -92,7 +92,7 @@ class NearByPlacesView: UIView, LoadingContainer {
             titleLabel.leading.greaterThanOrEqualToSuperview().offset(Metrics.padding)
         }
         
-        placesCollectionView.snp.makeConstraints { placesCollectionView in
+        placesTableView.snp.makeConstraints { placesCollectionView in
             placesCollectionView.top.equalTo(titleLabel).offset(2 * Metrics.doublePadding)
             placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
@@ -106,7 +106,7 @@ class NearByPlacesView: UIView, LoadingContainer {
         setupPlacesViewContainer()
         setupSearchButton()
         setupTitleLabel()
-        setupPlacesCollectionView()
+        setupPlacesTableView()
     }
     
     private func setupSearchBar() {
@@ -135,18 +135,16 @@ class NearByPlacesView: UIView, LoadingContainer {
         titleLabel.text = "DISCOVER".localized
     }
     
-    private func setupPlacesCollectionView() {
-        placesCollectionView.allowsSelection = false
-        placesCollectionView.dataSource = self
-        placesCollectionView.backgroundColor = .clear
-        placesCollectionView.contentInset = safeAreaInsets
-
-        placesCollectionView.register(DiscoveryPlaceCell.self, forCellWithReuseIdentifier: cellIDentifier)
+    private func setupPlacesTableView() {
+        placesTableView.allowsSelection = false
+        placesTableView.dataSource = self
+        placesTableView.backgroundColor = .clear
+        placesTableView.contentInset = safeAreaInsets
+        placesTableView.register(DiscoveryPlaceCell.self, forCellReuseIdentifier: cellIDentifier)
     }
     
     func reloadData() {
-        placesCollectionView.collectionViewLayout.invalidateLayout()
-        placesCollectionView.reloadData()
+        placesTableView.reloadData()
     }
     
     func set(title: String) {
@@ -154,11 +152,11 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     func set(collectionViewContentInsets: UIEdgeInsets) {
-        placesCollectionView.contentInset = collectionViewContentInsets
+        placesTableView.contentInset = collectionViewContentInsets
     }
     
     func set(keyboardDismissMode: UIScrollView.KeyboardDismissMode) {
-        placesCollectionView.keyboardDismissMode = keyboardDismissMode
+        placesTableView.keyboardDismissMode = keyboardDismissMode
     }
     
     func showSearchMode() {
@@ -186,53 +184,47 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+        self.placesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        self.placesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.placesTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
 
-extension NearByPlacesView: UICollectionViewDataSource {
+extension NearByPlacesView: UITableViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.dataSource?.numberOfSections() ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        let itemsInSection = self.dataSource?.numberOfItemsForSection(section) ?? 0
-        return itemsInSection
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDentifier, for: indexPath) as? DiscoveryPlaceCell,
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIDentifier, for: indexPath) as? DiscoveryPlaceCell,
             let placeInfo = self.dataSource?.itemForIndexPath(indexPath) else {
-            print("could not dequeue \(cellIDentifier) or datasource is nil")
-            return UICollectionViewCell()
+                print("could not dequeue \(cellIDentifier) or datasource is nil")
+                return UITableViewCell()
         }
         
         cell.delegate = self
         cell.setPlaceInfo(placeInfo, currentAppLocation: dataSource?.getCurrentLocation())
         return cell
     }
-}
-
-extension NearByPlacesView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 60, height: 80)
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.dataSource?.numberOfSections() ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let itemsInSection = self.dataSource?.numberOfItemsForSection(section) ?? 0
+        return itemsInSection
     }
 }
 
 extension NearByPlacesView: DiscoveryPlaceCellDelegate {
     func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell) {
-        guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
+        guard let indexPath = placesTableView.indexPath(for: cell) else { return }
         delegate?.didPressPlaceIcon(atIndexPath: indexPath)
     }
     
     func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell) {
-        guard let indexPath = placesCollectionView.indexPath(for: cell) else { return }
+        guard let indexPath = placesTableView.indexPath(for: cell) else { return }
         delegate?.didPressPlaceDetails(atIndexPath: indexPath)
     }
 }
@@ -240,7 +232,7 @@ extension NearByPlacesView: DiscoveryPlaceCellDelegate {
 extension NearByPlacesView: SearchBarDelegate {
     func searchTextChanged(newText: String) {
         searchDelegate?.searchTextChanged(newText: newText)
-        placesCollectionView.setContentOffset(.zero, animated: true)
+        placesTableView.setContentOffset(.zero, animated: true)
     }
     
     func closePressed() {
