@@ -34,6 +34,11 @@ final class UploadStoryVC: ViewController, PopupPresenter {
         setupViews()
         setupNavigation()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

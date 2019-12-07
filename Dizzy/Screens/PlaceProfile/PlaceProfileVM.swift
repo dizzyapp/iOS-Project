@@ -21,6 +21,7 @@ protocol PlaceProfileVMType {
     func sholdShowStoryButton() -> Bool
     func onSwipeLeft()
     func onSwipeRight()
+    func getPlaceEvent() -> String?
 }
 
 protocol PlaceProfileVMDelegate: class {
@@ -143,5 +144,9 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
         }
         
         return index
+    }
+    
+    func getPlaceEvent() -> String? {
+        return placeInfo.event
     }
 }
