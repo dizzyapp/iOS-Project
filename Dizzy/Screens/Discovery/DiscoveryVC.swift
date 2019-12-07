@@ -251,6 +251,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
             self.showPlacesOnHalfScreenWithAnimation()
             self.showTopBarButtonsWithAnimation()
             self.viewModel.splashEnded()
+            self.viewModel.checkClosestPlace()
         })
     }
 }

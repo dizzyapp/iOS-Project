@@ -86,7 +86,6 @@ class DiscoveryVM: DiscoveryVMType {
             self.delegate?.allPlacesArrived()
             if isFirstTimePlacesArrived {
                 self.delegate?.showContentWithAnimation()
-                self.checkClosestPlace()
             }
             self.navigationDelegate?.register(places)
         }
