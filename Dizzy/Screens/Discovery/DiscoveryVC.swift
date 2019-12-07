@@ -232,7 +232,6 @@ extension DiscoveryVC: DiscoveryVMDelegate {
             }
             self.showPlacesOnHalfScreenWithAnimation()
             self.viewModel.splashEnded()
-            self.viewModel.checkClosestPlace()
         })
     }
 }
