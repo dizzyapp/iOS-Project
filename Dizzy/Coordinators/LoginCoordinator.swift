@@ -60,7 +60,13 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
             return user
         })
         
-        navigationController.popToRootViewController(animated: true)
+        restartLogin()
+    }
+    
+    func restartLogin() {
+        self.presentingVC.dismiss(animated: true) {[weak self] in
+            self?.start()
+        }
     }
     
     func closePressed() {
