@@ -108,6 +108,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     private func setupTopBarView() {
         topBar.delegate = self
+        topBar.hideButtons()
     }
     
     private func setupThemeVideoView() {
@@ -131,6 +132,13 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func showPlacesOnHalfScreenWithAnimation() {
         UIView.animate(withDuration: 1) {
             self.showPlacesOnHalfScreen()
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func showTopBarButtonsWithAnimation() {
+        UIView.animate(withDuration: 1) {
+            self.topBar.showButtons()
             self.view.layoutIfNeeded()
         }
     }
@@ -225,12 +233,16 @@ extension DiscoveryVC: DiscoveryVMDelegate {
     
     func allPlacesArrived() {
         nearByPlacesView.reloadData()
+    }
+    
+    func showContentWithAnimation() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
             guard self.appStartVM.appUserReturned else {
                 self.allPlacesArrived()
                 return
             }
             self.showPlacesOnHalfScreenWithAnimation()
+            self.showTopBarButtonsWithAnimation()
             self.viewModel.splashEnded()
         })
     }

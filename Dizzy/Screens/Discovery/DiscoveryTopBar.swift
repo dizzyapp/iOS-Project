@@ -89,6 +89,16 @@ class DiscoveryTopBar: UIView {
     public func setLocationName(_ name: String) {
         locationNameLabel.setText(name)
     }
+    
+    public func hideButtons() {
+        mapButton.alpha = 0
+        menuButton.alpha = 0
+    }
+    
+    public func showButtons() {
+        mapButton.alpha = 1
+        menuButton.alpha = 1
+    }
 }
 
 extension DiscoveryTopBar: LocationLabelDelegate {
