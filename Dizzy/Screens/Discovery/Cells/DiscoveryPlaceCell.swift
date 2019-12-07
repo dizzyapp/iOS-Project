@@ -91,7 +91,6 @@ class DiscoveryPlaceCell: UITableViewCell {
         setupStackView()
         setupLabels()
         setupPlaceImageView()
-        setupPlaceEventView()
     }
     
     private func setupStackView() {
@@ -123,8 +122,13 @@ class DiscoveryPlaceCell: UITableViewCell {
         placeImageView.addTarget(self, action: #selector(didPressIcon), for: .touchUpInside)
     }
     
-    func setupPlaceEventView() {
-        
+    func setupPlaceEventView(placeEvent: String?) {
+        placeEventView.setEventText(placeEvent)
+        if placeEvent != nil {
+            placeEventView.isHidden = false
+        } else {
+            placeEventView.isHidden = true
+        }
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
@@ -139,6 +143,8 @@ class DiscoveryPlaceCell: UITableViewCell {
         } else {
             distanceLabel.text = "--"
         }
+        
+        setupPlaceEventView(placeEvent: placeInfo.event)
     }
     
     @objc func didPressDetails() {

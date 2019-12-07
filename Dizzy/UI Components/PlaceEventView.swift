@@ -30,15 +30,17 @@ class PlaceEventView: UIView {
     
     private func layoutViews() {
         eventLabel.snp.makeConstraints { eventLabel in
-            eventLabel.top.leading.equalToSuperview().offset(Metrics.tinyPadding)
-            eventLabel.trailing.bottom.equalToSuperview().inset(Metrics.tinyPadding)
+            eventLabel.top.equalToSuperview().offset(Metrics.tinyPadding)
+            eventLabel.bottom.equalToSuperview().inset(Metrics.tinyPadding)
+            eventLabel.leading.equalToSuperview().offset(Metrics.mediumPadding)
+            eventLabel.trailing.equalToSuperview().inset(Metrics.mediumPadding)
         }
         
         eventLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
     }
     
     private func setupViews() {
-        backgroundColor = UIColor(hexString: "e3e3e3")
+        backgroundColor = UIColor(hexString: "#e3e3e3")
         layer.cornerRadius = 9
         setupEventLabel()
     }
@@ -46,6 +48,9 @@ class PlaceEventView: UIView {
     private func setupEventLabel() {
         eventLabel.font = Fonts.h9(weight: .medium)
         eventLabel.textColor = eventFontColor
-        eventLabel.text = "FREE ENTRANCE"
+    }
+    
+    public func setEventText(_ eventText: String?) {
+        eventLabel.text = eventText
     }
 }

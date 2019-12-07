@@ -29,6 +29,7 @@ struct PlaceInfo: Codable, FilterEntry {
     let publicistPhoneNumber: String?
     let placeSchedule: PlaceSchedule?
     let adminAnalytics: AdminAnalytics?
+    let event: String?
 }
 
 struct ActivePlace {
