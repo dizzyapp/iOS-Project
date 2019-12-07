@@ -25,6 +25,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private var nearByPlacesTopConstraint: Constraint?
     
     var isItFirstPageLoad = true
+    var isShowingPopup = false
     
     init(viewModel: DiscoveryVMType, appStartVM: AppStartVMType) {
         self.viewModel = viewModel
@@ -169,7 +170,9 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     @objc func onSwipeDown() {
-        guard viewModel.isSpalshEnded else { return }
+        guard viewModel.isSpalshEnded,
+        !isShowingPopup else { return }
+        
         if viewModel.isSearching {
             self.endSearch()
         } else {
@@ -181,7 +184,8 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     @objc func onSwipeUp() {
         guard viewModel.isSpalshEnded,
-            !viewModel.isSearching else { return }
+            !viewModel.isSearching,
+            !isShowingPopup else { return }
         didPressSearch()
     }
 }
@@ -220,9 +224,12 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func askIfUserIsInThisPlace(_ place: PlaceInfo) {
+        isShowingPopup = true
         showDizzyPopup(withMessage: "Are you in \(place.name)?", imageUrl: place.imageURLString, onOk: { [weak self] in
+            self?.isShowingPopup = false
             self?.viewModel.userApprovedHeIsIn(place: place)
             }, onCancel: { [weak self] in
+                self?.isShowingPopup = false
                self?.viewModel.userDeclinedHeIsInPlace()
         })
     }
@@ -244,6 +251,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
             self.showPlacesOnHalfScreenWithAnimation()
             self.showTopBarButtonsWithAnimation()
             self.viewModel.splashEnded()
+            self.viewModel.checkClosestPlace()
         })
     }
 }
