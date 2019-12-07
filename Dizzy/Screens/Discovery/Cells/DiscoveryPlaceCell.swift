@@ -20,6 +20,7 @@ class DiscoveryPlaceCell: UITableViewCell {
     let placeNameLabel = UILabel()
     let placeAddressLabel = UILabel()
     let distanceLabel = UILabel()
+    let placeEventView = PlaceEventView()
     let placeDetailsStackView = UIStackView()
     
     let stackViewTrailingPadding = CGFloat(15)
@@ -42,14 +43,14 @@ class DiscoveryPlaceCell: UITableViewCell {
     }
     
     private func addSubviews() {
-        addSubviews([placeImageView, placeDetailsStackView])
-        placeDetailsStackView.addSubviews([placeNameLabel, placeAddressLabel, distanceLabel])
+        addSubviews([placeImageView, placeDetailsStackView, placeEventView])
     }
     
     private func layoutViews() {
         
         self.layoutPlaceImageView()
         self.layoutPlaceDetailsStackView()
+        self.layoutPlaceEventView()
         self.layoutLabelsInStackView()
     }
     
@@ -68,7 +69,6 @@ class DiscoveryPlaceCell: UITableViewCell {
         placeDetailsStackView.snp.makeConstraints { placeDetailsStackView in
             placeDetailsStackView.top.bottom.equalTo(placeImageView)
             placeDetailsStackView.leading.equalTo(placeImageView.snp.trailing).offset(stackViewTrailingPadding)
-            placeDetailsStackView.trailing.equalToSuperview()
         }
     }
     
@@ -78,11 +78,20 @@ class DiscoveryPlaceCell: UITableViewCell {
         placeDetailsStackView.addArrangedSubview(distanceLabel)
     }
     
+    private func layoutPlaceEventView() {
+        placeEventView.snp.makeConstraints { placeEventView in
+            placeEventView.centerY.equalToSuperview()
+            placeEventView.trailing.equalToSuperview().inset(Metrics.padding)
+            placeEventView.leading.equalTo(placeDetailsStackView.snp.trailing).offset(Metrics.padding)
+        }
+    }
+    
     private func setupViews() {
         backgroundColor = .clear
         setupStackView()
         setupLabels()
         setupPlaceImageView()
+        setupPlaceEventView()
     }
     
     private func setupStackView() {
@@ -112,6 +121,10 @@ class DiscoveryPlaceCell: UITableViewCell {
         placeImageView.layer.cornerRadius = placeImageViewSize/2
         placeImageView.clipsToBounds = true
         placeImageView.addTarget(self, action: #selector(didPressIcon), for: .touchUpInside)
+    }
+    
+    func setupPlaceEventView() {
+        
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
