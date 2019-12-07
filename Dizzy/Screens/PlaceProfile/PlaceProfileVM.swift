@@ -18,6 +18,7 @@ protocol PlaceProfileVMType {
     func callButtonPressed()
     func requestTableButtonPressed()
     func storyButtonPressed()
+    func placeImagePressed()
     func sholdShowStoryButton() -> Bool
     func onSwipeLeft()
     func onSwipeRight()
@@ -26,8 +27,9 @@ protocol PlaceProfileVMType {
 
 protocol PlaceProfileVMDelegate: class {
     func placeProfileVMClosePressed(_ viewModel: PlaceProfileVMType)
-    func placeProfileVMStoryButtonPressed(_ viewModel: PlaceProfileVMType)
+    func placeProfileVMUploadStoryButtonPressed(_ viewModel: PlaceProfileVMType)
     func placeProfileVMRequestATableTapped(_ viewModel: PlaceProfileVMType, with place: PlaceInfo)
+    func placeProfileVMPlaceImagePresset(placeInfo: PlaceInfo)
 }
 
 final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
@@ -108,7 +110,11 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     }
 
     func storyButtonPressed() {
-        delegate?.placeProfileVMStoryButtonPressed(self)
+        delegate?.placeProfileVMUploadStoryButtonPressed(self)
+    }
+    
+    func placeImagePressed() {
+        delegate?.placeProfileVMPlaceImagePresset(placeInfo: placeInfo)
     }
     
     func sholdShowStoryButton() -> Bool {

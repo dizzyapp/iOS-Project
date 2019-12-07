@@ -14,10 +14,11 @@ protocol PlaceProfileViewDelegate: class {
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewPlaceImagePressed(_ view: PlaceProfileView)
 }
 
 final class PlaceProfileView: UIView {
-    
+    weak var delegate: PlaceProfileViewDelegate?
     var backgroundView = UIView()
     var placeImageView = PlaceImageView()
     var titleLabel = UILabel()
@@ -131,6 +132,11 @@ final class PlaceProfileView: UIView {
 
     private func setupPlaceImageView() {
         placeImageView.imageSize = placeImageViewSize
+        placeImageView.addTarget(self, action: #selector(onPlaceImagePress), for: .touchUpInside)
+    }
+    
+    @objc private func onPlaceImagePress() {
+        self.delegate?.placeProfileViewPlaceImagePressed(self)
     }
 
     private func setupStackView() {
@@ -186,8 +192,6 @@ final class PlaceProfileView: UIView {
         storyButton.addTarget(self, action: #selector(storyButtonPressed), for: .touchUpInside)
     }
 
-    weak var delegate: PlaceProfileViewDelegate?
-
     func configure(with place: PlaceInfo) {
         
         self.placeInfo = place
@@ -215,6 +219,7 @@ final class PlaceProfileView: UIView {
     func hideStoryButton() {
         storyButton.isHidden = true
     }
+    
 }
 
 extension PlaceProfileView {

@@ -13,7 +13,7 @@ protocol HomeCoordinatorType: Coordinator {
     var window: UIWindow { get }
 }
 
-final class HomeCoordinator: HomeCoordinatorType {
+final class HomeCoordinator: HomeCoordinatorType, StoryCoordinatorOpener {
     
     private var discoveryVC: DiscoveryVC?
     private var tabsIconPadding: CGFloat { return Metrics.padding }
@@ -133,27 +133,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
     }
     
     func placeCellIconPressed(_ place: PlaceInfo) {
-        guard let presntingVC = presentedViewControllers.first,
-            let placeStoryCoordinator = container?.resolve(PlaceStoryCoordinatorType.self, argument: presntingVC),
-            let commentsInteractor = container?.resolve(CommentsInteractorType.self),
-            let storiesInteractor = container?.resolve(StoriesInteractorType.self),
-            let usersInteractor = container?.resolve(UsersInteracteorType.self),
-            let placesInteractor = container?.resolve(PlacesInteractorType.self),
-            let user = container?.resolve(DizzyUser.self) else {
-                print("could not create placeProfileCoordinator")
-                return
-        }
-        
-        container?.register(PlaceStoryVMType.self) { _ in
-            PlaceStoryVM(place: place, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor, placesIteractor: placesInteractor)
-        }
-        
-        placeStoryCoordinator.onCoordinatorFinished = { [weak self] in
-            self?.removeCoordinator(for: .placeStory)
-        }
-        
-        placeStoryCoordinator.start()
-        add(coordinator: placeStoryCoordinator, for: .placeStory)
+        showPlaceStory(placeInfo: place, presentingVC: presentedViewControllers.first)
     }
     
     func register(_ allPlaces: [PlaceInfo]) {

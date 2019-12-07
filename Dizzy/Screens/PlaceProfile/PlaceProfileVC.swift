@@ -211,6 +211,10 @@ final class PlaceProfileVC: UIViewController {
 }
 
 extension PlaceProfileVC: PlaceProfileViewDelegate {
+    func placeProfileViewPlaceImagePressed(_ view: PlaceProfileView) {
+        viewModel.placeImagePressed()
+    }
+    
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView) {
         viewModel.addressButtonPressed(view: view)
     }

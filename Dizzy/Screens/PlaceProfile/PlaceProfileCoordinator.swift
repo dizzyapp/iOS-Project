@@ -44,7 +44,7 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType, ReserveTableDis
         presentingVC?.present(navigationController, animated: true)
     }
     
-    private func showStory(with place: PlaceInfo) {
+    private func showUploadStory(with place: PlaceInfo) {
         guard let uploadStoryCoordinator = container?.resolve(UploadStoryCoordinatorType.self, argument: navigationController) else {
             print("could not create uploadStoryCoordinator")
             return
@@ -66,7 +66,7 @@ final class PlaceProfileCoodinator: PlaceProfileCoordinatorType, ReserveTableDis
     }
 }
 
-extension PlaceProfileCoodinator: PlaceProfileVMDelegate {
+extension PlaceProfileCoodinator: PlaceProfileVMDelegate, StoryCoordinatorOpener {
     func placeProfileVMRequestATableTapped(_ viewModel: PlaceProfileVMType, with place: PlaceInfo) {
         showReservation(with: place)
     }
@@ -76,7 +76,11 @@ extension PlaceProfileCoodinator: PlaceProfileVMDelegate {
         onCoordinatorFinished()
     }
     
-    func placeProfileVMStoryButtonPressed(_ viewModel: PlaceProfileVMType) {
-        showStory(with: viewModel.placeInfo)
+    func placeProfileVMUploadStoryButtonPressed(_ viewModel: PlaceProfileVMType) {
+        showUploadStory(with: viewModel.placeInfo)
+    }
+    
+    func placeProfileVMPlaceImagePresset(placeInfo: PlaceInfo) {
+        showPlaceStory(placeInfo: placeInfo, presentingVC: navigationController.viewControllers.last)
     }
 }
