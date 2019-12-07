@@ -79,11 +79,19 @@ class DiscoveryVM: DiscoveryVMType {
     private func bindPlaces() {
         placesInteractor.allPlaces.bind {[weak self] places in
             guard let self = self else { return }
+            let isFirstTimePlacesArrived = self.placesArrivedForTheFirstTime()
             self.allPlaces = places
             self.sortAllPlacesByDistance()
             self.delegate?.allPlacesArrived()
+            if isFirstTimePlacesArrived {
+                self.checkClosestPlace()
+            }
             self.navigationDelegate?.register(places)
         }
+    }
+    
+    private func placesArrivedForTheFirstTime() -> Bool {
+        return allPlaces.isEmpty
     }
     
     private func bindLocationProvider() {
