@@ -42,6 +42,7 @@ protocol DiscoveryVMDelegate: class {
     func reloadData()
     func allPlacesArrived()
     func askIfUserIsInThisPlace(_ place: PlaceInfo)
+    func showContentWithAnimation()
 }
 
 protocol DiscoveryViewModelNavigationDelegate: class {
@@ -84,6 +85,7 @@ class DiscoveryVM: DiscoveryVMType {
             self.sortAllPlacesByDistance()
             self.delegate?.allPlacesArrived()
             if isFirstTimePlacesArrived {
+                self.delegate?.showContentWithAnimation()
                 self.checkClosestPlace()
             }
             self.navigationDelegate?.register(places)
