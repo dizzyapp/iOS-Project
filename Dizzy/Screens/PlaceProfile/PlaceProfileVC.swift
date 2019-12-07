@@ -17,6 +17,8 @@ final class PlaceProfileVC: UIViewController {
     private let imageView = UIImageView()
     private let swipesContainerView = UIView()
     private var placeProfileView = PlaceProfileView()
+    private let closeButton = UIButton().navigaionCloseButton
+    private let placeEventView = PlaceEventView()
     
     private let viewModel: PlaceProfileVMType
     
@@ -38,6 +40,11 @@ final class PlaceProfileVC: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     private func setupView() {
@@ -75,10 +82,20 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func setupNavigation() {
-        let closeButton = UIButton().navigaionCloseButton
+        setupCloseButton()
+        setupEventView()
+    }
+    
+    private func setupCloseButton() {
         closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
-        let closeBarButton = UIBarButtonItem(customView: closeButton)
-        navigationItem.rightBarButtonItem = closeBarButton
+    }
+    
+    private func setupEventView() {
+        if let placeEventText = viewModel.getPlaceEvent() {
+            placeEventView.setEventText(placeEventText)
+        } else {
+            placeEventView.isHidden = true
+        }
     }
     
     private func setupImageView() {
@@ -101,10 +118,21 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, imageView, videoView, swipesContainerView, placeProfileView])
+        view.addSubviews([loadingView, imageView, videoView, swipesContainerView, placeProfileView, closeButton, placeEventView])
     }
     
     private func layoutViews() {
+        
+        placeEventView.snp.makeConstraints { placeEventView in
+            placeEventView.centerY.equalTo(closeButton.snp.centerY)
+            placeEventView.leading.equalToSuperview().offset(Metrics.doublePadding)
+        }
+        
+        closeButton.snp.makeConstraints { closeButton in
+            closeButton.top.equalTo(view.snp.topMargin).offset(Metrics.doublePadding)
+            closeButton.trailing.equalToSuperview().inset(Metrics.doublePadding)
+        }
+        
         loadingView.snp.makeConstraints { loadingView in
             loadingView.edges.equalToSuperview()
         }
