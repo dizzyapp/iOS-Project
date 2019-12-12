@@ -143,14 +143,15 @@ final class LoginVC: UIViewController, LoadingContainer, PopupPresenter, CardVC 
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
         titleLabel.font = Fonts.h7(weight: .bold)
-        titleLabel.textColor = .blue
-        titleLabel.text = "CONNECT".localized
+        titleLabel.textColor = .darkDizzyBlue
+        titleLabel.text = "Welcome to Dizzy!".localized
     }
     
     private func setupSubtitleLabel() {
         subtitleLabel.textAlignment = .center
         subtitleLabel.font = Fonts.h5(weight: .bold)
-        subtitleLabel.text = "Welcome to Dizzy!".localized
+        subtitleLabel.textColor = .dizzyBlue
+        subtitleLabel.text = "CONNECT".localized
     }
     
     private func setupLoginSelectionView() {

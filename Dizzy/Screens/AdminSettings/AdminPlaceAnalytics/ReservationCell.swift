@@ -11,7 +11,7 @@ import Kingfisher
 
 final class ReservationCell: UITableViewCell {
     
-    private let iconImageHeight = CGFloat(40)
+    private let iconImageHeight = CGFloat(50)
     
     private let nameLabel = UILabel()
     private let numberOfPeopleLabel = UILabel()
@@ -34,7 +34,7 @@ final class ReservationCell: UITableViewCell {
     }
     
     private func setupNameLabel() {
-        nameLabel.textColor = .primeryPurple
+        nameLabel.textColor = .dizzyBlue
         nameLabel.numberOfLines = 1
         nameLabel.font = Fonts.h6(weight: .bold)
     }

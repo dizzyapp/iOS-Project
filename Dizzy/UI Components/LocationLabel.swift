@@ -52,7 +52,7 @@ class LocationLabel: UIView {
     
     private func setupTextLabel() {
         textLabel.numberOfLines = 1
-        textLabel.font = Fonts.h5(weight: .medium)
+        textLabel.font = Fonts.h5(weight: .bold)
         textLabel.textColor = .white
         textLabel.contentMode = .center
     }

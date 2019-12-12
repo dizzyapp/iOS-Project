@@ -105,11 +105,11 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
         case .about:
             baseUrl += ""
         case .contactUs:
-            baseUrl += ""
+            baseUrl += "contact.html"
         case .privacyPolicy:
-            baseUrl += ""
+            baseUrl += "privacy.html"
         case .termsOfUse:
-            baseUrl += ""
+            baseUrl += "terms.html"
         }
         if let url = URL(string: baseUrl) {
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in

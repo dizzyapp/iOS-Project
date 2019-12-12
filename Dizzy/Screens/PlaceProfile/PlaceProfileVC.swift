@@ -25,6 +25,7 @@ final class PlaceProfileVC: UIViewController {
     let placeProfileViewCornerRadius = CGFloat(10)
     let placeProfileViewPadding = CGFloat(15)
     let placeProfileTopOffset = CGFloat(5)
+    let placeProfileViewHeight = CGFloat(375)
     
     private var isFirstLoad = true
 
@@ -150,7 +151,7 @@ final class PlaceProfileVC: UIViewController {
         }
         
         placeProfileView.snp.makeConstraints { placeProfileView in
-            placeProfileView.top.equalTo(view.snp.centerY).offset(Metrics.tinyPadding)
+            placeProfileView.top.equalTo(view.snp.bottom).inset(placeProfileViewHeight)
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
             placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
             placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding)

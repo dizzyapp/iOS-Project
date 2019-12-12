@@ -40,8 +40,8 @@ class PlaceEventView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = UIColor(hexString: "#e3e3e3")
-        layer.cornerRadius = 9
+        backgroundColor = UIColor(hexString: "#F1F1F1")
+        layer.cornerRadius = 13
         setupEventLabel()
     }
     

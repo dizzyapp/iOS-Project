@@ -148,18 +148,18 @@ final class PlaceProfileView: UIView {
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
         titleLabel.textColor = .black
-        titleLabel.font = Fonts.h1(weight: .bold)
+        titleLabel.font = Fonts.h4(weight: .bold)
     }
 
     private func setupDescriptionLabel() {
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = .black
-        descriptionLabel.font = Fonts.h8()
+        descriptionLabel.font = Fonts.h10()
     }
 
     private func setupAddressButton() {
-        addressButton.setTitleColor(UIColor.blue, for: .normal)
-        addressButton.titleLabel?.font = Fonts.h8(weight: .bold)
+        addressButton.setTitleColor(UIColor.dizzyBlue, for: .normal)
+        addressButton.titleLabel?.font = Fonts.h9(weight: .bold)
         addressButton.addTarget(self, action: #selector(addressButtonPressed), for: .touchUpInside)
     }
 
@@ -172,7 +172,7 @@ final class PlaceProfileView: UIView {
     private func setupAgeLabel() {
         ageLabel.textAlignment = .center
         ageLabel.textColor = .black
-        ageLabel.font = Fonts.h4()
+        ageLabel.font = Fonts.h8(weight: .medium)
     }
 
     private func setupCallButton() {
@@ -182,8 +182,8 @@ final class PlaceProfileView: UIView {
 
     private func setupRequestTableButton() {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
-        requestTableButton.setTitle("RESERVE".localized, for: .normal)
-        requestTableButton.setTitleColor(UIColor.white, for: .normal)
+        requestTableButton.setTitle("RESERVE A TABLE".localized, for: .normal)
+        requestTableButton.setTitleColor(UIColor.green, for: .normal)
         requestTableButton.titleLabel?.font = Fonts.h5(weight: .bold)
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
@@ -209,7 +209,7 @@ final class PlaceProfileView: UIView {
         ageLabel.text = place.authorizedAge
         
         if let dateType = Date().dayType, let time = dateType.getTime(from: place.placeSchedule) {
-            let openHoursFormat = "[Y] hours: [X]".localized
+            let openHoursFormat = "[Y]: [X]".localized
             var openHourText = openHoursFormat.replacingOccurrences(of: "[X]", with: time)
             openHourText = openHourText.replacingOccurrences(of: "[Y]", with: dateType.rawValue)
             openHoursLabel.text = openHourText

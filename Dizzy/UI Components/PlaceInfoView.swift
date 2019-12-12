@@ -135,11 +135,11 @@ class PlaceInfoView: UIView {
     }
     
     private func setupReservationButton() {
-        reservationButton.setTitle("RESERVE".localized, for: .normal)
+        reservationButton.setTitle("RESERVE A TABLE".localized, for: .normal)
         reservationButton.layer.cornerRadius = reservationButtonHeight/3
-        reservationButton.setTitleColor(.white, for: .normal)
-        reservationButton.titleLabel?.font = Fonts.h10(weight: .bold)
-        reservationButton.backgroundColor = UIColor.blue
+        reservationButton.setTitleColor(.green, for: .normal)
+        reservationButton.titleLabel?.font = Fonts.h11(weight: .bold)
+        reservationButton.backgroundColor = UIColor.dizzyBlue
         reservationButton.addTarget(self, action: #selector(didPressReservationButton), for: .touchUpInside)
     }
     
@@ -154,7 +154,7 @@ class PlaceInfoView: UIView {
         if let currentLocation = currentAppLocation {
             distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
         } else {
-            distanceLabel.text = "--"
+            distanceLabel.text = "..."
         }
     }
     

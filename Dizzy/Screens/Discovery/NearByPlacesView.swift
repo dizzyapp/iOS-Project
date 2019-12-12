@@ -96,7 +96,7 @@ class NearByPlacesView: UIView, LoadingContainer {
             placesCollectionView.top.equalTo(titleLabel).offset(2 * Metrics.doublePadding)
             placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
-            placesCollectionView.bottom.equalToSuperview()
+            placesCollectionView.bottom.equalToSuperview().inset(Metrics.triplePadding)
         }
     }
     
@@ -131,8 +131,8 @@ class NearByPlacesView: UIView, LoadingContainer {
     private func setupTitleLabel() {
         titleLabel.font = Fonts.h6(weight: .bold)
         titleLabel.numberOfLines = 1
-        titleLabel.textColor = UIColor(hexString: "1900AF")
-        titleLabel.text = "DISCOVER".localized
+        titleLabel.textColor = UIColor.dizzyBlue
+        titleLabel.text = "Explore Nightlife".localized
     }
     
     private func setupPlacesTableView() {
@@ -161,7 +161,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     func showSearchMode() {
         searchButton.isHidden = true
-        titleLabel.text = "SEARCH".localized
+        titleLabel.text = "Search Nightlife".localized
         searchBar.alpha = 1
         searchBar.startEditing()
         searchBarToPlacesViewConstraint?.activate()
@@ -171,7 +171,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     func hideSearchMode() {
         searchButton.isHidden = false
         searchBar.stopEditing()
-        titleLabel.text = "DISCOVER".localized
+        titleLabel.text = "Explore Nightlife".localized
         searchBar.alpha = 0
         searchBarToPlacesViewConstraint?.deactivate()
         placesViewToSuperviewConstraint?.activate()

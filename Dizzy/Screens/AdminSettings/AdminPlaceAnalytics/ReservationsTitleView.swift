@@ -33,13 +33,13 @@ final class ReservationsTitleView: UIView {
     
     private func setupLeadingLabel() {
         leadingLabel.text = "Reservations".localized
-        leadingLabel.font = Fonts.h4(weight: .bold)
+        leadingLabel.font = Fonts.h1(weight: .bold)
         leadingLabel.textAlignment = .natural
     }
     
     private func setupTrealingLabel() {
         trealingLabel.text = "# of People".localized
-        trealingLabel.font = Fonts.h5(weight: .bold)
+        trealingLabel.font = Fonts.h7(weight: .bold)
         trealingLabel.textAlignment = .oppositeNatural
     }
     

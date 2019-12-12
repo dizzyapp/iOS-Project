@@ -28,7 +28,7 @@ final class PlaceStoryVC: ViewController {
     let bottomBackgroundView = UIView()
     
     var commentsTextInputViewBottomConstraint: Constraint?
-    private let commentsViewHeightRatio = CGFloat(0.3)
+    private let commentsViewHeightRatio = CGFloat(0.382)
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel

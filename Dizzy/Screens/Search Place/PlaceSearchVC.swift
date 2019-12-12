@@ -73,7 +73,7 @@ final class PlaceSearchVC: ViewController {
     }
     
     private func setupPlacesView() {
-        placesViews.set(title: "Search".localized)
+        placesViews.set(title: "Search Nightlife".localized)
         placesViews.set(keyboardDismissMode: .onDrag)
         placesViews.dataSource = self
         placesViews.delegate = self

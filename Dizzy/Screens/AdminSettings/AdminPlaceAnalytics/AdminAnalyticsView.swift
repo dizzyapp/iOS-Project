@@ -87,13 +87,13 @@ final class AdminAnalyticsView: UIView {
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.h7(weight: .bold)
-        titleLabel.textColor = .primeryPurple
+        titleLabel.textColor = .dizzyBlue
         titleLabel.textAlignment = .natural
     }
     
     private func setupCountLabel() {
         countLabel.numberOfLines = 1
-        countLabel.textColor = .primeryPurple
+        countLabel.textColor = .dizzyBlue
         countLabel.textAlignment = .center
         countLabel.font = Fonts.h1(weight: .bold)
     }

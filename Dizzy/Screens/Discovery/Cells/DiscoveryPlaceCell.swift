@@ -124,6 +124,7 @@ class DiscoveryPlaceCell: UITableViewCell {
     
     func setupPlaceEventView(placeEvent: String?) {
         placeEventView.setEventText(placeEvent)
+        placeEventView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressDetails)))
         if placeEvent != nil {
             placeEventView.isHidden = false
         } else {
