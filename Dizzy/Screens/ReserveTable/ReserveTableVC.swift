@@ -193,7 +193,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     func makeCardConstraints() {
         cardContainerView.snp.makeConstraints { loginContainerView in
-            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.sixTimesPadding)
+            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.sevenTimesPadding)
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.oneAndHalfPadding)
         }
