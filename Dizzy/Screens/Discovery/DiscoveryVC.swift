@@ -268,7 +268,7 @@ extension DiscoveryVC: NearByPlacesViewDelegate {
 
 extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     func searchTextChanged(newText: String) {
-        viewModel.searchPlacesByName(newText)
+        viewModel.searchPlacesByNameAndDescription(newText)
     }
     
     func didPressSearch() {
@@ -287,7 +287,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
             self.topBar.alpha = 1
             self.nearByPlacesView.hideSearchMode()
             self.showPlacesOnHalfScreen()
-            self.viewModel.searchPlacesByName("")
+            self.viewModel.searchPlacesByNameAndDescription("")
             self.view.layoutIfNeeded()
         }
     }
