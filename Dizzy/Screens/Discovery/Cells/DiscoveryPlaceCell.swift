@@ -101,7 +101,7 @@ class DiscoveryPlaceCell: UITableViewCell {
     }
     
     private func setupLabels() {
-        placeNameLabel.font = Fonts.h10(weight: .bold)
+        placeNameLabel.font = Fonts.h8(weight: .bold)
         placeNameLabel.numberOfLines = 1
         placeNameLabel.textAlignment = .left
         
@@ -142,7 +142,7 @@ class DiscoveryPlaceCell: UITableViewCell {
         if let currentLocation = currentAppLocation {
             distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
         } else {
-            distanceLabel.text = "--"
+            distanceLabel.text = "..."
         }
         
         setupPlaceEventView(placeEvent: placeInfo.event)

@@ -96,7 +96,7 @@ class NearByPlacesView: UIView, LoadingContainer {
             placesCollectionView.top.equalTo(titleLabel).offset(2 * Metrics.doublePadding)
             placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
-            placesCollectionView.bottom.equalToSuperview().inset(Metrics.triplePadding)
+            placesCollectionView.bottom.equalToSuperview().inset(Metrics.oneAndHalfPadding)
         }
     }
     
@@ -129,7 +129,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.h6(weight: .bold)
+        titleLabel.font = Fonts.h2(weight: .bold)
         titleLabel.numberOfLines = 1
         titleLabel.textColor = UIColor.dizzyBlue
         titleLabel.text = "Explore Nightlife".localized

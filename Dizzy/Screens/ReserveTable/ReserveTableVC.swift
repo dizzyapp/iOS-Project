@@ -112,7 +112,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         titleLabel.text = "Reserve a table" .localized
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor.dizzyBlue
-        titleLabel.font = Fonts.h1(weight: .bold)
+        titleLabel.font = Fonts.i3(weight: .bold)
     }
     
     private func setupMainmainStackView() {

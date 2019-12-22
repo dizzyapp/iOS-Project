@@ -153,6 +153,7 @@ final class PlaceStoryVC: ViewController {
     
     private func shoewImageView() {
         self.imageView.isHidden = false
+        imageView.contentMode = .scaleAspectFill
         self.videoView.isHidden = true
         self.videoView.stop()
     }
