@@ -174,7 +174,8 @@ class DiscoveryVM: DiscoveryVMType {
         let closestPlace = placesToDisplay.value[0]
         let distanceToPlaceInMeters = currentLocation.getDistanceTo(closestPlace.location, inScaleOf: .meters)
         
-        if distanceToPlaceInMeters < maxMetersFromPlaceToVisit {
+        if closestPlace.id != activePlace?.id,
+            distanceToPlaceInMeters < maxMetersFromPlaceToVisit {
             self.delegate?.askIfUserIsInThisPlace(closestPlace)
         } else {
             self.navigationDelegate?.activePlaceWasSet(nil)
