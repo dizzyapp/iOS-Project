@@ -39,9 +39,7 @@ class LoginSelectionView: UIView {
     }
     
     private func layoutViews() {
-        
         layoutLoginWithDizzyButton()
-        layoutLoginFacebookButton()
         layoutOrLabel()
         layoutSignUpButton()
     }
@@ -64,7 +62,7 @@ class LoginSelectionView: UIView {
     
     private func layoutOrLabel() {
         orLabel.snp.makeConstraints { orLabel in
-            orLabel.top.equalTo(loginFacebookButton.snp.bottom).offset(Metrics.padding)
+            orLabel.top.equalTo(loginWithDizzyButton.snp.bottom).offset(Metrics.doublePadding)
             orLabel.leading.trailing.equalToSuperview()
         }
     }
