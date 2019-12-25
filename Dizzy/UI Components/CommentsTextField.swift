@@ -41,7 +41,7 @@ class CommentsTextField: UIView {
     
     private func setupSendButton() {
         sendButton.titleLabel?.font = Fonts.h6(weight: .bold)
-        sendButton.setTitleColor(.blue, for: .normal)
+        sendButton.setTitleColor(.dizzyBlue, for: .normal)
         sendButton.setTitle("Post".localized, for: .normal)
         sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
@@ -50,6 +50,7 @@ class CommentsTextField: UIView {
         textField.textColor = UIColor.white
         textField.font = Fonts.h8(weight: .bold)
         textField.delegate = self
+        textField.autocorrectionType = .no
     }
     
     private func addSubviews() {

@@ -19,7 +19,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     var viewModel: DiscoveryVMType
     let appStartVM: AppStartVMType
     
-    let nearByPlacesViewPadding = CGFloat(0)
+    let nearByPlacesViewPadding = CGFloat(10)
     let nearByPlacesViewHeightRatio = CGFloat(0.50)
     
     private var nearByPlacesTopConstraint: Constraint?
@@ -76,7 +76,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
             nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeVideoView.snp.bottom).constraint
             nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
             nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
-            nearByPlacesView.bottom.equalToSuperview()
+            nearByPlacesView.height.equalToSuperview().multipliedBy(0.62)
         }
     }
     
@@ -126,7 +126,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
         nearByPlacesView.searchDelegate = self
-        nearByPlacesView.alpha = 0.9
+        nearByPlacesView.alpha = 0.97
         nearByPlacesView.reloadData()
     }
     
@@ -145,7 +145,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
 
     private func showPlacesOnHalfScreen() {
-        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 25)
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 175)
     }
     
     private func showPlacesOnFullScreen() {
@@ -225,7 +225,7 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 extension DiscoveryVC: DiscoveryVMDelegate {
     func askIfUserIsInThisPlace(_ place: PlaceInfo) {
         isShowingPopup = true
-        showDizzyPopup(withMessage: "Are you in \(place.name)?", imageUrl: place.imageURLString, onOk: { [weak self] in
+        showDizzyPopup(withMessage: "Are you at \(place.name)?", imageUrl: place.imageURLString, onOk: { [weak self] in
             self?.isShowingPopup = false
             self?.viewModel.userApprovedHeIsIn(place: place)
             }, onCancel: { [weak self] in

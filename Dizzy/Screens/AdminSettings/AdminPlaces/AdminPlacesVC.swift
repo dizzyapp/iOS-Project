@@ -64,9 +64,9 @@ final class AdminPlacesVC: ViewController, CardVC, LoadingContainer {
     
     private func setupTitleLabel() {
         titleLabel.font = Fonts.h3(weight: .bold)
-        titleLabel.textColor = .primeryPurple
+        titleLabel.textColor = .dizzyBlue
         titleLabel.textAlignment = .center
-        titleLabel.text = "SELECT YOUR BUSINESS".localized
+        titleLabel.text = "Select your business".localized
     }
     
     private func setupNavigationView() {

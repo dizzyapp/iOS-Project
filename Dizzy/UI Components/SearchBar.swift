@@ -62,8 +62,10 @@ class SearchBar: UIView {
     private func setupSearchTextField() {
         searchTextField.delegate = self
         searchTextField.autocorrectionType = .no
-        searchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.8)
-        searchTextField.layer.cornerRadius = 10
+        searchTextField.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        searchTextField.textColor = UIColor.white
+        searchTextField.font = Fonts.h7(weight: .bold)
+        searchTextField.layer.cornerRadius = 16
         searchTextField.addPaddingToMarker()
         searchTextField.addTarget(self, action: #selector(searchTextFieldDidChange), for: .editingChanged)
     }

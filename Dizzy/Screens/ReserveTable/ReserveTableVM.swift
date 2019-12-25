@@ -56,7 +56,7 @@ final class ReserveTableVM: ReserveTableVMType {
         }
         
         if let name = name, !name.isEmpty {
-            messageText += "/n -[\(name)]"
+            messageText += "\n -\(name)"
         }
         
         requestATable(placeInfo, text: messageText)

@@ -26,11 +26,10 @@ class DizzyLoadingView: UIView {
         self.addSubview(loadingIcon)
         
         loadingIcon.snp.makeConstraints { logoIcon in
-            logoIcon.top.greaterThanOrEqualTo(self.snp.top)
             logoIcon.leading.greaterThanOrEqualTo(self.snp.leading)
             logoIcon.trailing.lessThanOrEqualTo(self.snp.trailing)
-            logoIcon.bottom.lessThanOrEqualTo(self.snp.bottom)
-            logoIcon.center.equalToSuperview()
+            logoIcon.bottom.equalToSuperview().inset(450)
+            logoIcon.centerX.equalToSuperview()
         }
     }
     

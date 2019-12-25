@@ -35,8 +35,8 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     let titleLabel = UILabel()
     let placeNameLabel = UILabel()
     let mainStackView = UIStackView()
-    let nameTextField = UITextField().loginTextfield(withPlaceholder: "Your Name".localized)
-    let numberOfPeopleTextField = UITextField().loginTextfield(withPlaceholder: "How Many People?".localized)
+    let nameTextField = UITextField().loginTextfield(withPlaceholder: "Your full name".localized)
+    let numberOfPeopleTextField = UITextField().loginTextfield(withPlaceholder: "For how many people?".localized)
     let sendButton = UIButton(type: .system)
 
     let buttonsStackView = UIStackView()
@@ -105,13 +105,14 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         setupPlaceNameLabel()
         setupCloseButton()
         numberOfPeopleTextField.keyboardType = .numberPad
+        nameTextField.autocorrectionType = .no
     }
     
     private func setupTitleLabel() {
-        titleLabel.text = "Reservations".localized
+        titleLabel.text = "Reserve a table" .localized
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor.dizzyBlue
-        titleLabel.font = Fonts.h1(weight: .bold)
+        titleLabel.font = Fonts.i3(weight: .bold)
     }
     
     private func setupMainmainStackView() {
@@ -127,9 +128,9 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupSendButton() {
-        sendButton.setTitle("SEND".localized, for: .normal)
-        sendButton.titleLabel?.font = Fonts.h10(weight: .bold)
-        sendButton.setTitleColor(.white, for: .normal)
+        sendButton.setTitle("Go to WhatsApp".localized, for: .normal)
+        sendButton.titleLabel?.font = Fonts.h8(weight: .bold)
+        sendButton.setTitleColor(.green, for: .normal)
         sendButton.layer.cornerRadius = signInCornerRadius
         sendButton.backgroundColor = signInButtonBackgroundColor
         sendButton.addTarget(self, action: #selector(onSendPressed), for: .touchUpInside )
@@ -160,6 +161,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         commentsTextView.textContainer.lineBreakMode = .byWordWrapping
         commentsTextView.backgroundColor = nameTextField.backgroundColor
         commentsTextView.layer.cornerRadius = nameTextField.layer.cornerRadius
+        commentsTextView.autocorrectionType = .no
     }
     
     private func layoutViews() {
@@ -191,7 +193,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     func makeCardConstraints() {
         cardContainerView.snp.makeConstraints { loginContainerView in
-            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.eightTimesPadding)
+            loginContainerView.top.equalTo(view.snp.topMargin).offset(Metrics.sevenTimesPadding)
             loginContainerView.leading.trailing.equalToSuperview()
             loginContainerView.bottom.equalToSuperview().offset(Metrics.oneAndHalfPadding)
         }

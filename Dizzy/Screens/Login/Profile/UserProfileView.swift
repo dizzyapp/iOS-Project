@@ -20,7 +20,7 @@ class UserProfileView: UIView {
 
     weak var delegate: UserProfileViewDelegate?
 
-    let nameColor = UIColor.black.withAlphaComponent(0.53)
+    let nameColor = UIColor.dizzyBlue
     let user: DizzyUser
     let profileButtonWidth: CGFloat = 80
 
@@ -77,7 +77,7 @@ class UserProfileView: UIView {
     private func setupProfileNameLabel() {
         self.profileNameLabel.text = user.fullName
         self.profileNameLabel.textColor = nameColor
-        self.profileNameLabel.font = Fonts.h6()
+        self.profileNameLabel.font = Fonts.h4(weight: .bold)
     }
 
     public func updateProfileImage(_ image: UIImage) {
