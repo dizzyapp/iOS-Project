@@ -209,7 +209,19 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     @objc private func onSendPressed() {
-        viewModel.requestATable(with: nameTextField.text, numberOfPeople: numberOfPeopleTextField.text, time: "", comment: commentsTextView.text)
+        let selectedTime = buttonTypeSelected()
+        viewModel.requestATable(with: nameTextField.text, numberOfPeople: numberOfPeopleTextField.text, time: selectedTime, comment: commentsTextView.text)
+    }
+    
+    private func buttonTypeSelected() -> String {
+        switch UIColor.dizzyBlue {
+        case tonightButton.titleColor(for: .normal):
+            return ButtonType.tonight.title
+        case tomorrowButton.titleColor(for: .normal):
+            return ButtonType.tomorrow.title
+        default:
+            return ""
+        }
     }
     
     private func returnButtonToIntialColor() {
