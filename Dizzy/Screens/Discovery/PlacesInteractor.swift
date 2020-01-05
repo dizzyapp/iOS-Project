@@ -26,12 +26,14 @@ class PlacesInteractor: PlacesInteractorType {
         case attendence = "attendenceCount"
         case profileViews = "profileViews"
         case reserveClicks = "reserveClicks"
+        case gettClicks = "gettClicks"
         
         func getCount(from place: PlaceInfo) -> Int {
             switch self {
             case .attendence: return place.adminAnalytics?.attendenceCount ?? 0
             case .profileViews: return  place.adminAnalytics?.profileViews ?? 0
             case .reserveClicks: return place.adminAnalytics?.reserveClicks ?? 0
+            case .gettClicks: return place.adminAnalytics?.gettClicks ?? 0
             }
         }
     }

@@ -19,6 +19,7 @@ protocol PlaceProfileVMType {
     func requestTableButtonPressed()
     func storyButtonPressed()
     func placeImagePressed()
+    func getTaxiButtonPressed(view: PlaceProfileView)
     func sholdShowStoryButton() -> Bool
     func onSwipeLeft()
     func onSwipeRight()
@@ -87,7 +88,15 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
             return
         }
 
-        self.externalNavigationProvider.openWaze(location: location)
+        self.externalNavigationProvider.open(link: .waze(location: location))
+    }
+    
+    func getTaxiButtonPressed(view: PlaceProfileView) {
+        guard let location = view.placeInfo?.location else {
+            return
+        }
+        placesInteractor.increment(analyticsType: .gettClicks, by: 1, to: placeInfo)
+        self.externalNavigationProvider.open(link: .getTaxi(location: location))
     }
 
     func callButtonPressed() {

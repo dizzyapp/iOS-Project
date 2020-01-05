@@ -74,7 +74,8 @@ final class AdminPlaceAnalyticsVC: ViewController, CardVC {
         analyticsView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(Metrics.doublePadding)
             make.height.equalToSuperview().multipliedBy(0.1)
-            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(Metrics.padding)
+            make.trailing.equalToSuperview().inset(Metrics.padding)
         }
         
         reservationsTitleView.snp.makeConstraints { make in
