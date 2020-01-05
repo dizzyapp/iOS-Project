@@ -33,6 +33,7 @@
 	<string>dizzy</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>gett</string>
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>

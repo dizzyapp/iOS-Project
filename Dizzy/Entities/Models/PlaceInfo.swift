@@ -30,6 +30,7 @@ struct PlaceInfo: Codable, FilterEntry {
     let placeSchedule: PlaceSchedule?
     let adminAnalytics: AdminAnalytics?
     let event: String?
+    let placeAddress: String?
 }
 
 struct ActivePlace {
@@ -82,4 +83,5 @@ struct AdminAnalytics: Codable {
     let profileViews: Int?
     let reserveClicks: Int?
     let attendenceCount: Int?
+    let gettClicks: Int?
 }

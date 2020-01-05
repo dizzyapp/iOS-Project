@@ -11,6 +11,7 @@ import Kingfisher
 
 protocol PlaceProfileViewDelegate: class {
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewGetTaxiButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView)
@@ -34,6 +35,10 @@ final class PlaceProfileView: UIView {
     let placeImageViewSize = CGFloat(115)
     let backgroundViewCornerRadius = CGFloat(25)
     let backgroundImageOffset = CGFloat(40)
+    
+    private let wazeButton = UIButton()
+    private let getTaxiButton = UIButton()
+    private let locationButtonsStackView = UIStackView()
 
     private let storyButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -55,10 +60,15 @@ final class PlaceProfileView: UIView {
     }
     
     private func addSubviews() {
+        
+        locationButtonsStackView.addArrangedSubview(wazeButton)
+        locationButtonsStackView.addArrangedSubview(getTaxiButton)
+        
         stackView.addArrangedSubview(placeImageView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
         stackView.addArrangedSubview(addressButton)
+        stackView.addArrangedSubview(locationButtonsStackView)
         stackView.addArrangedSubview(ageLabel)
         stackView.addArrangedSubview(openHoursLabel)
         stackView.addArrangedSubview(requestTableButton)
@@ -116,6 +126,9 @@ final class PlaceProfileView: UIView {
         setupPlaceImageView()
         setupCallButton()
         setupStackView()
+        setupLocationStackView()
+        setupWazeButton()
+        setupGetTaxiButton()
         setupTitleLabel()
         setupDescriptionLabel()
         setupAddressButton()
@@ -144,6 +157,23 @@ final class PlaceProfileView: UIView {
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
     }
+    
+    private func setupLocationStackView() {
+        locationButtonsStackView.axis = .horizontal
+        locationButtonsStackView.alignment = .center
+        locationButtonsStackView.spacing = Metrics.padding
+        locationButtonsStackView.distribution = .equalSpacing
+    }
+    
+    private func setupWazeButton() {
+        wazeButton.setImage(Images.wazeButton(), for: .normal)
+        wazeButton.addTarget(self, action: #selector(wazeButtonPressed), for: .touchUpInside)
+    }
+    
+    private func setupGetTaxiButton() {
+        getTaxiButton.setImage(Images.getTaxiButton(), for: .normal)
+        getTaxiButton.addTarget(self, action: #selector(getTaxiPressed), for: .touchUpInside)
+    }
 
     private func setupTitleLabel() {
         titleLabel.textAlignment = .center
@@ -158,9 +188,9 @@ final class PlaceProfileView: UIView {
     }
 
     private func setupAddressButton() {
-        addressButton.setTitleColor(UIColor.dizzyBlue, for: .normal)
+        addressButton.setTitleColor(UIColor.black, for: .normal)
         addressButton.titleLabel?.font = Fonts.h9(weight: .bold)
-        addressButton.addTarget(self, action: #selector(addressButtonPressed), for: .touchUpInside)
+        addressButton.isEnabled = false
     }
 
     private func setupOpenHoursLabel() {
@@ -195,10 +225,7 @@ final class PlaceProfileView: UIView {
     func configure(with place: PlaceInfo) {
         
         self.placeInfo = place
-        place.location.getCurrentAddress { [weak self] address in
-            let title: String = "\(address?.street ?? ""), \(address?.city ?? ""), \(address?.country ?? "")"
-            self?.addressButton.setTitle(title, for: .normal)
-        }
+        addressButton.setTitle(place.placeAddress, for: .normal)
 
         if let imageURLString = place.imageURLString, let imageURL = URL(string: imageURLString) {
             self.placeImageView.setImage(from: imageURL)
@@ -219,14 +246,10 @@ final class PlaceProfileView: UIView {
     func hideStoryButton() {
         storyButton.isHidden = true
     }
-    
 }
 
 extension PlaceProfileView {
-    @objc func addressButtonPressed() {
-        delegate?.placeProfileViewAddressButtonPressed(self)
-    }
-
+    
     @objc func callButtonPressed() {
         delegate?.placeProfileViewCallButtonPressed(self)
     }
@@ -237,5 +260,13 @@ extension PlaceProfileView {
 
     @objc private func storyButtonPressed() {
         delegate?.placeProfileViewStoryButtonPressed(self)
+    }
+    
+    @objc private func wazeButtonPressed() {
+        delegate?.placeProfileViewAddressButtonPressed(self)
+    }
+    
+    @objc private func getTaxiPressed() {
+        delegate?.placeProfileViewGetTaxiButtonPressed(self)
     }
 }

@@ -66,11 +66,15 @@ final class AdminPlaceAnalyticsVM: AdminPlaceAnalyticsVMType {
         }
         
         if let reserveClicks = place.adminAnalytics?.reserveClicks {
-            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Reserve clicks".localized, count: "\(reserveClicks)"))
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Tables".localized, count: "\(reserveClicks)"))
         }
         
         if let attendenceCount = place.adminAnalytics?.attendenceCount {
             analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Attendence".localized, count: "\(attendenceCount)"))
+        }
+        
+        if let gettClicks = place.adminAnalytics?.gettClicks {
+            analyticsData.append(AdminAnalyticsViewContainer.AdminAnalyticsViewContainerData(title: "Gett".localized, count: "\(gettClicks)"))
         }
         
         self.analyticsData.value = analyticsData

@@ -113,16 +113,28 @@ struct Images {
     static func loadingLogo() -> UIImage {
         return UIImage(named: "loadingLogo")!
     }
+    
     static func signUpTextfield() -> UIImage {
-           return UIImage(named: "signupTextField")!
-       }
+        return UIImage(named: "signupTextField")!
+    }
+    
     static func loginWithFacebookButton() -> UIImage {
         return UIImage(named: "facebookButtonBackground")!
     }
+    
     static func profileBackgroundIcon() -> UIImage {
         return UIImage(named: "profilePlaceBackgroundIcon")!
     }
+    
     static func whiteBackButton() -> UIImage {
         return UIImage(named: "white_back_button")!
+    }
+    
+    static func wazeButton() -> UIImage {
+        return UIImage(named: "waze_button")!
+    }
+    
+    static func getTaxiButton() -> UIImage {
+        return UIImage(named: "get_taxi_button")!
     }
 }

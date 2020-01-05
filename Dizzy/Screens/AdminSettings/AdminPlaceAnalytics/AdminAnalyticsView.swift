@@ -35,7 +35,7 @@ final class AdminAnalyticsViewContainer: UIView {
     private func setupStackView() {
         mainStackView.alignment = .fill
         mainStackView.axis = .horizontal
-        mainStackView.spacing = Metrics.triplePadding
+        mainStackView.spacing = Metrics.padding
     }
     
     private func addSubviews() {
@@ -86,7 +86,7 @@ final class AdminAnalyticsView: UIView {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.h7(weight: .bold)
+        titleLabel.font = Fonts.h10(weight: .bold)
         titleLabel.textColor = .dizzyBlue
         titleLabel.textAlignment = .natural
     }
@@ -95,7 +95,7 @@ final class AdminAnalyticsView: UIView {
         countLabel.numberOfLines = 1
         countLabel.textColor = .dizzyBlue
         countLabel.textAlignment = .center
-        countLabel.font = Fonts.h1(weight: .bold)
+        countLabel.font = Fonts.h2(weight: .bold)
     }
     
     private func addSubviews() {
@@ -110,7 +110,11 @@ final class AdminAnalyticsView: UIView {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(countLabel.snp.bottom).offset(Metrics.doublePadding)
-            make.leading.trailing.equalTo(countLabel)
+            make.centerX.equalTo(countLabel.snp.centerX)
+        }
+        
+        snp.makeConstraints { make in
+            make.width.equalTo(85)
         }
     }
     

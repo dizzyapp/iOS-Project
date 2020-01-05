@@ -53,6 +53,7 @@ final class ReservationCell: UITableViewCell {
             make.top.equalToSuperview().offset(Metrics.padding)
             make.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             make.height.width.equalTo(iconImageHeight)
+            make.bottom.equalToSuperview()
         }
         
         nameLabel.snp.makeConstraints { make in
