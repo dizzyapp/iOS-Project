@@ -16,10 +16,10 @@ protocol PlacesInteractorType {
     func increment(analyticsType: PlacesInteractor.AdminAnalyticsType, by count: Int, to place: PlaceInfo)
     func getReservations(per placeId: String, completion: @escaping ([ReservationData]) -> Void)
     func setReservation(to placeId: String, with reservationData: ReservationData)
+    func getMenuImagesUrls(per placeId: String,  completion: @escaping ([MenuURL]) -> Void)
 }
 
 class PlacesInteractor: PlacesInteractorType {
-
     var allPlaces = Observable<[PlaceInfo]>([PlaceInfo]())
     
     enum AdminAnalyticsType: String {
@@ -106,5 +106,19 @@ class PlacesInteractor: PlacesInteractorType {
         let newCount = currentCount + count
         let resource = Resource<Bool, Int>(path: "places/\(place.id)/adminAnalytics/\(analyticsType.rawValue)").withPost(newCount)
         self.webResourcesDispatcher.load(resource) { _ in }
+    }
+    
+    func getMenuImagesUrls(per placeId: String, completion: @escaping ([MenuURL]) -> Void) {
+        let resource = Resource<[MenuURL], String>(path: "menuPerPlaceId/\(placeId)").withGet()
+        webResourcesDispatcher.load(resource) { result in
+            
+            switch result {
+            case .success(let menuURLs):
+                completion(menuURLs)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

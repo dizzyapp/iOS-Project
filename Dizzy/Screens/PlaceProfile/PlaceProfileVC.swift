@@ -25,7 +25,7 @@ final class PlaceProfileVC: UIViewController {
     let placeProfileViewCornerRadius = CGFloat(10)
     let placeProfileViewPadding = CGFloat(15)
     let placeProfileTopOffset = CGFloat(5)
-    let placeProfileViewHeight = CGFloat(375)
+    let placeProfileViewHeight = CGFloat(400)
     
     private var isFirstLoad = true
 
@@ -234,5 +234,9 @@ extension PlaceProfileVC: PlaceProfileViewDelegate {
 
     func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView) {
         viewModel.requestTableButtonPressed()
+    }
+    
+    func placeProfileViewMenuButtonPressed(_ view: PlaceProfileView) {
+        viewModel.delegate?.placeProfileMenuButtonPressed(viewModel, with: viewModel.placeInfo)
     }
 }

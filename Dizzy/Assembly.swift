@@ -64,6 +64,7 @@ class Assembly {
         container.autoregister(AdminPlaceAnalyticsVMType.self, argument: PlaceInfo.self, initializer: AdminPlaceAnalyticsVM.init)
         container.autoregister(AdminPlacesVMType.self, initializer: AdminPlacesVM.init)
         container.autoregister(ReserveTableVMType.self, argument: PlaceInfo.self, initializer: ReserveTableVM.init)
+        container.autoregister(PlaceMenuVMType.self, argument: PlaceInfo.self, initializer: PlaceMenuVM.init)
     }
     
     private func registerViewControllers() {
@@ -81,6 +82,7 @@ class Assembly {
         container.autoregister(AdminPlacesVC.self, argument: AdminPlacesVMType.self, initializer: AdminPlacesVC.init)
         container.autoregister(AdminPlaceAnalyticsVC.self, argument: AdminPlaceAnalyticsVMType.self, initializer: AdminPlaceAnalyticsVC.init)
         container.autoregister(ReserveTableVC.self, argument: ReserveTableVMType.self,initializer: ReserveTableVC.init)
+        container.autoregister(PlaceMenuVC.self, argument: PlaceMenuVMType.self, initializer: PlaceMenuVC.init)
     }
     
     private func registerCoordinators() {

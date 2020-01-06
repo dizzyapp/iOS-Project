@@ -13,6 +13,7 @@ protocol PlaceProfileViewDelegate: class {
     func placeProfileViewAddressButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewGetTaxiButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewCallButtonPressed(_ view: PlaceProfileView)
+    func placeProfileViewMenuButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewRequestTableButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewStoryButtonPressed(_ view: PlaceProfileView)
     func placeProfileViewPlaceImagePressed(_ view: PlaceProfileView)
@@ -39,6 +40,7 @@ final class PlaceProfileView: UIView {
     private let wazeButton = UIButton()
     private let getTaxiButton = UIButton()
     private let locationButtonsStackView = UIStackView()
+    private let menuButton = UIButton(type: .system)
 
     private let storyButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -72,6 +74,7 @@ final class PlaceProfileView: UIView {
         stackView.addArrangedSubview(ageLabel)
         stackView.addArrangedSubview(openHoursLabel)
         stackView.addArrangedSubview(requestTableButton)
+        stackView.addArrangedSubview(menuButton)
 
         self.addSubviews([backgroundView, stackView, callButton, storyButton])
     }
@@ -82,6 +85,7 @@ final class PlaceProfileView: UIView {
         layoutCallButton()
         layoutStackView()
         layoutStoryButton()
+        layoutMenuButton()
     }
 
     private func layoutBackgroundView() {
@@ -120,6 +124,13 @@ final class PlaceProfileView: UIView {
             storyButton.trailing.equalTo(backgroundView.snp.trailing).offset(-Metrics.padding)
         }
     }
+    
+    private func layoutMenuButton() {
+        menuButton.snp.makeConstraints { make in
+            make.width.equalTo(requestTableButton.snp.width)
+            make.height.equalTo(requestTableButton.snp.height)
+        }
+    }
 
     private func setupViews() {
         setupBackgroundView()
@@ -136,6 +147,7 @@ final class PlaceProfileView: UIView {
         setupAgeLabel()
         setupRequestTableButton()
         setupStoryButton()
+        setupMenuButton()
     }
 
     private func setupBackgroundView() {
@@ -218,6 +230,16 @@ final class PlaceProfileView: UIView {
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
     
+    private func setupMenuButton() {
+        menuButton.layer.cornerRadius = 8.0
+        menuButton.layer.borderColor = UIColor.primeryPurple.cgColor
+        menuButton.clipsToBounds = true
+        menuButton.setTitle("See The Menu".localized, for: .normal)
+        menuButton.titleLabel?.font = Fonts.h5(weight: .bold)
+        menuButton.setTitleColor(UIColor.primeryPurple, for: .normal)
+        menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
+    }
+    
     private func setupStoryButton() {
         storyButton.addTarget(self, action: #selector(storyButtonPressed), for: .touchUpInside)
     }
@@ -250,11 +272,15 @@ final class PlaceProfileView: UIView {
 
 extension PlaceProfileView {
     
-    @objc func callButtonPressed() {
+    @objc private func menuButtonPressed() {
+        delegate?.placeProfileViewMenuButtonPressed(self)
+    }
+    
+    @objc private func callButtonPressed() {
         delegate?.placeProfileViewCallButtonPressed(self)
     }
     
-    @objc func requestTableButtonPressed() {
+    @objc private func requestTableButtonPressed() {
         delegate?.placeProfileViewRequestTableButtonPressed(self)
     }
 
