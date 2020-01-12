@@ -46,7 +46,7 @@ class PlaceEventView: UIView {
     }
     
     private func setupEventLabel() {
-        eventLabel.font = Fonts.h10(weight: .bold)
+        eventLabel.font = Fonts.h7(weight: .bold)
         eventLabel.textColor = eventFontColor
     }
     

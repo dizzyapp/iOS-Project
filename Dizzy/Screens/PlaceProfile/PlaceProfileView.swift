@@ -212,9 +212,9 @@ final class PlaceProfileView: UIView {
 
     private func setupRequestTableButton() {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
-        requestTableButton.setTitle("RESERVE A TABLE".localized, for: .normal)
+        requestTableButton.setTitle("Get a Table".localized, for: .normal)
         requestTableButton.setTitleColor(UIColor.green, for: .normal)
-        requestTableButton.titleLabel?.font = Fonts.h5(weight: .bold)
+        requestTableButton.titleLabel?.font = Fonts.h7(weight: .bold)
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
     

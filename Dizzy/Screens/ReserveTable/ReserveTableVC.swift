@@ -128,7 +128,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupSendButton() {
-        sendButton.setTitle("Go to WhatsApp".localized, for: .normal)
+        sendButton.setTitle("Continue to WhatsApp".localized, for: .normal)
         sendButton.titleLabel?.font = Fonts.h8(weight: .bold)
         sendButton.setTitleColor(.green, for: .normal)
         sendButton.layer.cornerRadius = signInCornerRadius
