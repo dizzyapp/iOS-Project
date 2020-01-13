@@ -15,7 +15,9 @@ class VideoView: UIView {
     var playerLayer: AVPlayerLayer?
     var player: AVPlayer?
     var isLoop: Bool = false
+    
     var completion: (() -> Void)?
+    var onVideoReady: () -> Void = { }
     
     init() {
         super.init(frame: CGRect.zero)
@@ -35,6 +37,8 @@ class VideoView: UIView {
             layer.addSublayer(playerLayer)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(reachTheEndOfTheVideo(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem)
+        
+        player?.addObserver(self, forKeyPath: "status", options: [.new, .initial], context: nil)
         
     }
     
@@ -66,6 +70,15 @@ class VideoView: UIView {
             player?.play()
         } else {
             self.completion?()
+        }
+    }
+    
+    // swiftlint:disable all
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        guard let player = player else { return }
+        if player.status == .readyToPlay {
+            onVideoReady()
         }
     }
 }

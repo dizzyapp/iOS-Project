@@ -67,6 +67,8 @@
 		04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808D22B0279000A9E3F4 /* DateUtils.swift */; };
 		04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809222B027CF00A9E3F4 /* Colors.swift */; };
 		04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */; };
+		22033A5723CD0B2F006ADB99 /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 22033A5623CD0B2F006ADB99 /* 1.mp4 */; };
+		22033A5923CD0C71006ADB99 /* 2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 22033A5823CD0C71006ADB99 /* 2.mp4 */; };
 		4D0705A122D15579009D6236 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07059E22D15579009D6236 /* Comment.swift */; };
 		4D0705A222D1557A009D6236 /* PlaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07059F22D15579009D6236 /* PlaceInfo.swift */; };
 		4D0705A322D1557A009D6236 /* PlaceMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0705A022D15579009D6236 /* PlaceMedia.swift */; };
@@ -207,6 +209,8 @@
 		04E7808D22B0279000A9E3F4 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		04E7809222B027CF00A9E3F4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalPlaceData.swift; sourceTree = "<group>"; };
+		22033A5623CD0B2F006ADB99 /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = "<group>"; };
+		22033A5823CD0C71006ADB99 /* 2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.mp4; sourceTree = "<group>"; };
 		4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		4D07059E22D15579009D6236 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		4D07059F22D15579009D6236 /* PlaceInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceInfo.swift; sourceTree = "<group>"; };
@@ -459,6 +463,15 @@
 			path = PlaceProfile;
 			sourceTree = "<group>";
 		};
+		22033A5A23CD0DB5006ADB99 /* Loading Video */ = {
+			isa = PBXGroup;
+			children = (
+				22033A5623CD0B2F006ADB99 /* 1.mp4 */,
+				22033A5823CD0C71006ADB99 /* 2.mp4 */,
+			);
+			path = "Loading Video";
+			sourceTree = "<group>";
+		};
 		4D07059D22D15579009D6236 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,6 +593,7 @@
 				041D95C12253D702009ED7AB /* Web Service */,
 				76B41ECE225229DB00C1A290 /* Screens */,
 				76B41EC92252145D00C1A290 /* Entities */,
+				22033A5A23CD0DB5006ADB99 /* Loading Video */,
 				76B41EBA2250C87E00C1A290 /* Coordinators */,
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
 				76B41EAA224EE9FC00C1A290 /* Assets.xcassets */,
@@ -793,6 +807,8 @@
 			files = (
 				76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */,
 				5C50852823B263EF0068D432 /* dizzySplash.mp4 in Resources */,
+				22033A5723CD0B2F006ADB99 /* 1.mp4 in Resources */,
+				22033A5923CD0C71006ADB99 /* 2.mp4 in Resources */,
 				0454B7BE23745CC30043DEC3 /* DarkMapStyle.json in Resources */,
 				6355854523854EC300E595D1 /* LaunchScreen.storyboard in Resources */,
 				76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */,

@@ -12,6 +12,8 @@ import AVKit
 import Kingfisher
 
 final class PlaceProfileVC: UIViewController {
+    
+    private let loadingVideoView = VideoView()
     private let loadingView = DizzyLoadingView()
     private let videoView = VideoView()
     private let imageView = UIImageView()
@@ -119,7 +121,7 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, imageView, videoView, swipesContainerView, placeProfileView, closeButton, placeEventView])
+        view.addSubviews([loadingView, imageView, loadingVideoView, videoView, swipesContainerView, placeProfileView, closeButton, placeEventView])
     }
     
     private func layoutViews() {
@@ -136,6 +138,10 @@ final class PlaceProfileVC: UIViewController {
         
         loadingView.snp.makeConstraints { loadingView in
             loadingView.edges.equalToSuperview()
+        }
+        
+        loadingVideoView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         videoView.snp.makeConstraints { videoView in
@@ -162,11 +168,13 @@ final class PlaceProfileVC: UIViewController {
         viewModel.mediaToShow.bind(shouldObserveIntial: true) { [weak self] mediaToShow in
             guard let mediaToShow = mediaToShow,
             let downloadLink = mediaToShow.downloadLink else {
+                self?.showLoadingVideoView()
                 return
             }
             
             if mediaToShow.isVideo() {
-                self?.showVideo(videoUrlString: downloadLink)
+                self?.showLoadingVideoView()
+                self?.showVideo(from: downloadLink)
             } else {
                 self?.showImage(imageUrlString: downloadLink)
             }
@@ -174,14 +182,28 @@ final class PlaceProfileVC: UIViewController {
         }
     }
     
-    private func showVideo(videoUrlString: String) {
-        guard let videoUrl = URL(string: videoUrlString) else {
+    private func showLoadingVideoView() {
+        let randomNumber = Int.random(in: 1...2)
+        guard let path = Bundle.main.path(forResource: "\(randomNumber)", ofType:"mp4") else {
             return
         }
+        let videoUrl = URL(fileURLWithPath: path)
+        loadingVideoView.configure(url: videoUrl)
+        loadingVideoView.play()
+    }
+    
+    private func showVideo(from urlString: String) {
+        guard let url = URL(string: urlString) else { return }
         imageView.isHidden = true
         videoView.isHidden = false
-        videoView.configure(url: videoUrl)
+        videoView.configure(url: url)
         videoView.play()
+        videoView.onVideoReady = { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {[weak self] in
+                self?.loadingVideoView.pause()
+                self?.loadingVideoView.removeFromSuperview()
+            }
+        }
     }
     
     private func showImage(imageUrlString: String) {
