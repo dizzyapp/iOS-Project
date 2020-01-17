@@ -10,17 +10,17 @@ import Foundation
 
 protocol ReserveTableVMType: PlaceReservationRequestor {
     var reserveTableFinished: () -> Void { get set }
-    var otherButtonOnFocuse: Observable<Bool> { get set }
+    var selectedTime: Observable<ReserveTableVC.ReservationTime?> { get set }
     var placeName: String { get }
     var userName: String { get }
     
     func didFinish()
-    func requestATable(with name: String?, numberOfPeople: String?, time: String?, comment: String?)
+    func requestATable(with name: String?, numberOfPeople: String?, comment: String?)
 }
 
 final class ReserveTableVM: ReserveTableVMType {
     
-    var otherButtonOnFocuse = Observable<Bool>(false)
+    var selectedTime = Observable<ReserveTableVC.ReservationTime?>(nil)
     var reserveTableFinished: () -> Void = { }
     let user: DizzyUser
     let placeInfo: PlaceInfo
@@ -40,18 +40,21 @@ final class ReserveTableVM: ReserveTableVMType {
         self.placesInteractor = placesInteractor
     }
     
-    func requestATable(with name: String?, numberOfPeople: String?, time: String?, comment: String?) {
+    func requestATable(with name: String?, numberOfPeople: String?, comment: String?) {
         var messageText = "Hi, I want to reserve a table at \(placeInfo.name)"
         
         if let numberOfPeople = numberOfPeople, !numberOfPeople.isEmpty {
             messageText += " for \(numberOfPeople) people"
         }
         
-        if let time = time, !time.isEmpty {
-            messageText += " \(time)"
+        if let selectedTime = selectedTime.value,
+            selectedTime != .other {
+            messageText += " \(selectedTime.title)"
         }
         
-        if let comment = comment, !comment.isEmpty {
+        if selectedTime.value == .other,
+            let comment = comment,
+            !comment.isEmpty {
             messageText += " \(comment)"
         }
         
