@@ -31,6 +31,7 @@ protocol PlaceProfileVMDelegate: class {
     func placeProfileVMUploadStoryButtonPressed(_ viewModel: PlaceProfileVMType)
     func placeProfileVMRequestATableTapped(_ viewModel: PlaceProfileVMType, with place: PlaceInfo)
     func placeProfileVMPlaceImagePresset(placeInfo: PlaceInfo)
+    func placeProfileMenuButtonPressed(_ viewModel: PlaceProfileVMType, with place: PlaceInfo)
 }
 
 final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {

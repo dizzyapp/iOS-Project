@@ -83,4 +83,17 @@ extension PlaceProfileCoodinator: PlaceProfileVMDelegate, StoryCoordinatorOpener
     func placeProfileVMPlaceImagePresset(placeInfo: PlaceInfo) {
         showPlaceStory(placeInfo: placeInfo, presentingVC: navigationController.viewControllers.last)
     }
+    
+    func placeProfileMenuButtonPressed(_ viewModel: PlaceProfileVMType, with place: PlaceInfo) {
+        
+        guard
+            let viewModel = container?.resolve(PlaceMenuVMType.self, argument: place),
+            let viewController = container?.resolve(PlaceMenuVC.self, argument: viewModel) else {
+                print("Coul'd not load PlaceMenuVC")
+                return
+        }
+        
+        navigationController.viewControllers.first?.present(viewController, animated: true)
+    }
+    
 }

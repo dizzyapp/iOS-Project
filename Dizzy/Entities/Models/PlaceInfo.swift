@@ -85,3 +85,7 @@ struct AdminAnalytics: Codable {
     let attendenceCount: Int?
     let gettClicks: Int?
 }
+
+struct MenuURL: Codable {
+    let urlString: String
+}
