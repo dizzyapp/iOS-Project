@@ -224,6 +224,10 @@ extension DiscoveryVC: DiscoveryTopBarDelegate {
 
 extension DiscoveryVC: DiscoveryVMDelegate {
     func askIfUserIsInThisPlace(_ place: PlaceInfo) {
+        guard !isShowingPopup else {
+            return
+        }
+        
         isShowingPopup = true
         showDizzyPopup(withMessage: "Are you at \(place.name)?", imageUrl: place.imageURLString, onOk: { [weak self] in
             self?.isShowingPopup = false
