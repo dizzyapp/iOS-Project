@@ -10,7 +10,7 @@ import UIKit
 
 extension ReserveTableVC {
     
-    enum ButtonType: Int {
+    enum ReservationTime: Int {
         case tonight = 0
         case tomorrow = 1
         case other = 2
@@ -63,8 +63,8 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func bindViewModel() {
-        viewModel.otherButtonOnFocuse.bind { [weak self] onFocuse in
-            self?.commentsTextView.isHidden = !onFocuse
+        viewModel.selectedTime.bind { [weak self] selectedTime in
+            self?.commentsTextView.isHidden = selectedTime != .other
         }
         
         if !viewModel.userName.isEmpty {
@@ -141,9 +141,9 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         closeButton.addTarget(self, action: #selector(onCloasePressed), for: .touchUpInside )
     }
     
-    private func setup(_ button: UIButton, with buttonType: ButtonType) {
-        button.tag = buttonType.rawValue
-        button.setTitle(buttonType.title, for: .normal)
+    private func setup(_ button: UIButton, with reservationTime: ReservationTime) {
+        button.tag = reservationTime.rawValue
+        button.setTitle(reservationTime.title, for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     }
@@ -209,7 +209,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     @objc private func onSendPressed() {
-        viewModel.requestATable(with: nameTextField.text, numberOfPeople: numberOfPeopleTextField.text, time: "", comment: commentsTextView.text)
+        viewModel.requestATable(with: nameTextField.text, numberOfPeople: numberOfPeopleTextField.text, comment: commentsTextView.text)
     }
     
     private func returnButtonToIntialColor() {
@@ -221,7 +221,15 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     @objc private func buttonPressed(_ button: UIButton) {
         returnButtonToIntialColor()
         button.setTitleColor(.dizzyBlue, for: .normal)
-        viewModel.otherButtonOnFocuse.value = button == otherButton
+        
+        switch button {
+        case tonightButton:
+            viewModel.selectedTime.value = .tonight
+        case tomorrowButton:
+            viewModel.selectedTime.value = .tomorrow
+        default:
+            viewModel.selectedTime.value = .other
+        }
     }
     
     @objc private func onDownSwipe() {
