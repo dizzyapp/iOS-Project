@@ -100,13 +100,14 @@ extension MapCoordinator: MapVMDelegate {
             let storiesInteractor = container?.resolve(StoriesInteractorType.self),
             let usersInteractor = container?.resolve(UsersInteracteorType.self),
             let placesInteractor = container?.resolve(PlacesInteractorType.self),
-            let user = container?.resolve(DizzyUser.self) else {
+            let user = container?.resolve(DizzyUser.self),
+            let asyncMediaLoader = container?.resolve(AsyncMediaLoaderType.self) else {
                 print("could not create placeProfileCoordinator")
                 return
         }
         
         container?.register(PlaceStoryVMType.self) { _ in
-            PlaceStoryVM(place: placeInfo, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor, placesIteractor: placesInteractor)
+            PlaceStoryVM(place: placeInfo, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor, placesIteractor: placesInteractor, asyncMediaLoader: asyncMediaLoader)
         }
         
         placeStoryCoordinator.onCoordinatorFinished = { [weak self] in
