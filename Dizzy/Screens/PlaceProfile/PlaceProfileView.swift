@@ -232,11 +232,12 @@ final class PlaceProfileView: UIView {
     
     private func setupMenuButton() {
         menuButton.layer.cornerRadius = 8.0
-        menuButton.layer.borderColor = UIColor.primeryPurple.cgColor
+        menuButton.layer.borderColor = UIColor.dizzyBlue.cgColor
+        menuButton.layer.borderWidth = 1
         menuButton.clipsToBounds = true
-        menuButton.setTitle("See The Menu".localized, for: .normal)
+        menuButton.setTitle("See the Menu".localized, for: .normal)
         menuButton.titleLabel?.font = Fonts.h5(weight: .bold)
-        menuButton.setTitleColor(UIColor.primeryPurple, for: .normal)
+        menuButton.setTitleColor(UIColor.dizzyBlue, for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
     }
     
