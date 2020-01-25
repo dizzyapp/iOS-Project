@@ -1,0 +1,51 @@
+//
+//  AsyncMediaLoader.swift
+//  Dizzy
+//
+//  Created by Menashe, Or on 24/01/2020.
+//  Copyright © 2020 Dizzy. All rights reserved.
+//
+
+import Foundation
+import UIKit
+import Kingfisher
+
+class AsyncMediaLoader {
+    private var mediaArray = [PlaceMedia]()
+    private var viewPerMedia: [String: UIView] = [:]
+    
+    public func setMediaArray(_ mediaArray: [PlaceMedia]) {
+        self.mediaArray = mediaArray
+        for media in mediaArray {
+            guard let downloadLink = media.downloadLink,
+                let url = URL(string: downloadLink) else {
+                    break
+            }
+            
+            if media.isVideo() {
+                addVideoView(forLink: url)
+            } else {
+                addImageView(forLink: url)
+            }
+        }
+    }
+    
+    private func addVideoView(forLink link: URL) {
+        let videoView = VideoView()
+        videoView.configure(url: link)
+        videoView.isLoop = true
+        viewPerMedia[link.absoluteString] = videoView
+    }
+    
+    private func addImageView(forLink link: URL) {
+        let imageView = UIImageView()
+        imageView.kf.setImage(with: link)
+        imageView.contentMode = .scaleAspectFill
+        viewPerMedia[link.absoluteString] = imageView
+    }
+    
+    public func getView(forPlaceMedia placeMedia: PlaceMedia?) -> UIView? {
+        
+        return viewPerMedia[placeMedia?.downloadLink ?? ""]
+    }
+}

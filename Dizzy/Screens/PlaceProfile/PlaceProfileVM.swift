@@ -11,7 +11,7 @@ import UIKit
 protocol PlaceProfileVMType {
     var placeInfo: PlaceInfo { get }
     var delegate: PlaceProfileVMDelegate? { get set }
-    var mediaToShow: Observable<PlaceMedia?> { get }
+    var mediaViewToShow: Observable<UIView?> { get }
     
     func closePressed()
     func addressButtonPressed(view: PlaceProfileView)
@@ -35,7 +35,8 @@ protocol PlaceProfileVMDelegate: class {
 }
 
 final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
-    var mediaToShow = Observable<PlaceMedia?>(nil)
+    var mediaToShow: PlaceMedia?
+    var mediaViewToShow = Observable<UIView?>(nil)
     var placeInfo: PlaceInfo
     let activePlace: PlaceInfo?
     let placesInteractor: PlacesInteractorType
@@ -43,6 +44,8 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     weak var delegate: PlaceProfileVMDelegate?
     
     var externalNavigationProvider = ExternalNavigationProvider()
+    
+    let asyncMediaLoader = AsyncMediaLoader()
 
     init(placeInfo: PlaceInfo, activePlace: ActivePlace, placesInteractor: PlacesInteractorType) {
         self.placeInfo = placeInfo
@@ -70,7 +73,8 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     func getProfileMedia() {
         placesInteractor.getProfileMedia(forPlaceId: placeInfo.id) { [weak self] profileMedia in
             self?.sortProfileMedia(profileMedia: profileMedia)
-            self?.mediaToShow.value = self?.profileMedia[0]
+            self?.asyncMediaLoader.setMediaArray(profileMedia)
+            self?.setMediaToShow(mediaToShow: self?.profileMedia[0])
         }
     }
     
@@ -134,27 +138,26 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     func onSwipeLeft() {
         guard let displayingMediaIndex = getDisplayingMediaIndex(),
         displayingMediaIndex < profileMedia.count - 1 else {
-            mediaToShow.value = profileMedia.first
+            setMediaToShow(mediaToShow: profileMedia.first)
             return
         }
         
-        mediaToShow.value = profileMedia[displayingMediaIndex + 1]
-        
+        setMediaToShow(mediaToShow: profileMedia[displayingMediaIndex + 1])
     }
     
     func onSwipeRight() {
         guard let displayingMediaIndex = getDisplayingMediaIndex(),
             displayingMediaIndex > 0 else {
-                mediaToShow.value = profileMedia.last
+                setMediaToShow(mediaToShow: profileMedia.last)
                 return
         }
         
-        mediaToShow.value = profileMedia[displayingMediaIndex - 1]
+        setMediaToShow(mediaToShow: profileMedia[displayingMediaIndex - 1])
     }
     
     func getDisplayingMediaIndex() -> Int? {
         guard let index = profileMedia.firstIndex(where: { placeMedia -> Bool in
-            return placeMedia.downloadLink == self.mediaToShow.value?.downloadLink
+            return placeMedia.downloadLink == self.mediaToShow?.downloadLink
         }) else {
             return nil
         }
@@ -164,5 +167,10 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     
     func getPlaceEvent() -> String? {
         return placeInfo.event
+    }
+    
+    private func setMediaToShow(mediaToShow: PlaceMedia?) {
+        self.mediaToShow = mediaToShow
+        mediaViewToShow.value = asyncMediaLoader.getView(forPlaceMedia: mediaToShow)
     }
 }
