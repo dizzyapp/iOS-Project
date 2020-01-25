@@ -75,7 +75,8 @@ extension MapCoordinator: MapVMDelegate {
         guard let presntingVC = self.navigationController.viewControllers.last,
             let activePlace = container?.resolve(ActivePlace.self),
             let placesInteractor  = container?.resolve(PlacesInteractorType.self),
-            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController)  else {
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
+            let asyncMediaLoader = container?.resolve(AsyncMediaLoaderType.self) else {
                 print("could not create placeProfileCoordinator")
                 return
         }
@@ -85,7 +86,7 @@ extension MapCoordinator: MapVMDelegate {
         }
         
         container?.register(PlaceProfileVMType.self) { _ in
-            PlaceProfileVM(placeInfo: placeInfo, activePlace: activePlace, placesInteractor: placesInteractor)
+            PlaceProfileVM(placeInfo: placeInfo, activePlace: activePlace, placesInteractor: placesInteractor, asyncMediaLoader: asyncMediaLoader)
         }
         
         placeProfileCoordinator.start()

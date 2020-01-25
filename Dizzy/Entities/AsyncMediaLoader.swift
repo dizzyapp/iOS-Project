@@ -10,7 +10,12 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class AsyncMediaLoader {
+protocol AsyncMediaLoaderType {
+    func setMediaArray(_ mediaArray: [PlaceMedia])
+    func getView(forPlaceMedia placeMedia: PlaceMedia?) -> UIView?
+}
+
+class AsyncMediaLoader: AsyncMediaLoaderType {
     private var mediaArray = [PlaceMedia]()
     private var viewPerMedia: [String: UIView] = [:]
     
