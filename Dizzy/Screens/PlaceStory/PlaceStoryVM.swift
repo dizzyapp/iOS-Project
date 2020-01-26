@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PlaceStoryVMDelegate: class {
-    func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String)
-    func placeStoryShowImage(_ viewModel: PlaceStoryVMType, stringURL: String)
+    func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, videoView: VideoView?)
+    func placeStoryShowImage(_ viewModel: PlaceStoryVMType, imageView: UIImageView?)
     func placeStoryClearTextFieldText(_ viewModel: PlaceStoryVMType)
     func showPopupWithText(_ text: String, title: String)
 }
@@ -52,8 +53,10 @@ final class PlaceStoryVM: PlaceStoryVMType {
     var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
     let user: DizzyUser
+    let asyncMediaLoader: AsyncMediaLoaderType
     
-    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType, placesIteractor: PlacesInteractorType) {
+    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType, placesIteractor: PlacesInteractorType,
+        asyncMediaLoader: AsyncMediaLoaderType) {
         self.place = place
         self.commentsInteractor = commentsInteractor
         self.storiesInteractor = storiesInteractor
@@ -61,6 +64,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
         self.usersInteractor = usersInteractor
         self.storiesInteractor.getAllPlaceStories(with: place.id)
         self.placesIteractor = placesIteractor
+        self.asyncMediaLoader = asyncMediaLoader
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
     }
@@ -69,11 +73,11 @@ final class PlaceStoryVM: PlaceStoryVMType {
         if displayedImageIndex + 1 <= stories.value.count - 1 {
             displayedImageIndex += 1
             let mediaToShow = stories.value[displayedImageIndex]
-            guard let mediaUrl = mediaToShow.downloadLink else { return }
+            guard let mediaViewToShow = asyncMediaLoader.getView(forPlaceMedia: mediaToShow) else { return }
             if mediaToShow.isVideo() {
-                delegate?.placeStoryShowVideo(self, stringURL: mediaUrl)
+                delegate?.placeStoryShowVideo(self, videoView: mediaViewToShow as? VideoView)
             } else {
-                delegate?.placeStoryShowImage(self, stringURL: mediaUrl)
+                delegate?.placeStoryShowImage(self, imageView: mediaViewToShow as? UIImageView)
             }
         } else {
             navigationDelegate?.placeStoryVMDidFinised(self)
@@ -84,11 +88,11 @@ final class PlaceStoryVM: PlaceStoryVMType {
         if displayedImageIndex - 1 >= 0 {
             displayedImageIndex -= 1
             let mediaToShow = stories.value[displayedImageIndex]
-            guard let mediaUrl = mediaToShow.downloadLink else { return }
+            guard let mediaViewToShow = asyncMediaLoader.getView(forPlaceMedia: mediaToShow) else { return }
             if mediaToShow.isVideo() {
-                delegate?.placeStoryShowVideo(self, stringURL: mediaUrl)
+                delegate?.placeStoryShowVideo(self, videoView: mediaViewToShow as? VideoView)
             } else {
-                delegate?.placeStoryShowImage(self, stringURL: mediaUrl)
+                delegate?.placeStoryShowImage(self, imageView: mediaViewToShow as? UIImageView)
             }
         }
     }
@@ -144,7 +148,7 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
     func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceMedia]?) {
         if let stories = stories, !stories.isEmpty {
             self.stories.value = sortStoriesByTimeStamp(unsorterdStories: stories)
-            
+            self.asyncMediaLoader.setMediaArray(self.stories.value)
             self.showNextImage()
             self.commentsInteractor.getAllComments(forPlaceId: place.id)
         }

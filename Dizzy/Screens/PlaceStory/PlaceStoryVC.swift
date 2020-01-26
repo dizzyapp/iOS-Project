@@ -14,8 +14,6 @@ import SnapKit
 
 final class PlaceStoryVC: ViewController {
     
-    let imageView = UIImageView()
-    let videoView = VideoView()
     let rightGestureView = UIView()
     let leftGestureView = UIView()
     let loadingView = DizzyLoadingView()
@@ -29,6 +27,8 @@ final class PlaceStoryVC: ViewController {
     
     var commentsTextInputViewBottomConstraint: Constraint?
     private let commentsViewHeightRatio = CGFloat(0.382)
+    
+    private var currentPresentedMedia = UIView()
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
@@ -45,7 +45,7 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, imageView, videoView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
+        view.addSubviews([loadingView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
     }
     
     private func layoutViews() {
@@ -57,14 +57,6 @@ final class PlaceStoryVC: ViewController {
         
         loadingView.snp.makeConstraints { loadingView in
             loadingView.edges.equalToSuperview()
-        }
-                
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        videoView.snp.makeConstraints { videoView in
-            videoView.edges.equalToSuperview()
         }
         
         rightGestureView.snp.makeConstraints { make in
@@ -151,13 +143,6 @@ final class PlaceStoryVC: ViewController {
         view.endEditing(true)
     }
     
-    private func shoewImageView() {
-        self.imageView.isHidden = false
-        imageView.contentMode = .scaleAspectFill
-        self.videoView.isHidden = true
-        self.videoView.stop()
-    }
-    
     @objc func didTapRight() {
         viewModel.showNextImage()
     }
@@ -225,28 +210,40 @@ extension PlaceStoryVC: PlaceStoryVMDelegate, PopupPresenter {
         showPopup(with: title, message: text, actions: [action])
     }
     
-    func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, stringURL: String) {
-        guard let videoUrl = URL(string: stringURL) else { return }
-        self.showVideoView()
-        videoView.configure(url: videoUrl)
+    func placeStoryShowVideo(_ viewModel: PlaceStoryVMType, videoView: VideoView?) {
+        guard let videoView = videoView else { return }
+        setNewMediaToShow(videoView)
+        layoutCurrentPresentedMedia()
         videoView.play { [weak self] in
             self?.didTapRight()
         }
     }
     
-    func placeStoryShowImage(_ viewModel: PlaceStoryVMType, stringURL: String) {
-        guard let url = URL(string: stringURL) else {
+    func placeStoryShowImage(_ viewModel: PlaceStoryVMType, imageView: UIImageView?) {
+        guard let imageView = imageView else {
             return
         }
-        
-        shoewImageView()
-        imageView.kf.cancelDownloadTask()
-        imageView.kf.setImage(with: url)
+        setNewMediaToShow(imageView)
+        layoutCurrentPresentedMedia()
     }
     
-    private func showVideoView() {
-        videoView.isHidden = false
-        imageView.isHidden = true
+    private func layoutCurrentPresentedMedia() {
+        view.insertSubview(currentPresentedMedia, at: 1)
+        currentPresentedMedia.snp.makeConstraints { (currentPresentedMedia) in
+            currentPresentedMedia.edges.equalToSuperview()
+        }
+        currentPresentedMedia.layoutIfNeeded()
+    }
+    
+    private func setNewMediaToShow(_ newMediaToShow: UIView) {
+        currentPresentedMedia.removeFromSuperview()
+        pauseCurrentMedia()
+        currentPresentedMedia = newMediaToShow
+    }
+    
+    private func pauseCurrentMedia() {
+        guard let videoView = currentPresentedMedia as? VideoView else {return}
+        videoView.pause()
     }
     
     func placeStoryClearTextFieldText(_ viewModel: PlaceStoryVMType) {

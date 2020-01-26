@@ -13,8 +13,7 @@ import Kingfisher
 
 final class PlaceProfileVC: UIViewController {
     private let loadingView = DizzyLoadingView()
-    private let videoView = VideoView()
-    private let imageView = UIImageView()
+    private var currentMediaView = UIView()
     private let swipesContainerView = UIView()
     private var placeProfileView = PlaceProfileView()
     private let closeButton = UIButton().navigaionCloseButton
@@ -53,8 +52,6 @@ final class PlaceProfileVC: UIViewController {
         addSwipeListeners()
         setupPlaceProfileView()
         setupNavigation()
-        setupImageView()
-        setupVideoView()
         setupLoadingView()
     }
     
@@ -99,15 +96,6 @@ final class PlaceProfileVC: UIViewController {
         }
     }
     
-    private func setupImageView() {
-        imageView.isHidden = true
-        imageView.contentMode = .scaleAspectFill
-    }
-    
-    private func setupVideoView() {
-        videoView.isHidden = true
-    }
-    
     private func setupLoadingView() {
         loadingView.startLoadingAnimation()
     }
@@ -119,7 +107,7 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, imageView, videoView, swipesContainerView, placeProfileView, closeButton, placeEventView])
+        view.addSubviews([loadingView, swipesContainerView, placeProfileView, closeButton, placeEventView])
     }
     
     private func layoutViews() {
@@ -138,14 +126,6 @@ final class PlaceProfileVC: UIViewController {
             loadingView.edges.equalToSuperview()
         }
         
-        videoView.snp.makeConstraints { videoView in
-            videoView.edges.equalToSuperview()
-        }
-        
-        imageView.snp.makeConstraints { imageView in
-            imageView.edges.equalToSuperview()
-        }
-        
         swipesContainerView.snp.makeConstraints { swipesContainerView in
             swipesContainerView.edges.equalToSuperview()
         }
@@ -159,39 +139,43 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.mediaToShow.bind(shouldObserveIntial: true) { [weak self] mediaToShow in
-            guard let mediaToShow = mediaToShow,
-            let downloadLink = mediaToShow.downloadLink else {
+        viewModel.mediaViewToShow.bind(shouldObserveIntial: true) { [weak self] mediaViewToShow in
+            guard let mediaViewToShow = mediaViewToShow else {
                 return
             }
-            
-            if mediaToShow.isVideo() {
-                self?.showVideo(videoUrlString: downloadLink)
-            } else {
-                self?.showImage(imageUrlString: downloadLink)
+            self?.setNewMediaView(newMediaView: mediaViewToShow)
+            self?.layoutCurrentMediaView()
+            self?.playCurrentMediaView()
+        }
+    }
+    
+    private func setNewMediaView(newMediaView: UIView) {
+        self.pauseCurrentMediaView()
+        self.currentMediaView.removeFromSuperview()
+        self.currentMediaView = newMediaView
+    }
+    
+    private func layoutCurrentMediaView() {
+        DispatchQueue.main.async {
+            self.view.insertSubview(self.currentMediaView, at: 1)
+            self.currentMediaView.snp.makeConstraints { currentMediaView in
+                currentMediaView.edges.equalToSuperview()
             }
-            
+            self.currentMediaView.layoutIfNeeded()
         }
     }
     
-    private func showVideo(videoUrlString: String) {
-        guard let videoUrl = URL(string: videoUrlString) else {
-            return
+    private func playCurrentMediaView() {
+        if let videoView = currentMediaView as? VideoView {
+            videoView.play()
         }
-        imageView.isHidden = true
-        videoView.isHidden = false
-        videoView.configure(url: videoUrl)
-        videoView.play()
     }
     
-    private func showImage(imageUrlString: String) {
-        guard let imageUrl = URL(string: imageUrlString) else {
-            return
+    private func pauseCurrentMediaView() {
+        if let videoView = currentMediaView as? VideoView {
+            videoView.layoutIfNeeded()
+            videoView.pause()
         }
-        videoView.stop()
-        imageView.isHidden = false
-        videoView.isHidden = true
-        imageView.kf.setImage(with: imageUrl)
     }
     
     @objc func close() {

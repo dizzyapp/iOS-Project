@@ -138,6 +138,7 @@
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
 		77A0605122AD8AE3008FE39D /* SignUpDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605022AD8AE3008FE39D /* SignUpDetails.swift */; };
 		77A0605522AD9284008FE39D /* SignupWebservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0605422AD9284008FE39D /* SignupWebservice.swift */; };
+		77A51F3F23DB35310019D2C9 /* AsyncMediaLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A51F3E23DB35310019D2C9 /* AsyncMediaLoader.swift */; };
 		77ACCD0E2351BAA000D79E22 /* AppStartVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ACCD0D2351BAA000D79E22 /* AppStartVM.swift */; };
 		77ACCD112351BE8900D79E22 /* UsersInteracteor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ACCD102351BE8900D79E22 /* UsersInteracteor.swift */; };
 		77ACCD132351C41200D79E22 /* MyUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ACCD122351C41200D79E22 /* MyUserDefaults.swift */; };
@@ -282,6 +283,7 @@
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
 		77A0605022AD8AE3008FE39D /* SignUpDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetails.swift; sourceTree = "<group>"; };
 		77A0605422AD9284008FE39D /* SignupWebservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupWebservice.swift; sourceTree = "<group>"; };
+		77A51F3E23DB35310019D2C9 /* AsyncMediaLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncMediaLoader.swift; sourceTree = "<group>"; };
 		77ACCD0D2351BAA000D79E22 /* AppStartVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartVM.swift; sourceTree = "<group>"; };
 		77ACCD102351BE8900D79E22 /* UsersInteracteor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInteracteor.swift; sourceTree = "<group>"; };
 		77ACCD122351C41200D79E22 /* MyUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUserDefaults.swift; sourceTree = "<group>"; };
@@ -640,6 +642,7 @@
 				4DAF17BB22CE9AA3004F7DB7 /* ExternalNavigationProvider.swift */,
 				4D07059D22D15579009D6236 /* Models */,
 				77ACCD122351C41200D79E22 /* MyUserDefaults.swift */,
+				77A51F3E23DB35310019D2C9 /* AsyncMediaLoader.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				4D0705BD22D15799009D6236 /* StoriesInteractor.swift in Sources */,
 				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
+				77A51F3F23DB35310019D2C9 /* AsyncMediaLoader.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadingContainer.swift in Sources */,
 				77AD08B022B1870B004F8588 /* DizzyUser.swift in Sources */,
