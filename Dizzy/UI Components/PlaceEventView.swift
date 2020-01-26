@@ -11,7 +11,7 @@ import UIKit
 class PlaceEventView: UIView {
 
     let eventLabel = UILabel()
-    let eventFontColor = UIColor.green
+    let eventFontColor = UIColor.blue
     
     init() {
         super.init(frame: .zero)
@@ -40,7 +40,7 @@ class PlaceEventView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = UIColor.dizzyBlue
+        backgroundColor = UIColor.lightDizzyGray
         layer.cornerRadius = 13
         setupEventLabel()
     }
@@ -48,6 +48,7 @@ class PlaceEventView: UIView {
     private func setupEventLabel() {
         eventLabel.font = Fonts.h7(weight: .bold)
         eventLabel.textColor = eventFontColor
+
     }
     
     public func setEventText(_ eventText: String?) {

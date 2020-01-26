@@ -103,13 +103,13 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
     
         switch type {
         case .about:
-            baseUrl += ""
+            break
         case .contactUs:
-            baseUrl += "contact.html"
+            baseUrl = "https://wa.me/972542943889"
         case .privacyPolicy:
-            baseUrl += "privacy.html"
+            baseUrl += "privacy_policy.html"
         case .termsOfUse:
-            baseUrl += "terms.html"
+            baseUrl += "terms_of_use.html"
         }
         if let url = URL(string: baseUrl) {
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in

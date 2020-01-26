@@ -109,7 +109,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupTitleLabel() {
-        titleLabel.text = "Reserve a table" .localized
+        titleLabel.text = "Get a Table" .localized
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor.dizzyBlue
         titleLabel.font = Fonts.i3(weight: .bold)
@@ -145,6 +145,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         button.tag = reservationTime.rawValue
         button.setTitle(reservationTime.title, for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.titleLabel?.font = Fonts.h8(weight: .bold)
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     }
     
@@ -221,7 +222,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     @objc private func buttonPressed(_ button: UIButton) {
         returnButtonToIntialColor()
         button.setTitleColor(.dizzyBlue, for: .normal)
-        
+
         switch button {
         case tonightButton:
             viewModel.selectedTime.value = .tonight

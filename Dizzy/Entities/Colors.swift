@@ -41,4 +41,8 @@ extension UIColor {
     static var darkDizzyBlue: UIColor {
         return UIColor(hexString: "#000030")
     }
+    
+    static var lightDizzyGray: UIColor {
+           return UIColor(hexString: "#F1F1F1")
+    }
 }

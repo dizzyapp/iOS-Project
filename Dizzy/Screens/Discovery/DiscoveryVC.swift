@@ -76,7 +76,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
             nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeVideoView.snp.bottom).constraint
             nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
             nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
-            nearByPlacesView.height.equalToSuperview().multipliedBy(0.62)
+            nearByPlacesView.height.equalToSuperview().multipliedBy(0.69)
         }
     }
     
@@ -145,7 +145,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
 
     private func showPlacesOnHalfScreen() {
-        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 175)
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/1.4)
     }
     
     private func showPlacesOnFullScreen() {
