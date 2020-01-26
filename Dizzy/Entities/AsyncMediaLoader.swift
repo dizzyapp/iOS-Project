@@ -13,11 +13,14 @@ import Kingfisher
 protocol AsyncMediaLoaderType {
     func setMediaArray(_ mediaArray: [PlaceMedia])
     func getView(forPlaceMedia placeMedia: PlaceMedia?) -> UIView?
+    var showVideosInLoop: Bool { get set }
 }
 
 class AsyncMediaLoader: AsyncMediaLoaderType {
+    
     private var mediaArray = [PlaceMedia]()
     private var viewPerMedia: [String: UIView] = [:]
+    public var showVideosInLoop = false
     
     public func setMediaArray(_ mediaArray: [PlaceMedia]) {
         self.mediaArray = mediaArray
@@ -38,7 +41,7 @@ class AsyncMediaLoader: AsyncMediaLoaderType {
     private func addVideoView(forLink link: URL) {
         let videoView = VideoView()
         videoView.configure(url: link)
-        videoView.isLoop = true
+        videoView.isLoop = showVideosInLoop
         viewPerMedia[link.absoluteString] = videoView
     }
     
