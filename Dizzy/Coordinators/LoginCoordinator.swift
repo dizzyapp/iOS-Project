@@ -99,17 +99,17 @@ extension LoginCoordinator: LoginVMNavigationDelegate, SignInWithDizzyVMNavigati
     }
     
     func navigateToAppInfoScreen(type: AppInfoType) {
-        var baseUrl = "https://"
+        var baseUrl = "https://dizzy.co.il/"
     
         switch type {
         case .about:
-            baseUrl += "dizzy.co.il"
+            break
         case .contactUs:
-            baseUrl += "wa.me/972542943889"
+            baseUrl = "https://wa.me/972542943889"
         case .privacyPolicy:
-            baseUrl += "dizzy.co.il/privacy_policy.html"
+            baseUrl += "privacy_policy.html"
         case .termsOfUse:
-            baseUrl += "dizzy.co.il/terms_of_use.html"
+            baseUrl += "terms_of_use.html"
         }
         if let url = URL(string: baseUrl) {
             UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
