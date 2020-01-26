@@ -145,7 +145,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
 
     private func showPlacesOnHalfScreen() {
-        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/2 - 200)
+        self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/1.4)
     }
     
     private func showPlacesOnFullScreen() {

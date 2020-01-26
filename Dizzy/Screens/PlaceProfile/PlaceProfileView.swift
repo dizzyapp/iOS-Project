@@ -226,7 +226,7 @@ final class PlaceProfileView: UIView {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
         requestTableButton.setTitle("Get a Table".localized, for: .normal)
         requestTableButton.setTitleColor(UIColor.green, for: .normal)
-        requestTableButton.titleLabel?.font = Fonts.h7(weight: .bold)
+        requestTableButton.titleLabel?.font = Fonts.h6(weight: .bold)
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
     
@@ -235,8 +235,8 @@ final class PlaceProfileView: UIView {
         menuButton.layer.borderColor = UIColor.dizzyBlue.cgColor
         menuButton.layer.borderWidth = 1
         menuButton.clipsToBounds = true
-        menuButton.setTitle("See the Menu".localized, for: .normal)
-        menuButton.titleLabel?.font = Fonts.h5(weight: .bold)
+        menuButton.setTitle("Menu".localized, for: .normal)
+        menuButton.titleLabel?.font = Fonts.h6(weight: .bold)
         menuButton.setTitleColor(UIColor.dizzyBlue, for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
     }
