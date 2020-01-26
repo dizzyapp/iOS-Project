@@ -45,14 +45,14 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     
     var externalNavigationProvider = ExternalNavigationProvider()
     
-    let asyncMediaLoader: AsyncMediaLoaderType
+    var asyncMediaLoader: AsyncMediaLoaderType
 
     init(placeInfo: PlaceInfo, activePlace: ActivePlace, placesInteractor: PlacesInteractorType, asyncMediaLoader: AsyncMediaLoaderType) {
         self.placeInfo = placeInfo
         self.activePlace = activePlace.activePlaceInfo
         self.placesInteractor = placesInteractor
         self.asyncMediaLoader = asyncMediaLoader
-        
+        self.asyncMediaLoader.showVideosInLoop = true
         bindPlaces()
         sendProfileViewsAdminAnalytics()
         getProfileMedia()
