@@ -53,10 +53,9 @@ final class PlaceStoryVM: PlaceStoryVMType {
     var stories = Observable<[PlaceMedia]>([PlaceMedia]())
     let usersInteractor: UsersInteracteorType
     let user: DizzyUser
-    let asyncMediaLoader: AsyncMediaLoaderType
+    let asyncMediaLoader = AsyncMediaLoader()
     
-    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType, placesIteractor: PlacesInteractorType,
-        asyncMediaLoader: AsyncMediaLoaderType) {
+    init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType, placesIteractor: PlacesInteractorType) {
         self.place = place
         self.commentsInteractor = commentsInteractor
         self.storiesInteractor = storiesInteractor
@@ -64,7 +63,6 @@ final class PlaceStoryVM: PlaceStoryVMType {
         self.usersInteractor = usersInteractor
         self.storiesInteractor.getAllPlaceStories(with: place.id)
         self.placesIteractor = placesIteractor
-        self.asyncMediaLoader = asyncMediaLoader
         self.commentsInteractor.delegate = self
         self.storiesInteractor.delegate = self
     }

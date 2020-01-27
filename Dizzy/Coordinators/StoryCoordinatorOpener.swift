@@ -20,14 +20,13 @@ extension StoryCoordinatorOpener where Self: Coordinator {
             let storiesInteractor = container?.resolve(StoriesInteractorType.self),
             let usersInteractor = container?.resolve(UsersInteracteorType.self),
             let placesInteractor = container?.resolve(PlacesInteractorType.self),
-            let user = container?.resolve(DizzyUser.self),
-            let asyncMediaLoader = container?.resolve(AsyncMediaLoaderType.self) else {
+            let user = container?.resolve(DizzyUser.self) else {
                 print("could not create placeProfileCoordinator")
                 return
         }
         
         container?.register(PlaceStoryVMType.self) { _ in
-            PlaceStoryVM(place: placeInfo, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor, placesIteractor: placesInteractor, asyncMediaLoader: asyncMediaLoader)
+            PlaceStoryVM(place: placeInfo, commentsInteractor: commentsInteractor, storiesInteractor: storiesInteractor, user: user, usersInteractor: usersInteractor, placesIteractor: placesInteractor)
         }
         
         placeStoryCoordinator.onCoordinatorFinished = { [weak self] in
