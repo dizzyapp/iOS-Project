@@ -115,8 +115,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         guard let presntingVC = self.discoveryVC,
             let activePlace = container?.resolve(ActivePlace.self),
             let placesInteractor  = container?.resolve(PlacesInteractorType.self),
-            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController),
-            let asyncMediaLoader = container?.resolve(AsyncMediaLoaderType.self) else {
+            let placeProfileCoordinator = container?.resolve(PlaceProfileCoordinatorType.self, argument: presntingVC as UIViewController) else {
                 print("could not create placeProfileCoordinator")
                 return
         }
@@ -126,7 +125,7 @@ extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
         }
         
         container?.register(PlaceProfileVMType.self) { _ in
-            PlaceProfileVM(placeInfo: place, activePlace: activePlace, placesInteractor: placesInteractor, asyncMediaLoader: asyncMediaLoader)
+            PlaceProfileVM(placeInfo: place, activePlace: activePlace, placesInteractor: placesInteractor)
         }
         
         placeProfileCoordinator.start()

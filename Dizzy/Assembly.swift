@@ -109,8 +109,6 @@ class Assembly {
         
         container.autoregister(ActivePlace.self) {
             return ActivePlace(activePlaceInfo: nil)
-        }
-        
-        container.autoregister(AsyncMediaLoaderType.self, initializer: AsyncMediaLoader.init)
+        }        
     }
 }
