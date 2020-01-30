@@ -23,6 +23,21 @@ extension ReserveTableVC {
             }
         }
     }
+    
+    enum ReservationMethod {
+        case table
+        case bar
+        
+        var text: String {
+            switch self {
+            case .table:
+                return "a table".localized
+                
+            case .bar:
+                return "a spot on the bar".localized
+            }
+        }
+    }
 }
 
 final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
@@ -45,9 +60,13 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     let otherButton = UIButton(type: .system)
     let closeButton = UIButton()
     
+    private let reserveMethodStackView = UIStackView()
+    let tableButton = UIButton(type: .system)
+    let onBarButton = UIButton(type: .system)
+    
     let commentsTextView = UITextView(frame: .zero)
     
-    let viewModel: ReserveTableVMType
+    var viewModel: ReserveTableVMType
     
     init(viewModel: ReserveTableVMType) {
         self.viewModel = viewModel
@@ -77,7 +96,9 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     private func addSubviews() {
         cardContainerView.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(titleLabel)
+        mainStackView.addArrangedSubview(reserveMethodStackView)
+        reserveMethodStackView.addArrangedSubview(tableButton)
+        reserveMethodStackView.addArrangedSubview(onBarButton)
         mainStackView.addArrangedSubview(nameTextField)
         mainStackView.addArrangedSubview(numberOfPeopleTextField)
         mainStackView.addArrangedSubview(buttonsStackView)
@@ -106,6 +127,9 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         setupCloseButton()
         numberOfPeopleTextField.keyboardType = .numberPad
         nameTextField.autocorrectionType = .no
+        setupReserveTableButton()
+        setupReserveOnBarButton()
+        setupReserveMethodStackView()
     }
     
     private func setupTitleLabel() {
@@ -125,6 +149,12 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         buttonsStackView.alignment = .fill
         buttonsStackView.axis = .horizontal
         buttonsStackView.spacing = Metrics.doublePadding
+    }
+    
+    private func setupReserveMethodStackView() {
+        reserveMethodStackView.alignment = .fill
+        reserveMethodStackView.axis = .horizontal
+        reserveMethodStackView.spacing = Metrics.doublePadding
     }
     
     private func setupSendButton() {
@@ -149,6 +179,24 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     }
     
+    private func setupReserveTableButton() {
+        tableButton.setTitle("Table".localized, for: .normal)
+        tableButton.setTitleColor(.blue, for: .normal)
+        tableButton.titleLabel?.font = Fonts.h8(weight: .bold)
+        tableButton.layer.cornerRadius = signInCornerRadius
+        select(button: tableButton)
+        tableButton.addTarget(self, action: #selector(onTablePressed), for: .touchUpInside)
+    }
+    
+    private func setupReserveOnBarButton() {
+        onBarButton.setTitle("On The Bar".localized, for: .normal)
+        onBarButton.setTitleColor(.blue, for: .normal)
+        onBarButton.titleLabel?.font = Fonts.h8(weight: .bold)
+        onBarButton.layer.cornerRadius = signInCornerRadius
+        unSelect(button: onBarButton)
+        onBarButton.addTarget(self, action: #selector(onBarPressed), for: .touchUpInside)
+    }
+    
     private func setupPlaceNameLabel() {
         placeNameLabel.text = viewModel.placeName
         placeNameLabel.textAlignment = .center
@@ -166,6 +214,11 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func layoutViews() {
+        
+        tableButton.snp.makeConstraints { make in
+            make.width.equalTo(onBarButton)
+        }
+        
         mainStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(Metrics.padding)
             make.leading.equalToSuperview().offset(Metrics.doublePadding)
@@ -243,5 +296,26 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     @objc private func onCardViewPressed() {
         view.endEditing(true)
+    }
+    
+    @objc private func onTablePressed() {
+        select(button: tableButton)
+        unSelect(button: onBarButton)
+        viewModel.selectedReservetionMethod = .table
+    }
+    
+    @objc private func onBarPressed() {
+        select(button: onBarButton)
+        unSelect(button: tableButton)
+        viewModel.selectedReservetionMethod = .bar
+    }
+    
+    private func select(button: UIButton) {
+        button.layer.borderColor = UIColor.blue.cgColor
+        button.layer.borderWidth = 1
+    }
+    
+    private func unSelect(button: UIButton) {
+        button.layer.borderWidth = 0
     }
 }
