@@ -87,5 +87,6 @@ struct AdminAnalytics: Codable {
 }
 
 struct MenuURL: Codable {
+    let page: Int?
     let urlString: String
 }
