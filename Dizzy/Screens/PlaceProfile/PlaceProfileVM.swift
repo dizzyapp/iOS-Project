@@ -12,6 +12,7 @@ protocol PlaceProfileVMType {
     var placeInfo: PlaceInfo { get }
     var delegate: PlaceProfileVMDelegate? { get set }
     var mediaViewToShow: Observable<UIView?> { get }
+    var showNextArrow: Observable<Bool> { get }
     
     func closePressed()
     func addressButtonPressed(view: PlaceProfileView)
@@ -35,6 +36,8 @@ protocol PlaceProfileVMDelegate: class {
 }
 
 final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
+    
+    var showNextArrow = Observable<Bool>(true)
     var mediaToShow: PlaceMedia?
     var mediaViewToShow = Observable<UIView?>(nil)
     var placeInfo: PlaceInfo
@@ -46,7 +49,7 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     var externalNavigationProvider = ExternalNavigationProvider()
     
     var asyncMediaLoader = AsyncMediaLoader()
-
+    
     init(placeInfo: PlaceInfo, activePlace: ActivePlace, placesInteractor: PlacesInteractorType) {
         self.placeInfo = placeInfo
         self.activePlace = activePlace.activePlaceInfo
@@ -72,6 +75,7 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     
     func getProfileMedia() {
         placesInteractor.getProfileMedia(forPlaceId: placeInfo.id) { [weak self] profileMedia in
+            self?.showNextArrow.value = profileMedia.count > 1
             self?.sortProfileMedia(profileMedia: profileMedia)
             self?.asyncMediaLoader.setMediaArray(profileMedia)
             self?.setMediaToShow(mediaToShow: self?.profileMedia[0])
