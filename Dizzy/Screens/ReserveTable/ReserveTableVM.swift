@@ -11,6 +11,7 @@ import Foundation
 protocol ReserveTableVMType: PlaceReservationRequestor {
     var reserveTableFinished: () -> Void { get set }
     var selectedTime: Observable<ReserveTableVC.ReservationTime?> { get set }
+    var selectedReservetionMethod: ReserveTableVC.ReservationMethod { get set }
     var placeName: String { get }
     var userName: String { get }
     
@@ -19,12 +20,13 @@ protocol ReserveTableVMType: PlaceReservationRequestor {
 }
 
 final class ReserveTableVM: ReserveTableVMType {
-    
+
     var selectedTime = Observable<ReserveTableVC.ReservationTime?>(nil)
     var reserveTableFinished: () -> Void = { }
     let user: DizzyUser
     let placeInfo: PlaceInfo
     private let placesInteractor: PlacesInteractorType
+    var selectedReservetionMethod: ReserveTableVC.ReservationMethod = .table
     
     var placeName: String {
         return placeInfo.name
@@ -41,7 +43,7 @@ final class ReserveTableVM: ReserveTableVMType {
     }
     
     func requestATable(with name: String?, numberOfPeople: String?, comment: String?) {
-        var messageText = "Hi, I want to reserve a table at \(placeInfo.name)"
+        var messageText = "Hi, I want to reserve \(selectedReservetionMethod.text) at \(placeInfo.name)"
         
         if let numberOfPeople = numberOfPeople, !numberOfPeople.isEmpty {
             messageText += " for \(numberOfPeople) people"
