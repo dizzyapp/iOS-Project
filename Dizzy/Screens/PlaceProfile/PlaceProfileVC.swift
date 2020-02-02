@@ -18,6 +18,7 @@ final class PlaceProfileVC: UIViewController {
     private var placeProfileView = PlaceProfileView()
     private let closeButton = UIButton().navigaionCloseButton
     private let placeEventView = PlaceEventView()
+    private let nextBackgroundImageButton = UIButton(frame: .zero)
     
     private let viewModel: PlaceProfileVMType
     
@@ -36,6 +37,7 @@ final class PlaceProfileVC: UIViewController {
         addSubviews()
         layoutViews()
         setupView()
+        bindViewModel()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,6 +55,7 @@ final class PlaceProfileVC: UIViewController {
         setupPlaceProfileView()
         setupNavigation()
         setupLoadingView()
+        setupNextBackgroundImageButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -60,7 +63,7 @@ final class PlaceProfileVC: UIViewController {
         guard isFirstLoad else {
             return
         }
-        bindViewModel()
+        bindMediaViewToShow()
         isFirstLoad = false
     }
     
@@ -82,6 +85,11 @@ final class PlaceProfileVC: UIViewController {
     private func setupNavigation() {
         setupCloseButton()
         setupEventView()
+    }
+    
+    private func setupNextBackgroundImageButton() {
+        nextBackgroundImageButton.setImage(UIImage(named: "rightArrowIconWhite"), for: .normal)
+        nextBackgroundImageButton.addTarget(self, action: #selector(onNextButtonPressed), for: .touchUpInside)
     }
     
     private func setupCloseButton() {
@@ -107,10 +115,16 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, swipesContainerView, placeProfileView, closeButton, placeEventView])
+        view.addSubviews([loadingView, swipesContainerView, placeProfileView, closeButton, placeEventView, nextBackgroundImageButton])
     }
     
     private func layoutViews() {
+        
+        nextBackgroundImageButton.snp.makeConstraints { make in
+            make.width.height.equalTo(Metrics.fiveTimesPadding)
+            make.bottom.equalTo(placeProfileView.backgroundView.snp.top)
+            make.trailing.equalToSuperview().inset(Metrics.doublePadding)
+        }
         
         placeEventView.snp.makeConstraints { placeEventView in
             placeEventView.centerY.equalTo(closeButton.snp.centerY)
@@ -138,7 +152,7 @@ final class PlaceProfileVC: UIViewController {
         }
     }
     
-    private func bindViewModel() {
+    private func bindMediaViewToShow() {
         viewModel.mediaViewToShow.bind(shouldObserveIntial: true) { [weak self] mediaViewToShow in
             guard let mediaViewToShow = mediaViewToShow else {
                 return
@@ -146,6 +160,12 @@ final class PlaceProfileVC: UIViewController {
             self?.setNewMediaView(newMediaView: mediaViewToShow)
             self?.layoutCurrentMediaView()
             self?.playCurrentMediaView()
+        }
+    }
+    
+    private func bindViewModel() {
+        viewModel.showNextArrow.bind { [weak self] show in
+            self?.nextBackgroundImageButton.isHidden = !show
         }
     }
     
@@ -192,6 +212,10 @@ final class PlaceProfileVC: UIViewController {
     
     @objc func onUpSwipe() {
         viewModel.requestTableButtonPressed()
+    }
+    
+    @objc private func onNextButtonPressed() {
+        viewModel.onSwipeRight()
     }
 }
 
