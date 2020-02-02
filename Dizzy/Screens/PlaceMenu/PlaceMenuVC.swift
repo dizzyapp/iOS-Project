@@ -14,7 +14,7 @@ final class PlaceMenuVC: ViewController, LoadingContainer {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     
-    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .whiteLarge)
+    var spinner: UIView & Spinnable = UIActivityIndicatorView(style: .gray)
     
     init(viewModel: PlaceMenuVMType) {
         self.viewModel = viewModel

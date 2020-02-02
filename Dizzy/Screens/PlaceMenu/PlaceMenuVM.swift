@@ -31,7 +31,8 @@ final class PlaceMenuVM: PlaceMenuVMType {
     private func getMenu() {
         loading.value = true
         placeInteractor.getMenuImagesUrls(per: place.id) { [weak self] menuURLs in
-            self?.menuImagesURLs.value = menuURLs
+            let sortedMenus = menuURLs.sorted { $0.page ?? 0 > $1.page ?? 0 }
+            self?.menuImagesURLs.value = sortedMenus
             self?.loading.value = false
         }
     }
