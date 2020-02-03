@@ -39,6 +39,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
     private let placesTableView = UITableView(frame: CGRect.zero)
+    private let filterBar = DiscoveryPlacesFilterView()
     
     private var searchBarToPlacesViewConstraint: Constraint?
     private var placesViewToSuperviewConstraint: Constraint?
@@ -62,7 +63,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     private func addSubviews() {
         self.addSubviews([searchBar, placesViewContainer])
-        self.placesViewContainer.addSubviews([searchButton, titleLabel, placesTableView])
+        self.placesViewContainer.addSubviews([searchButton, titleLabel, placesTableView, filterBar])
     }
     
     private func layoutViews() {
@@ -92,8 +93,14 @@ class NearByPlacesView: UIView, LoadingContainer {
             titleLabel.leading.greaterThanOrEqualToSuperview().offset(Metrics.padding)
         }
         
+        filterBar.snp.makeConstraints { filterBar in
+            filterBar.leading.equalToSuperview().offset(Metrics.doublePadding)
+            filterBar.trailing.equalToSuperview().inset(Metrics.doublePadding)
+            filterBar.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
+        }
+        
         placesTableView.snp.makeConstraints { placesCollectionView in
-            placesCollectionView.top.equalTo(titleLabel).offset(2 * Metrics.doublePadding)
+            placesCollectionView.top.equalTo(filterBar.snp.bottom).offset(Metrics.doublePadding)
             placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
             placesCollectionView.bottom.equalToSuperview().inset(Metrics.oneAndHalfPadding)
@@ -175,6 +182,10 @@ class NearByPlacesView: UIView, LoadingContainer {
         searchBar.alpha = 0
         searchBarToPlacesViewConstraint?.deactivate()
         placesViewToSuperviewConstraint?.activate()
+    }
+    
+    func setFilterItems(_ filterItems: [String]) {
+        filterBar.setFilterItems(filterItems)
     }
     
     private func addKeyboardListeners() {

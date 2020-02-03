@@ -146,6 +146,7 @@
 		77AD08B022B1870B004F8588 /* DizzyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AD08AF22B1870B004F8588 /* DizzyUser.swift */; };
 		77BF3959239BC3FE00BA41D6 /* PlaceEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BF3958239BC3FE00BA41D6 /* PlaceEventView.swift */; };
 		77BF395B239BE89400BA41D6 /* StoryCoordinatorOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BF395A239BE89400BA41D6 /* StoryCoordinatorOpener.swift */; };
+		77C841D723E89DA000397BEB /* DiscoveryPlacesFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C841D623E89DA000397BEB /* DiscoveryPlacesFilterView.swift */; };
 		77DAA9A423033CA6003EDC3E /* CommentsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DAA9A323033CA6003EDC3E /* CommentsTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -291,6 +292,7 @@
 		77AD08AF22B1870B004F8588 /* DizzyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DizzyUser.swift; sourceTree = "<group>"; };
 		77BF3958239BC3FE00BA41D6 /* PlaceEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEventView.swift; sourceTree = "<group>"; };
 		77BF395A239BE89400BA41D6 /* StoryCoordinatorOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCoordinatorOpener.swift; sourceTree = "<group>"; };
+		77C841D623E89DA000397BEB /* DiscoveryPlacesFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPlacesFilterView.swift; sourceTree = "<group>"; };
 		77DAA9A323033CA6003EDC3E /* CommentsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTextField.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -677,6 +679,7 @@
 				76590E20225B459700E7986A /* PlacesListFlowLayout.swift */,
 				76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */,
 				770972422264FCF50042D6EE /* PlacesInteractor.swift */,
+				77C841D623E89DA000397BEB /* DiscoveryPlacesFilterView.swift */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				0415EC37225E5C1C009BCBC7 /* LocationProvider.swift in Sources */,
 				4D0705BD22D15799009D6236 /* StoriesInteractor.swift in Sources */,
 				04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */,
+				77C841D723E89DA000397BEB /* DiscoveryPlacesFilterView.swift in Sources */,
 				77A51F3F23DB35310019D2C9 /* AsyncMediaLoader.swift in Sources */,
 				76B41EE92253871200C1A290 /* DiscoveryPlaceCell.swift in Sources */,
 				0487FFAB228EB4AF00A8683C /* LoadingContainer.swift in Sources */,
