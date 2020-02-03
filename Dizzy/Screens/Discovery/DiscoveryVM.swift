@@ -77,7 +77,7 @@ class DiscoveryVM: DiscoveryVMType {
         self.placesInteractor.getAllPlaces()
         bindPlaces()
         bindLocationProvider()
-        filterItems.value = ["Clubs", "Bars", "Hip-hop", "Techno", "Lounge"]
+        filterItems.value = ["Club", "Bar", "Hip-hop", "Techno", "Lounge"]
     }
     
     private func bindPlaces() {

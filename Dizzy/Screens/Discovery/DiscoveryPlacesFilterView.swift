@@ -25,6 +25,7 @@ class DiscoveryPlacesFilterView: UIView {
         selectedButton = allButton
         super.init(frame: CGRect.zero)
         layoutViews()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +41,6 @@ class DiscoveryPlacesFilterView: UIView {
     private func layoutViews() {
         layoutScrollView()
         layoutStackView()
-        setupViews()
     }
     
     private func layoutScrollView() {
@@ -59,8 +59,13 @@ class DiscoveryPlacesFilterView: UIView {
     }
     
     private func setupViews() {
+        setupScrollView()
         setupStackView()
         setupAllButton()
+    }
+    
+    private func setupScrollView() {
+        scrollView.showsHorizontalScrollIndicator = false
     }
     
     private func setupStackView() {

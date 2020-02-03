@@ -113,6 +113,7 @@ class NearByPlacesView: UIView, LoadingContainer {
         setupPlacesViewContainer()
         setupSearchButton()
         setupTitleLabel()
+        setupFilterBar()
         setupPlacesTableView()
     }
     
@@ -129,6 +130,10 @@ class NearByPlacesView: UIView, LoadingContainer {
     private func setupSearchButton() {
         searchButton.setImage(Images.discoverySearchIcon(), for: .normal)
         searchButton.addTarget(self, action: #selector(didPressSearch), for: .touchUpInside)
+    }
+    
+    private func setupFilterBar() {
+        filterBar.delegate = self
     }
     
     @objc private func didPressSearch() {
@@ -248,5 +253,15 @@ extension NearByPlacesView: SearchBarDelegate {
     
     func closePressed() {
         searchDelegate?.endSearch()
+    }
+}
+
+extension NearByPlacesView: DiscoveryPlacesFilterViewDelegate {
+    func filterButtonPressed(selectedText: String) {
+        searchDelegate?.searchTextChanged(newText: selectedText)
+    }
+    
+    func showAllPlaces() {
+        searchDelegate?.searchTextChanged(newText: "")
     }
 }
