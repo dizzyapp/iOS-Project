@@ -81,7 +81,7 @@ class UserProfileView: UIView {
     }
 
     public func updateProfileImage(_ image: UIImage) {
-        self.profileButton.setImage(image, for: .normal)
+        self.profileButton.kf.base.setImage(image, for: .normal)
     }
 }
 
