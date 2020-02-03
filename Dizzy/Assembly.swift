@@ -51,7 +51,7 @@ class Assembly {
         container.autoregister(UploadFileInteractorType.self, initializer: UploadFileInteractor.init)
         container.autoregister(SignInInteractorType.self, initializer: SignInInteractor.init)
         container.autoregister(LogoutInteractorType.self, initializer: LogoutInteractor.init)
-        container.autoregister(UsersInteracteorType.self, initializer: UsersInteracteor.init)
+        container.autoregister(UsersInteracteorType.self, initializer: UsersInteracteor.init).inObjectScope(.container)
     }
     
     private func registerViewModels() {
