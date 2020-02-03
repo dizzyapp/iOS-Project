@@ -88,6 +88,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
             }
             self?.topBar.setLocationName(currentCity)
         })
+        
+        viewModel.filterItems.bind(shouldObserveIntial: true) {[weak self] filterItems in
+            self?.nearByPlacesView.setFilterItems(filterItems)
+        }
     }
     
     private func setupViews() {

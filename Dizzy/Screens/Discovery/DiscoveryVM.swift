@@ -26,6 +26,7 @@ protocol DiscoveryVMType {
     var delegate: DiscoveryVMDelegate? { get set }
     var currentLocation: Observable<Location?> { get }
     var currentCity: Observable<String> { get }
+    var filterItems: Observable<[String]> { get }
     var activePlace: PlaceInfo? { get }
     var isSearching: Bool { get }
     var isSpalshEnded: Bool { get }
@@ -63,6 +64,7 @@ class DiscoveryVM: DiscoveryVMType {
     private var placesInteractor: PlacesInteractorType
     private let locationProvider: LocationProviderType
     var currentCity = Observable<String>("")
+    var filterItems = Observable<[String]>([])
     weak var navigationDelegate: DiscoveryViewModelNavigationDelegate?
     private let maxMetersFromPlaceToVisit: Double = 50
     var activePlace: PlaceInfo?
@@ -75,6 +77,7 @@ class DiscoveryVM: DiscoveryVMType {
         self.placesInteractor.getAllPlaces()
         bindPlaces()
         bindLocationProvider()
+        filterItems.value = ["Club", "Bar", "Hip-hop", "Techno", "Lounge"]
     }
     
     private func bindPlaces() {
