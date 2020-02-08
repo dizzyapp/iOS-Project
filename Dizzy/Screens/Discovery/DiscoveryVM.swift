@@ -107,6 +107,7 @@ class DiscoveryVM: DiscoveryVMType {
             guard location != nil else { return }
             self?.askForCurrentAddress()
             self?.sortAllPlacesByDistance()
+            self?.searchPlacesByNameAndDescription(self?.searchByText, self?.searchByDescription)
             self?.checkClosestPlace()
             self?.delegate?.reloadData()
         }
@@ -134,8 +135,6 @@ class DiscoveryVM: DiscoveryVMType {
             let distanceToPlace2 = currentLocation.getDistanceTo(place2.location)
             return distanceToPlace1 < distanceToPlace2
         })
-        
-        placesToDisplay.value = allPlaces
     }
     
     func numberOfSections() -> Int {
@@ -176,7 +175,7 @@ class DiscoveryVM: DiscoveryVMType {
             return
         }
         
-        let closestPlace = placesToDisplay.value[0]
+        let closestPlace = allPlaces[0]
         let distanceToPlaceInMeters = currentLocation.getDistanceTo(closestPlace.location, inScaleOf: .meters)
         
         if closestPlace.id != activePlace?.id,
