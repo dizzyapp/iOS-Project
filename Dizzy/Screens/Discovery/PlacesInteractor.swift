@@ -17,6 +17,7 @@ protocol PlacesInteractorType {
     func getReservations(per placeId: String, completion: @escaping ([ReservationData]) -> Void)
     func setReservation(to placeId: String, with reservationData: ReservationData)
     func getMenuImagesUrls(per placeId: String,  completion: @escaping ([MenuURL]) -> Void)
+    func getPlacesFilterTags(completion: (([PlacesFilterTag]) -> Void)?)
 }
 
 class PlacesInteractor: PlacesInteractorType {
@@ -115,6 +116,20 @@ class PlacesInteractor: PlacesInteractorType {
             switch result {
             case .success(let menuURLs):
                 completion(menuURLs)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func getPlacesFilterTags(completion: (([PlacesFilterTag]) -> Void)?) {
+        let resource = Resource<[PlacesFilterTag], String>(path: "filterTags").withGet()
+        webResourcesDispatcher.load(resource) { result in
+            
+            switch result {
+            case .success(let placesTags):
+                completion?(placesTags)
                 
             case .failure(let error):
                 print(error)
