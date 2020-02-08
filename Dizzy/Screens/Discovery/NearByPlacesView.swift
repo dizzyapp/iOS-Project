@@ -190,7 +190,7 @@ class NearByPlacesView: UIView, LoadingContainer {
         placesViewToSuperviewConstraint?.activate()
     }
     
-    func setFilterItems(_ filterItems: [String]) {
+    func setFilterItems(_ filterItems: [PlacesFilterTag]) {
         filterBar.setFilterItems(filterItems)
     }
     

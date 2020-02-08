@@ -32,7 +32,9 @@ class DiscoveryPlacesFilterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setFilterItems(_ filterItems: [String]) {
+    public func setFilterItems(_ filterItems: [PlacesFilterTag]) {
+        filterItemsStackView.removeAllSubviews()
+        filterItemsStackView.addArrangedSubview(allButton)
         for item in filterItems {
             addItemToStackView(item: item)
         }
@@ -81,9 +83,9 @@ class DiscoveryPlacesFilterView: UIView {
         filterItemsStackView.addArrangedSubview(allButton)
     }
     
-    private func addItemToStackView(item: String) {
+    private func addItemToStackView(item: PlacesFilterTag) {
         let button = UIButton(type: .system)
-        button.setTitle(item, for: .normal)
+        button.setTitle(item.tagText, for: .normal)
         button.addTarget(self, action: #selector(filterItemSelected), for: .touchUpInside)
         setButtonUnselected(button)
         filterItemsStackView.addArrangedSubview(button)

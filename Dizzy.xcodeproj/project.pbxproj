@@ -147,6 +147,7 @@
 		77BF3959239BC3FE00BA41D6 /* PlaceEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BF3958239BC3FE00BA41D6 /* PlaceEventView.swift */; };
 		77BF395B239BE89400BA41D6 /* StoryCoordinatorOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BF395A239BE89400BA41D6 /* StoryCoordinatorOpener.swift */; };
 		77C841D723E89DA000397BEB /* DiscoveryPlacesFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C841D623E89DA000397BEB /* DiscoveryPlacesFilterView.swift */; };
+		77C841D923EF210200397BEB /* PlacesFilterTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C841D823EF210200397BEB /* PlacesFilterTag.swift */; };
 		77DAA9A423033CA6003EDC3E /* CommentsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77DAA9A323033CA6003EDC3E /* CommentsTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -293,6 +294,7 @@
 		77BF3958239BC3FE00BA41D6 /* PlaceEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceEventView.swift; sourceTree = "<group>"; };
 		77BF395A239BE89400BA41D6 /* StoryCoordinatorOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCoordinatorOpener.swift; sourceTree = "<group>"; };
 		77C841D623E89DA000397BEB /* DiscoveryPlacesFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryPlacesFilterView.swift; sourceTree = "<group>"; };
+		77C841D823EF210200397BEB /* PlacesFilterTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesFilterTag.swift; sourceTree = "<group>"; };
 		77DAA9A323033CA6003EDC3E /* CommentsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTextField.swift; sourceTree = "<group>"; };
 		78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dizzy/Pods-Dizzy.release.xcconfig"; sourceTree = "<group>"; };
 		E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -645,6 +647,7 @@
 				4D07059D22D15579009D6236 /* Models */,
 				77ACCD122351C41200D79E22 /* MyUserDefaults.swift */,
 				77A51F3E23DB35310019D2C9 /* AsyncMediaLoader.swift */,
+				77C841D823EF210200397BEB /* PlacesFilterTag.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1023,6 +1026,7 @@
 				0470E6B42270B32600267278 /* PlaceSearchTableViewCell.swift in Sources */,
 				0470E6BD2270B37200267278 /* StringExtension.swift in Sources */,
 				76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */,
+				77C841D923EF210200397BEB /* PlacesFilterTag.swift in Sources */,
 				046613D123846B8C00692413 /* ReserveTableVC.swift in Sources */,
 				0487FF99228EB40200A8683C /* CommentTextFieldView.swift in Sources */,
 				776210D623785B4600D85F9D /* PlaceInfoView.swift in Sources */,
