@@ -18,6 +18,7 @@ protocol NearByPlacesViewDataSource: class {
 
 protocol NearByPlacesViewSearchDelegate: class {
     func searchTextChanged(newText: String)
+    func filterTagChanged(newTag: String)
     func didPressSearch()
     func endSearch()
 }
@@ -258,10 +259,10 @@ extension NearByPlacesView: SearchBarDelegate {
 
 extension NearByPlacesView: DiscoveryPlacesFilterViewDelegate {
     func filterButtonPressed(selectedText: String) {
-        searchDelegate?.searchTextChanged(newText: selectedText)
+        searchDelegate?.filterTagChanged(newTag: selectedText)
     }
     
     func showAllPlaces() {
-        searchDelegate?.searchTextChanged(newText: "")
+        searchDelegate?.filterTagChanged(newTag: "")
     }
 }

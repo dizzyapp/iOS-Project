@@ -20,7 +20,7 @@ protocol DiscoveryVMType {
     func userDeclinedHeIsInPlace()
     func checkClosestPlace()
     
-    func searchPlacesByNameAndDescription(_ searchText: String)
+    func searchPlacesByNameAndDescription(_ searchText: String?, _ description: String?)
     
     var navigationDelegate: DiscoveryViewModelNavigationDelegate? { get set }
     var delegate: DiscoveryVMDelegate? { get set }
@@ -70,6 +70,8 @@ class DiscoveryVM: DiscoveryVMType {
     var activePlace: PlaceInfo?
     var isSearching = false
     var isSpalshEnded = false
+    var searchByText = ""
+    var searchByDescription = ""
     
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
@@ -195,26 +197,37 @@ class DiscoveryVM: DiscoveryVMType {
         navigationDelegate?.activePlaceWasSet(nil)
     }
     
-    func searchPlacesByNameAndDescription(_ searchText: String) {
-        if searchText.isEmpty {
-            placesToDisplay.value = allPlaces
-            self.delegate?.reloadData()
-            return
-        }
+    func searchPlacesByNameAndDescription(_ searchText: String?, _ searchByDescription: String?) {
+        var placesToDisplay = allPlaces
+        placesToDisplay = filterPlacesByName(name: searchText, places: placesToDisplay)
         
-        let placesFoundByName = allPlaces.filter({ place in
-            let isPlaceNameContainsSearchText = place.name.uppercased().contains(searchText.uppercased())
+        placesToDisplay = filterPlacesByDescription(description: searchByDescription, places: placesToDisplay)
+        
+        self.placesToDisplay.value = placesToDisplay
+        self.delegate?.reloadData()
+    }
+    
+    private func filterPlacesByName(name: String?, places: [PlaceInfo]) -> [PlaceInfo] {
+        self.searchByText = name ?? self.searchByText
+        guard !searchByText.isEmpty else {
+            return places
+        }
+        let filteredPlaces = places.filter({ place in
+            let isPlaceNameContainsSearchText = place.name.uppercased().contains(searchByText.uppercased())
             return isPlaceNameContainsSearchText
         })
-        
-        let placesFoundByDescriptionAndNotByName = allPlaces.filter({ place in
-            let isPlaceDescriptionContainsSearchText = place.description.uppercased().contains(searchText.uppercased())
-            let isFoundByName = placesFoundByName.contains(where: {$0.id == place.id})
-            return isPlaceDescriptionContainsSearchText && !isFoundByName
+        return filteredPlaces
+    }
+    
+    private func filterPlacesByDescription(description: String?, places: [PlaceInfo]) -> [PlaceInfo] {
+        self.searchByDescription = description ?? self.searchByDescription
+        guard !searchByDescription.isEmpty else {
+            return places
+        }
+        return places.filter({ place in
+            let isPlaceDescriptionContainsSearchText = place.description.uppercased().contains(searchByDescription.uppercased())
+            return isPlaceDescriptionContainsSearchText
         })
-        
-        self.placesToDisplay.value = placesFoundByName + placesFoundByDescriptionAndNotByName
-        self.delegate?.reloadData()
     }
     
     func searchPlacePressed() {
