@@ -73,7 +73,6 @@ class DiscoveryPlacesFilterView: UIView {
     private func setupStackView() {
         filterItemsStackView.axis = .horizontal
         filterItemsStackView.spacing = Metrics.doublePadding
-        filterItemsStackView.backgroundColor = .red
     }
     
     private func setupAllButton() {
@@ -103,13 +102,15 @@ class DiscoveryPlacesFilterView: UIView {
     }
     
     private func setButtonUnselected(_ button: UIButton) {
-        button.setTitleColor(.dizzyBlue, for: .normal)
+        button.setTitleColor(UIColor.lightGray, for: .normal)
+        button.titleLabel?.font = Fonts.h8(weight: .bold)
     }
     
     private func setButtonSelected(_ selectedButton: UIButton) {
         setButtonUnselected(self.selectedButton)
         self.selectedButton = selectedButton
         
-        selectedButton.setTitleColor(.black, for: .normal)
+        selectedButton.setTitleColor(.blue, for: .normal)
+        selectedButton.titleLabel?.font = Fonts.h8(weight: .bold)
     }
 }
