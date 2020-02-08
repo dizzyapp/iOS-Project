@@ -9,5 +9,6 @@
 import Foundation
 
 struct PlacesFilterTag: Codable {
+    let orderNumber: Int?
     let tagText: String
 }

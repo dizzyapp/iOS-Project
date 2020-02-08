@@ -83,7 +83,7 @@ class DiscoveryVM: DiscoveryVMType {
     
     private func bindPlaces() {
         placesInteractor.getPlacesFilterTags {[weak self] placesFilterTags in
-            self?.filterItems.value = placesFilterTags
+            self?.filterItems.value = self?.sortPlacesFilterTags(placesFilterTags) ?? []
         }
         
         placesInteractor.allPlaces.bind {[weak self] places in
@@ -97,6 +97,19 @@ class DiscoveryVM: DiscoveryVMType {
                 self.delegate?.showContentWithAnimation()
             }
             self.navigationDelegate?.register(places)
+        }
+    }
+    
+    private func sortPlacesFilterTags(_ placesFilterTags: [PlacesFilterTag]) -> [PlacesFilterTag] {
+        return placesFilterTags.sorted { (tagA, tagB) -> Bool in
+            guard let tagBOrderNumber = tagB.orderNumber else {
+                return true
+            }
+            
+            guard let tagAOrderNumber = tagA.orderNumber else {
+                return false
+            }
+            return tagAOrderNumber < tagBOrderNumber
         }
     }
     
