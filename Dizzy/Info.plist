@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>514299862629217</string>
 	<key>FacebookDisplayName</key>
@@ -43,11 +43,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>take photos and videos</string>
+	<string>This allows us to access the camera so that you can take photos and videos.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>This allows us to access your location so that we can show you nightlife near you.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>record sound for videos</string>
+	<string>This allows us to access the microphone to record sound for videos.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
