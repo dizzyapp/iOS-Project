@@ -224,18 +224,17 @@ final class PlaceProfileView: UIView {
 
     private func setupRequestTableButton() {
         requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
-        requestTableButton.setTitle("Get a Table".localized, for: .normal)
-        requestTableButton.setTitleColor(UIColor.green, for: .normal)
+        requestTableButton.setTitle("Book a table".localized, for: .normal)
+        requestTableButton.setTitleColor(UIColor.white, for: .normal)
         requestTableButton.titleLabel?.font = Fonts.h6(weight: .bold)
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
     }
     
     private func setupMenuButton() {
         menuButton.layer.cornerRadius = 8.0
-        menuButton.layer.borderColor = UIColor.dizzyBlue.cgColor
-        menuButton.layer.borderWidth = 1
         menuButton.clipsToBounds = true
         menuButton.setTitle("Menu".localized, for: .normal)
+        menuButton.layer.backgroundColor = UIColor.dizzyBlue.withAlphaComponent(0.1).cgColor
         menuButton.titleLabel?.font = Fonts.h6(weight: .bold)
         menuButton.setTitleColor(UIColor.dizzyBlue, for: .normal)
         menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
