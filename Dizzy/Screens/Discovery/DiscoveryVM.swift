@@ -66,7 +66,7 @@ class DiscoveryVM: DiscoveryVMType {
     var currentCity = Observable<String>("")
     var filterItems = Observable<[String]>([])
     weak var navigationDelegate: DiscoveryViewModelNavigationDelegate?
-    private let maxMetersFromPlaceToVisit: Double = 50
+    private let maxMetersFromPlaceToVisit: Double = 35
     var activePlace: PlaceInfo?
     var isSearching = false
     var isSpalshEnded = false
