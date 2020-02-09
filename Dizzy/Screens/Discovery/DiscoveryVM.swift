@@ -90,8 +90,8 @@ class DiscoveryVM: DiscoveryVMType {
             guard let self = self, !places.isEmpty else { return }
             let isFirstTimePlacesArrived = self.placesArrivedForTheFirstTime()
             self.allPlaces = places
-            self.placesToDisplay.value = places
             self.sortAllPlacesByDistance()
+            self.searchPlacesByNameAndDescription(self.searchByText, self.searchByDescription)
             self.delegate?.allPlacesArrived()
             if isFirstTimePlacesArrived {
                 self.delegate?.showContentWithAnimation()
