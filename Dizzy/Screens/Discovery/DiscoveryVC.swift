@@ -15,6 +15,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     let topBar = DiscoveryTopBar()
     let themeVideoView = VideoView()
+    let horizontalPlacesView = HorizontalPlacesView()
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryVMType
     let appStartVM: AppStartVMType
@@ -56,7 +57,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     private func addSubviews() {
-        self.view.addSubviews([themeVideoView, topBar, nearByPlacesView])
+        self.view.addSubviews([themeVideoView, topBar,horizontalPlacesView, nearByPlacesView])
     }
     
     private func layoutViews() {
@@ -69,6 +70,13 @@ class DiscoveryVC: ViewController, PopupPresenter {
         themeVideoView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.bottom.trailing.equalToSuperview()
+        }
+        
+        horizontalPlacesView.snp.makeConstraints { horizontalPlacesView in
+            horizontalPlacesView.bottom.equalTo(nearByPlacesView.snp.top).offset(-Metrics.padding)
+            horizontalPlacesView.leading.equalTo(nearByPlacesView.snp.leading)
+            horizontalPlacesView.trailing.equalTo(nearByPlacesView.snp.trailing)
+            horizontalPlacesView.height.equalTo(100)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
@@ -97,6 +105,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func setupViews() {
         view.backgroundColor = .clear
         addSwipeDelegate()
+        setupHorizontalPlacesView()
         setupNearByPlacesView()
         setupTopBarView()
     }
@@ -124,6 +133,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
         let videoUrl = URL(fileURLWithPath: path)
         themeVideoView.configure(url: videoUrl)
         themeVideoView.play()
+    }
+    
+    private func setupHorizontalPlacesView() {
+        horizontalPlacesView.backgroundColor = .red
     }
     
     private func setupNearByPlacesView() {
