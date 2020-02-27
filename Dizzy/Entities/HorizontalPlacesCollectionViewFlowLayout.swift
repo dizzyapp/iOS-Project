@@ -12,7 +12,8 @@ class HorizontalPlacesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     override init() {
         super.init()
         scrollDirection = .horizontal
-        minimumLineSpacing = 1
+        minimumLineSpacing = 10
+        itemSize = CGSize(width: 70, height: 100)
     }
     
     required init?(coder: NSCoder) {

@@ -76,7 +76,6 @@ class DiscoveryVC: ViewController, PopupPresenter {
             horizontalPlacesView.bottom.equalTo(nearByPlacesView.snp.top).offset(-Metrics.padding)
             horizontalPlacesView.leading.equalTo(nearByPlacesView.snp.leading)
             horizontalPlacesView.trailing.equalTo(nearByPlacesView.snp.trailing)
-            horizontalPlacesView.height.equalTo(100)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
@@ -136,7 +135,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     private func setupHorizontalPlacesView() {
-        horizontalPlacesView.backgroundColor = .red
+        horizontalPlacesView.dataSource = self
     }
     
     private func setupNearByPlacesView() {
@@ -261,6 +260,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
     
     func allPlacesArrived() {
         nearByPlacesView.reloadData()
+        horizontalPlacesView.reloadData()
     }
     
     func showContentWithAnimation() {
@@ -316,4 +316,15 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
             self.view.layoutIfNeeded()
         }
     }
+}
+
+extension DiscoveryVC: HorizontalPlacesViewDataSource {
+    func numberOfPlaces() -> Int {
+        viewModel.numberOfItemsForSection(0)
+    }
+    
+    func placeInfoForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
+        return viewModel.itemForIndexPath(indexPath)
+    }
+    
 }

@@ -10,13 +10,14 @@ import UIKit
 
 protocol HorizontalPlacesViewDataSource: class {
     func numberOfPlaces() -> Int
-    func placeInfoForIndex(index: Int) -> PlaceInfo
+    func placeInfoForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
 }
 
 class HorizontalPlacesView: UIView {
     
     private let placesCollectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: HorizontalPlacesCollectionViewFlowLayout())
     weak var dataSource: HorizontalPlacesViewDataSource?
+    let cellId = "horizontalPlaceCell"
 
     init() {
         super.init(frame: .zero)
@@ -32,6 +33,7 @@ class HorizontalPlacesView: UIView {
         addSubview(placesCollectionView)
         placesCollectionView.snp.makeConstraints { collectionView in
             collectionView.edges.equalToSuperview()
+            collectionView.height.equalTo(100)
         }
     }
     
@@ -40,25 +42,30 @@ class HorizontalPlacesView: UIView {
     }
     
     func setupCollectionView() {
-        placesCollectionView.backgroundColor = .red
+        placesCollectionView.backgroundColor = .clear
+        placesCollectionView.register(HorizontalPlacesViewCell.self, forCellWithReuseIdentifier: cellId)
+        placesCollectionView.dataSource = self
+    }
+    
+    func reloadData() {
+        placesCollectionView.reloadData()
     }
     
 }
 
 extension HorizontalPlacesView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource?.numberOfPlaces() ?? 10
+        return dataSource?.numberOfPlaces() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = UICollectionViewCell()
-        let label = UILabel()
-        cell.contentView.addSubview(label)
-        label.snp.makeConstraints { label in
-            label.edges.equalToSuperview()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? HorizontalPlacesViewCell,
+        let placeInfo = dataSource?.placeInfoForIndexPath(indexPath) else {
+            return UICollectionViewCell()
         }
-        label.text = "sadljkfhlaks"
+        
+        cell.setPlaceInfo(placeInfo)
         return cell
     
     }
