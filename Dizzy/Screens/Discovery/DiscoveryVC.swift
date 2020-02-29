@@ -136,6 +136,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     private func setupHorizontalPlacesView() {
         horizontalPlacesView.dataSource = self
+        hideHorizontalPlacesView()
     }
     
     private func setupNearByPlacesView() {
@@ -149,6 +150,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func showPlacesOnHalfScreenWithAnimation() {
         UIView.animate(withDuration: 1) {
             self.showPlacesOnHalfScreen()
+            self.showHorizontalPlacesView()
             self.view.layoutIfNeeded()
         }
     }
@@ -164,7 +166,15 @@ class DiscoveryVC: ViewController, PopupPresenter {
         self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/1.4)
     }
     
-    private func showPlacesOnFullScreen() {
+    private func showHorizontalPlacesView() {
+        horizontalPlacesView.alpha = 1
+    }
+    
+    private func hideHorizontalPlacesView() {
+        horizontalPlacesView.alpha = 0
+    }
+    
+    private func showNearByPlacesOnFullScreen() {
         self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height + view.safeAreaInsets.top + Metrics.padding)
     }
     
@@ -301,7 +311,8 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
         UIView.animate(withDuration: 0.3) {
             self.topBar.alpha = 0
             self.nearByPlacesView.showSearchMode()
-            self.showPlacesOnFullScreen()
+            self.showNearByPlacesOnFullScreen()
+            self.hideHorizontalPlacesView()
             self.view.layoutIfNeeded()
         }
     }
@@ -312,6 +323,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
             self.topBar.alpha = 1
             self.nearByPlacesView.hideSearchMode()
             self.showPlacesOnHalfScreen()
+            self.showHorizontalPlacesView()
             self.viewModel.searchPlacesByNameAndDescription("", nil)
             self.view.layoutIfNeeded()
         }
