@@ -13,10 +13,15 @@ protocol HorizontalPlacesViewDataSource: class {
     func placeInfoForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
 }
 
+protocol HorizontalPlacesViewDelegate: class {
+    func placeSelected(withId placeId: String)
+}
+
 class HorizontalPlacesView: UIView {
     
     private let placesCollectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: HorizontalPlacesCollectionViewFlowLayout())
     weak var dataSource: HorizontalPlacesViewDataSource?
+    weak var delegate: HorizontalPlacesViewDelegate?
     let cellId = "horizontalPlaceCell"
 
     init() {
@@ -66,8 +71,15 @@ extension HorizontalPlacesView: UICollectionViewDataSource {
         }
         
         cell.setPlaceInfo(placeInfo)
+        cell.delegate = self
         return cell
     
     }
     
+}
+
+extension HorizontalPlacesView: HorizontalPlacesViewCellDelegate {
+    func horizontalCellPressed(withId placeId: String) {
+        delegate?.placeSelected(withId: placeId)
+    }
 }

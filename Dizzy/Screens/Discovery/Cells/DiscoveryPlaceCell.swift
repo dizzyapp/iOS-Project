@@ -11,8 +11,8 @@ import SnapKit
 import Kingfisher
 
 protocol DiscoveryPlaceCellDelegate: class {
-    func discoveryPlaceCellDidPressDetails(_ cell: DiscoveryPlaceCell)
-    func discoveryPlaceCellDidPressIcon(_ cell: DiscoveryPlaceCell)
+    func discoveryPlaceCellDidPressDetails(withPlaceId placeId: String)
+    func discoveryPlaceCellDidPressIcon(withPlaceId placeId: String)
 }
 
 class DiscoveryPlaceCell: UITableViewCell {
@@ -23,6 +23,7 @@ class DiscoveryPlaceCell: UITableViewCell {
     let placeEventView = PlaceEventView()
     let placeDetailsStackView = UIStackView()
     
+    var placeId: String?
     let stackViewTrailingPadding = CGFloat(15)
     let smallLabelsFontSize = CGFloat(10)
     let smallLabelsAlpha = CGFloat(0.618)
@@ -133,6 +134,7 @@ class DiscoveryPlaceCell: UITableViewCell {
     }
 
     func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
+        placeId = placeInfo.id
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description
         if let imageURL = URL(string: placeInfo.imageURLString ?? "") {
@@ -149,10 +151,12 @@ class DiscoveryPlaceCell: UITableViewCell {
     }
     
     @objc func didPressDetails() {
-        delegate?.discoveryPlaceCellDidPressDetails(self)
+        guard let placeId = placeId else { return }
+        delegate?.discoveryPlaceCellDidPressDetails(withPlaceId: placeId)
     }
     
     @objc func didPressIcon() {
-        delegate?.discoveryPlaceCellDidPressIcon(self)
+        guard let placeId = placeId else { return }
+        delegate?.discoveryPlaceCellDidPressIcon(withPlaceId: placeId)
     }
 }

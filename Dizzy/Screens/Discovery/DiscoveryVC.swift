@@ -136,6 +136,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     private func setupHorizontalPlacesView() {
         horizontalPlacesView.dataSource = self
+        horizontalPlacesView.delegate = self
         hideHorizontalPlacesView()
     }
     
@@ -288,12 +289,13 @@ extension DiscoveryVC: DiscoveryVMDelegate {
 }
 
 extension DiscoveryVC: NearByPlacesViewDelegate {
-    func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
-        viewModel.placeCellIconPressed(atIndexPath: indexPath)
+
+    func didPressPlaceIcon(withPlaceId placeId: String) {
+        viewModel.placeCellIconPressed(withId: placeId)
     }
     
-    func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
-        viewModel.placeCellDetailsPressed(atIndexPath: indexPath)
+    func didPressPlaceDetails(withPlaceId placeId: String) {
+        viewModel.placeCellDetailsPressed(withId: placeId)
     }
 }
 
@@ -330,7 +332,11 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     }
 }
 
-extension DiscoveryVC: HorizontalPlacesViewDataSource {
+extension DiscoveryVC: HorizontalPlacesViewDataSource, HorizontalPlacesViewDelegate {
+    func placeSelected(withId placeId: String) {
+        viewModel.placeCellIconPressed(withId: placeId)
+    }
+    
     func numberOfPlaces() -> Int {
         viewModel.numberOfItemsForSection(0)
     }

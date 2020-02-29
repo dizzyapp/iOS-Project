@@ -127,12 +127,12 @@ extension PlaceSearchVC: NearByPlacesViewDataSource {
 
 extension PlaceSearchVC: NearByPlacesViewDelegate {
     
-    func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
-       viewModel.didSelectRowAt(indexPath)
+    func didPressPlaceIcon(withPlaceId placeId: String) {
+       viewModel.didSelectPlace(withId: placeId)
     }
     
-    func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
-        viewModel.didSelectRowAt(indexPath)
+    func didPressPlaceDetails(withPlaceId placeId: String) {
+        viewModel.didSelectPlace(withId: placeId)
     }
 }
 

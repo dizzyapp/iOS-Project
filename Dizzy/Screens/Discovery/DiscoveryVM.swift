@@ -13,8 +13,8 @@ protocol DiscoveryVMType {
     func numberOfItemsForSection(_ section: Int) -> Int
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
     
-    func placeCellDetailsPressed(atIndexPath indexPath: IndexPath)
-    func placeCellIconPressed(atIndexPath indexPath: IndexPath)
+    func placeCellDetailsPressed(withId placeId: String)
+    func placeCellIconPressed(withId placeId: String)
     
     func userApprovedHeIsIn(place activePlace: PlaceInfo)
     func userDeclinedHeIsInPlace()
@@ -173,16 +173,25 @@ class DiscoveryVM: DiscoveryVMType {
         self.navigationDelegate?.menuButtonPressed(with: allPlaces)
     }
     
-    func placeCellDetailsPressed(atIndexPath indexPath: IndexPath) {
-        navigationDelegate?.placeCellDetailsPressed(placesToDisplay.value[indexPath.row])
-    }
-    
-    func placeCellIconPressed(atIndexPath indexPath: IndexPath) {
-        navigationDelegate?.placeCellIconPressed(placesToDisplay.value[indexPath.row])
+    func placeCellDetailsPressed(withId placeId: String) {
+        guard let placeInfo = findePlaceById(placeId: placeId) else { return }
+        navigationDelegate?.placeCellDetailsPressed(placeInfo)
     }
 
     func locationLablePressed() {
         locationProvider.requestUserLocation()
+    }
+    
+    func placeCellIconPressed(withId placeId: String) {
+        guard let placeInfo = findePlaceById(placeId: placeId) else { return }
+        
+        navigationDelegate?.placeCellIconPressed(placeInfo)
+    }
+    
+    private func findePlaceById(placeId: String) -> PlaceInfo? {
+        return allPlaces.filter { placeInfo in
+            return placeInfo.id == placeId
+        }.first
     }
     
     func checkClosestPlace() {

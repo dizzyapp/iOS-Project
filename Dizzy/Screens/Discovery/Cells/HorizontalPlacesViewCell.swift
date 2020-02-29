@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol HorizontalPlacesViewCellDelegate: class {
+    func horizontalCellPressed(withId placeId: String)
+}
+
 class HorizontalPlacesViewCell: UICollectionViewCell {
     
     let placeImage = PlaceImageView()
     let placeNameLabel = UILabel()
     let placeImageViewSize: CGFloat = 65
+    
+    weak var delegate: HorizontalPlacesViewCellDelegate?
+    var placeId: String?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -66,6 +73,7 @@ class HorizontalPlacesViewCell: UICollectionViewCell {
     }
     
     func setPlaceInfo(_ placeInfo: PlaceInfo) {
+        placeId = placeInfo.id
         if let imageUrl = URL(string: placeInfo.imageURLString ?? "") {
                 placeImage.setImage(from: imageUrl)
         }
@@ -74,7 +82,8 @@ class HorizontalPlacesViewCell: UICollectionViewCell {
     }
     
     @objc func didPressIcon() {
-        
+        guard let placeId = placeId else { return }
+        delegate?.horizontalCellPressed(withId: placeId)
     }
     
 }

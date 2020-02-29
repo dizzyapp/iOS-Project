@@ -14,7 +14,7 @@ protocol PlaceSearchVMType {
 
     func numberOfRowsInSection() -> Int
     func itemAt(_ indexPath: IndexPath) -> PlaceInfo
-    func didSelectRowAt(_ indexPath: IndexPath) 
+    func didSelectPlace(withId placeId: String)
     func filter(filterString: String)
     func closeButtonPressed()
 }
@@ -56,11 +56,18 @@ final class PlaceSearchVM: PlaceSearchVMType {
         return autoCompleteFilter.filteredEntryList[indexPath.row]
     }
 
-    func didSelectRowAt(_ indexPath: IndexPath) {
-        delegate?.didSelect(place: autoCompleteFilter.filteredEntryList[indexPath.row])
+    func didSelectPlace(withId placeId: String) {
+        guard let placeInfo = findPlaceById(placeId) else { return }
+        delegate?.didSelect(place: placeInfo)
     }
 
     func filter(filterString: String) {
         autoCompleteFilter.filter(by: .startsWith, filterString: filterString)
+    }
+    
+    func findPlaceById(_ placeId: String) -> PlaceInfo? {
+        return autoCompleteFilter.filteredEntryList.filter {  placeInfo in
+            return placeInfo.id == placeId
+        }.first
     }
 }
