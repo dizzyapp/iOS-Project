@@ -99,6 +99,10 @@ class DiscoveryVC: ViewController, PopupPresenter {
         viewModel.filterItems.bind(shouldObserveIntial: true) {[weak self] filterItems in
             self?.nearByPlacesView.setFilterItems(filterItems)
         }
+        
+        viewModel.sortedPlacesByStoriesTime.bind(shouldObserveIntial: true) {[weak self] _ in
+            self?.horizontalPlacesView.reloadData()
+        }
     }
     
     private func setupViews() {
@@ -227,11 +231,11 @@ extension DiscoveryVC: NearByPlacesViewDataSource {
     }
     
     func numberOfItemsForSection(_ section: Int) -> Int {
-        return viewModel.numberOfItemsForSection(section)
+        return viewModel.numberOfItemsForSection(section, forListType: .nearByPlaces)
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return viewModel.itemForIndexPath(indexPath)
+        return viewModel.itemForIndexPath(indexPath, forListType: .nearByPlaces)
     }
 }
 
@@ -338,11 +342,11 @@ extension DiscoveryVC: HorizontalPlacesViewDataSource, HorizontalPlacesViewDeleg
     }
     
     func numberOfPlaces() -> Int {
-        viewModel.numberOfItemsForSection(0)
+        viewModel.numberOfItemsForSection(0, forListType: .sortedListByStories)
     }
     
     func placeInfoForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return viewModel.itemForIndexPath(indexPath)
+        return viewModel.itemForIndexPath(indexPath, forListType: .sortedListByStories)
     }
     
 }

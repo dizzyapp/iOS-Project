@@ -8,10 +8,14 @@
 
 import UIKit
 
+enum PlacesListType {
+    case nearByPlaces
+    case sortedListByStories
+}
 protocol DiscoveryVMType {
     func numberOfSections() -> Int
-    func numberOfItemsForSection(_ section: Int) -> Int
-    func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    func numberOfItemsForSection(_ section: Int, forListType listType:PlacesListType) -> Int
+    func itemForIndexPath(_ indexPath: IndexPath, forListType listType:PlacesListType ) -> PlaceInfo
     
     func placeCellDetailsPressed(withId placeId: String)
     func placeCellIconPressed(withId placeId: String)
@@ -27,6 +31,7 @@ protocol DiscoveryVMType {
     var currentLocation: Observable<Location?> { get }
     var currentCity: Observable<String> { get }
     var filterItems: Observable<[PlacesFilterTag]> { get }
+    var sortedPlacesByStoriesTime: Observable<[PlaceInfo]> { get }
     var activePlace: PlaceInfo? { get }
     var isSearching: Bool { get }
     var isSpalshEnded: Bool { get }
@@ -59,6 +64,7 @@ class DiscoveryVM: DiscoveryVMType {
 
     weak var delegate: DiscoveryVMDelegate?
     var nearByPlacesToDisplay = Observable<[PlaceInfo]>([])
+    var sortedPlacesByStoriesTime = Observable<[PlaceInfo]>([])
     var currentLocation = Observable<Location?>(nil)
     private var allPlaces = [PlaceInfo]()
     private var placesInteractor: PlacesInteractorType
@@ -90,6 +96,7 @@ class DiscoveryVM: DiscoveryVMType {
             guard let self = self, !places.isEmpty else { return }
             let isFirstTimePlacesArrived = self.placesArrivedForTheFirstTime()
             self.allPlaces = places
+            self.setSortedPlacesByStoriesTime(places)
             self.sortAllPlacesByDistance()
             self.searchPlacesByNameAndDescription(self.searchByText, self.searchByDescription)
             self.delegate?.allPlacesArrived()
@@ -141,6 +148,17 @@ class DiscoveryVM: DiscoveryVMType {
         })
     }
     
+    func setSortedPlacesByStoriesTime(_ places: [PlaceInfo]) {
+        let sortedPlaces = places.sorted { placeA, placeB in
+            let placeALastUploadStoryTime = placeA.lastStoryUploadTimeStamp ?? 0
+            let placeBLastUploadStoryTime = placeB.lastStoryUploadTimeStamp ?? 0
+            
+            return placeALastUploadStoryTime >= placeBLastUploadStoryTime
+        }
+        
+        sortedPlacesByStoriesTime.value = sortedPlaces
+    }
+    
     func sortAllPlacesByDistance() {
         guard let currentLocation = currentLocation.value else {
             print("cant sort without current location")
@@ -157,12 +175,22 @@ class DiscoveryVM: DiscoveryVMType {
         return 1
     }
     
-    func numberOfItemsForSection(_ section: Int) -> Int {
-        return nearByPlacesToDisplay.value.count
+    func numberOfItemsForSection(_ section: Int, forListType listType:PlacesListType) -> Int {
+        switch listType {
+        case .nearByPlaces:
+            return nearByPlacesToDisplay.value.count
+        case .sortedListByStories:
+            return sortedPlacesByStoriesTime.value.count
+        }
     }
     
-    func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return nearByPlacesToDisplay.value[indexPath.row]
+    func itemForIndexPath(_ indexPath: IndexPath, forListType listType:PlacesListType) -> PlaceInfo {
+        switch listType {
+        case .nearByPlaces:
+            return nearByPlacesToDisplay.value[indexPath.row]
+        case .sortedListByStories:
+            return sortedPlacesByStoriesTime.value[indexPath.row]
+        }
     }
     
     func mapButtonPressed() {
