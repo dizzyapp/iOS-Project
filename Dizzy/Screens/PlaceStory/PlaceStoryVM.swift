@@ -154,11 +154,10 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
     
     private func sortStoriesByTimeStamp(unsorterdStories: [PlaceMedia]) -> [PlaceMedia] {
         return unsorterdStories.sorted(by: { (mediaA, mediaB) -> Bool in
-            guard let timeStampA = mediaA.timeStamp,
-                let timeStampB = mediaB.timeStamp else {
-                    return mediaA.timeStamp != nil
-            }
-            return timeStampA < timeStampB
+            let timeStampA = mediaA.timeStamp ?? 0
+            let timeStampB = mediaB.timeStamp ?? 0
+            
+            return timeStampA >= timeStampB
         })
     }
 }

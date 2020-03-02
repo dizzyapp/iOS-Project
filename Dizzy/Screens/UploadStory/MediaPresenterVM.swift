@@ -31,6 +31,7 @@ final class MediaPresenterVM: MediaPresenterVMType {
     
     var presentedMediaType: PresentedMediaType
     let uploadFileInteractor: UploadFileInteractorType
+    let placesInteractor: PlacesInteractorType
     let placeInfo: PlaceInfo
     
     weak var delegate: MediaPresenterVMDelegate?
@@ -41,9 +42,11 @@ final class MediaPresenterVM: MediaPresenterVMType {
     
     init(presentedMediaType: PresentedMediaType,
          uploadFileInteractor: UploadFileInteractorType,
+         placesInteractor: PlacesInteractorType,
          placeInfo: PlaceInfo) {
         self.presentedMediaType = presentedMediaType
         self.uploadFileInteractor = uploadFileInteractor
+        self.placesInteractor = placesInteractor
         self.placeInfo = placeInfo
     }
     
@@ -62,8 +65,19 @@ final class MediaPresenterVM: MediaPresenterVMType {
     
     private func uploadImage(image: UIImage) {
         guard let data = image.jpegData(compressionQuality: 0.1) else { return }
+        let placesInteractorCopy = self.placesInteractor
+        let placeInfoCopy = self.placeInfo
         let uploadData = UploadFileData(data: data, fileURL: nil)
-        uploadFileInteractor.uplaodImage(path: "\(placeInfo.name)/\(UUID().uuidString)", data: uploadData, placeInfo: placeInfo) { _ in }
+        
+        uploadFileInteractor.uplaodImage(path: "\(placeInfo.name)/\(UUID().uuidString)", data: uploadData, placeInfo: placeInfo) { results in
+            switch results {
+            case .success(let placeMedia):
+                guard let timeStamp = placeMedia.timeStamp else { return }
+                placesInteractorCopy.updateLastStoryTimeStamp(timeStamp: timeStamp, forPlaceInfo: placeInfoCopy)
+            case .failure(let error):
+                print(error)
+            }
+        }
         delegate?.photoPresenterVMUploadPressed(self)
     }
     
