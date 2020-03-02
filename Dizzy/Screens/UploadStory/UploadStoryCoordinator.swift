@@ -37,13 +37,14 @@ final class UploadStoryCoordinator: UploadStoryCoordinatorType {
     }
     
     private func showPhotoPresenter(with mediaType: PresentedMediaType, placeInfo: PlaceInfo) {
-        guard let uploadFileInteractor = container?.resolve(UploadFileInteractorType.self) else {
+        guard let uploadFileInteractor = container?.resolve(UploadFileInteractorType.self),
+            let placesInteractor = container?.resolve(PlacesInteractorType.self) else {
             print("cannot load uploadFileInteractor")
             return
         }
         
         container?.register(MediaPresenterVMType.self) { _ in
-            MediaPresenterVM(presentedMediaType: mediaType, uploadFileInteractor: uploadFileInteractor, placeInfo: placeInfo)
+            MediaPresenterVM(presentedMediaType: mediaType, uploadFileInteractor: uploadFileInteractor, placesInteractor: placesInteractor, placeInfo: placeInfo)
         }
         
         guard var photoPresenterVM = container?.resolve(MediaPresenterVMType.self),
