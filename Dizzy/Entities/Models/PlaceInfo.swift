@@ -31,6 +31,7 @@ struct PlaceInfo: Codable, FilterEntry {
     let adminAnalytics: AdminAnalytics?
     let event: String?
     let placeAddress: String?
+    let lastStoryUploadTimeStamp: TimeInterval?
 }
 
 struct ActivePlace {

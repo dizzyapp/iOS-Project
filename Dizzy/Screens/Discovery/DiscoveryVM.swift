@@ -58,7 +58,7 @@ protocol DiscoveryViewModelNavigationDelegate: class {
 class DiscoveryVM: DiscoveryVMType {
 
     weak var delegate: DiscoveryVMDelegate?
-    var placesToDisplay = Observable<[PlaceInfo]>([])
+    var nearByPlacesToDisplay = Observable<[PlaceInfo]>([])
     var currentLocation = Observable<Location?>(nil)
     private var allPlaces = [PlaceInfo]()
     private var placesInteractor: PlacesInteractorType
@@ -158,11 +158,11 @@ class DiscoveryVM: DiscoveryVMType {
     }
     
     func numberOfItemsForSection(_ section: Int) -> Int {
-        return placesToDisplay.value.count
+        return nearByPlacesToDisplay.value.count
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return placesToDisplay.value[indexPath.row]
+        return nearByPlacesToDisplay.value[indexPath.row]
     }
     
     func mapButtonPressed() {
@@ -196,7 +196,7 @@ class DiscoveryVM: DiscoveryVMType {
     
     func checkClosestPlace() {
         guard let currentLocation = currentLocation.value,
-            !placesToDisplay.value.isEmpty else {
+            !nearByPlacesToDisplay.value.isEmpty else {
             return
         }
         
@@ -222,12 +222,12 @@ class DiscoveryVM: DiscoveryVMType {
     }
     
     func searchPlacesByNameAndDescription(_ searchText: String?, _ searchByDescription: String?) {
-        var placesToDisplay = allPlaces
-        placesToDisplay = filterPlacesByName(name: searchText, places: placesToDisplay)
+        var nearBylacesToDisplay = allPlaces
+        nearBylacesToDisplay = filterPlacesByName(name: searchText, places: nearBylacesToDisplay)
         
-        placesToDisplay = filterPlacesByDescription(description: searchByDescription, places: placesToDisplay)
+        nearBylacesToDisplay = filterPlacesByDescription(description: searchByDescription, places: nearBylacesToDisplay)
         
-        self.placesToDisplay.value = placesToDisplay
+        self.nearByPlacesToDisplay.value = nearBylacesToDisplay
         self.delegate?.reloadData()
     }
     
