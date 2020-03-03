@@ -43,4 +43,52 @@ extension Date {
         let dayName = self.dayName
         return DayType(rawValue: dayName)
     }
+    
+    var minutesFromNow: Int? {
+        return timeForm(component: .minute, endDate: Date(), currentDate: self).minute
+    }
+    
+    var hoursFromNow: Int? {
+        return timeForm(component: .hour, endDate: Date(), currentDate: self).hour
+    }
+    
+    var daysFromNow: Int? {
+        return timeForm(component: .day, endDate: Date(), currentDate: self).day
+    }
+    
+    var monthFromNow: Int? {
+        return timeForm(component: .month, endDate: Date(), currentDate: self).month
+    }
+
+    func timeForm(component: NSCalendar.Unit, endDate: Date, currentDate: Date) -> DateComponents {
+        return (Calendar.current as NSCalendar).components(component, from: currentDate, to: endDate, options: [])
+    }
+    
+    var timeDescriptionFromNow: String {
+        if let minutes = minutesFromNow, minutes < 60 {
+            if minutes == 1 {
+                return "1 minute ago"
+            } else {
+                return "\(minutes) minutes ago"
+            }
+        } else if let hoursFromNow = hoursFromNow, hoursFromNow < 24 {
+            if hoursFromNow == 1 {
+                return "1 hour ago"
+            } else {
+                return "\(hoursFromNow) hours ago"
+            }
+        } else if let hoursFromNow = hoursFromNow, hoursFromNow > 24, hoursFromNow < 48 {
+            return "yesterday"
+        } else if let days = daysFromNow, days < 30 {
+            if days == 1 {
+                return "1 day ago"
+            } else {
+                return "\(days) days ago"
+            }
+        } else if let monthsFromNow = monthFromNow {
+            return "\(monthsFromNow) months ago"
+        } else {
+            return "Just Now"
+        }
+    }
 }
