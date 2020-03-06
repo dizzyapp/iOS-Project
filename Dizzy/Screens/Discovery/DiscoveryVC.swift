@@ -186,6 +186,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func hidePlacesWithAnimation(_ completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.2, animations: {
             self.nearByPlacesTopConstraint?.update(offset: 0)
+            self.hideHorizontalPlacesView()
             self.view.layoutIfNeeded()
         }, completion: { _ in
             completion?()
