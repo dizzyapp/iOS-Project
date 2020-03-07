@@ -10,6 +10,7 @@ import Foundation
 import AVFoundation
 import AVKit
 import Kingfisher
+import SnapKit
 
 final class PlaceProfileVC: UIViewController {
     private let loadingView = DizzyLoadingView()
@@ -22,7 +23,8 @@ final class PlaceProfileVC: UIViewController {
     private let prevBackgroundImageButton = UIButton(frame: .zero)
 
     private let viewModel: PlaceProfileVMType
-    
+    private var profileViewTopConstraint: Constraint?
+    private var profileViewBottomConstraint: Constraint?
     let placeProfileViewCornerRadius = CGFloat(10)
     let placeProfileViewPadding = CGFloat(15)
     let placeProfileTopOffset = CGFloat(5)
@@ -88,6 +90,12 @@ final class PlaceProfileVC: UIViewController {
         swipeUp.direction = .up
         swipesContainerView.addGestureRecognizer(swipeUp)
         placeProfileView.addGestureRecognizer(swipeUp)
+        view.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(onDownSwipe))
+        swipeDown.direction = .down
+        swipesContainerView.addGestureRecognizer(swipeDown)
+        placeProfileView.addGestureRecognizer(swipeDown)
     }
     
     private func setupNavigation() {
@@ -164,10 +172,10 @@ final class PlaceProfileVC: UIViewController {
         }
         
         placeProfileView.snp.makeConstraints { placeProfileView in
-            placeProfileView.top.equalTo(view.snp.bottom).inset(placeProfileViewHeight)
+            profileViewTopConstraint = placeProfileView.top.equalTo(view.snp.bottom).inset(placeProfileViewHeight).constraint
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
             placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
-            placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding)
+            profileViewBottomConstraint =  placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding).constraint
         }
     }
     
@@ -186,6 +194,10 @@ final class PlaceProfileVC: UIViewController {
         viewModel.showImagesPagingArrows.bind { [weak self] show in
             self?.nextBackgroundImageButton.isHidden = !show
             self?.prevBackgroundImageButton.isHidden = !show
+        }
+        
+        viewModel.isProfileViewHidden.bind { [weak self] isProfileViewHidden in
+            self?.changeProfileViewPosition(isProfileViewHidden: isProfileViewHidden)
         }
     }
     
@@ -231,7 +243,11 @@ final class PlaceProfileVC: UIViewController {
     }
     
     @objc func onUpSwipe() {
-        viewModel.requestTableButtonPressed()
+        viewModel.onSwipeUp()
+    }
+    
+    @objc func onDownSwipe() {
+        viewModel.onSwipeDown()
     }
     
     @objc private func onNextButtonPressed() {
@@ -240,6 +256,16 @@ final class PlaceProfileVC: UIViewController {
     
     @objc private func onPrevButtonPressed() {
         viewModel.onSwipeLeft()
+    }
+    
+    private func changeProfileViewPosition(isProfileViewHidden: Bool) {
+        let profileViewTop = isProfileViewHidden ? 0 : self.placeProfileViewHeight
+        let profileViewBottom = isProfileViewHidden ? self.placeProfileViewHeight : -self.placeProfileViewPadding
+        UIView.animate(withDuration: 1) {
+            self.profileViewTopConstraint?.update(inset: profileViewTop)
+            self.profileViewBottomConstraint?.update(offset: profileViewBottom)
+            self.view.layoutIfNeeded()
+        }
     }
 }
 

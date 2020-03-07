@@ -13,6 +13,7 @@ protocol PlaceProfileVMType {
     var delegate: PlaceProfileVMDelegate? { get set }
     var mediaViewToShow: Observable<UIView?> { get }
     var showImagesPagingArrows: Observable<Bool> { get }
+    var isProfileViewHidden: Observable<Bool> { get }
     
     func closePressed()
     func addressButtonPressed(view: PlaceProfileView)
@@ -24,6 +25,8 @@ protocol PlaceProfileVMType {
     func sholdShowStoryButton() -> Bool
     func onSwipeLeft()
     func onSwipeRight()
+    func onSwipeUp()
+    func onSwipeDown()
     func getPlaceEvent() -> String?
 }
 
@@ -40,6 +43,7 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
     var showImagesPagingArrows = Observable<Bool>(true)
     var mediaToShow: PlaceMedia?
     var mediaViewToShow = Observable<UIView?>(nil)
+    var isProfileViewHidden = Observable<Bool>(false)
     var placeInfo: PlaceInfo
     let activePlace: PlaceInfo?
     let placesInteractor: PlacesInteractorType
@@ -147,6 +151,18 @@ final class PlaceProfileVM: PlaceProfileVMType, PlaceReservationRequestor {
         }
         
         setMediaToShow(mediaToShow: profileMedia[displayingMediaIndex + 1])
+    }
+    
+    func onSwipeUp() {
+        if isProfileViewHidden.value {
+            self.isProfileViewHidden.value = false
+        } else {
+            requestTableButtonPressed()
+        }
+    }
+    
+    func onSwipeDown() {
+        isProfileViewHidden.value = true
     }
     
     func onSwipeRight() {
