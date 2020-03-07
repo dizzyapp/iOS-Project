@@ -19,7 +19,8 @@ final class PlaceProfileVC: UIViewController {
     private let closeButton = UIButton().navigaionCloseButton
     private let placeEventView = PlaceEventView()
     private let nextBackgroundImageButton = UIButton(frame: .zero)
-    
+    private let prevBackgroundImageButton = UIButton(frame: .zero)
+
     private let viewModel: PlaceProfileVMType
     
     let placeProfileViewCornerRadius = CGFloat(10)
@@ -61,6 +62,7 @@ final class PlaceProfileVC: UIViewController {
         setupPlaceProfileView()
         setupNavigation()
         setupLoadingView()
+        setupPrevBackgroundImageButton()
         setupNextBackgroundImageButton()
     }
     
@@ -93,6 +95,11 @@ final class PlaceProfileVC: UIViewController {
         setupEventView()
     }
     
+    private func setupPrevBackgroundImageButton() {
+        prevBackgroundImageButton.setImage(UIImage(named: "rightArrowIconWhite"), for: .normal)
+        prevBackgroundImageButton.addTarget(self, action: #selector(onPrevButtonPressed), for: .touchUpInside)
+    }
+    
     private func setupNextBackgroundImageButton() {
         nextBackgroundImageButton.setImage(UIImage(named: "rightArrowIconWhite"), for: .normal)
         nextBackgroundImageButton.addTarget(self, action: #selector(onNextButtonPressed), for: .touchUpInside)
@@ -121,10 +128,16 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, swipesContainerView, placeProfileView, closeButton, placeEventView, nextBackgroundImageButton])
+        view.addSubviews([loadingView, swipesContainerView, placeProfileView, closeButton, placeEventView,prevBackgroundImageButton, nextBackgroundImageButton])
     }
     
     private func layoutViews() {
+        
+        prevBackgroundImageButton.snp.makeConstraints { make in
+            make.width.height.equalTo(Metrics.fiveTimesPadding)
+            make.bottom.equalTo(placeProfileView.backgroundView.snp.top)
+            make.leading.equalToSuperview().offset(Metrics.doublePadding)
+        }
         
         nextBackgroundImageButton.snp.makeConstraints { make in
             make.width.height.equalTo(Metrics.fiveTimesPadding)
@@ -170,8 +183,9 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.showNextArrow.bind { [weak self] show in
+        viewModel.showImagesPagingArrows.bind { [weak self] show in
             self?.nextBackgroundImageButton.isHidden = !show
+            self?.prevBackgroundImageButton.isHidden = !show
         }
     }
     
@@ -222,6 +236,10 @@ final class PlaceProfileVC: UIViewController {
     
     @objc private func onNextButtonPressed() {
         viewModel.onSwipeRight()
+    }
+    
+    @objc private func onPrevButtonPressed() {
+        viewModel.onSwipeLeft()
     }
 }
 
