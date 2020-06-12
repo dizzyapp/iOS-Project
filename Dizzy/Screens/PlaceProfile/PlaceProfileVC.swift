@@ -10,6 +10,7 @@ import Foundation
 import AVFoundation
 import AVKit
 import Kingfisher
+import SnapKit
 
 final class PlaceProfileVC: UIViewController {
     private let loadingView = DizzyLoadingView()
@@ -19,9 +20,11 @@ final class PlaceProfileVC: UIViewController {
     private let closeButton = UIButton().navigaionCloseButton
     private let placeEventView = PlaceEventView()
     private let nextBackgroundImageButton = UIButton(frame: .zero)
-    
+    private let prevBackgroundImageButton = UIButton(frame: .zero)
+
     private let viewModel: PlaceProfileVMType
-    
+    private var profileViewTopConstraint: Constraint?
+    private var profileViewBottomConstraint: Constraint?
     let placeProfileViewCornerRadius = CGFloat(10)
     let placeProfileViewPadding = CGFloat(15)
     let placeProfileTopOffset = CGFloat(5)
@@ -61,6 +64,7 @@ final class PlaceProfileVC: UIViewController {
         setupPlaceProfileView()
         setupNavigation()
         setupLoadingView()
+        setupPrevBackgroundImageButton()
         setupNextBackgroundImageButton()
     }
     
@@ -86,11 +90,22 @@ final class PlaceProfileVC: UIViewController {
         swipeUp.direction = .up
         swipesContainerView.addGestureRecognizer(swipeUp)
         placeProfileView.addGestureRecognizer(swipeUp)
+        view.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(onDownSwipe))
+        swipeDown.direction = .down
+        swipesContainerView.addGestureRecognizer(swipeDown)
+        placeProfileView.addGestureRecognizer(swipeDown)
     }
     
     private func setupNavigation() {
         setupCloseButton()
         setupEventView()
+    }
+    
+    private func setupPrevBackgroundImageButton() {
+        prevBackgroundImageButton.setImage(UIImage(named: "leftArrowIconWhite"), for: .normal)
+        prevBackgroundImageButton.addTarget(self, action: #selector(onPrevButtonPressed), for: .touchUpInside)
     }
     
     private func setupNextBackgroundImageButton() {
@@ -121,10 +136,16 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, swipesContainerView, placeProfileView, closeButton, placeEventView, nextBackgroundImageButton])
+        view.addSubviews([loadingView, swipesContainerView, placeProfileView, closeButton, placeEventView,prevBackgroundImageButton, nextBackgroundImageButton])
     }
     
     private func layoutViews() {
+        
+        prevBackgroundImageButton.snp.makeConstraints { make in
+            make.width.height.equalTo(Metrics.fiveTimesPadding)
+            make.bottom.equalTo(placeProfileView.backgroundView.snp.top)
+            make.leading.equalToSuperview().offset(Metrics.doublePadding)
+        }
         
         nextBackgroundImageButton.snp.makeConstraints { make in
             make.width.height.equalTo(Metrics.fiveTimesPadding)
@@ -151,10 +172,10 @@ final class PlaceProfileVC: UIViewController {
         }
         
         placeProfileView.snp.makeConstraints { placeProfileView in
-            placeProfileView.top.equalTo(view.snp.bottom).inset(placeProfileViewHeight)
+            profileViewTopConstraint = placeProfileView.top.equalTo(view.snp.bottom).inset(placeProfileViewHeight).constraint
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
             placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
-            placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding)
+            profileViewBottomConstraint =  placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding).constraint
         }
     }
     
@@ -170,8 +191,13 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.showNextArrow.bind { [weak self] show in
+        viewModel.showImagesPagingArrows.bind { [weak self] show in
             self?.nextBackgroundImageButton.isHidden = !show
+            self?.prevBackgroundImageButton.isHidden = !show
+        }
+        
+        viewModel.isProfileViewHidden.bind { [weak self] isProfileViewHidden in
+            self?.changeProfileViewPosition(isProfileViewHidden: isProfileViewHidden)
         }
     }
     
@@ -209,19 +235,37 @@ final class PlaceProfileVC: UIViewController {
     }
     
     @objc func onLeftSwipe() {
-        viewModel.onSwipeLeft()
-    }
-    
-    @objc func onRightSwipe() {
         viewModel.onSwipeRight()
     }
     
+    @objc func onRightSwipe() {
+        viewModel.onSwipeLeft()
+    }
+    
     @objc func onUpSwipe() {
-        viewModel.requestTableButtonPressed()
+        viewModel.onSwipeUp()
+    }
+    
+    @objc func onDownSwipe() {
+        viewModel.onSwipeDown()
     }
     
     @objc private func onNextButtonPressed() {
         viewModel.onSwipeRight()
+    }
+    
+    @objc private func onPrevButtonPressed() {
+        viewModel.onSwipeLeft()
+    }
+    
+    private func changeProfileViewPosition(isProfileViewHidden: Bool) {
+        let profileViewTop = isProfileViewHidden ? 0 : self.placeProfileViewHeight
+        let profileViewBottom = isProfileViewHidden ? self.placeProfileViewHeight : -self.placeProfileViewPadding
+        UIView.animate(withDuration: 1) {
+            self.profileViewTopConstraint?.update(inset: profileViewTop)
+            self.profileViewBottomConstraint?.update(offset: profileViewBottom)
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
