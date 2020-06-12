@@ -104,7 +104,7 @@ final class PlaceProfileVC: UIViewController {
     }
     
     private func setupPrevBackgroundImageButton() {
-        prevBackgroundImageButton.setImage(UIImage(named: "rightArrowIconWhite"), for: .normal)
+        prevBackgroundImageButton.setImage(UIImage(named: "leftArrowIconWhite"), for: .normal)
         prevBackgroundImageButton.addTarget(self, action: #selector(onPrevButtonPressed), for: .touchUpInside)
     }
     
@@ -235,11 +235,11 @@ final class PlaceProfileVC: UIViewController {
     }
     
     @objc func onLeftSwipe() {
-        viewModel.onSwipeLeft()
+        viewModel.onSwipeRight()
     }
     
     @objc func onRightSwipe() {
-        viewModel.onSwipeRight()
+        viewModel.onSwipeLeft()
     }
     
     @objc func onUpSwipe() {
