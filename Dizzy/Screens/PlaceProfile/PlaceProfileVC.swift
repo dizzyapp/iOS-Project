@@ -261,7 +261,7 @@ final class PlaceProfileVC: UIViewController {
     private func changeProfileViewPosition(isProfileViewHidden: Bool) {
         let profileViewTop = isProfileViewHidden ? 0 : self.placeProfileViewHeight
         let profileViewBottom = isProfileViewHidden ? self.placeProfileViewHeight : -self.placeProfileViewPadding
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.15) {
             self.profileViewTopConstraint?.update(inset: profileViewTop)
             self.profileViewBottomConstraint?.update(offset: profileViewBottom)
             self.view.layoutIfNeeded()

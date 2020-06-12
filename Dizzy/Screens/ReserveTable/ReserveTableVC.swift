@@ -133,7 +133,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupTitleLabel() {
-        titleLabel.text = "Get a Table" .localized
+        titleLabel.text = "Book a Table" .localized
         titleLabel.textAlignment = .center
         titleLabel.textColor = UIColor.dizzyBlue
         titleLabel.font = Fonts.i3(weight: .bold)
@@ -160,7 +160,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     private func setupSendButton() {
         sendButton.setTitle("Continue to WhatsApp".localized, for: .normal)
         sendButton.titleLabel?.font = Fonts.h8(weight: .bold)
-        sendButton.setTitleColor(.green, for: .normal)
+        sendButton.setTitleColor(.white, for: .normal)
         sendButton.layer.cornerRadius = signInCornerRadius
         sendButton.backgroundColor = signInButtonBackgroundColor
         sendButton.addTarget(self, action: #selector(onSendPressed), for: .touchUpInside )
