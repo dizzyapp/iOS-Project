@@ -78,7 +78,7 @@ extension Date {
                 return "\(hoursFromNow) hours ago"
             }
         } else if let hoursFromNow = hoursFromNow, hoursFromNow > 24, hoursFromNow < 48 {
-            return "yesterday"
+            return "Yesterday"
         } else if let days = daysFromNow, days < 30 {
             if days == 1 {
                 return "1 day ago"
