@@ -27,6 +27,7 @@ protocol PlaceStoryVMType {
     var delegate: PlaceStoryVMDelegate? { get set }
     var navigationDelegate: PlaceStoryVMNavigationDelegate? {get set}
     var place: PlaceInfo { get }
+    var currentStory: Observable<PlaceMedia?> { get }
     
     func showNextImage()
     func showPrevImage()
@@ -39,7 +40,7 @@ protocol PlaceStoryVMType {
 }
 
 final class PlaceStoryVM: PlaceStoryVMType {
-    
+
     var place: PlaceInfo
     weak var delegate: PlaceStoryVMDelegate?
     weak var navigationDelegate: PlaceStoryVMNavigationDelegate?
@@ -54,6 +55,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     let usersInteractor: UsersInteracteorType
     let user: DizzyUser
     let asyncMediaLoader = AsyncMediaLoader()
+    var currentStory = Observable<PlaceMedia?>(nil)
     
     init(place: PlaceInfo, commentsInteractor: CommentsInteractorType, storiesInteractor: StoriesInteractorType, user: DizzyUser, usersInteractor: UsersInteracteorType, placesIteractor: PlacesInteractorType) {
         self.place = place
@@ -71,6 +73,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
         if displayedImageIndex + 1 <= stories.value.count - 1 {
             displayedImageIndex += 1
             let mediaToShow = stories.value[displayedImageIndex]
+            currentStory.value = mediaToShow
             guard let mediaViewToShow = asyncMediaLoader.getView(forPlaceMedia: mediaToShow) else { return }
             if mediaToShow.isVideo() {
                 delegate?.placeStoryShowVideo(self, videoView: mediaViewToShow as? VideoView)
@@ -86,6 +89,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
         if displayedImageIndex - 1 >= 0 {
             displayedImageIndex -= 1
             let mediaToShow = stories.value[displayedImageIndex]
+            currentStory.value = mediaToShow
             guard let mediaViewToShow = asyncMediaLoader.getView(forPlaceMedia: mediaToShow) else { return }
             if mediaToShow.isVideo() {
                 delegate?.placeStoryShowVideo(self, videoView: mediaViewToShow as? VideoView)
@@ -146,6 +150,10 @@ extension PlaceStoryVM: StoriesInteractorDelegate {
     func storiesInteractor(_ interactor: StoriesInteractorType, stories: [PlaceMedia]?) {
         if let stories = stories, !stories.isEmpty {
             self.stories.value = sortStoriesByTimeStamp(unsorterdStories: stories)
+            
+            if let firstStory = self.stories.value.first {
+                currentStory.value = firstStory
+            }
             self.asyncMediaLoader.setMediaArray(self.stories.value)
             self.showNextImage()
             self.commentsInteractor.getAllComments(forPlaceId: place.id)

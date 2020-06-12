@@ -14,21 +14,20 @@ import SnapKit
 
 final class PlaceStoryVC: ViewController {
     
-    let rightGestureView = UIView()
-    let leftGestureView = UIView()
-    let loadingView = DizzyLoadingView()
+    private let rightGestureView = UIView()
+    private let leftGestureView = UIView()
+    private let loadingView = DizzyLoadingView()
 
-    var viewModel: PlaceStoryVMType
-    
-    let gestureViewWidth = CGFloat(150)
-    let commentTextFieldView = CommentTextFieldView()
-    let commentsView = CommentsView()
-    let bottomBackgroundView = UIView()
-    
-    var commentsTextInputViewBottomConstraint: Constraint?
+    private var viewModel: PlaceStoryVMType
+    private let gestureViewWidth = CGFloat(150)
+    private let commentTextFieldView = CommentTextFieldView()
+    private let commentsView = CommentsView()
+    private let bottomBackgroundView = UIView()
+    private var commentsTextInputViewBottomConstraint: Constraint?
     private let commentsViewHeightRatio = CGFloat(0.382)
     
     private var currentPresentedMedia = UIView()
+    private let timeLabel = UILabel()
     
     init(viewModel: PlaceStoryVMType) {
         self.viewModel = viewModel
@@ -45,7 +44,7 @@ final class PlaceStoryVC: ViewController {
     }
     
     private func addSubviews() {
-        view.addSubviews([loadingView, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
+        view.addSubviews([loadingView, timeLabel, rightGestureView, leftGestureView, commentsView, commentTextFieldView, bottomBackgroundView])
     }
     
     private func layoutViews() {
@@ -82,6 +81,11 @@ final class PlaceStoryVC: ViewController {
             bottomBackgroundView.leading.trailing.bottom.equalToSuperview()
             bottomBackgroundView.top.equalTo(commentTextFieldView.snp.bottom)
         }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.topMargin.equalToSuperview().offset(Metrics.doublePadding)
+            make.centerX.equalToSuperview()
+        }
     }
     
     private func setupNavigation() {
@@ -104,7 +108,13 @@ final class PlaceStoryVC: ViewController {
         setupGestureView()
         setupCommentsView()
         setupCommentsTextField()
+        setupTimeLabel()
         view.backgroundColor = .black
+    }
+    
+    private func setupTimeLabel() {
+        timeLabel.font = Fonts.h10()
+        timeLabel.textColor = UIColor.white
     }
     
     private func setupLoadingView() {
@@ -136,6 +146,12 @@ final class PlaceStoryVC: ViewController {
         
         viewModel.comments.bind { [weak self] _ in
             self?.commentsView.reloadTableView()
+        }
+        
+        viewModel.currentStory.bind { [weak self] story in
+            guard let self = self, let timeStamp = story?.timeStamp else { return }
+            let date = Date(timeIntervalSince1970: timeStamp)
+            self.timeLabel.text = date.timeDescriptionFromNow
         }
     }
     
