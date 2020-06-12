@@ -9,8 +9,8 @@
 import UIKit
 
 protocol UploadFileInteractorType {
-    func uplaodImage(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<Bool>) -> Void)
-    func uplaodVideo(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<Bool>) -> Void)
+    func uplaodImage(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<PlaceMedia>) -> Void)
+    func uplaodVideo(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<PlaceMedia>) -> Void)
 }
 
 final class UploadFileInteractor: UploadFileInteractorType {
@@ -20,13 +20,13 @@ final class UploadFileInteractor: UploadFileInteractorType {
         self.dispacher = dispacher
     }
     
-    func uplaodImage(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<Bool>) -> Void) {
+    func uplaodImage(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<PlaceMedia>) -> Void) {
         dispacher.uploadFile(path: path, data: data) { [weak self] result in
             
             switch result {
             case .success(let uploadFileResponse):
                 self?.save(placeMedia: uploadFileResponse, to: placeInfo)
-                completion(Result.success(true))
+                completion(Result.success(uploadFileResponse))
                 
             case .failure(let error):
                completion(Result.failure(error))
@@ -34,13 +34,13 @@ final class UploadFileInteractor: UploadFileInteractorType {
         }
     }
     
-    func uplaodVideo(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<Bool>) -> Void) {
+    func uplaodVideo(path: String, data: UploadFileData, placeInfo: PlaceInfo, completion: @escaping (Result<PlaceMedia>) -> Void) {
         dispacher.uploadFile(path: path, data: data) { [weak self] result in
             
             switch result {
             case .success(let uploadFileResponse):
                 self?.save(placeMedia: uploadFileResponse, to: placeInfo)
-                completion(Result.success(true))
+                completion(Result.success(uploadFileResponse))
                 
             case .failure(let error):
                 completion(Result.failure(error))

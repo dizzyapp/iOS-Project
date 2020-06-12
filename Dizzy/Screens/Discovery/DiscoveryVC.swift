@@ -15,6 +15,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     
     let topBar = DiscoveryTopBar()
     let themeVideoView = VideoView()
+    let horizontalPlacesView = HorizontalPlacesView()
     let nearByPlacesView = NearByPlacesView()
     var viewModel: DiscoveryVMType
     let appStartVM: AppStartVMType
@@ -56,7 +57,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     }
     
     private func addSubviews() {
-        self.view.addSubviews([themeVideoView, topBar, nearByPlacesView])
+        self.view.addSubviews([themeVideoView, topBar,horizontalPlacesView, nearByPlacesView])
     }
     
     private func layoutViews() {
@@ -69,6 +70,12 @@ class DiscoveryVC: ViewController, PopupPresenter {
         themeVideoView.snp.makeConstraints { themeImageView in
             
             themeImageView.top.leading.bottom.trailing.equalToSuperview()
+        }
+        
+        horizontalPlacesView.snp.makeConstraints { horizontalPlacesView in
+            horizontalPlacesView.bottom.equalTo(nearByPlacesView.snp.top).offset(-Metrics.padding)
+            horizontalPlacesView.leading.equalTo(nearByPlacesView.snp.leading)
+            horizontalPlacesView.trailing.equalTo(nearByPlacesView.snp.trailing)
         }
         
         nearByPlacesView.snp.makeConstraints { nearByPlacesView in
@@ -92,11 +99,16 @@ class DiscoveryVC: ViewController, PopupPresenter {
         viewModel.filterItems.bind(shouldObserveIntial: true) {[weak self] filterItems in
             self?.nearByPlacesView.setFilterItems(filterItems)
         }
+        
+        viewModel.sortedPlacesByStoriesTime.bind(shouldObserveIntial: true) {[weak self] _ in
+            self?.horizontalPlacesView.reloadData()
+        }
     }
     
     private func setupViews() {
         view.backgroundColor = .clear
         addSwipeDelegate()
+        setupHorizontalPlacesView()
         setupNearByPlacesView()
         setupTopBarView()
     }
@@ -126,6 +138,12 @@ class DiscoveryVC: ViewController, PopupPresenter {
         themeVideoView.play()
     }
     
+    private func setupHorizontalPlacesView() {
+        horizontalPlacesView.dataSource = self
+        horizontalPlacesView.delegate = self
+        hideHorizontalPlacesView()
+    }
+    
     private func setupNearByPlacesView() {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
@@ -137,6 +155,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     private func showPlacesOnHalfScreenWithAnimation() {
         UIView.animate(withDuration: 1) {
             self.showPlacesOnHalfScreen()
+            self.showHorizontalPlacesView()
             self.view.layoutIfNeeded()
         }
     }
@@ -152,13 +171,22 @@ class DiscoveryVC: ViewController, PopupPresenter {
         self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height/1.4)
     }
     
-    private func showPlacesOnFullScreen() {
+    private func showHorizontalPlacesView() {
+        horizontalPlacesView.alpha = 1
+    }
+    
+    private func hideHorizontalPlacesView() {
+        horizontalPlacesView.alpha = 0
+    }
+    
+    private func showNearByPlacesOnFullScreen() {
         self.nearByPlacesTopConstraint?.update(offset: -self.view.frame.height + view.safeAreaInsets.top + Metrics.padding)
     }
     
     private func hidePlacesWithAnimation(_ completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.2, animations: {
             self.nearByPlacesTopConstraint?.update(offset: 0)
+            self.hideHorizontalPlacesView()
             self.view.layoutIfNeeded()
         }, completion: { _ in
             completion?()
@@ -204,11 +232,11 @@ extension DiscoveryVC: NearByPlacesViewDataSource {
     }
     
     func numberOfItemsForSection(_ section: Int) -> Int {
-        return viewModel.numberOfItemsForSection(section)
+        return viewModel.numberOfItemsForSection(section, forListType: .nearByPlaces)
     }
     
     func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return viewModel.itemForIndexPath(indexPath)
+        return viewModel.itemForIndexPath(indexPath, forListType: .nearByPlaces)
     }
 }
 
@@ -248,6 +276,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
     
     func allPlacesArrived() {
         nearByPlacesView.reloadData()
+        horizontalPlacesView.reloadData()
     }
     
     func showContentWithAnimation() {
@@ -265,12 +294,13 @@ extension DiscoveryVC: DiscoveryVMDelegate {
 }
 
 extension DiscoveryVC: NearByPlacesViewDelegate {
-    func didPressPlaceIcon(atIndexPath indexPath: IndexPath) {
-        viewModel.placeCellIconPressed(atIndexPath: indexPath)
+
+    func didPressPlaceIcon(withPlaceId placeId: String) {
+        viewModel.placeCellIconPressed(withId: placeId)
     }
     
-    func didPressPlaceDetails(atIndexPath indexPath: IndexPath) {
-        viewModel.placeCellDetailsPressed(atIndexPath: indexPath)
+    func didPressPlaceDetails(withPlaceId placeId: String) {
+        viewModel.placeCellDetailsPressed(withId: placeId)
     }
 }
 
@@ -288,7 +318,8 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
         UIView.animate(withDuration: 0.3) {
             self.topBar.alpha = 0
             self.nearByPlacesView.showSearchMode()
-            self.showPlacesOnFullScreen()
+            self.showNearByPlacesOnFullScreen()
+            self.hideHorizontalPlacesView()
             self.view.layoutIfNeeded()
         }
     }
@@ -299,8 +330,24 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
             self.topBar.alpha = 1
             self.nearByPlacesView.hideSearchMode()
             self.showPlacesOnHalfScreen()
+            self.showHorizontalPlacesView()
             self.viewModel.searchPlacesByNameAndDescription("", nil)
             self.view.layoutIfNeeded()
         }
     }
+}
+
+extension DiscoveryVC: HorizontalPlacesViewDataSource, HorizontalPlacesViewDelegate {
+    func placeSelected(withId placeId: String) {
+        viewModel.placeCellIconPressed(withId: placeId)
+    }
+    
+    func numberOfPlaces() -> Int {
+        viewModel.numberOfItemsForSection(0, forListType: .sortedListByStories)
+    }
+    
+    func placeInfoForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
+        return viewModel.itemForIndexPath(indexPath, forListType: .sortedListByStories)
+    }
+    
 }

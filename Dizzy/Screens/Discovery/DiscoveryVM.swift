@@ -8,13 +8,17 @@
 
 import UIKit
 
+enum PlacesListType {
+    case nearByPlaces
+    case sortedListByStories
+}
 protocol DiscoveryVMType {
     func numberOfSections() -> Int
-    func numberOfItemsForSection(_ section: Int) -> Int
-    func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    func numberOfItemsForSection(_ section: Int, forListType listType:PlacesListType) -> Int
+    func itemForIndexPath(_ indexPath: IndexPath, forListType listType:PlacesListType ) -> PlaceInfo
     
-    func placeCellDetailsPressed(atIndexPath indexPath: IndexPath)
-    func placeCellIconPressed(atIndexPath indexPath: IndexPath)
+    func placeCellDetailsPressed(withId placeId: String)
+    func placeCellIconPressed(withId placeId: String)
     
     func userApprovedHeIsIn(place activePlace: PlaceInfo)
     func userDeclinedHeIsInPlace()
@@ -27,6 +31,7 @@ protocol DiscoveryVMType {
     var currentLocation: Observable<Location?> { get }
     var currentCity: Observable<String> { get }
     var filterItems: Observable<[PlacesFilterTag]> { get }
+    var sortedPlacesByStoriesTime: Observable<[PlaceInfo]> { get }
     var activePlace: PlaceInfo? { get }
     var isSearching: Bool { get }
     var isSpalshEnded: Bool { get }
@@ -58,7 +63,8 @@ protocol DiscoveryViewModelNavigationDelegate: class {
 class DiscoveryVM: DiscoveryVMType {
 
     weak var delegate: DiscoveryVMDelegate?
-    var placesToDisplay = Observable<[PlaceInfo]>([])
+    var nearByPlacesToDisplay = Observable<[PlaceInfo]>([])
+    var sortedPlacesByStoriesTime = Observable<[PlaceInfo]>([])
     var currentLocation = Observable<Location?>(nil)
     private var allPlaces = [PlaceInfo]()
     private var placesInteractor: PlacesInteractorType
@@ -90,6 +96,7 @@ class DiscoveryVM: DiscoveryVMType {
             guard let self = self, !places.isEmpty else { return }
             let isFirstTimePlacesArrived = self.placesArrivedForTheFirstTime()
             self.allPlaces = places
+            self.setSortedPlacesByStoriesTime(places)
             self.sortAllPlacesByDistance()
             self.searchPlacesByNameAndDescription(self.searchByText, self.searchByDescription)
             self.delegate?.allPlacesArrived()
@@ -141,6 +148,17 @@ class DiscoveryVM: DiscoveryVMType {
         })
     }
     
+    func setSortedPlacesByStoriesTime(_ places: [PlaceInfo]) {
+        let sortedPlaces = places.sorted { placeA, placeB in
+            let placeALastUploadStoryTime = placeA.lastStoryUploadTimeStamp ?? 0
+            let placeBLastUploadStoryTime = placeB.lastStoryUploadTimeStamp ?? 0
+            
+            return placeALastUploadStoryTime >= placeBLastUploadStoryTime
+        }
+        
+        sortedPlacesByStoriesTime.value = sortedPlaces
+    }
+    
     func sortAllPlacesByDistance() {
         guard let currentLocation = currentLocation.value else {
             print("cant sort without current location")
@@ -157,12 +175,22 @@ class DiscoveryVM: DiscoveryVMType {
         return 1
     }
     
-    func numberOfItemsForSection(_ section: Int) -> Int {
-        return placesToDisplay.value.count
+    func numberOfItemsForSection(_ section: Int, forListType listType:PlacesListType) -> Int {
+        switch listType {
+        case .nearByPlaces:
+            return nearByPlacesToDisplay.value.count
+        case .sortedListByStories:
+            return sortedPlacesByStoriesTime.value.count
+        }
     }
     
-    func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return placesToDisplay.value[indexPath.row]
+    func itemForIndexPath(_ indexPath: IndexPath, forListType listType:PlacesListType) -> PlaceInfo {
+        switch listType {
+        case .nearByPlaces:
+            return nearByPlacesToDisplay.value[indexPath.row]
+        case .sortedListByStories:
+            return sortedPlacesByStoriesTime.value[indexPath.row]
+        }
     }
     
     func mapButtonPressed() {
@@ -173,21 +201,30 @@ class DiscoveryVM: DiscoveryVMType {
         self.navigationDelegate?.menuButtonPressed(with: allPlaces)
     }
     
-    func placeCellDetailsPressed(atIndexPath indexPath: IndexPath) {
-        navigationDelegate?.placeCellDetailsPressed(placesToDisplay.value[indexPath.row])
-    }
-    
-    func placeCellIconPressed(atIndexPath indexPath: IndexPath) {
-        navigationDelegate?.placeCellIconPressed(placesToDisplay.value[indexPath.row])
+    func placeCellDetailsPressed(withId placeId: String) {
+        guard let placeInfo = findePlaceById(placeId: placeId) else { return }
+        navigationDelegate?.placeCellDetailsPressed(placeInfo)
     }
 
     func locationLablePressed() {
         locationProvider.requestUserLocation()
     }
     
+    func placeCellIconPressed(withId placeId: String) {
+        guard let placeInfo = findePlaceById(placeId: placeId) else { return }
+        
+        navigationDelegate?.placeCellIconPressed(placeInfo)
+    }
+    
+    private func findePlaceById(placeId: String) -> PlaceInfo? {
+        return allPlaces.filter { placeInfo in
+            return placeInfo.id == placeId
+        }.first
+    }
+    
     func checkClosestPlace() {
         guard let currentLocation = currentLocation.value,
-            !placesToDisplay.value.isEmpty else {
+            !nearByPlacesToDisplay.value.isEmpty else {
             return
         }
         
@@ -213,12 +250,12 @@ class DiscoveryVM: DiscoveryVMType {
     }
     
     func searchPlacesByNameAndDescription(_ searchText: String?, _ searchByDescription: String?) {
-        var placesToDisplay = allPlaces
-        placesToDisplay = filterPlacesByName(name: searchText, places: placesToDisplay)
+        var nearBylacesToDisplay = allPlaces
+        nearBylacesToDisplay = filterPlacesByName(name: searchText, places: nearBylacesToDisplay)
         
-        placesToDisplay = filterPlacesByDescription(description: searchByDescription, places: placesToDisplay)
+        nearBylacesToDisplay = filterPlacesByDescription(description: searchByDescription, places: nearBylacesToDisplay)
         
-        self.placesToDisplay.value = placesToDisplay
+        self.nearByPlacesToDisplay.value = nearBylacesToDisplay
         self.delegate?.reloadData()
     }
     

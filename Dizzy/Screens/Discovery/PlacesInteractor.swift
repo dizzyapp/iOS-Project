@@ -18,6 +18,7 @@ protocol PlacesInteractorType {
     func setReservation(to placeId: String, with reservationData: ReservationData)
     func getMenuImagesUrls(per placeId: String,  completion: @escaping ([MenuURL]) -> Void)
     func getPlacesFilterTags(completion: (([PlacesFilterTag]) -> Void)?)
+    func updateLastStoryTimeStamp( timeStamp: TimeInterval, forPlaceInfo: PlaceInfo)
 }
 
 class PlacesInteractor: PlacesInteractorType {
@@ -135,5 +136,10 @@ class PlacesInteractor: PlacesInteractorType {
                 print(error)
             }
         }
+    }
+    
+    func updateLastStoryTimeStamp( timeStamp: TimeInterval, forPlaceInfo place: PlaceInfo) {
+        let resource = Resource<String, TimeInterval>(path: "places/\(place.id)/lastStoryUploadTimeStamp").withPost(timeStamp)
+        webResourcesDispatcher.load(resource) { _ in}
     }
 }
