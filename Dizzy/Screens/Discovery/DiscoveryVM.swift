@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum NearByDataType {
+    case places([PlaceInfo])
+    case todayEvent(viewModel: BigImageHorizontalViewModelType)
+}
+
 enum PlacesListType {
     case nearByPlaces
     case sortedListByStories
@@ -78,6 +83,8 @@ class DiscoveryVM: DiscoveryVMType {
     var isSpalshEnded = false
     var searchByText = ""
     var searchByDescription = ""
+    
+    var nearByDataType = [NearByDataType]()
     
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
@@ -256,6 +263,10 @@ class DiscoveryVM: DiscoveryVMType {
         nearBylacesToDisplay = filterPlacesByDescription(description: searchByDescription, places: nearBylacesToDisplay)
         
         self.nearByPlacesToDisplay.value = nearBylacesToDisplay
+        
+        nearByDataType = [.todayEvent(viewModel: BigImageHorizontalViewModel(places: allPlaces, currentLocation: currentLocation.value)),
+                          .places(nearBylacesToDisplay)]
+        
         self.delegate?.reloadData()
     }
     
