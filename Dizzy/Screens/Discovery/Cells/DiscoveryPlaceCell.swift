@@ -10,12 +10,23 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+protocol DiscoveryCell: UITableViewCell {
+    func configure(with dataType: NearByDataType)
+    var delegate: DiscoveryPlaceCellDelegate? { get set }
+}
+
+struct DiscoveryPlaceCellViewModel {
+    let location: Location?
+    let place: PlaceInfo
+}
+
 protocol DiscoveryPlaceCellDelegate: class {
     func discoveryPlaceCellDidPressDetails(withPlaceId placeId: String)
     func discoveryPlaceCellDidPressIcon(withPlaceId placeId: String)
 }
 
-class DiscoveryPlaceCell: UITableViewCell {
+class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
+
     let placeImageView = PlaceImageView()
     let placeNameLabel = UILabel()
     let placeAddressLabel = UILabel()
@@ -132,8 +143,13 @@ class DiscoveryPlaceCell: UITableViewCell {
             placeEventView.isHidden = true
         }
     }
-
-    func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
+    
+    func configure(with dataType: NearByDataType) {
+        guard case var .place(viewModel) = dataType else { return }
+        setPlaceInfo(viewModel.place, currentAppLocation: viewModel.location)
+    }
+    
+    private func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
         placeId = placeInfo.id
         placeNameLabel.text = placeInfo.name
         placeAddressLabel.text = placeInfo.description

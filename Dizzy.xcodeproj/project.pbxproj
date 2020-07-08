@@ -67,8 +67,6 @@
 		04E7808E22B0279000A9E3F4 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7808D22B0279000A9E3F4 /* DateUtils.swift */; };
 		04E7809322B027CF00A9E3F4 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809222B027CF00A9E3F4 /* Colors.swift */; };
 		04E7809522B0280500A9E3F4 /* ExternalPlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */; };
-		2202F75924AB8E2600D40C93 /* TodayEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F75824AB8E2600D40C93 /* TodayEventView.swift */; };
-		2202F75B24AB900600D40C93 /* BigImageHorizontalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2202F75A24AB900600D40C93 /* BigImageHorizontalDataSource.swift */; };
 		223F407E23C3C53400AE8EDF /* PlaceMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F407D23C3C53400AE8EDF /* PlaceMenuVC.swift */; };
 		223F408023C3C55500AE8EDF /* PlaceMenuVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223F407F23C3C55500AE8EDF /* PlaceMenuVM.swift */; };
 		22B85CF024AB915E005D8B71 /* BigImageHorizontalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B85CEF24AB915E005D8B71 /* BigImageHorizontalCell.swift */; };
@@ -219,8 +217,6 @@
 		04E7808D22B0279000A9E3F4 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		04E7809222B027CF00A9E3F4 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		04E7809422B0280500A9E3F4 /* ExternalPlaceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalPlaceData.swift; sourceTree = "<group>"; };
-		2202F75824AB8E2600D40C93 /* TodayEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayEventView.swift; sourceTree = "<group>"; };
-		2202F75A24AB900600D40C93 /* BigImageHorizontalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigImageHorizontalDataSource.swift; sourceTree = "<group>"; };
 		223F407D23C3C53400AE8EDF /* PlaceMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMenuVC.swift; sourceTree = "<group>"; };
 		223F407F23C3C55500AE8EDF /* PlaceMenuVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMenuVM.swift; sourceTree = "<group>"; };
 		22B85CEF24AB915E005D8B71 /* BigImageHorizontalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigImageHorizontalCell.swift; sourceTree = "<group>"; };
@@ -704,9 +700,7 @@
 				76B41ED222522A4000C1A290 /* DiscoveryVM.swift */,
 				77C1E93F24084B6600BC3633 /* HorizontalPlacesView.swift */,
 				770972422264FCF50042D6EE /* PlacesInteractor.swift */,
-				2202F75824AB8E2600D40C93 /* TodayEventView.swift */,
 				22F106EE24AF38A0008AE4F5 /* TodayEventCell.swift */,
-				2202F75A24AB900600D40C93 /* BigImageHorizontalDataSource.swift */,
 				22B85CEF24AB915E005D8B71 /* BigImageHorizontalCell.swift */,
 				2202F75724AB8DBB00D40C93 /* NearByPlacesView */,
 				77ACCD0F2351BE2500D79E22 /* AppStart */,
@@ -954,7 +948,6 @@
 				041D95C52253D84F009ED7AB /* WebResource.swift in Sources */,
 				04A6308222D10EC500CA5331 /* SearchPlaceCoordinator.swift in Sources */,
 				223F408023C3C55500AE8EDF /* PlaceMenuVM.swift in Sources */,
-				2202F75924AB8E2600D40C93 /* TodayEventView.swift in Sources */,
 				4D0705AF22D1558B009D6236 /* MapSearchTableViewCell.swift in Sources */,
 				4DDA117C22B58F9800CA0220 /* SignInWithDizzyVC.swift in Sources */,
 				223F407E23C3C53400AE8EDF /* PlaceMenuVC.swift in Sources */,
@@ -1038,7 +1031,6 @@
 				77BF395B239BE89400BA41D6 /* StoryCoordinatorOpener.swift in Sources */,
 				041724B82378546800E0A5D9 /* AdminPlacesVC.swift in Sources */,
 				76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */,
-				2202F75B24AB900600D40C93 /* BigImageHorizontalDataSource.swift in Sources */,
 				4DA64E9A22C7F99B001D5A1A /* PlaceImageView.swift in Sources */,
 				4DA64E9822C4067B001D5A1A /* LogoutWebService.swift in Sources */,
 				0470E6B52270B32600267278 /* PlaceSearchVC.swift in Sources */,

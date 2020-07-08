@@ -14,30 +14,9 @@ protocol BigImageHorizontalViewModelType {
 }
 
 final class BigImageHorizontalViewModel: BigImageHorizontalViewModelType {
-    
-    var items = Observable<[Data]>([Data]())
-    
-    init(places: [PlaceInfo], currentLocation: Location?) {
-        
-        items.value = places.map({ place -> Data in
-            return Data(imageURL: place.imageURLString ?? "", title: place.name, subtitle: String(format: "%.2f km", currentLocation?.getDistanceTo(place.location) ?? 0))
-        })
-    }
-        
-    func numberOfSections() -> Int {
-        return items.value.count
-    }
-    
-    func item(at indexPath: IndexPath) -> Data {
-        return items.value[indexPath.row]
-    }
-    
+
 }
 
 extension BigImageHorizontalViewModel {
-    struct Data {
-        let imageURL: String
-        let title: String
-        let subtitle: String
-    }
+  
 }

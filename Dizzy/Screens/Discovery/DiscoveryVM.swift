@@ -8,9 +8,29 @@
 
 import UIKit
 
+class NearBySectionType {
+    var data = [NearByDataType]()
+    
+    var numberOfRow: Int {
+        return data.count
+    }
+    
+    var sectionTitle: String = ""
+}
+
 enum NearByDataType {
-    case places([PlaceInfo])
-    case todayEvent(viewModel: BigImageHorizontalViewModelType)
+    case todayEvent(data: [TodayEventCell.ViewModel])
+    case place(DiscoveryPlaceCellViewModel)
+    
+    var cellIdetifier: String {
+        switch self {
+        case .todayEvent:
+            return "Dizzy.TodayEventCell"
+            
+        case .place:
+            return "DiscoveryPlaceCell"
+        }
+    }
 }
 
 enum PlacesListType {
@@ -18,9 +38,11 @@ enum PlacesListType {
     case sortedListByStories
 }
 protocol DiscoveryVMType {
-    func numberOfSections() -> Int
+    func numberOfSections(forListType listType:PlacesListType) -> Int
     func numberOfItemsForSection(_ section: Int, forListType listType:PlacesListType) -> Int
-    func itemForIndexPath(_ indexPath: IndexPath, forListType listType:PlacesListType ) -> PlaceInfo
+    func placeItem(at indexPath: IndexPath) -> PlaceInfo
+    func nearByItem(at indexPath: IndexPath) -> NearByDataType
+    func title(for section: Int) -> String
     
     func placeCellDetailsPressed(withId placeId: String)
     func placeCellIconPressed(withId placeId: String)
@@ -84,7 +106,7 @@ class DiscoveryVM: DiscoveryVMType {
     var searchByText = ""
     var searchByDescription = ""
     
-    var nearByDataType = [NearByDataType]()
+    var nearByDataType = [NearBySectionType]()
     
     init(placesInteractor: PlacesInteractorType, locationProvider: LocationProviderType) {
         self.locationProvider = locationProvider
@@ -178,26 +200,35 @@ class DiscoveryVM: DiscoveryVMType {
         })
     }
     
-    func numberOfSections() -> Int {
-        return 1
+    func title(for section: Int) -> String {
+        return nearByDataType[section].sectionTitle
+    }
+    
+    func numberOfSections(forListType listType: PlacesListType) -> Int {
+        switch listType {
+        case .nearByPlaces:
+            return nearByDataType.count
+            
+        case .sortedListByStories:
+            return 1
+        }
     }
     
     func numberOfItemsForSection(_ section: Int, forListType listType:PlacesListType) -> Int {
         switch listType {
         case .nearByPlaces:
-            return nearByPlacesToDisplay.value.count
+            return nearByDataType[section].numberOfRow
         case .sortedListByStories:
             return sortedPlacesByStoriesTime.value.count
         }
     }
     
-    func itemForIndexPath(_ indexPath: IndexPath, forListType listType:PlacesListType) -> PlaceInfo {
-        switch listType {
-        case .nearByPlaces:
-            return nearByPlacesToDisplay.value[indexPath.row]
-        case .sortedListByStories:
-            return sortedPlacesByStoriesTime.value[indexPath.row]
-        }
+    func placeItem(at indexPath: IndexPath) -> PlaceInfo {
+        return sortedPlacesByStoriesTime.value[indexPath.row]
+    }
+    
+    func nearByItem(at indexPath: IndexPath) -> NearByDataType {
+        return nearByDataType[indexPath.section].data[indexPath.row]
     }
     
     func mapButtonPressed() {
@@ -261,12 +292,36 @@ class DiscoveryVM: DiscoveryVMType {
         nearBylacesToDisplay = filterPlacesByName(name: searchText, places: nearBylacesToDisplay)
         
         nearBylacesToDisplay = filterPlacesByDescription(description: searchByDescription, places: nearBylacesToDisplay)
+
+        nearByDataType = [NearBySectionType]()
         
+        if (searchByDescription == nil || searchByDescription?.isEmpty == true) && (searchText == nil || searchText?.isEmpty == true) {
+            let currentDateMinus6Hours = Date().date(byAdding: .hour, value: -6).dayType
+             let eventsPlaces = nearBylacesToDisplay.filter { currentDateMinus6Hours?.getDescription(from: $0.placeSchedule) != nil }
+            let todayEventData = eventsPlaces.map { place -> TodayEventCell.ViewModel in
+                let description = currentDateMinus6Hours?.getDescription(from: place.placeSchedule) ?? ""
+                let image = place.placeProfileImageUrl ?? ""
+                let viewModel = TodayEventCell.ViewModel(placeId: place.id, description: description , imageURL: image, title: place.name, subtitle: String(format: "%.2f km", self.currentLocation.value?.getDistanceTo(place.location) ?? 0))
+                
+                place.location.getCurrentAddress { address in
+                    viewModel.imageDescription.value = address?.city ?? ""
+                }
+                return viewModel
+            }
+            let todaySection = NearBySectionType()
+            todaySection.sectionTitle = "Tonight"
+            todaySection.data.append(.todayEvent(data: todayEventData))
+            nearByDataType.append(todaySection)
+        }
+  
+        let placesSection = NearBySectionType()
+        placesSection.sectionTitle = "Near you"
+        placesSection.data = [NearByDataType]()
+        for place in nearBylacesToDisplay {
+            placesSection.data.append(.place(DiscoveryPlaceCellViewModel(location: currentLocation.value, place: place)))
+        }
+        nearByDataType.append(placesSection)
         self.nearByPlacesToDisplay.value = nearBylacesToDisplay
-        
-        nearByDataType = [.todayEvent(viewModel: BigImageHorizontalViewModel(places: allPlaces, currentLocation: currentLocation.value)),
-                          .places(nearBylacesToDisplay)]
-        
         self.delegate?.reloadData()
     }
     

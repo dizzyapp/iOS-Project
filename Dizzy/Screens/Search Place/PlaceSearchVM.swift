@@ -13,7 +13,7 @@ protocol PlaceSearchVMType {
     var currentLocation: Observable<Location?> { get }
 
     func numberOfRowsInSection() -> Int
-    func itemAt(_ indexPath: IndexPath) -> PlaceInfo
+    func itemAt(_ indexPath: IndexPath) -> NearByDataType
     func didSelectPlace(withId placeId: String)
     func filter(filterString: String)
     func closeButtonPressed()
@@ -52,8 +52,10 @@ final class PlaceSearchVM: PlaceSearchVMType {
         return autoCompleteFilter.filteredEntryList.count
     }
 
-    func itemAt(_ indexPath: IndexPath) -> PlaceInfo {
-        return autoCompleteFilter.filteredEntryList[indexPath.row]
+    func itemAt(_ indexPath: IndexPath) -> NearByDataType {
+        let discoveryPlaceCellViewModel = DiscoveryPlaceCellViewModel(location: nil, place: autoCompleteFilter.filteredEntryList[indexPath.row])
+        let type = NearByDataType.place(discoveryPlaceCellViewModel)
+        return type
     }
 
     func didSelectPlace(withId placeId: String) {
