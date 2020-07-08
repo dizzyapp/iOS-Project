@@ -137,4 +137,8 @@ struct Images {
     static func getTaxiButton() -> UIImage {
         return UIImage(named: "get_taxi_button")!
     }
+    
+    static func getTodayEventPlaceHolderImage() -> UIImage {
+        return UIImage(named: "TodayEventPlaceHolder")!
+    }
 }

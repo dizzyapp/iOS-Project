@@ -108,6 +108,11 @@ final class PlaceSearchVC: ViewController {
 }
 
 extension PlaceSearchVC: NearByPlacesViewDataSource {
+    
+    func title(for section: Int) -> String {
+        return ""
+    }
+     
     func numberOfSections() -> Int {
         return 1
     }
@@ -115,8 +120,8 @@ extension PlaceSearchVC: NearByPlacesViewDataSource {
     func numberOfItemsForSection(_ section: Int) -> Int {
         return viewModel.numberOfRowsInSection()
     }
-    
-    func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
+
+    func itemForIndexPath(_ indexPath: IndexPath) -> NearByDataType {
         return viewModel.itemAt(indexPath)
     }
     

@@ -257,7 +257,7 @@ final class PlaceProfileView: UIView {
         descriptionLabel.text = place.description
         ageLabel.text = place.authorizedAge
         
-        if let dateType = Date().dayType, let time = dateType.getTime(from: place.placeSchedule) {
+        if let dateType = Date().dayType, let time = dateType.getDescription(from: place.placeSchedule) {
             let openHoursFormat = "[Y]: [X]".localized
             var openHourText = openHoursFormat.replacingOccurrences(of: "[X]", with: time)
             openHourText = openHourText.replacingOccurrences(of: "[Y]", with: dateType.rawValue)

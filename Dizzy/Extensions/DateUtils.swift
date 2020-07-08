@@ -17,7 +17,7 @@ enum DayType: String {
     case friday = "Friday"
     case saturday = "Saturday"
     
-    func getTime(from placeSchedule: PlaceSchedule?) -> String? {
+    func getDescription(from placeSchedule: PlaceSchedule?) -> String? {
         switch self {
         case .sunday: return placeSchedule?.sunday
         case .monday: return placeSchedule?.monday
@@ -35,6 +35,7 @@ extension Date {
     var dayName: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
+        dateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
         let dayInWeek = dateFormatter.string(from: self)
         return dayInWeek
     }
@@ -90,5 +91,12 @@ extension Date {
         } else {
             return "Just Now"
         }
+    }
+    
+    func date(byAdding time: Calendar.Component, value: Int) -> Date {
+        return Calendar.current.date(
+        byAdding: time,
+        value: value,
+        to: self) ?? self
     }
 }

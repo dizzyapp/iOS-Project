@@ -223,20 +223,24 @@ class DiscoveryVC: ViewController, PopupPresenter {
 }
 
 extension DiscoveryVC: NearByPlacesViewDataSource {
+    func title(for section: Int) -> String {
+        viewModel.title(for: section)
+    }
+    
     func getCurrentLocation() -> Location? {
         return viewModel.currentLocation.value
     }
     
     func numberOfSections() -> Int {
-        return viewModel.numberOfSections()
+        return viewModel.numberOfSections(forListType: .nearByPlaces)
     }
     
     func numberOfItemsForSection(_ section: Int) -> Int {
         return viewModel.numberOfItemsForSection(section, forListType: .nearByPlaces)
     }
     
-    func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return viewModel.itemForIndexPath(indexPath, forListType: .nearByPlaces)
+    func itemForIndexPath(_ indexPath: IndexPath) -> NearByDataType {
+        viewModel.nearByItem(at: indexPath)
     }
 }
 
@@ -347,7 +351,7 @@ extension DiscoveryVC: HorizontalPlacesViewDataSource, HorizontalPlacesViewDeleg
     }
     
     func placeInfoForIndexPath(_ indexPath: IndexPath) -> PlaceInfo {
-        return viewModel.itemForIndexPath(indexPath, forListType: .sortedListByStories)
+        return viewModel.placeItem(at: indexPath)
     }
     
 }

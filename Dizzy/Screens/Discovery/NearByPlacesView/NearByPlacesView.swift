@@ -12,8 +12,9 @@ import SnapKit
 protocol NearByPlacesViewDataSource: class {
     func numberOfSections() -> Int
     func numberOfItemsForSection(_ section: Int) -> Int
-    func itemForIndexPath(_ indexPath: IndexPath) -> PlaceInfo
+    func itemForIndexPath(_ indexPath: IndexPath) -> NearByDataType
     func getCurrentLocation() -> Location?
+    func title(for section: Int) -> String
 }
 
 protocol NearByPlacesViewSearchDelegate: class {
@@ -39,7 +40,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     private let placesViewContainer = UIView()
     private let searchButton = UIButton(type: .system)
     private let titleLabel = UILabel()
-    private let placesTableView = UITableView(frame: CGRect.zero)
+    private let placesTableView = UITableView(frame: CGRect.zero, style: .grouped)
     private let filterBar = DiscoveryPlacesFilterView()
     
     private var searchBarToPlacesViewConstraint: Constraint?
@@ -151,9 +152,12 @@ class NearByPlacesView: UIView, LoadingContainer {
     private func setupPlacesTableView() {
         placesTableView.allowsSelection = false
         placesTableView.dataSource = self
+        placesTableView.delegate = self
         placesTableView.backgroundColor = .clear
         placesTableView.contentInset = safeAreaInsets
+        placesTableView.separatorStyle = .none
         placesTableView.register(DiscoveryPlaceCell.self, forCellReuseIdentifier: cellIDentifier)
+        placesTableView.register(TodayEventCell.self, forCellReuseIdentifier: TodayEventCell.defaultReuseIdentifier)
     }
     
     func reloadData() {
@@ -209,17 +213,18 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
 }
 
-extension NearByPlacesView: UITableViewDataSource {
+extension NearByPlacesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIDentifier, for: indexPath) as? DiscoveryPlaceCell,
-            let placeInfo = self.dataSource?.itemForIndexPath(indexPath) else {
-                print("could not dequeue \(cellIDentifier) or datasource is nil")
+        
+        guard let dataType = self.dataSource?.itemForIndexPath(indexPath),
+            let cell = tableView.dequeueReusableCell(withIdentifier: dataType.cellIdetifier, for: indexPath) as? DiscoveryCell
+             else {
                 return UITableViewCell()
         }
         
+        cell.configure(with: dataType)
         cell.delegate = self
-        cell.setPlaceInfo(placeInfo, currentAppLocation: dataSource?.getCurrentLocation())
         return cell
     }
     
@@ -231,6 +236,13 @@ extension NearByPlacesView: UITableViewDataSource {
         
         let itemsInSection = self.dataSource?.numberOfItemsForSection(section) ?? 0
         return itemsInSection
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.font = Fonts.h1(weight: .bold)
+        label.text = self.dataSource?.title(for: section)
+        return label
     }
 }
 

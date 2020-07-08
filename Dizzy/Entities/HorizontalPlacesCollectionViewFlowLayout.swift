@@ -9,11 +9,12 @@
 import UIKit
 
 class HorizontalPlacesCollectionViewFlowLayout: UICollectionViewFlowLayout {
-    override init() {
+    
+    init(itemSize: CGSize = CGSize(width: 70, height: 100)) {
         super.init()
         scrollDirection = .horizontal
         minimumLineSpacing = 10
-        itemSize = CGSize(width: 70, height: 100)
+        self.itemSize = itemSize
     }
     
     required init?(coder: NSCoder) {
