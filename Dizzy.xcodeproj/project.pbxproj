@@ -256,6 +256,7 @@
 		4DFBA48322BEB8B600BB0F4F /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidator.swift; sourceTree = "<group>"; };
 		5C50852723B263EF0068D432 /* dizzySplash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dizzySplash.mp4; sourceTree = "<group>"; };
+		5C66BC4B24B8C237001AE84F /* Dizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dizzy.entitlements; sourceTree = "<group>"; };
 		6355854423854EC300E595D1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
@@ -613,6 +614,7 @@
 		76B41EA2224EE9FA00C1A290 /* Dizzy */ = {
 			isa = PBXGroup;
 			children = (
+				5C66BC4B24B8C237001AE84F /* Dizzy.entitlements */,
 				0487FF9D228EB4AE00A8683C /* UI Components */,
 				76B41EDE22534A4B00C1A290 /* Extensions */,
 				4DFBA48222BEB89300BB0F4F /* Protocols */,
@@ -1196,15 +1198,18 @@
 			baseConfigurationReference = 4CA0B580B065DE26AAE28FE8 /* Pods-Dizzy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = Dizzy/Dizzy.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 535CUQC4XR;
 				INFOPLIST_FILE = Dizzy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Dizzy Push Notifications Dev";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1215,15 +1220,18 @@
 			baseConfigurationReference = 78B0F6AE7CF6C5CE4C06FA01 /* Pods-Dizzy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = Dizzy/Dizzy.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 535CUQC4XR;
 				INFOPLIST_FILE = Dizzy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dizzy.Dizzy.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Dizzy Push Notifications Dev";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
