@@ -13,10 +13,12 @@ class AppCoordinator: Coordinator {
     weak var container: Container?
     private var window: UIWindow
     var childCoordinators = [CoordinatorKey : Coordinator]()
+    let pushNotificationsInteractor: PushNotificationsInteractorType
     
-    init(container: Container, window: UIWindow) {
+    init(container: Container, window: UIWindow, pushNotificationsInteractor: PushNotificationsInteractorType) {
         self.container = container
         self.window = window
+        self.pushNotificationsInteractor = pushNotificationsInteractor
     }
     
     func start() {

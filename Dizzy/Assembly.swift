@@ -52,6 +52,7 @@ class Assembly {
         container.autoregister(SignInInteractorType.self, initializer: SignInInteractor.init)
         container.autoregister(LogoutInteractorType.self, initializer: LogoutInteractor.init)
         container.autoregister(UsersInteracteorType.self, initializer: UsersInteracteor.init).inObjectScope(.container)
+        container.autoregister(PushNotificationsInteractorType.self, initializer: PushNotificationsInteractor.init).inObjectScope(.container)
     }
     
     private func registerViewModels() {
