@@ -15,7 +15,6 @@ final class FirebaseWebService: WebServiceType {
     let storageReference: StorageReference
     
     init() {
-        FirebaseApp.configure()
         databaseReference = Database.database().reference()
         storageReference = Storage.storage().reference()
     }

@@ -8,6 +8,8 @@
 
 import UIKit
 import FBSDKCoreKit
+import FirebaseMessaging
+import FirebaseInstanceID
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         appCoordinator = assembly.getAppCoordinator(window: window)
         appCoordinator?.start()
+        
         return true
     }
 

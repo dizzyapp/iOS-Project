@@ -135,6 +135,7 @@
 		776210D623785B4600D85F9D /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776210D523785B4600D85F9D /* PlaceInfoView.swift */; };
 		776210D82379F1EE00D85F9D /* PlaceReservationRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776210D72379F1EE00D85F9D /* PlaceReservationRequestor.swift */; };
 		7762328F22D15C1300156DC7 /* DizzyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7762328E22D15C1300156DC7 /* DizzyLoadingView.swift */; };
+		7767976624B9F26C0048DA4B /* PushNotificationsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7767976524B9F26C0048DA4B /* PushNotificationsInteractor.swift */; };
 		77A0604B22AAA64F008FE39D /* SignUpWithDizzyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */; };
 		77A0604D22AAA899008FE39D /* SignUpWithDizzyVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */; };
 		77A0604F22AAB2D1008FE39D /* SignUpDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */; };
@@ -288,6 +289,7 @@
 		776210D523785B4600D85F9D /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
 		776210D72379F1EE00D85F9D /* PlaceReservationRequestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceReservationRequestor.swift; sourceTree = "<group>"; };
 		7762328E22D15C1300156DC7 /* DizzyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DizzyLoadingView.swift; sourceTree = "<group>"; };
+		7767976524B9F26C0048DA4B /* PushNotificationsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationsInteractor.swift; sourceTree = "<group>"; };
 		77A0604A22AAA64F008FE39D /* SignUpWithDizzyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVC.swift; sourceTree = "<group>"; };
 		77A0604C22AAA899008FE39D /* SignUpWithDizzyVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithDizzyVM.swift; sourceTree = "<group>"; };
 		77A0604E22AAB2D1008FE39D /* SignUpDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDetailsView.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				77A51F3E23DB35310019D2C9 /* AsyncMediaLoader.swift */,
 				77C841D823EF210200397BEB /* PlacesFilterTag.swift */,
 				77C1E941240857FC00BC3633 /* HorizontalPlacesCollectionViewFlowLayout.swift */,
+				7767976524B9F26C0048DA4B /* PushNotificationsInteractor.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1000,6 +1003,7 @@
 				4D0705AD22D1558B009D6236 /* MapVM.swift in Sources */,
 				4D0705AC22D1558B009D6236 /* MapCoordinator.swift in Sources */,
 				4DDA118122B596CE00CA0220 /* SignInWebservice.swift in Sources */,
+				7767976624B9F26C0048DA4B /* PushNotificationsInteractor.swift in Sources */,
 				4DDA117522B4429300CA0220 /* UserProfileView.swift in Sources */,
 				04B454F822CD315B001C7AD4 /* UploadStoryVC.swift in Sources */,
 				76B41ED6225230EC00C1A290 /* ConversationsViewModel.swift in Sources */,
