@@ -8,6 +8,8 @@
 
 import UIKit
 import FBSDKCoreKit
+import FirebaseMessaging
+import FirebaseInstanceID
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         application.registerForRemoteNotifications()
         
+        Messaging.messaging().delegate = self
         return true
     }
 
@@ -61,6 +64,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return ApplicationDelegate.shared.application(app, open: url, options: options)
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print(String(data: deviceToken, encoding: .utf8) ?? "")
+        
+        InstanceID.instanceID().instanceID { (result, error) in
+          if let error = error {
+            print("Error fetching remote instance ID: \(error)")
+          } else if let result = result {
+            print("Remote instance ID token: \(result.token)")
+            
+          }
+        }
     }
 }
 
