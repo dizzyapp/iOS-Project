@@ -106,13 +106,13 @@
 		4DFBA48622BEC5D800BB0F4F /* InputValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */; };
 		50C3CDC80D9DEBCFA8064E87 /* Pods_Dizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32798061D4068D236FB9EFB /* Pods_Dizzy.framework */; };
 		5C50852823B263EF0068D432 /* dizzySplash.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5C50852723B263EF0068D432 /* dizzySplash.mp4 */; };
+		5CFADC9324B9CBC00089A990 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CFADC9224B9CBBF0089A990 /* GoogleService-Info.plist */; };
 		6355854523854EC300E595D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6355854423854EC300E595D1 /* LaunchScreen.storyboard */; };
 		76590E21225B459700E7986A /* PlacesListFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76590E20225B459700E7986A /* PlacesListFlowLayout.swift */; };
 		76AC2B27225BB105005B556F /* DiscoveryTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */; };
 		76B41EA4224EE9FA00C1A290 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */; };
 		76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EAA224EE9FC00C1A290 /* Assets.xcassets */; };
 		76B41EB6224EF16200C1A290 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EB5224EF16200C1A290 /* Assembly.swift */; };
-		76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */; };
 		76B41EBC2250C8C200C1A290 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EBB2250C8C200C1A290 /* Coordinator.swift */; };
 		76B41EBE2250C8ED00C1A290 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */; };
 		76B41EC42251271700C1A290 /* CoordinatorKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B41EC32251271700C1A290 /* CoordinatorKey.swift */; };
@@ -257,6 +257,7 @@
 		4DFBA48522BEC5D800BB0F4F /* InputValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidator.swift; sourceTree = "<group>"; };
 		5C50852723B263EF0068D432 /* dizzySplash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = dizzySplash.mp4; sourceTree = "<group>"; };
 		5C66BC4B24B8C237001AE84F /* Dizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Dizzy.entitlements; sourceTree = "<group>"; };
+		5CFADC9224B9CBBF0089A990 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6355854423854EC300E595D1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		76590E20225B459700E7986A /* PlacesListFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListFlowLayout.swift; sourceTree = "<group>"; };
 		76AC2B26225BB105005B556F /* DiscoveryTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryTopBar.swift; sourceTree = "<group>"; };
@@ -265,7 +266,6 @@
 		76B41EAA224EE9FC00C1A290 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		76B41EAF224EE9FC00C1A290 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76B41EB5224EF16200C1A290 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
-		76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		76B41EBB2250C8C200C1A290 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		76B41EBD2250C8ED00C1A290 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		76B41EC32251271700C1A290 /* CoordinatorKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorKey.swift; sourceTree = "<group>"; };
@@ -626,9 +626,9 @@
 				76B41EA3224EE9FA00C1A290 /* AppDelegate.swift */,
 				76B41EAA224EE9FC00C1A290 /* Assets.xcassets */,
 				76B41EAF224EE9FC00C1A290 /* Info.plist */,
+				5CFADC9224B9CBBF0089A990 /* GoogleService-Info.plist */,
 				5C50852723B263EF0068D432 /* dizzySplash.mp4 */,
 				76B41EB5224EF16200C1A290 /* Assembly.swift */,
-				76B41EB7224EF3D400C1A290 /* GoogleService-Info.plist */,
 				6355854423854EC300E595D1 /* LaunchScreen.storyboard */,
 			);
 			path = Dizzy;
@@ -841,9 +841,9 @@
 			files = (
 				76B41EAB224EE9FC00C1A290 /* Assets.xcassets in Resources */,
 				5C50852823B263EF0068D432 /* dizzySplash.mp4 in Resources */,
+				5CFADC9324B9CBC00089A990 /* GoogleService-Info.plist in Resources */,
 				0454B7BE23745CC30043DEC3 /* DarkMapStyle.json in Resources */,
 				6355854523854EC300E595D1 /* LaunchScreen.storyboard in Resources */,
-				76B41EB8224EF3D400C1A290 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
