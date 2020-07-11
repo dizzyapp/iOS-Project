@@ -2,14 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
-	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
-	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>512274984513-inelvk9tcio49tjthkakttmfhrgaruht.apps.googleusercontent.com</string>
+	<string>512274984513-55scous4krt90br9e3p1ik0fms68e8il.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.512274984513-inelvk9tcio49tjthkakttmfhrgaruht</string>
+	<string>com.googleusercontent.apps.512274984513-55scous4krt90br9e3p1ik0fms68e8il</string>
 	<key>API_KEY</key>
 	<string>AIzaSyARMW4UvnlapR1Q1quWFrnsPJ5zQ9rM5ik</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,23 +13,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.Dizzy.Dizzy</string>
+	<string>com.Dizzy.Dizzy.1</string>
 	<key>PROJECT_ID</key>
 	<string>dizzy-7bc88</string>
 	<key>STORAGE_BUCKET</key>
 	<string>dizzy-7bc88.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
 	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:512274984513:ios:0085482ab978954e</string>
+	<string>1:512274984513:ios:3e904c178958a8ea11e0c0</string>
 	<key>DATABASE_URL</key>
 	<string>https://dizzy-7bc88.firebaseio.com</string>
 </dict>
