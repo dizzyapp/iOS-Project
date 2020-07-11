@@ -24,7 +24,7 @@ final class PlaceStoryVC: ViewController {
     private let commentsView = CommentsView()
     private let bottomBackgroundView = UIView()
     private var commentsTextInputViewBottomConstraint: Constraint?
-    private let commentsViewHeightRatio = CGFloat(0.382)
+    private let commentsViewHeightRatio = CGFloat(0.18)
     
     private var currentPresentedMedia = UIView()
     private let timeLabel = UILabel()

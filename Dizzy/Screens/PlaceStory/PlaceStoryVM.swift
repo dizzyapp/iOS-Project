@@ -101,7 +101,7 @@ final class PlaceStoryVM: PlaceStoryVMType {
     
     func send(message: String) {
         guard user.role != .guest else {
-            self.delegate?.showPopupWithText("You must be logged in, in order to comment to a story".localized, title: "Please login or sign up".localized)
+            self.delegate?.showPopupWithText("You must be logged in, in order to comment on a place's story".localized, title: "Please login or sign up".localized)
             return
         }
         guard !message.isEmpty else { return }

@@ -34,7 +34,7 @@ final class PlaceProfileView: UIView {
     var placeInfo: PlaceInfo?
     var stackView = UIStackView()
     let placeImageViewSize = CGFloat(115)
-    let backgroundViewCornerRadius = CGFloat(25)
+    let backgroundViewCornerRadius = CGFloat(15)
     let backgroundImageOffset = CGFloat(40)
     
     private let wazeButton = UIButton()
@@ -207,14 +207,14 @@ final class PlaceProfileView: UIView {
 
     private func setupOpenHoursLabel() {
         openHoursLabel.textAlignment = .center
-        openHoursLabel.textColor = .black
-        openHoursLabel.font = Fonts.h8()
+        openHoursLabel.textColor = .blue
+        openHoursLabel.font = Fonts.h8(weight: .medium)
     }
 
     private func setupAgeLabel() {
         ageLabel.textAlignment = .center
         ageLabel.textColor = .black
-        ageLabel.font = Fonts.h8(weight: .medium)
+        ageLabel.font = Fonts.h10(weight: .medium)
     }
 
     private func setupCallButton() {
@@ -234,9 +234,10 @@ final class PlaceProfileView: UIView {
         menuButton.layer.cornerRadius = 8.0
         menuButton.clipsToBounds = true
         menuButton.setTitle("Menu".localized, for: .normal)
-        menuButton.layer.backgroundColor = UIColor.dizzyBlue.withAlphaComponent(0.1).cgColor
+        menuButton.layer.backgroundColor = UIColor.white.cgColor
         menuButton.titleLabel?.font = Fonts.h6(weight: .bold)
-        menuButton.setTitleColor(UIColor.dizzyBlue, for: .normal)
+        menuButton.setTitleColor(UIColor.blue, for: .normal)
+        menuButton.setBorder(borderColor: .blue, cornerRadius: 8.0)
         menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
     }
     

@@ -25,40 +25,44 @@ final class BigImageHorizontalCell: UICollectionViewCell {
 
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.h13(weight: .bold)
+        label.font = Fonts.h12(weight: .bold)
         label.numberOfLines = 1
         return label
     }()
     
     let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.h13()
+        label.font = Fonts.h13(weight: .medium)
+        label.textColor = .gray
         label.numberOfLines = 1
         return label
     }()
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.h13()
+        label.font = Fonts.h10(weight: .medium)
+        label.numberOfLines = 2
+        label.textColor = .blue
         return label
     }()
     
     let imageDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.h13()
-        label.textColor = .lightGray
+        label.font = Fonts.h13(weight: .bold)
+        label.textColor = .gray
         return label
     }()
     
     let labelStackView: UIStackView = {
         let stackview = UIStackView(frame: .zero)
         stackview.alignment = .fill
+        stackview.spacing = 0.2
         stackview.axis = .vertical
         return stackview
     }()
@@ -80,7 +84,7 @@ final class BigImageHorizontalCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.layer.cornerRadius = 25.0
+        imageView.layer.cornerRadius = 3.5
         imageView.clipsToBounds = true
     }
     
@@ -102,8 +106,8 @@ final class BigImageHorizontalCell: UICollectionViewCell {
         }
         
         labelStackView.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(Metrics.mediumPadding)
-            make.leading.equalToSuperview().offset(Metrics.mediumPadding)
+            make.top.equalTo(imageView.snp.bottom).offset(Metrics.tinyPadding)
+            make.leading.equalToSuperview().offset(Metrics.tinyPadding)
             make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
         }
     }

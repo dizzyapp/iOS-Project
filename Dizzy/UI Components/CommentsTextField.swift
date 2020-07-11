@@ -41,8 +41,8 @@ class CommentsTextField: UIView {
     
     private func setupSendButton() {
         sendButton.titleLabel?.font = Fonts.h6(weight: .bold)
-        sendButton.setTitleColor(.dizzyBlue, for: .normal)
-        sendButton.setTitle("Post".localized, for: .normal)
+        sendButton.setTitleColor(.white, for: .normal)
+        sendButton.setTitle("Send".localized, for: .normal)
         sendButton.addTarget(self, action: #selector(sendButtonPressed), for: .touchUpInside)
     }
     

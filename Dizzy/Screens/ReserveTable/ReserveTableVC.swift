@@ -43,8 +43,8 @@ extension ReserveTableVC {
 final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     let stackWidthPrecentage = CGFloat(0.75)
-    let signInButtonBackgroundColor = UIColor.dizzyBlue
-    let signInCornerRadius = CGFloat(10)
+    let signInButtonBackgroundColor = UIColor.blue
+    let signInCornerRadius = CGFloat(15)
     
     var cardContainerView = UIView()
     let titleLabel = UILabel()
@@ -175,6 +175,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         button.tag = reservationTime.rawValue
         button.setTitle(reservationTime.title, for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        button.setBorder(borderColor: .blue, cornerRadius: 15)
         button.titleLabel?.font = Fonts.h8(weight: .bold)
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     }
@@ -267,14 +268,22 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func returnButtonToIntialColor() {
-        tonightButton.setTitleColor(.lightGray, for: .normal)
-        tomorrowButton.setTitleColor(.lightGray, for: .normal)
-        otherButton.setTitleColor(.lightGray, for: .normal)
+        tonightButton.setTitleColor(.blue, for: .normal)
+        tonightButton.setBorder(borderColor: .white, cornerRadius: 15)
+        tonightButton.backgroundColor = .white
+        tomorrowButton.setTitleColor(.blue, for: .normal)
+        tomorrowButton.setBorder(borderColor: .white, cornerRadius: 15)
+        tomorrowButton.backgroundColor = .white
+        otherButton.setTitleColor(.blue, for: .normal)
+        otherButton.setBorder(borderColor: .white, cornerRadius: 15)
+        otherButton.backgroundColor = .white
     }
     
     @objc private func buttonPressed(_ button: UIButton) {
         returnButtonToIntialColor()
-        button.setTitleColor(.dizzyBlue, for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.backgroundColor = .white
+        button.setBorder(borderColor: .blue, cornerRadius: 15)
 
         switch button {
         case tonightButton:

@@ -48,7 +48,7 @@ class NearByPlacesView: UIView, LoadingContainer {
     
     private let cellIDentifier = "DiscoveryPlaceCell"
     
-    let cornerRadius: CGFloat = 25.0
+    let cornerRadius: CGFloat = 15.0
     private var fillColor: UIColor = .white
     
     init() {
@@ -90,14 +90,12 @@ class NearByPlacesView: UIView, LoadingContainer {
         
         titleLabel.snp.makeConstraints { titleLabel in
             titleLabel.top.equalToSuperview().offset(Metrics.oneAndHalfPadding)
-            titleLabel.centerX.equalToSuperview()
-            titleLabel.trailing.lessThanOrEqualTo(searchButton).offset(-Metrics.padding)
-            titleLabel.leading.greaterThanOrEqualToSuperview().offset(Metrics.padding)
+            titleLabel.leading.greaterThanOrEqualToSuperview().offset(Metrics.oneAndHalfPadding)
         }
         
         filterBar.snp.makeConstraints { filterBar in
-            filterBar.leading.equalToSuperview().offset(Metrics.doublePadding)
-            filterBar.trailing.equalToSuperview().inset(Metrics.doublePadding)
+            filterBar.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
+            filterBar.trailing.equalToSuperview().inset(Metrics.padding)
             filterBar.top.equalTo(titleLabel.snp.bottom).offset(Metrics.doublePadding)
         }
         
@@ -105,7 +103,7 @@ class NearByPlacesView: UIView, LoadingContainer {
             placesCollectionView.top.equalTo(filterBar.snp.bottom).offset(Metrics.doublePadding)
             placesCollectionView.leading.equalToSuperview().offset(Metrics.oneAndHalfPadding)
             placesCollectionView.trailing.equalToSuperview().offset(-Metrics.oneAndHalfPadding)
-            placesCollectionView.bottom.equalToSuperview().inset(Metrics.oneAndHalfPadding)
+            placesCollectionView.bottom.equalToSuperview().inset(Metrics.padding)
         }
     }
     
@@ -143,9 +141,9 @@ class NearByPlacesView: UIView, LoadingContainer {
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = Fonts.h2(weight: .bold)
+        titleLabel.font = Fonts.i3(weight: .bold)
         titleLabel.numberOfLines = 1
-        titleLabel.textColor = UIColor.dizzyBlue
+        titleLabel.textColor = UIColor.black.withAlphaComponent(0.25)
         titleLabel.text = "Explore Nightlife".localized
     }
     
@@ -240,7 +238,8 @@ extension NearByPlacesView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.font = Fonts.h1(weight: .bold)
+        label.font = Fonts.h3(weight: .bold)
+        label.textColor = UIColor.black.withAlphaComponent(0.9)
         label.text = self.dataSource?.title(for: section)
         return label
     }
