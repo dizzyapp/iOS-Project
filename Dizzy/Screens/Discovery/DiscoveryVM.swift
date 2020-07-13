@@ -292,28 +292,29 @@ class DiscoveryVM: DiscoveryVMType {
         nearBylacesToDisplay = filterPlacesByName(name: searchText, places: nearBylacesToDisplay)
         
         nearBylacesToDisplay = filterPlacesByDescription(description: searchByDescription, places: nearBylacesToDisplay)
-
+        
         nearByDataType = [NearBySectionType]()
         
-        if (searchByDescription == nil || searchByDescription?.isEmpty == true) && (searchText == nil || searchText?.isEmpty == true) {
-            let currentDateMinus6Hours = Date().date(byAdding: .hour, value: -6).dayType
-             let eventsPlaces = nearBylacesToDisplay.filter { currentDateMinus6Hours?.getDescription(from: $0.placeSchedule) != nil }
-            let todayEventData = eventsPlaces.map { place -> TodayEventCell.ViewModel in
-                let description = currentDateMinus6Hours?.getDescription(from: place.placeSchedule) ?? ""
-                let image = place.placeProfileImageUrl ?? ""
-                let viewModel = TodayEventCell.ViewModel(placeId: place.id, description: description , imageURL: image, title: place.name, subtitle: String(format: "%.2f km", self.currentLocation.value?.getDistanceTo(place.location) ?? 0))
-                
-                place.location.getCurrentAddress { address in
-                    viewModel.imageDescription.value = address?.city ?? ""
-                }
-                return viewModel
+        let currentDateMinus6Hours = Date().date(byAdding: .hour, value: -6).dayType
+        let eventsPlaces = nearBylacesToDisplay.filter { currentDateMinus6Hours?.getDescription(from: $0.placeSchedule) != nil }
+        let todayEventData = eventsPlaces.map { place -> TodayEventCell.ViewModel in
+            let description = currentDateMinus6Hours?.getDescription(from: place.placeSchedule) ?? ""
+            let image = place.placeProfileImageUrl ?? ""
+            let viewModel = TodayEventCell.ViewModel(placeId: place.id, description: description , imageURL: image, title: place.name, subtitle: String(format: "%.2f km", self.currentLocation.value?.getDistanceTo(place.location) ?? 0))
+            
+            place.location.getCurrentAddress { address in
+                viewModel.imageDescription.value = address?.city ?? ""
             }
+            return viewModel
+        }
+        
+        if !todayEventData.isEmpty {
             let todaySection = NearBySectionType()
             todaySection.sectionTitle = "Tonight"
             todaySection.data.append(.todayEvent(data: todayEventData))
             nearByDataType.append(todaySection)
         }
-  
+
         let placesSection = NearBySectionType()
         placesSection.sectionTitle = "Near you"
         placesSection.data = [NearByDataType]()
