@@ -84,7 +84,7 @@ final class BigImageHorizontalCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        imageView.layer.cornerRadius = 3.5
+        imageView.layer.cornerRadius = 4.5
         imageView.clipsToBounds = true
     }
     
@@ -101,13 +101,13 @@ final class BigImageHorizontalCell: UICollectionViewCell {
         imageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(Metrics.padding)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(100)
-            make.width.equalTo(imageView.snp.height)
+            make.height.equalTo(130)
+            make.width.equalTo(180)
         }
         
         labelStackView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(Metrics.tinyPadding)
-            make.leading.equalToSuperview().offset(Metrics.tinyPadding)
+            make.leading.equalToSuperview().offset(Metrics.pixelPadding)
             make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
         }
     }

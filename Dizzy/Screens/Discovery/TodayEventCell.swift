@@ -14,7 +14,7 @@ final class TodayEventCell: UITableViewCell, DiscoveryCell {
     private var dataSource: [TodayEventCell.ViewModel]?
 
     private let collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HorizontalPlacesCollectionViewFlowLayout(itemSize: CGSize(width: 135, height: 230)))
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HorizontalPlacesCollectionViewFlowLayout(itemSize: CGSize(width: 140, height: 230)))
         collectionView.register(BigImageHorizontalCell.self)
         collectionView.backgroundColor = .white
         return collectionView

@@ -34,7 +34,7 @@ final class PlaceProfileView: UIView {
     var placeInfo: PlaceInfo?
     var stackView = UIStackView()
     let placeImageViewSize = CGFloat(115)
-    let backgroundViewCornerRadius = CGFloat(15)
+    let backgroundViewCornerRadius = CGFloat(20)
     let backgroundImageOffset = CGFloat(40)
     
     private let wazeButton = UIButton()
