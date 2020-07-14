@@ -72,7 +72,7 @@ class DiscoveryPlacesFilterView: UIView {
     
     private func setupStackView() {
         filterItemsStackView.axis = .horizontal
-        filterItemsStackView.spacing = Metrics.doublePadding
+        filterItemsStackView.spacing = Metrics.mediumPadding
     }
     
     private func setupAllButton() {
@@ -102,15 +102,21 @@ class DiscoveryPlacesFilterView: UIView {
     }
     
     private func setButtonUnselected(_ button: UIButton) {
-        button.setTitleColor(UIColor.lightGray, for: .normal)
-        button.titleLabel?.font = Fonts.h8(weight: .bold)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        button.titleLabel?.font = Fonts.h6(weight: .medium)
+        button.backgroundColor = UIColor.white
+        button.setBorder(borderColor: .blue, cornerRadius: 17)
+        button.contentEdgeInsets = UIEdgeInsets(top: 5,left: 10,bottom: 5,right: 10)
     }
     
     private func setButtonSelected(_ selectedButton: UIButton) {
         setButtonUnselected(self.selectedButton)
         self.selectedButton = selectedButton
         
-        selectedButton.setTitleColor(.blue, for: .normal)
-        selectedButton.titleLabel?.font = Fonts.h8(weight: .bold)
+        selectedButton.setTitleColor(.white, for: .normal)
+        selectedButton.titleLabel?.font = Fonts.h6(weight: .medium)
+        selectedButton.backgroundColor = UIColor.blue
+        selectedButton.setBorder(borderColor: .blue, cornerRadius: 17)
+        selectedButton.contentEdgeInsets = UIEdgeInsets(top: 5,left: 10,bottom: 5,right: 10)
     }
 }

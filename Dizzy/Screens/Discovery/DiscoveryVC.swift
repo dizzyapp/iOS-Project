@@ -20,7 +20,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     var viewModel: DiscoveryVMType
     let appStartVM: AppStartVMType
     
-    let nearByPlacesViewPadding = CGFloat(10)
+    let nearByPlacesViewPadding = CGFloat(5)
     let nearByPlacesViewHeightRatio = CGFloat(0.50)
     
     private var nearByPlacesTopConstraint: Constraint?
@@ -148,12 +148,12 @@ class DiscoveryVC: ViewController, PopupPresenter {
         nearByPlacesView.dataSource = self
         nearByPlacesView.delegate = self
         nearByPlacesView.searchDelegate = self
-        nearByPlacesView.alpha = 0.97
+        nearByPlacesView.alpha = 1
         nearByPlacesView.reloadData()
     }
     
     private func showPlacesOnHalfScreenWithAnimation() {
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.75) {
             self.showPlacesOnHalfScreen()
             self.showHorizontalPlacesView()
             self.view.layoutIfNeeded()
@@ -284,7 +284,7 @@ extension DiscoveryVC: DiscoveryVMDelegate {
     }
     
     func showContentWithAnimation() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5, execute: {
             guard self.appStartVM.appUserReturned else {
                 self.allPlacesArrived()
                 return
@@ -319,7 +319,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     
     func didPressSearch() {
         viewModel.searchPlacePressed()
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.25) {
             self.topBar.alpha = 0
             self.nearByPlacesView.showSearchMode()
             self.showNearByPlacesOnFullScreen()
@@ -330,7 +330,7 @@ extension DiscoveryVC: NearByPlacesViewSearchDelegate {
     
     func endSearch() {
         viewModel.searchEnded()
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.25) {
             self.topBar.alpha = 1
             self.nearByPlacesView.hideSearchMode()
             self.showPlacesOnHalfScreen()

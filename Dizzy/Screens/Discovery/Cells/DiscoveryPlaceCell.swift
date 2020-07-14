@@ -36,7 +36,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     
     var placeId: String?
     let stackViewTrailingPadding = CGFloat(15)
-    let smallLabelsFontSize = CGFloat(10)
+    let smallLabelsFontSize = CGFloat(11)
     let smallLabelsAlpha = CGFloat(0.618)
     let placeImageViewSize = CGFloat(50)
 
@@ -70,7 +70,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
         placeImageView.snp.makeConstraints { placeImageView in
             placeImageView.top.equalToSuperview().offset(Metrics.padding)
             placeImageView.bottom.equalToSuperview().inset(Metrics.padding)
-            placeImageView.leading.equalToSuperview().offset(Metrics.padding)
+            placeImageView.leading.equalToSuperview()
             placeImageView.width.height.equalTo(placeImageViewSize)
         }
         
@@ -108,7 +108,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     private func setupStackView() {
         placeDetailsStackView.axis = .vertical
         placeDetailsStackView.distribution = .equalSpacing
-        placeDetailsStackView.contentMode = .center
+        placeDetailsStackView.contentMode = .bottom
         placeDetailsStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressDetails)))
     }
     
@@ -125,7 +125,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
         distanceLabel.font = Fonts.medium(size: smallLabelsFontSize)
         distanceLabel.numberOfLines = 1
         distanceLabel.textAlignment = .left
-        distanceLabel.alpha = smallLabelsAlpha
+        distanceLabel.textColor = .darkGray
     }
     
     func setupPlaceImageView() {
@@ -158,7 +158,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
         }
         
         if let currentLocation = currentAppLocation {
-            distanceLabel.text = String(format: "%.2f km", currentLocation.getDistanceTo(placeInfo.location))
+            distanceLabel.text = String(format: "%.2f km away", currentLocation.getDistanceTo(placeInfo.location))
         } else {
             distanceLabel.text = "..."
         }

@@ -25,8 +25,8 @@ final class PlaceProfileVC: UIViewController {
     private let viewModel: PlaceProfileVMType
     private var profileViewTopConstraint: Constraint?
     private var profileViewBottomConstraint: Constraint?
-    let placeProfileViewCornerRadius = CGFloat(10)
-    let placeProfileViewPadding = CGFloat(15)
+    let placeProfileViewCornerRadius = CGFloat(5)
+    let placeProfileViewPadding = CGFloat(5)
     let placeProfileTopOffset = CGFloat(5)
     let placeProfileViewHeight = CGFloat(400)
     
@@ -175,7 +175,7 @@ final class PlaceProfileVC: UIViewController {
             profileViewTopConstraint = placeProfileView.top.equalTo(view.snp.bottom).inset(placeProfileViewHeight).constraint
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
             placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
-            profileViewBottomConstraint =  placeProfileView.bottom.equalToSuperview().offset(-placeProfileViewPadding).constraint
+            profileViewBottomConstraint =  placeProfileView.bottom.equalToSuperview().inset(Metrics.doublePadding).constraint
         }
     }
     
