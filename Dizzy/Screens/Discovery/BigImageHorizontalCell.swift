@@ -59,6 +59,12 @@ final class BigImageHorizontalCell: UICollectionViewCell {
         return label
     }()
     
+    let reserveATableButton: UIButton = {
+        let reservationButton = UIButton(type: .system)
+        reservationButton.setTitle("RESERVE A TABLE", for: .normal)
+        return reservationButton
+    }()
+    
     let labelStackView: UIStackView = {
         let stackview = UIStackView(frame: .zero)
         stackview.alignment = .fill
@@ -92,7 +98,7 @@ final class BigImageHorizontalCell: UICollectionViewCell {
         contentView.backgroundColor = .white
         contentView.addSubviews([imageView, labelStackView])
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapCell)))
-        labelStackView.addSubviews(imageDescriptionLabel, descriptionLabel, titleLabel, subtitleLabel)
+        labelStackView.addSubviews(imageDescriptionLabel, descriptionLabel, titleLabel, subtitleLabel, reserveATableButton)
         layoutViews()
     }
     
@@ -126,7 +132,8 @@ final class BigImageHorizontalCell: UICollectionViewCell {
         imageDescriptionLabel.text  = "..."
         placeId = data.placeId
         
-        data.imageDescription.bind { [weak self] text in
+        data.imageDescription.bind(shouldObserveIntial: true) { [weak self] text in
+            guard !text.isEmpty else { return }
             self?.imageDescriptionLabel.text = text
         }
     }
