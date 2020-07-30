@@ -70,7 +70,7 @@ protocol DiscoveryVMType {
     func searchEnded()
     func splashEnded()
     
-     func reservATablePressed(_ placeInfo: PlaceInfo)
+     func reservATablePressed(_ placeID: String)
 }
 
 protocol DiscoveryVMDelegate: class {
@@ -364,7 +364,8 @@ class DiscoveryVM: DiscoveryVMType {
         isSpalshEnded = true
     }
     
-    func reservATablePressed(_ placeInfo: PlaceInfo) {
+    func reservATablePressed(_ placeID: String) {
+        guard let placeInfo = findePlaceById(placeId: placeID) else { return }
         navigationDelegate?.reservATablePressed(placeInfo)
     }
 }

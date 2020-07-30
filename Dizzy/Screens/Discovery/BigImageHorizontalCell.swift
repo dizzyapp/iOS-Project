@@ -98,8 +98,13 @@ final class BigImageHorizontalCell: UICollectionViewCell {
         contentView.backgroundColor = .white
         contentView.addSubviews([imageView, labelStackView])
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapCell)))
-        labelStackView.addSubviews(imageDescriptionLabel, descriptionLabel, titleLabel, subtitleLabel, reserveATableButton)
+        labelStackView.addSubviews(imageDescriptionLabel,descriptionLabel, titleLabel, subtitleLabel, reserveATableButton)
+        setupReserveATableButton()
         layoutViews()
+    }
+    
+    private func setupReserveATableButton() {
+        reserveATableButton.addTarget(self, action: #selector(onReservePress), for: .touchUpInside)
     }
     
     private func layoutViews() {
@@ -140,5 +145,9 @@ final class BigImageHorizontalCell: UICollectionViewCell {
     
     @objc private func didTapCell() {
         delegate?.discoveryPlaceCellDidPressDetails(withPlaceId: placeId)
+    }
+    
+    @objc private func onReservePress() {
+        delegate?.discoveryPlaceCellDidPressReserveATable(withPlaceID: placeId)
     }
 }

@@ -298,8 +298,8 @@ extension DiscoveryVC: DiscoveryVMDelegate {
 }
 
 extension DiscoveryVC: NearByPlacesViewDelegate {
-    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo) {
-        viewModel.reservATablePressed(placeInfo)
+    func didPressReserveATable(withPlaceID placeID: String) {
+        viewModel.reservATablePressed(placeID)
     }
 
     func didPressPlaceIcon(withPlaceId placeId: String) {

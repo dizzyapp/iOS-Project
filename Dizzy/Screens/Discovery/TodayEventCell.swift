@@ -16,6 +16,7 @@ final class TodayEventCell: UITableViewCell, DiscoveryCell {
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HorizontalPlacesCollectionViewFlowLayout(itemSize: CGSize(width: 140, height: 230)))
         collectionView.register(BigImageHorizontalCell.self)
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
         return collectionView
     }()

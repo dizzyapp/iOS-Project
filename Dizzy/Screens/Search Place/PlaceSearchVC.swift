@@ -131,8 +131,8 @@ extension PlaceSearchVC: NearByPlacesViewDataSource {
 }
 
 extension PlaceSearchVC: NearByPlacesViewDelegate {
-    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo) {
-        viewModel.didPressReserveATable(withPlaceInfo: placeInfo)
+    func didPressReserveATable(withPlaceID placeID: String) {
+        viewModel.didPressReserveATable(withPlaceID: placeID)
     }
     
     func didPressPlaceIcon(withPlaceId placeId: String) {

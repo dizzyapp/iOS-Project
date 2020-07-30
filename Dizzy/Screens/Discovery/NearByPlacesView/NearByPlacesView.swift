@@ -27,7 +27,7 @@ protocol NearByPlacesViewSearchDelegate: class {
 protocol NearByPlacesViewDelegate: class {
     func didPressPlaceIcon(withPlaceId placeId: String)
     func didPressPlaceDetails(withPlaceId placeId: String)
-    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo)
+    func didPressReserveATable(withPlaceID placeID: String)
 }
 
 class NearByPlacesView: UIView, LoadingContainer {
@@ -247,8 +247,8 @@ extension NearByPlacesView: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension NearByPlacesView: DiscoveryPlaceCellDelegate {
-    func discoveryPlaceCellDidPressReserveATable(withPlaceInfo placeInfo: PlaceInfo) {
-        delegate?.didPressReserveATable(withPlaceInfo: placeInfo)
+    func discoveryPlaceCellDidPressReserveATable(withPlaceID placeID: String) {
+        delegate?.didPressReserveATable(withPlaceID: placeID)
     }
     
     func discoveryPlaceCellDidPressDetails(withPlaceId placeId: String) {

@@ -17,7 +17,7 @@ protocol PlaceSearchVMType {
     func didSelectPlace(withId placeId: String)
     func filter(filterString: String)
     func closeButtonPressed()
-    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo)
+    func didPressReserveATable(withPlaceID placeID: String)
 }
 
 protocol PlaceSearchVMDelegate: class {
@@ -75,7 +75,8 @@ final class PlaceSearchVM: PlaceSearchVMType {
         }.first
     }
     
-    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo) {
+    func didPressReserveATable(withPlaceID placeID: String) {
+        guard let placeInfo = findPlaceById(placeID) else { return }
         delegate?.didPressReserveATable(withPlaceInfo: placeInfo)
     }
 }

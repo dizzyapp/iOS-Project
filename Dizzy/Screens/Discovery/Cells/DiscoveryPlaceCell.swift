@@ -23,7 +23,7 @@ struct DiscoveryPlaceCellViewModel {
 protocol DiscoveryPlaceCellDelegate: class {
     func discoveryPlaceCellDidPressDetails(withPlaceId placeId: String)
     func discoveryPlaceCellDidPressIcon(withPlaceId placeId: String)
-    func discoveryPlaceCellDidPressReserveATable(withPlaceInfo placeInfo: PlaceInfo)
+    func discoveryPlaceCellDidPressReserveATable(withPlaceID placeID: String)
 }
 
 class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
@@ -129,6 +129,6 @@ extension DiscoveryPlaceCell: PlaceInfoViewDelegate {
     }
     
     func placeInfoDidPressReservationButton(_ placeInfo: PlaceInfo) {
-        delegate?.discoveryPlaceCellDidPressReserveATable(withPlaceInfo: placeInfo)
+        delegate?.discoveryPlaceCellDidPressReserveATable(withPlaceID: placeInfo.id)
     }
 }
