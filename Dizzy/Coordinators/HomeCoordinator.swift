@@ -59,7 +59,26 @@ final class HomeCoordinator: HomeCoordinatorType, StoryCoordinatorOpener {
     }
 }
 
-extension HomeCoordinator: DiscoveryViewModelNavigationDelegate {
+extension HomeCoordinator: DiscoveryViewModelNavigationDelegate, ReserveTableDisplayer {
+    
+    func showReservation(with place: PlaceInfo) {
+        
+        guard var viewModel = container?.resolve(ReserveTableVMType.self, argument: place),
+            let viewController = container?.resolve(ReserveTableVC.self, argument: viewModel) else {
+                print("could not load ReseveTableVC")
+                return
+        }
+
+        viewModel.reserveTableFinished = {
+            viewController.dismiss(animated: true)
+        }
+        
+        discoveryVC?.present(viewController, animated: true)
+    }
+    
+    func reservATablePressed(_ placeInfo: PlaceInfo) {
+        showReservation(with: placeInfo)
+    }
 
     func activePlaceWasSet(_ activePlace: PlaceInfo?) {
         container?.autoregister(ActivePlace.self, initializer: {

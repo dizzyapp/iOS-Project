@@ -69,6 +69,8 @@ protocol DiscoveryVMType {
     func searchPlacePressed()
     func searchEnded()
     func splashEnded()
+    
+     func reservATablePressed(_ placeInfo: PlaceInfo)
 }
 
 protocol DiscoveryVMDelegate: class {
@@ -85,6 +87,7 @@ protocol DiscoveryViewModelNavigationDelegate: class {
     func placeCellIconPressed(_ place: PlaceInfo)
     func activePlaceWasSet(_ activePlace: PlaceInfo?)
     func register(_ allPlaces: [PlaceInfo])
+    func reservATablePressed(_ placeInfo: PlaceInfo)
 }
 
 class DiscoveryVM: DiscoveryVMType {
@@ -359,5 +362,9 @@ class DiscoveryVM: DiscoveryVMType {
     
     func splashEnded() {
         isSpalshEnded = true
+    }
+    
+    func reservATablePressed(_ placeInfo: PlaceInfo) {
+        navigationDelegate?.reservATablePressed(placeInfo)
     }
 }

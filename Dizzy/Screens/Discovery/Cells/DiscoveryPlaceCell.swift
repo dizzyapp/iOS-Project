@@ -23,22 +23,16 @@ struct DiscoveryPlaceCellViewModel {
 protocol DiscoveryPlaceCellDelegate: class {
     func discoveryPlaceCellDidPressDetails(withPlaceId placeId: String)
     func discoveryPlaceCellDidPressIcon(withPlaceId placeId: String)
+    func discoveryPlaceCellDidPressReserveATable(withPlaceInfo placeInfo: PlaceInfo)
 }
 
 class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
-
-    let placeImageView = PlaceImageView()
-    let placeNameLabel = UILabel()
-    let placeAddressLabel = UILabel()
-    let distanceLabel = UILabel()
-    let placeEventView = PlaceEventView()
-    let placeDetailsStackView = UIStackView()
     
-    var placeId: String?
-    let stackViewTrailingPadding = CGFloat(15)
-    let smallLabelsFontSize = CGFloat(11)
-    let smallLabelsAlpha = CGFloat(0.618)
-    let placeImageViewSize = CGFloat(50)
+    let placeImageHeight = 300
+    let placeEventViewSpacing = 20
+    let placeInfoView = PlaceInfoView()
+    let placeImageView = UIImageView()
+    let placeEventView = PlaceEventView()
 
     weak var delegate: DiscoveryPlaceCellDelegate?
     
@@ -55,88 +49,51 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     }
     
     private func addSubviews() {
-        addSubviews([placeImageView, placeDetailsStackView, placeEventView])
+        addSubviews([placeInfoView, placeImageView, placeEventView])
     }
     
     private func layoutViews() {
-        
         self.layoutPlaceImageView()
-        self.layoutPlaceDetailsStackView()
         self.layoutPlaceEventView()
-        self.layoutLabelsInStackView()
+        self.layoutPlaceInfo()
     }
     
-    private func layoutPlaceImageView() {
+    func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.equalToSuperview().offset(Metrics.padding)
-            placeImageView.bottom.equalToSuperview().inset(Metrics.padding)
-            placeImageView.leading.equalToSuperview()
-            placeImageView.width.height.equalTo(placeImageViewSize)
-        }
-        
-        placeImageView.setContentHuggingPriority(UILayoutPriority(1000), for: .horizontal)
-    }
-    
-    private func layoutPlaceDetailsStackView() {
-        placeDetailsStackView.snp.makeConstraints { placeDetailsStackView in
-            placeDetailsStackView.top.bottom.equalTo(placeImageView)
-            placeDetailsStackView.leading.equalTo(placeImageView.snp.trailing).offset(stackViewTrailingPadding)
+            placeImageView.top.leading.trailing.equalToSuperview()
+            placeImageView.height.equalTo(placeImageHeight)
         }
     }
     
-    private func layoutLabelsInStackView() {
-        placeDetailsStackView.addArrangedSubview(placeNameLabel)
-        placeDetailsStackView.addArrangedSubview(placeAddressLabel)
-        placeDetailsStackView.addArrangedSubview(distanceLabel)
-    }
-    
-    private func layoutPlaceEventView() {
+    func layoutPlaceEventView() {
         placeEventView.snp.makeConstraints { placeEventView in
-            placeEventView.centerY.equalToSuperview()
-            placeEventView.trailing.equalToSuperview().inset(Metrics.padding)
-            placeEventView.leading.equalTo(placeDetailsStackView.snp.trailing).offset(Metrics.padding)
+            placeEventView.top.equalTo(placeImageView.snp.top).offset(placeEventViewSpacing)
+            placeEventView.leading.equalTo(placeImageView.snp.leading).offset(placeEventViewSpacing)
+        }
+    }
+        
+    private func layoutPlaceInfo() {
+        placeInfoView.snp.makeConstraints { placeInfoView in
+            placeInfoView.bottom.leading.trailing.equalToSuperview()
+            placeInfoView.top.equalTo(placeImageView.snp.bottom)
         }
     }
     
     private func setupViews() {
         backgroundColor = .clear
-        setupStackView()
-        setupLabels()
-        setupPlaceImageView()
+        setupInfoView()
     }
     
-    private func setupStackView() {
-        placeDetailsStackView.axis = .vertical
-        placeDetailsStackView.distribution = .equalSpacing
-        placeDetailsStackView.contentMode = .bottom
-        placeDetailsStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressDetails)))
+    private func setupPlaceImageView() {
+        placeImageView.contentMode = .scaleAspectFit
     }
     
-    private func setupLabels() {
-        placeNameLabel.font = Fonts.h8(weight: .bold)
-        placeNameLabel.numberOfLines = 1
-        placeNameLabel.textAlignment = .left
-        
-        placeAddressLabel.font = Fonts.medium(size: smallLabelsFontSize)
-        placeAddressLabel.numberOfLines = 1
-        placeAddressLabel.textAlignment = .left
-        placeAddressLabel.alpha = smallLabelsAlpha
-        
-        distanceLabel.font = Fonts.medium(size: smallLabelsFontSize)
-        distanceLabel.numberOfLines = 1
-        distanceLabel.textAlignment = .left
-        distanceLabel.textColor = .darkGray
+    private func setupInfoView() {
+        placeInfoView.delegate = self
     }
     
-    func setupPlaceImageView() {
-        placeImageView.layer.cornerRadius = placeImageViewSize/2
-        placeImageView.clipsToBounds = true
-        placeImageView.addTarget(self, action: #selector(didPressIcon), for: .touchUpInside)
-    }
-    
-    func setupPlaceEventView(placeEvent: String?) {
+    func setPlaceEventView(placeEvent: String?) {
         placeEventView.setEventText(placeEvent)
-        placeEventView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressDetails)))
         if placeEvent != nil {
             placeEventView.isHidden = false
         } else {
@@ -144,35 +101,34 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
         }
     }
     
+    func setPlaceImageView(urlString: String) {
+        placeImageView.image = nil
+        guard let url = URL.init(string: urlString) else { return }
+        placeImageView.kf.setImage(with: url, placeholder: Images.profilePlaceholderIcon())
+    }
+    
     func configure(with dataType: NearByDataType) {
-        guard case var .place(viewModel) = dataType else { return }
+        guard case let .place(viewModel) = dataType else { return }
         setPlaceInfo(viewModel.place, currentAppLocation: viewModel.location)
     }
     
     private func setPlaceInfo(_ placeInfo: PlaceInfo, currentAppLocation: Location?) {
-        placeId = placeInfo.id
-        placeNameLabel.text = placeInfo.name
-        placeAddressLabel.text = placeInfo.description
-        if let imageURL = URL(string: placeInfo.imageURLString ?? "") {
-            placeImageView.setImage(from: imageURL)
-        }
-        
-        if let currentLocation = currentAppLocation {
-            distanceLabel.text = String(format: "%.2f km away", currentLocation.getDistanceTo(placeInfo.location))
-        } else {
-            distanceLabel.text = "..."
-        }
-        
-        setupPlaceEventView(placeEvent: placeInfo.event)
+        placeInfoView.setPlaceInfo(placeInfo, currentAppLocation:currentAppLocation)
+        setPlaceEventView(placeEvent: placeInfo.event)
+        setPlaceImageView(urlString: placeInfo.placeProfileImageUrl ?? "")
+    }
+}
+
+extension DiscoveryPlaceCell: PlaceInfoViewDelegate {
+    func placeInfoViewDidPressDetails(_ placeInfo: PlaceInfo) {
+        delegate?.discoveryPlaceCellDidPressDetails(withPlaceId: placeInfo.id)
     }
     
-    @objc func didPressDetails() {
-        guard let placeId = placeId else { return }
-        delegate?.discoveryPlaceCellDidPressDetails(withPlaceId: placeId)
+    func placeInfoViewDidPressIcon(_ placeInfo: PlaceInfo) {
+        delegate?.discoveryPlaceCellDidPressIcon(withPlaceId: placeInfo.id)
     }
     
-    @objc func didPressIcon() {
-        guard let placeId = placeId else { return }
-        delegate?.discoveryPlaceCellDidPressIcon(withPlaceId: placeId)
+    func placeInfoDidPressReservationButton(_ placeInfo: PlaceInfo) {
+        delegate?.discoveryPlaceCellDidPressReserveATable(withPlaceInfo: placeInfo)
     }
 }

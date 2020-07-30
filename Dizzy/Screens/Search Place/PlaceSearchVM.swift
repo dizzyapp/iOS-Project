@@ -17,11 +17,13 @@ protocol PlaceSearchVMType {
     func didSelectPlace(withId placeId: String)
     func filter(filterString: String)
     func closeButtonPressed()
+    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo)
 }
 
 protocol PlaceSearchVMDelegate: class {
     func didSelect(place: PlaceInfo)
     func cancelButtonPressed()
+    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo)
 }
 
 final class PlaceSearchVM: PlaceSearchVMType {
@@ -71,5 +73,9 @@ final class PlaceSearchVM: PlaceSearchVMType {
         return autoCompleteFilter.filteredEntryList.filter {  placeInfo in
             return placeInfo.id == placeId
         }.first
+    }
+    
+    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo) {
+        delegate?.didPressReserveATable(withPlaceInfo: placeInfo)
     }
 }

@@ -41,11 +41,31 @@ final class SearchPlaceCoordinator: SearchPlaceCoordinatorType {
         }
         viewModel.delegate = self
         searchVC.modalPresentationStyle = .fullScreen
+        
         presentingViewController.present(searchVC, animated: false)
+        presentingViewController = searchVC
     }
 }
 
-extension SearchPlaceCoordinator: PlaceSearchVMDelegate {
+extension SearchPlaceCoordinator: PlaceSearchVMDelegate, ReserveTableDisplayer {
+    func showReservation(with place: PlaceInfo) {
+        
+        guard var viewModel = container?.resolve(ReserveTableVMType.self, argument: place),
+            let viewController = container?.resolve(ReserveTableVC.self, argument: viewModel) else {
+                print("could not load ReseveTableVC")
+                return
+        }
+
+        viewModel.reserveTableFinished = {
+            viewController.dismiss(animated: true)
+        }
+        
+        presentingViewController.present(viewController, animated: true)
+    }
+    
+    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo) {
+        showReservation(with: placeInfo)
+    }
     
     func didSelect(place: PlaceInfo) {
         cancelButtonPressed()
