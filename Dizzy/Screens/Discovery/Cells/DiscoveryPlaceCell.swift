@@ -102,6 +102,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     }
     
     func setPlaceImageView(urlString: String) {
+        placeImageView.image = nil
         guard let url = URL.init(string: urlString) else { return }
         placeImageView.kf.setImage(with: url, placeholder: Images.profilePlaceholderIcon())
     }
