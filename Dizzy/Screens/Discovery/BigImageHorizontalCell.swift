@@ -31,14 +31,14 @@ final class BigImageHorizontalCell: UICollectionViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.h12(weight: .bold)
+        label.font = Fonts.h7(weight: .bold)
         label.numberOfLines = 1
         return label
     }()
     
     let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.h13(weight: .medium)
+        label.font = Fonts.h11(weight: .medium)
         label.textColor = .gray
         label.numberOfLines = 1
         return label
@@ -61,14 +61,19 @@ final class BigImageHorizontalCell: UICollectionViewCell {
     
     let reserveATableButton: UIButton = {
         let reservationButton = UIButton(type: .system)
-        reservationButton.setTitle("RESERVE A TABLE", for: .normal)
+        reservationButton.setTitle("RESERVE", for: .normal)
+        reservationButton.backgroundColor = UIColor.blue
+        reservationButton.setTitleColor(.white, for: .normal)
+        reservationButton.titleLabel?.font = Fonts.h9(weight: .bold)
+        reservationButton.contentEdgeInsets = UIEdgeInsets(top: 10,left: 10,bottom: 10,right: 10)
+        reservationButton.layer.cornerRadius = 3
         return reservationButton
     }()
     
     let labelStackView: UIStackView = {
         let stackview = UIStackView(frame: .zero)
         stackview.alignment = .fill
-        stackview.spacing = 0.2
+        stackview.spacing = 0.4
         stackview.axis = .vertical
         return stackview
     }()
@@ -111,15 +116,16 @@ final class BigImageHorizontalCell: UICollectionViewCell {
         
         imageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(Metrics.padding)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(130)
+            make.leading.equalToSuperview().offset(Metrics.padding)
+            make.trailing.equalToSuperview()
+            make.height.equalTo(150)
             make.width.equalTo(180)
         }
         
         labelStackView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(Metrics.tinyPadding)
-            make.leading.equalToSuperview().offset(Metrics.pixelPadding)
-            make.trailing.equalToSuperview().inset(Metrics.mediumPadding)
+            make.leading.equalToSuperview().offset(Metrics.padding)
+            make.trailing.equalToSuperview()
         }
     }
         

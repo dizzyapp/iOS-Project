@@ -38,7 +38,7 @@ class HorizontalPlacesView: UIView {
         addSubview(placesCollectionView)
         placesCollectionView.snp.makeConstraints { collectionView in
             collectionView.edges.equalToSuperview()
-            collectionView.height.equalTo(100)
+            collectionView.height.equalTo(85)
         }
     }
     
@@ -47,9 +47,11 @@ class HorizontalPlacesView: UIView {
     }
     
     func setupCollectionView() {
-        placesCollectionView.backgroundColor = .clear
+        placesCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0)
         placesCollectionView.register(HorizontalPlacesViewCell.self, forCellWithReuseIdentifier: cellId)
         placesCollectionView.dataSource = self
+        placesCollectionView.showsHorizontalScrollIndicator = false
+        placesCollectionView.layer.cornerRadius = 10
     }
     
     func reloadData() {

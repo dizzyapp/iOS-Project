@@ -28,11 +28,16 @@ protocol DiscoveryPlaceCellDelegate: class {
 
 class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     
-    let placeImageHeight = 300
-    let placeEventViewSpacing = 20
+    let placeImageHeight = 200
+    let placeEventViewSpacing = 10
     let placeInfoView = PlaceInfoView()
-    let placeImageView = UIImageView()
     let placeEventView = PlaceEventView()
+    
+    let placeImageView: UIImageView = {
+           let placeImageView = UIImageView()
+           placeImageView.contentMode = .scaleToFill
+           return placeImageView
+       }()
 
     weak var delegate: DiscoveryPlaceCellDelegate?
     
@@ -60,9 +65,18 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     
     func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.top.leading.trailing.equalToSuperview()
+            placeImageView.top.equalToSuperview().offset(Metrics.doublePadding)
+            placeImageView.leading.equalToSuperview().offset(Metrics.padding)
+            placeImageView.trailing.equalToSuperview().inset(Metrics.padding)
             placeImageView.height.equalTo(placeImageHeight)
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        placeImageView.layer.cornerRadius = 7
+        placeImageView.clipsToBounds = true
+        placeImageView.contentMode = .scaleAspectFill
     }
     
     func layoutPlaceEventView() {
@@ -74,8 +88,10 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
         
     private func layoutPlaceInfo() {
         placeInfoView.snp.makeConstraints { placeInfoView in
-            placeInfoView.bottom.leading.trailing.equalToSuperview()
-            placeInfoView.top.equalTo(placeImageView.snp.bottom)
+            placeInfoView.bottom.equalToSuperview().inset(Metrics.doublePadding)
+            placeInfoView.leading.equalToSuperview().offset(Metrics.padding)
+            placeInfoView.trailing.equalToSuperview().inset(Metrics.padding)
+            placeInfoView.top.equalTo(placeImageView.snp.bottom).inset(Metrics.padding)
         }
     }
     
@@ -85,11 +101,13 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     }
     
     private func setupPlaceImageView() {
-        placeImageView.contentMode = .scaleAspectFit
+        placeImageView.contentMode = .scaleToFill
     }
     
     private func setupInfoView() {
         placeInfoView.delegate = self
+        placeInfoView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.05)
+        placeInfoView.setBorder(borderColor: UIColor.lightGray.withAlphaComponent(0.05), cornerRadius: 8)
     }
     
     func setPlaceEventView(placeEvent: String?) {
@@ -102,9 +120,9 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     }
     
     func setPlaceImageView(urlString: String) {
-        placeImageView.image = nil
+        placeImageView.image = Images.getTodayEventPlaceHolderImage()
         guard let url = URL.init(string: urlString) else { return }
-        placeImageView.kf.setImage(with: url, placeholder: Images.profilePlaceholderIcon())
+        placeImageView.kf.setImage(with: url, placeholder: Images.getTodayEventPlaceHolderImage())
     }
     
     func configure(with dataType: NearByDataType) {
