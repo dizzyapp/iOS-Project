@@ -33,12 +33,13 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     let placeInfoView = PlaceInfoView()
     let placeEventView = PlaceEventView()
     
-    let placeImageView: UIImageView = {
-           let placeImageView = UIImageView()
-           placeImageView.contentMode = .scaleToFill
-           return placeImageView
-       }()
-
+    let placeThemeImageView: UIImageView = {
+        let placeImageView = UIImageView()
+        placeImageView.contentMode = .scaleToFill
+        
+        return placeImageView
+    }()
+    
     weak var delegate: DiscoveryPlaceCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -54,7 +55,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     }
     
     private func addSubviews() {
-        addSubviews([placeInfoView, placeImageView, placeEventView])
+        addSubviews([placeInfoView, placeThemeImageView, placeEventView])
     }
     
     private func layoutViews() {
@@ -64,7 +65,7 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     }
     
     func layoutPlaceImageView() {
-        placeImageView.snp.makeConstraints { placeImageView in
+        placeThemeImageView.snp.makeConstraints { placeImageView in
             placeImageView.top.equalToSuperview().offset(Metrics.doublePadding)
             placeImageView.leading.equalToSuperview().offset(Metrics.padding)
             placeImageView.trailing.equalToSuperview().inset(Metrics.padding)
@@ -74,40 +75,43 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        placeImageView.layer.cornerRadius = 7
-        placeImageView.clipsToBounds = true
-        placeImageView.contentMode = .scaleAspectFill
+        placeThemeImageView.layer.cornerRadius = 7
+        placeThemeImageView.clipsToBounds = true
+        placeThemeImageView.contentMode = .scaleAspectFill
     }
     
     func layoutPlaceEventView() {
         placeEventView.snp.makeConstraints { placeEventView in
-            placeEventView.top.equalTo(placeImageView.snp.top).offset(placeEventViewSpacing)
-            placeEventView.leading.equalTo(placeImageView.snp.leading).offset(placeEventViewSpacing)
+            placeEventView.top.equalTo(placeThemeImageView.snp.top).offset(placeEventViewSpacing)
+            placeEventView.leading.equalTo(placeThemeImageView.snp.leading).offset(placeEventViewSpacing)
         }
     }
-        
+    
     private func layoutPlaceInfo() {
         placeInfoView.snp.makeConstraints { placeInfoView in
             placeInfoView.bottom.equalToSuperview().inset(Metrics.doublePadding)
             placeInfoView.leading.equalToSuperview().offset(Metrics.padding)
             placeInfoView.trailing.equalToSuperview().inset(Metrics.padding)
-            placeInfoView.top.equalTo(placeImageView.snp.bottom).inset(Metrics.padding)
+            placeInfoView.top.equalTo(placeThemeImageView.snp.bottom).inset(Metrics.padding)
         }
     }
     
     private func setupViews() {
         backgroundColor = .clear
         setupInfoView()
-    }
-    
-    private func setupPlaceImageView() {
-        placeImageView.contentMode = .scaleToFill
+        setupPlaceThemeImageView()
     }
     
     private func setupInfoView() {
         placeInfoView.delegate = self
         placeInfoView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.05)
         placeInfoView.setBorder(borderColor: UIColor.lightGray.withAlphaComponent(0.05), cornerRadius: 8)
+    }
+    
+    private func setupPlaceThemeImageView() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onThemeImagePress))
+        placeThemeImageView.isUserInteractionEnabled = true
+        placeThemeImageView.addGestureRecognizer(tapRecognizer)
     }
     
     func setPlaceEventView(placeEvent: String?) {
@@ -120,9 +124,9 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
     }
     
     func setPlaceImageView(urlString: String) {
-        placeImageView.image = Images.getTodayEventPlaceHolderImage()
+        placeThemeImageView.image = Images.getTodayEventPlaceHolderImage()
         guard let url = URL.init(string: urlString) else { return }
-        placeImageView.kf.setImage(with: url, placeholder: Images.getTodayEventPlaceHolderImage())
+        placeThemeImageView.kf.setImage(with: url, placeholder: Images.getTodayEventPlaceHolderImage())
     }
     
     func configure(with dataType: NearByDataType) {
@@ -134,6 +138,11 @@ class DiscoveryPlaceCell: UITableViewCell, DiscoveryCell {
         placeInfoView.setPlaceInfo(placeInfo, currentAppLocation:currentAppLocation)
         setPlaceEventView(placeEvent: placeInfo.event)
         setPlaceImageView(urlString: placeInfo.placeProfileImageUrl ?? "")
+    }
+    
+    @objc func onThemeImagePress() {
+        guard let placeId = placeInfoView.placeInfo?.id else { return }
+        delegate?.discoveryPlaceCellDidPressDetails(withPlaceId: placeId)
     }
 }
 
