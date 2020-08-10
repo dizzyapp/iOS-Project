@@ -105,7 +105,7 @@ class DiscoveryPlacesFilterView: UIView {
         button.setTitleColor(UIColor.blue, for: .normal)
         button.titleLabel?.font = Fonts.h6(weight: .medium)
         button.backgroundColor = UIColor.white
-        button.setBorder(borderColor: .blue, cornerRadius: 17)
+        button.setBorder(borderColor: UIColor.lightGray.withAlphaComponent(0.4), cornerRadius: 17)
         button.contentEdgeInsets = UIEdgeInsets(top: 5,left: 10,bottom: 5,right: 10)
     }
     
@@ -115,8 +115,8 @@ class DiscoveryPlacesFilterView: UIView {
         
         selectedButton.setTitleColor(.white, for: .normal)
         selectedButton.titleLabel?.font = Fonts.h6(weight: .medium)
-        selectedButton.backgroundColor = UIColor.blue
-        selectedButton.setBorder(borderColor: .blue, cornerRadius: 17)
+        selectedButton.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        selectedButton.setBorder(borderColor: .clear, cornerRadius: 17)
         selectedButton.contentEdgeInsets = UIEdgeInsets(top: 5,left: 10,bottom: 5,right: 10)
     }
 }

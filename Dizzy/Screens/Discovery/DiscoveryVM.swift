@@ -70,7 +70,7 @@ protocol DiscoveryVMType {
     func searchEnded()
     func splashEnded()
     
-     func reservATablePressed(_ placeInfo: PlaceInfo)
+     func reservATablePressed(_ placeID: String)
 }
 
 protocol DiscoveryVMDelegate: class {
@@ -313,13 +313,13 @@ class DiscoveryVM: DiscoveryVMType {
         
         if !todayEventData.isEmpty {
             let todaySection = NearBySectionType()
-            todaySection.sectionTitle = "Tonight"
+            todaySection.sectionTitle = "  Tonight"
             todaySection.data.append(.todayEvent(data: todayEventData))
             nearByDataType.append(todaySection)
         }
 
         let placesSection = NearBySectionType()
-        placesSection.sectionTitle = "Near you"
+        placesSection.sectionTitle = "  Amazing places near you"
         placesSection.data = [NearByDataType]()
         for place in nearBylacesToDisplay {
             placesSection.data.append(.place(DiscoveryPlaceCellViewModel(location: currentLocation.value, place: place)))
@@ -364,7 +364,8 @@ class DiscoveryVM: DiscoveryVMType {
         isSpalshEnded = true
     }
     
-    func reservATablePressed(_ placeInfo: PlaceInfo) {
+    func reservATablePressed(_ placeID: String) {
+        guard let placeInfo = findePlaceById(placeId: placeID) else { return }
         navigationDelegate?.reservATablePressed(placeInfo)
     }
 }

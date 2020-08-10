@@ -33,14 +33,16 @@ final class PlaceProfileView: UIView {
 
     var placeInfo: PlaceInfo?
     var stackView = UIStackView()
-    let placeImageViewSize = CGFloat(115)
-    let backgroundViewCornerRadius = CGFloat(20)
-    let backgroundImageOffset = CGFloat(40)
+    let placeImageViewSize = CGFloat(100)
+    let backgroundViewCornerRadius = CGFloat(10)
+    let backgroundImageOffset = CGFloat(70)
     
     private let wazeButton = UIButton()
     private let getTaxiButton = UIButton()
     private let locationButtonsStackView = UIStackView()
     private let menuButton = UIButton(type: .system)
+    
+    private let bookingStackView = UIStackView()
 
     private let storyButton: UIButton = {
         let button = UIButton(frame: .zero)
@@ -65,6 +67,9 @@ final class PlaceProfileView: UIView {
         
         locationButtonsStackView.addArrangedSubview(wazeButton)
         locationButtonsStackView.addArrangedSubview(getTaxiButton)
+    
+        bookingStackView.addArrangedSubview(menuButton)
+        bookingStackView.addArrangedSubview(requestTableButton)
         
         stackView.addArrangedSubview(placeImageView)
         stackView.addArrangedSubview(titleLabel)
@@ -73,8 +78,7 @@ final class PlaceProfileView: UIView {
         stackView.addArrangedSubview(locationButtonsStackView)
         stackView.addArrangedSubview(ageLabel)
         stackView.addArrangedSubview(openHoursLabel)
-        stackView.addArrangedSubview(requestTableButton)
-        stackView.addArrangedSubview(menuButton)
+        stackView.addArrangedSubview(bookingStackView)
 
         self.addSubviews([backgroundView, stackView, callButton, storyButton])
     }
@@ -85,7 +89,7 @@ final class PlaceProfileView: UIView {
         layoutCallButton()
         layoutStackView()
         layoutStoryButton()
-        layoutMenuButton()
+
     }
 
     private func layoutBackgroundView() {
@@ -100,6 +104,7 @@ final class PlaceProfileView: UIView {
     private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
             placeImageView.width.height.equalTo(placeImageViewSize)
+            placeImageView.leading.equalToSuperview().offset(Metrics.fourTimesPadding)
         }
     }
 
@@ -113,8 +118,9 @@ final class PlaceProfileView: UIView {
     private func layoutStackView() {
         stackView.snp.makeConstraints { stackView in
             stackView.top.equalToSuperview().offset(Metrics.tinyPadding)
-            stackView.leading.trailing.equalToSuperview()
-            stackView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
+            stackView.leading.trailing.equalToSuperview().offset(Metrics.doublePadding)
+            stackView.trailing.equalToSuperview().inset(Metrics.doublePadding)
+            stackView.bottom.equalToSuperview().inset(Metrics.triplePadding)
         }
     }
     
@@ -125,13 +131,6 @@ final class PlaceProfileView: UIView {
         }
     }
     
-    private func layoutMenuButton() {
-        menuButton.snp.makeConstraints { make in
-            make.width.equalTo(requestTableButton.snp.width)
-            make.height.equalTo(requestTableButton.snp.height)
-        }
-    }
-
     private func setupViews() {
         setupBackgroundView()
         setupPlaceImageView()
@@ -145,13 +144,14 @@ final class PlaceProfileView: UIView {
         setupAddressButton()
         setupOpenHoursLabel()
         setupAgeLabel()
+        setupBookingStackView()
         setupRequestTableButton()
         setupStoryButton()
         setupMenuButton()
     }
 
     private func setupBackgroundView() {
-        backgroundView.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        backgroundView.backgroundColor = UIColor.white.withAlphaComponent(1)
         backgroundView.layer.cornerRadius = backgroundViewCornerRadius
     }
 
@@ -166,7 +166,7 @@ final class PlaceProfileView: UIView {
 
     private func setupStackView() {
         stackView.axis = .vertical
-        stackView.alignment = .center
+        stackView.alignment = .leading
         stackView.distribution = .equalSpacing
     }
     
@@ -221,23 +221,33 @@ final class PlaceProfileView: UIView {
         callButton.setImage(Images.callIcon().withRenderingMode(.alwaysOriginal), for: .normal)
         callButton.addTarget(self, action: #selector(callButtonPressed), for: .touchUpInside)
     }
+    
+    private func setupBookingStackView() {
+        bookingStackView.axis = .horizontal
+        bookingStackView.alignment = .trailing
+        bookingStackView.spacing = Metrics.doublePadding
+        bookingStackView.distribution = .equalSpacing
+    }
 
     private func setupRequestTableButton() {
-        requestTableButton.setBackgroundImage(Images.requestTableIcon(), for: .normal)
-        requestTableButton.setTitle("Book a table".localized, for: .normal)
+        requestTableButton.backgroundColor = .blue
+        requestTableButton.layer.cornerRadius = 5.0
+        requestTableButton.setTitle("RESERVE".localized, for: .normal)
         requestTableButton.setTitleColor(UIColor.white, for: .normal)
-        requestTableButton.titleLabel?.font = Fonts.h6(weight: .bold)
+        requestTableButton.titleLabel?.font = Fonts.h10(weight: .bold)
+        requestTableButton.contentEdgeInsets = UIEdgeInsets(top: 10,left: 35,bottom: 10,right: 35)
         requestTableButton.addTarget(self, action: #selector(requestTableButtonPressed), for: .touchUpInside)
+        
     }
     
     private func setupMenuButton() {
-        menuButton.layer.cornerRadius = 8.0
         menuButton.clipsToBounds = true
-        menuButton.setTitle("Menu".localized, for: .normal)
+        menuButton.setTitle("MENU".localized, for: .normal)
         menuButton.layer.backgroundColor = UIColor.white.cgColor
-        menuButton.titleLabel?.font = Fonts.h6(weight: .bold)
+        menuButton.titleLabel?.font = Fonts.h10(weight: .bold)
         menuButton.setTitleColor(UIColor.blue, for: .normal)
-        menuButton.setBorder(borderColor: .blue, cornerRadius: 8.0)
+        menuButton.setBorder(borderColor: UIColor.lightGray.withAlphaComponent(0.2), cornerRadius: 5.0)
+        menuButton.contentEdgeInsets = UIEdgeInsets(top: 10,left: 40,bottom: 10,right: 40)
         menuButton.addTarget(self, action: #selector(menuButtonPressed), for: .touchUpInside)
     }
     

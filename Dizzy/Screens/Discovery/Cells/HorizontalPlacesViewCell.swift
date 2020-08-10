@@ -1,5 +1,5 @@
 //
-//  HorizontalPlacesViewCell.swift
+//  8ViewCell.swift
 //  Dizzy
 //
 //  Created by Menashe, Or on 27/02/2020.
@@ -16,7 +16,7 @@ class HorizontalPlacesViewCell: UICollectionViewCell {
     
     let placeImage = PlaceImageView()
     let placeNameLabel = UILabel()
-    let placeImageViewSize: CGFloat = 65
+    let placeImageViewSize: CGFloat = 55
     
     weak var delegate: HorizontalPlacesViewCellDelegate?
     var placeId: String?
@@ -67,8 +67,8 @@ class HorizontalPlacesViewCell: UICollectionViewCell {
     }
     
     func setupNameLabel() {
-        placeNameLabel.font = Fonts.h11(weight: .bold)
-        placeNameLabel.textColor = .white
+        placeNameLabel.font = Fonts.h13(weight: .medium)
+        placeNameLabel.textColor = UIColor.black.withAlphaComponent(0.85)
         placeNameLabel.textAlignment = .center
     }
     

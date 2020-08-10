@@ -20,7 +20,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
     var viewModel: DiscoveryVMType
     let appStartVM: AppStartVMType
     
-    let nearByPlacesViewPadding = CGFloat(5)
+    let nearByPlacesViewPadding = CGFloat(4)
     let nearByPlacesViewHeightRatio = CGFloat(0.50)
     
     private var nearByPlacesTopConstraint: Constraint?
@@ -83,7 +83,7 @@ class DiscoveryVC: ViewController, PopupPresenter {
             nearByPlacesTopConstraint = nearByPlacesView.top.equalTo(themeVideoView.snp.bottom).constraint
             nearByPlacesView.leading.equalToSuperview().offset(nearByPlacesViewPadding)
             nearByPlacesView.trailing.equalToSuperview().offset(-nearByPlacesViewPadding)
-            nearByPlacesView.height.equalToSuperview().multipliedBy(0.69)
+            nearByPlacesView.height.equalToSuperview().multipliedBy(0.90)
         }
     }
     
@@ -298,8 +298,8 @@ extension DiscoveryVC: DiscoveryVMDelegate {
 }
 
 extension DiscoveryVC: NearByPlacesViewDelegate {
-    func didPressReserveATable(withPlaceInfo placeInfo: PlaceInfo) {
-        viewModel.reservATablePressed(placeInfo)
+    func didPressReserveATable(withPlaceID placeID: String) {
+        viewModel.reservATablePressed(placeID)
     }
 
     func didPressPlaceIcon(withPlaceId placeId: String) {

@@ -10,7 +10,7 @@ import UIKit
 
 class HorizontalPlacesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
-    init(itemSize: CGSize = CGSize(width: 70, height: 100)) {
+    init(itemSize: CGSize = CGSize(width: 65, height: 80)) {
         super.init()
         scrollDirection = .horizontal
         minimumLineSpacing = 10
