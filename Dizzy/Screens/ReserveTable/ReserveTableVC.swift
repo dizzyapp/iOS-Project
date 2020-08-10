@@ -44,13 +44,13 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     let stackWidthPrecentage = CGFloat(0.75)
     let signInButtonBackgroundColor = UIColor.blue
-    let signInCornerRadius = CGFloat(15)
+    let signInCornerRadius = CGFloat(10)
     
     var cardContainerView = UIView()
     let titleLabel = UILabel()
     let placeNameLabel = UILabel()
     let mainStackView = UIStackView()
-    let nameTextField = UITextField().loginTextfield(withPlaceholder: "Your full name".localized)
+    let nameTextField = UITextField().loginTextfield(withPlaceholder: "Whats your name?".localized)
     let numberOfPeopleTextField = UITextField().loginTextfield(withPlaceholder: "For how many people?".localized)
     let sendButton = UIButton(type: .system)
 
@@ -158,8 +158,8 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupSendButton() {
-        sendButton.setTitle("Continue to WhatsApp".localized, for: .normal)
-        sendButton.titleLabel?.font = Fonts.h8(weight: .bold)
+        sendButton.setTitle("Continue".localized, for: .normal)
+        sendButton.titleLabel?.font = Fonts.h6(weight: .bold)
         sendButton.setTitleColor(.white, for: .normal)
         sendButton.layer.cornerRadius = signInCornerRadius
         sendButton.backgroundColor = signInButtonBackgroundColor
@@ -175,7 +175,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         button.tag = reservationTime.rawValue
         button.setTitle(reservationTime.title, for: .normal)
         button.setTitleColor(.blue, for: .normal)
-        button.setBorder(borderColor: .blue, cornerRadius: 15)
+        button.setBorder(borderColor: UIColor.lightGray.withAlphaComponent(0.3), cornerRadius: 10)
         button.titleLabel?.font = Fonts.h8(weight: .bold)
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
     }
@@ -199,8 +199,8 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     }
     
     private func setupPlaceNameLabel() {
-        placeNameLabel.text = viewModel.placeName
-        placeNameLabel.textAlignment = .center
+        placeNameLabel.text = "Reserve at " + viewModel.placeName
+        placeNameLabel.textAlignment = .left
         placeNameLabel.textColor = .darkDizzyBlue
         placeNameLabel.font = Fonts.h1(weight: .bold)
     }
@@ -241,7 +241,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         }
         
         placeNameLabel.snp.makeConstraints { make in
-            make.trailing.leading.equalToSuperview()
+            make.trailing.leading.equalToSuperview().offset(Metrics.doublePadding)
             make.bottom.equalTo(closeButton.snp.bottom)
         }
     }
@@ -269,13 +269,13 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
     
     private func returnButtonToIntialColor() {
         tonightButton.setTitleColor(.blue, for: .normal)
-        tonightButton.setBorder(borderColor: .white, cornerRadius: 15)
+        tonightButton.setBorder(borderColor: .white, cornerRadius: 10)
         tonightButton.backgroundColor = .white
         tomorrowButton.setTitleColor(.blue, for: .normal)
-        tomorrowButton.setBorder(borderColor: .white, cornerRadius: 15)
+        tomorrowButton.setBorder(borderColor: .white, cornerRadius: 10)
         tomorrowButton.backgroundColor = .white
         otherButton.setTitleColor(.blue, for: .normal)
-        otherButton.setBorder(borderColor: .white, cornerRadius: 15)
+        otherButton.setBorder(borderColor: .white, cornerRadius: 10)
         otherButton.backgroundColor = .white
     }
     
@@ -283,7 +283,7 @@ final class ReserveTableVC: ViewController, CardVC, KeyboardDismissing {
         returnButtonToIntialColor()
         button.setTitleColor(.blue, for: .normal)
         button.backgroundColor = .white
-        button.setBorder(borderColor: .blue, cornerRadius: 15)
+        button.setBorder(borderColor: .blue, cornerRadius: 10)
 
         switch button {
         case tonightButton:

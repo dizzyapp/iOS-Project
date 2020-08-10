@@ -313,13 +313,13 @@ class DiscoveryVM: DiscoveryVMType {
         
         if !todayEventData.isEmpty {
             let todaySection = NearBySectionType()
-            todaySection.sectionTitle = "Tonight"
+            todaySection.sectionTitle = "  Tonight"
             todaySection.data.append(.todayEvent(data: todayEventData))
             nearByDataType.append(todaySection)
         }
 
         let placesSection = NearBySectionType()
-        placesSection.sectionTitle = "Near you"
+        placesSection.sectionTitle = "  Amazing places near you"
         placesSection.data = [NearByDataType]()
         for place in nearBylacesToDisplay {
             placesSection.data.append(.place(DiscoveryPlaceCellViewModel(location: currentLocation.value, place: place)))

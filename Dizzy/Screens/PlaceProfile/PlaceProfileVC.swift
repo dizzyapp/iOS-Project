@@ -25,10 +25,10 @@ final class PlaceProfileVC: UIViewController {
     private let viewModel: PlaceProfileVMType
     private var profileViewTopConstraint: Constraint?
     private var profileViewBottomConstraint: Constraint?
-    let placeProfileViewCornerRadius = CGFloat(5)
-    let placeProfileViewPadding = CGFloat(5)
-    let placeProfileTopOffset = CGFloat(5)
-    let placeProfileViewHeight = CGFloat(400)
+    let placeProfileViewCornerRadius = CGFloat(0)
+    let placeProfileViewPadding = CGFloat(10)
+    let placeProfileTopOffset = CGFloat(0)
+    let placeProfileViewHeight = CGFloat(350)
     
     private var isFirstLoad = true
 
@@ -142,15 +142,15 @@ final class PlaceProfileVC: UIViewController {
     private func layoutViews() {
         
         prevBackgroundImageButton.snp.makeConstraints { make in
-            make.width.height.equalTo(Metrics.fiveTimesPadding)
+            make.width.height.equalTo(Metrics.triplePadding)
             make.bottom.equalTo(placeProfileView.backgroundView.snp.top)
-            make.leading.equalToSuperview().offset(Metrics.doublePadding)
+            make.leading.equalToSuperview().offset(Metrics.padding)
         }
         
         nextBackgroundImageButton.snp.makeConstraints { make in
-            make.width.height.equalTo(Metrics.fiveTimesPadding)
+            make.width.height.equalTo(Metrics.triplePadding)
             make.bottom.equalTo(placeProfileView.backgroundView.snp.top)
-            make.trailing.equalToSuperview().inset(Metrics.doublePadding)
+            make.trailing.equalToSuperview().inset(Metrics.padding)
         }
         
         placeEventView.snp.makeConstraints { placeEventView in
@@ -175,7 +175,7 @@ final class PlaceProfileVC: UIViewController {
             profileViewTopConstraint = placeProfileView.top.equalTo(view.snp.bottom).inset(placeProfileViewHeight).constraint
             placeProfileView.leading.equalToSuperview().offset(placeProfileViewPadding)
             placeProfileView.trailing.equalToSuperview().offset(-placeProfileViewPadding)
-            profileViewBottomConstraint =  placeProfileView.bottom.equalToSuperview().inset(Metrics.doublePadding).constraint
+            placeProfileView.bottom.equalToSuperview().offset(10)
         }
     }
     

@@ -14,7 +14,7 @@ final class TodayEventCell: UITableViewCell, DiscoveryCell {
     private var dataSource: [TodayEventCell.ViewModel]?
 
     private let collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HorizontalPlacesCollectionViewFlowLayout(itemSize: CGSize(width: 140, height: 230)))
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HorizontalPlacesCollectionViewFlowLayout(itemSize: CGSize(width: 280, height: 280)))
         collectionView.register(BigImageHorizontalCell.self)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
@@ -40,7 +40,7 @@ final class TodayEventCell: UITableViewCell, DiscoveryCell {
     
     private func layoutView() {
         contentView.snp.makeConstraints { make in
-            make.height.width.equalTo(250)
+            make.height.width.equalTo(290)
         }
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

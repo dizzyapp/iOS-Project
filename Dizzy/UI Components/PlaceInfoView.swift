@@ -59,7 +59,7 @@ class PlaceInfoView: UIView {
     
     private func layoutPlaceImageView() {
         placeImageView.snp.makeConstraints { placeImageView in
-            placeImageView.leading.equalToSuperview().offset(Metrics.doublePadding)
+            placeImageView.leading.equalToSuperview().offset(Metrics.padding)
             placeImageView.width.height.equalTo(placeImageViewSize)
             placeImageView.top.equalToSuperview().offset(Metrics.doublePadding)
             placeImageView.bottom.equalToSuperview().offset(-Metrics.doublePadding)
@@ -85,9 +85,9 @@ class PlaceInfoView: UIView {
     
     private func layoutReservationButton() {
         reservationButton.snp.makeConstraints { reservationButton in
-            reservationButton.trailing.equalToSuperview().offset(-Metrics.doublePadding)
+            reservationButton.trailing.equalToSuperview().offset(-Metrics.tinyPadding)
             reservationButton.centerY.equalToSuperview()
-            reservationButton.width.equalTo(120)
+            reservationButton.width.equalTo(100)
             reservationButton.height.equalTo(reservationButtonHeight)
         }
     }
@@ -115,7 +115,7 @@ class PlaceInfoView: UIView {
     }
     
     private func setupLabels() {
-        placeNameLabel.font = Fonts.h10(weight: .bold)
+        placeNameLabel.font = Fonts.h8(weight: .bold)
         placeNameLabel.numberOfLines = 1
         placeNameLabel.textAlignment = .left
         
@@ -135,11 +135,11 @@ class PlaceInfoView: UIView {
     }
     
     private func setupReservationButton() {
-        reservationButton.setTitle("RESERVE A TABLE".localized, for: .normal)
-        reservationButton.layer.cornerRadius = reservationButtonHeight/3
-        reservationButton.setTitleColor(.green, for: .normal)
-        reservationButton.titleLabel?.font = Fonts.h11(weight: .bold)
-        reservationButton.backgroundColor = UIColor.dizzyBlue
+        reservationButton.setTitle("RESERVE".localized, for: .normal)
+        reservationButton.setTitleColor(.white, for: .normal)
+        reservationButton.titleLabel?.font = Fonts.h10(weight: .bold)
+        reservationButton.setBorder(borderColor: UIColor.lightGray.withAlphaComponent(0.4), cornerRadius: 3)
+        reservationButton.backgroundColor = UIColor.blue
         reservationButton.addTarget(self, action: #selector(didPressReservationButton), for: .touchUpInside)
     }
     
